@@ -72,10 +72,14 @@ $ANNEE_MAX=2017;
 
 
 //root et directory
-$URL_ROOT_POINTAGE="/";
-$URL_IMAGES=$URL_ROOT_POINTAGE."/images";
-$PATH_UPLOAD_DIRECTORY="/var/www/pointage/upload";
-$URL_UPLOAD_DIRECTORY="/upload";
+$PATH_WEB_DIRECTORY   = "/var/www";
+$URL_ROOT_POINTAGE    = "/pointage";
+$PATH_ROOT_DIRECTORY  = "$PATH_WEB_DIRECTORY"."$URL_ROOT_POINTAGE";
+$URL_IMAGES           = $URL_ROOT_POINTAGE."/images";
+$PATH_UPLOAD_DIRECTORY= "$PATH_ROOT_DIRECTORY"."/upload";
+$URL_UPLOAD_DIRECTORY = "$URL_ROOT_POINTAGE/upload";
+$DIR_DEPOT_FROM       = "$PATH_ROOT_DIRECTORY/depot/";
+$DIR_DEPOT            = "$PATH_ROOT_DIRECTORY/stockage/";
 
 
 //configuration export

@@ -80,7 +80,7 @@ function actionGestionFile($destination = "../photos/") {
 
 /**
  * actionLoadFile
- * upload Image ( repertoire de destination )
+ * upload file ( repertoire de destination )
  * 
  * @param
  *        	$destination
@@ -483,7 +483,7 @@ function showFile($param, $aFile) {
 	$dossier = $param ["dossier"];
 	$link = $param ["link"];
 	
-	// On r�cup�re les icons � afficher
+	// On recupere les icons a afficher
 	$type = getImageForType ( $aFile );
 	$aImage = $dossier . $aFile;
 	$key = $aImage;
@@ -561,8 +561,9 @@ function getMimeForFile($aFile) {
  * @param path $aFile        	
  */
 function getImageForType($aFile) {
-	// On r�cup�re les icons � afficher
-	$path = '/images/extension/';
+	// On recupere les icons a afficher
+	global $URL_IMAGES;
+	$path = "$URL_IMAGES//extension//";
 	$extension = getIFileExtension ( $aFile );
 	
 	// traite le cas de png car autoremplacement dans str_ireplace
@@ -589,7 +590,11 @@ function getImageForType($aFile) {
 			'iso',
 			'asc',
 			'kdbx',
-			'ini' 
+			'ini',
+			'ods',
+			'odt',
+			'xls',
+			'doc'
 	);
 	
 	$out = array (
@@ -611,7 +616,12 @@ function getImageForType($aFile) {
 			$path . 'iso.png',
 			$path . 'asc.png',
 			$path . 'kdbx.png',
-			$path . 'ini.png' 
+			$path . 'ini.png',
+			$path . 'ods.png',
+			$path . 'odt.png',
+			$path . 'xls.png',
+			$path . 'doc.png'
+			
 	);
 	// On les remplaces
 	if (sizeof ( $in ) != sizeof ( $out ))
@@ -630,6 +640,7 @@ function getImageForType($aFile) {
  *        	(dossier, col_dir, dirs)
  */
 function showDirectoryList($param) {
+	global $URL_IMAGES;
 	$count = 0;
 	$dossier = $param ["dossier"];
 	$col_dir = $param ["col_dir"];
@@ -642,8 +653,7 @@ function showDirectoryList($param) {
 			echo '</tr><tr>';
 		}
 		
-		echo '
-				<td><img src="/images/extension/directory16.png"> </td>
+		echo '	<td><img src="'.$URL_IMAGES.'/extension/directory16.png"> </td>
 				<td><a href="' . $dossier . $fichier . '">' . $fichier . '</a></td>
 						<td width="30"><td>
 						';

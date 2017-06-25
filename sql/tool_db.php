@@ -815,6 +815,10 @@ function showSQLError2($txt, $sqlError, $txtError = "") {
 	}
 }
 
+function showError($txt){
+	echo getActionMessage ( "<font color=\"red\">  $txt </font>" );
+}
+
 /**
  *
  * showActionVariable
