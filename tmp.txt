@@ -1,0 +1,19 @@
+# Virtual hosts
+
+<VirtualHost *:80>
+	ServerAdmin mobilhome200@free.fr
+	DocumentRoot "C:/logiciels/EasyPHP-DevServer-13.1VC9/data/localweb/mobilhome_ovh"
+	ServerName mobilhome200.ovh.tanb39
+	ServerAlias mobilhome200.ovh.tanb39
+	ErrorLog "logs/mobilhome-ovh-error.log"
+	CustomLog "logs/mobilhomev_ovh-access.log" combined
+</VirtualHost>
+
+<VirtualHost *:80>
+	ServerAdmin mobilhome200@free.fr
+	DocumentRoot "C:/logiciels/EasyPHP-DevServer-13.1VC9/data/localweb/mobilhome"
+	ServerName mobilhome200.tanb39
+	ServerAlias mobilhome200.tanb39
+	ErrorLog "logs/mobilhome-error.log"
+	CustomLog "logs/mobilhome-access.log" combined
+</VirtualHost>

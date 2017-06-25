@@ -1,0 +1,413 @@
+/*
+	* Title: Mobile
+	* Author: Déesse Corp. (c)
+*/
+
+/* Tag redefs */
+body {
+	font-family:verdana,arial,helvetica,sans-serif;
+	background-color: white;
+	color:black;
+	margin: 0px;
+}
+abbr, acronym {
+	cursor : help;
+}
+a {
+	text-decoration: underline;
+	color: #5C7497;
+	background-color: transparent;
+}
+a:hover {
+	background-color:#5C7497;
+	color: white;
+	text-decoration: none;
+}
+/** Inspired by japan css */
+a[href*="http://"]:after {
+	content: "\0000a0\0000bb";
+}
+
+a[hreflang]:after {
+	content: "\0000a0(" attr(hreflang) ")";
+}
+a[href*="http://"][hreflang]:after {
+	content: "\0000a0(" attr(hreflang) ")\0000a0\0000bb";
+}
+a[href*="mailto:"]:after {
+	content: "\0000a0\0000a0\0000a0";
+}
+a[href*="mailto:"] {
+	background-image: url(../images/mail_tbi.png);
+	background-position: right;
+	background-repeat: no-repeat;
+}
+pre {
+	border: 1px dashed #C9D1DD !important;
+	background-color: transparent;
+	background-image: url(../images/fond_art.png);
+	margin-right:3em !important;
+	padding: 5px;
+}
+/* Logo */
+#baguette {
+	position: absolute;
+	margin: 8px;
+	left: 0px;
+	top: 0px;
+	height: 45px; 
+	width: 45px; 
+	float: left;
+	z-index: 1;
+}
+/* Main header */
+#header {
+	border-bottom:1px solid #C9D1DD;
+	height: 60px;
+	background-image: url(../images/header_mobile.jpg);
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-color: white;
+	color: black;
+	margin:0px;
+}
+#header h1 {
+	display: none;
+}
+
+/* Contenu */
+#contenu {
+	margin-top: 10px;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 5px;
+}
+#about, #telechargement, .article {
+	margin: 5px;
+	border:1px solid #C9D1DD;
+	background-color: transparent;
+	background-image: url(../images/fond_aru.png);
+	/*max-width: 800px;*/
+}
+
+#telechargement dt a {
+	font-weight: bold;
+	font-variant: small-caps;
+}
+
+#about h2, #telechargement h2, .article h2, #traducteurs h2 {
+	background-color:#5C7497;
+	color: white;
+	margin:5px;
+	text-align:center;
+	font-size:13pt;
+	border-bottom:1px solid #C9D1DD;
+	padding: 2px;
+	font-variant: small-caps;
+}
+.article h3, .article h4, .article h5, .article h6 {
+	margin-left:5px;
+}
+.article .warning {
+	margin-left: 21px;
+	margin-right: 15px;
+	padding: 0px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.article table {
+	display: block;
+	margin-left: 35px;
+	margin-right:50px;
+	padding: 5px;
+	border: 1px solid #C9D1DD;
+	background-color: transparent;
+	background-image: url(../images/fond_art.png);
+	font-family: Tahoma,Verdana, Geneva, Arial, Helvetica, sans-serif;
+}
+
+ul { 
+	display: block;
+	list-style-position: outside;
+	list-style-type: disc;
+	margin-bottom: 0px;
+	margin-top: 0px;
+	padding-left: 40px;
+	padding-top: 0px; 
+	padding-bottom: 0px;
+}
+
+.article table td {
+	padding-left: 5px;
+}
+
+.article th {
+	font-size: 10pt;
+	text-align: right;
+}
+.article td {
+	font-size: 10pt;
+}
+.blogPost {
+	border: 2px dashed #C9D1DD;
+}
+p, dl, .article li {
+	font-family: Tahoma,Verdana, Geneva, Arial, Helvetica, sans-serif;
+	text-align: justify;
+	font-size:10pt;
+	margin:3px;
+}
+#telechargement dt {
+	margin-top:15px;
+	padding: 5px;
+	font-size:10.3pt;
+	background-color: transparent;
+	background-image: url(../images/fond_art.png);
+}
+#telechargement dd {
+	margin: 0px;
+	padding-top: 0px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-bottom: 5px;
+	background-color: transparent;
+	background-image: url(../images/fond_art.png);
+}
+
+/* Menu */
+#menu {
+	position: absolute;
+	top: 60px;
+	left:0px;
+	width: 460px;
+	background-color: transparent;
+	background-image: url(../images/fond_aru.png);
+	border:1px solid #C9D1DD;
+}
+#menuprincipal, #menuaide,  {
+	border-bottom:1px solid #C9D1DD;
+	font-size: 34pt;
+	width: 460px;
+}
+#menu h2  {
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+	margin-bottom: 3px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	width:460px;
+	font-size:38pt;
+	text-align:center;
+	border-bottom:1px solid #C9D1DD;
+	background-color:#5C7497;
+	color: white;
+	font-variant: small-caps;
+}
+#menu ul {
+	padding-left:15px;
+	margin:3px;
+	text-align: left;
+	font-size:34pt;
+}
+
+#menu h3  {
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+	margin-bottom: 3px;
+	padding-left:0px;
+	padding-right:0px;
+	padding-top:0px;
+	padding-bottom: 0px;
+	width:444px;
+	font-size:34pt;
+	text-align:left;
+	border-bottom:0px solid #C9D1DD;
+	font-variant: small-caps;
+}
+
+#menu h3 a {
+	font-size: 34pt;
+	padding-left: 0px;
+	margin: 10px;
+	width:444px;
+	list-style: none;
+	text-decoration: none;
+	text-align: left;
+	margin-bottom: 0px;
+}
+
+#menu ul li, #traducteurs ul li {
+	list-style: none;
+}
+
+#menu ul li a,#menu ul li span {
+	display: block;
+	width: 444px;
+	text-decoration: none;
+}
+
+#menuH {
+	margin-left:20px;
+	font-size: 12pt;
+	border:2px solid #C9D1DD;
+	display: block;
+	width: 450px;
+	text-decoration: none;
+}
+
+/* Traducteurs */
+#traducteurs {
+	margin-left: 170px;
+	margin-right: 15px;
+	margin-top:0px;
+	max-width: 800px;
+	background-color: transparent;
+	background-image: url(../images/fond_aru.png);
+	border:1px solid #C9D1DD;
+	font-size:9pt;
+}
+#traducteurs ul {
+	text-align: center;
+	margin: 3px;
+}
+#traducteurs li {
+	display: inline;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+#traducteurs h3 {
+	display:none;
+}
+#traducteurs a {
+	text-decoration: none;
+}
+
+/* footer */
+#footer {
+	margin-left: 10px;
+	text-align:center;
+	font-size:8pt;
+	margin-bottom:3em;
+	/*max-width: 800px;*/
+}
+
+.addon {
+	font-size:10pt;
+	margin:15px;
+}
+.addon h3 {
+	font-size: 10pt;
+	padding-left: 5px;
+	margin: 0px;
+	border-left: 1px solid #C9D1DD;
+	border-bottom: 1px solid #C9D1DD;
+	background-image: url(../images/heading3.png);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+.addon h4 {
+	margin:10px;
+	font-size: 10pt;
+	padding-left: 5px;
+	border-left: 1px solid #C9D1DD;
+	border-bottom: 1px solid #C9D1DD;
+	background-image: url(../images/heading3.png);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+.addon ul {
+	list-style: square;
+}
+
+.addon .linklist li {
+	list-style: circle;
+}
+
+/* Sections */
+.section {
+	margin-left:15px;
+}
+.section h3 {
+	font-variant: small-caps;
+	font-size: 12pt;
+	font-style: italic;
+	border-left: 4px solid #C9D1DD;
+	border-bottom: 1px solid #C9D1DD;
+	padding-left: 6px;
+	margin-right: 15px;
+	background-image: url(../images/heading3.png);
+	background-repeat: no-repeat;
+	background-position: left bottom;
+}
+/** Inspired by japan css */
+.section h4:before {
+	content:"\0025ca\0000a0";
+}
+.section h4 {
+	margin-left: 20px;
+	font-size:10pt;
+}
+.section .addon h4 {
+	background: none;
+	border:none;
+}
+.section p {
+	margin-left: 25px;
+	margin-right: 40px;
+}
+.section ul {
+	list-style: square;
+}
+.warning, .section .warning {
+	border: 3px solid #C9D1DD;
+	padding:10px;
+	background-color: transparent;
+	background-image: url(../images/fond_art.png);
+}
+.warning strong {
+	background-color: #5C7497 !important;
+	color: white !important;
+}
+.warning em {
+	text-decoration: underline;
+}
+
+/* Style selector */
+#form-style {
+	margin-top:5px;
+	margin-bottom:5px;
+	margin-left: 170px;
+	margin-right:15px;
+	border:1px solid #C9D1DD;
+	text-align:center;
+	background-color: transparent;
+	background-image: url(../images/fond_aru.png);
+	max-width: 800px;
+	font-size:10pt;
+}
+#form-style fieldset {
+	border-style:none;
+}
+#form-style select {
+	background-color: white;
+	border: 1px solid #C9D1DD;
+	color: #5C7497;
+}
+#form-style select:hover {
+	color: white;
+	background-color: #5C7497;
+}
+#form-style input {
+	border: none;
+	color:#5C7497;
+	background-color: transparent;
+}
+#form-style input:hover {
+	background-color:#5C7497;
+	color: white;
+}
