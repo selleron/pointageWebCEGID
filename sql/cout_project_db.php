@@ -231,10 +231,9 @@ function showTableCoutProject($param="", $tablePointage = "") {
  	}
  	
 	//end ajout colonne
-		
-		
+	beginTableBody();	
 	$res = showTableData($param2,"",$result,"no");
-	//end test
+	
 	
 	
 	//ajout row supplémentaire
@@ -256,6 +255,7 @@ function showTableCoutProject($param="", $tablePointage = "") {
 	
 	
 	//close table
+	endTableBody();
 	endTable();
 	
 	//activation sommation

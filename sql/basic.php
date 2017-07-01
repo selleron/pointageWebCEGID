@@ -147,14 +147,14 @@ function printMatrice($array){
  * @param string $colorBG color Background "RRGGBB"
  */
 function beginTableHeader($colorBG="#AAAAAA"){
-	echo "<tr bgcolor=$colorBG>";
+	echo "<thead><tr bgcolor=$colorBG>";
 }
 
 /**
  * show end table header
  */
 function endTableHeader(){
-	echo "</tr>";
+	echo "</tr></thead>";
 }
 
 /**
@@ -185,6 +185,14 @@ function endTableCell(){
 	echo "</td>";
 }
 
+function getBeginTableHeaderCell(){
+	return "<th>";
+}
+
+function getEndTableHeaderCell(){
+	return "</th>";
+}
+
 /**
  * begin table
  */
@@ -199,7 +207,16 @@ function endTable(){
 	echo "</table>";
 }
 
+function beginTableBody(){
+	echo "<tbody>";
+	//echo "<tbody class='scroll200'>";
+}
 
+
+function endTableBody(){
+	//echo"</div>";
+	echo "</tbody>"; 
+}
 
 /**
  * getVAlign

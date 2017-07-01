@@ -1427,36 +1427,39 @@ function showTableHeader($param, $html = "") {
 	
 	// ajout colonne count
 	if ($param [$SHOW_COL_COUNT] == "yes") {
-		echo "<td>#</td>";
+		echo getBeginTableHeaderCell()."#".getEndTableHeaderCell();
 	}
+	
+	
 	
 	// ajout autres colonnes avec organisation asc, desc
 	foreach ( $columnSummary as $c ) {
 		if (isset ( $param [ORDER_ENUM::ORDER_GET] ) && $param [ORDER_ENUM::ORDER_GET] == $c) {
 			if (isset ( $param [ORDER_ENUM::ORDER_DIRECTION] ) && $param [ORDER_ENUM::ORDER_DIRECTION] == ORDER_ENUM::ORDER_DIRECTION_DESC) {
-				echo "
-					<td> <a 
+				echo getBeginTableHeaderCell()."
+					<a 
 					   href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_NO \">" . $c . "</a> 
 					   <img src=\"$URL_IMAGES/b.png\">
-					</td>";
+					".getEndTableHeaderCell();
 			} else if (isset ( $param [ORDER_ENUM::ORDER_DIRECTION] ) && $param [ORDER_ENUM::ORDER_DIRECTION] == ORDER_ENUM::ORDER_DIRECTION_ASC) {
-				echo "
-					<td> <a 
+				echo getBeginTableHeaderCell()."
+					<a 
 					   href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_DESC \">" . $c . "</a> 
 					   <img src=\"$URL_IMAGES/h.png\">
-					</td>";
+					".getEndTableHeaderCell();
 			} else if (isset ( $param [ORDER_ENUM::ORDER_DIRECTION] ) && $param [ORDER_ENUM::ORDER_DIRECTION] == ORDER_ENUM::ORDER_DIRECTION_NO) {
-				echo "
-					<td> <a 
+				echo getBeginTableHeaderCell()."
+					<a 
 					   href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_ASC \">" . $c . "</a> 
-					</td>";
+					".getEndTableHeaderCell();
 			} else {
-				echo "<td> <a href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_DESC  \">" . $c . "</a> 
+				echo getBeginTableHeaderCell()." <a href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_DESC  \">" . $c . "</a> 
 			    <img src=\"$URL_IMAGES/h.png\">
-				</td>";
+				".getEndTableHeaderCell();
 			}
 		} else {
-			echo "<td> <a href=\"$html&ORDER_ENUM::ORDER_GET=$c\">" . $c . "</a> </td>";
+			echo getBeginTableHeaderCell()." <a href=\"$html&ORDER_ENUM::ORDER_GET=$c\">" . $c . "</a> 
+				".getEndTableHeaderCell();
 		}
 	}
 	
