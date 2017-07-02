@@ -42,7 +42,7 @@ $SHOW_FORM_VARIABLE_ATTRIBUT="yes";		    //trace les attributs de variable dans 
 $SHOW_VARIBLE_SUBSTITUTE_SEARCH="quiet";	//trace ou non les recherches de valeurs de variable dans post quiet | verbose | yes
 $SHOW_FORM_SUBSTITUTE_SEARCH="quiet";	    //trace ou non les recherches de valeurs de variable dans form quiet | verbose | yes
 $SHOW_FORM_TRACE="no";	    				//trace form name parameter yes | no
-
+$SHOW_SYNCHRO_PREVISION_TRACE="no";		//trace synchro previsionnel
 
 // Affichage
 /////////////////////////////////////

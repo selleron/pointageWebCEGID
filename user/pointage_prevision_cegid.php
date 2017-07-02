@@ -52,7 +52,10 @@
  		$res = applyGestionCoutOneProjectForm();
  	}
  	if ($res <=0){
- 		applyGestionPrevisionnelProjetCegid();
+ 		$res = applyGestionPrevisionnelProjetCegid();
+ 	}
+ 	if ($res <=0){
+ 		$res = applySynchronizePrevisionnel();
  	}
  	
   	beginTable();
@@ -70,6 +73,8 @@
 	
 	//permet d'ajout un pointage pour un utilisateur
  	showInsertTablePointageCegid(); 
+ 	//pour la resynchronisation
+ 	showSynchronizePrevisionnel();
  	echo"<br>";
 	
  	//show prevision

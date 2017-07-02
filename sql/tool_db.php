@@ -888,7 +888,7 @@ function getEndActionMessage() {
  * @param string $col
  *        	colonne à recupérer
  * @return multitype:string
- * @not used
+ * @deprecated use sqlParamToArrayResult
  */
 function sqlRequestToArray($request, $col) {
 	$res = array ();
@@ -905,19 +905,26 @@ function sqlRequestToArray($request, $col) {
 
 /**
  * sqlRequestToArray2
- * creerun tableau array[$col=0..n][value] a partie d'une requete sql
+ * creer un tableau array[$col=0..n][value] a partie d'une requete sql
  *
  * @param $request :
  *        	la requete
  * @param $col tableau
  *        	de colonnes
- * @not used
+ * @deprecated : use : sqlParamToArrayResult
  */
 function sqlRequestToArray2($request, $col) {
 	$res = array ();
 	$Resultat = mysql_query ( $request );
 	showSQLError ( "" );
 	$nbRes = mysql_numrows ( $Resultat );
+	
+	if (!is_array($col)){
+		$col = stringToArray($col);
+	}
+	
+	//printArray($col);
+	
 	// echo "nbCol : $nbRes";
 	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
 		$i = 0;
@@ -932,6 +939,23 @@ function sqlRequestToArray2($request, $col) {
 	return $res;
 }
 
+
+
+/**
+ * sqlRowFromSqlArrayResult
+ * @param unknown $array
+ * @param unknown $rowNum
+ * return array row[$col key]
+ */
+function sqlRowFromSqlArrayResult($array, $rowNum){
+	$row = "";
+	$keys = array_keys($array);
+	foreach ($keys as $col){
+		$row[$col] = $array[$col][$rowNum];
+	}
+	
+	return $row;
+}
 
 /**
  * sqlParamToArrayResult
@@ -1028,40 +1052,6 @@ function separateWith($columns, $separator) {
 	return $res;
 }
 
-/**
- * historisationTable
- *
- * @param $table able
- *        	de depart
- * @param $table_historique table
- *        	a modifier
- * @param $columns colonne
- *        	a copier "cc1, cc2, cc3"
- * @param $condition condition
- *        	derriere le WHERE
- */
-function historisationTable($table, $table_historique, $columns, $condition, $show = "1") {
-	global $SQL_ALL_COL_DOCUMENT;
-	$col = separateWith ( $columns, "," );
-	$sql = "INSERT INTO `$table_historique` ( $col )
-			SELECT $col
-			FROM $table";
-	if ($condition != "") {
-		$sql = "$sql WHERE $condition";
-	}
-	
-	$txt = "historisation $table $condition";
-	if ($show == "1")
-		showAction ( $txt );
-	$txt = "$sql";
-	
-	if ($show == "1")
-		showSQLAction ( $txt );
-	$Resultat = mysql_query ( $sql );
-	if ($show == "1")
-		showSQLError ( "" );
-	return $Resultat;
-}
 
 /**
  * createSqlUpdateByID
@@ -1211,8 +1201,21 @@ function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true") {
 	
 	return $sql;
 }
+
+/**
+ * createSqlReplace
+ * @param string $table
+ * @param array $arrayCol
+ * @param array $arrayValue
+ * @param string $quoteValue
+ * @return string sql to exec
+ */
 function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true") {
 	$sql = "REPLACE INTO `$table` SET ";
+	
+	if (!is_array($arrayCol)){
+		$arrayCol = stringToArray($arrayCol);
+	}
 	
 	$i = 0;
 	foreach ( $arrayCol as $c ) {
@@ -1220,7 +1223,12 @@ function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true") 
 			$sql = $sql . " , ";
 		}
 		$sql = $sql . "`$c` = ";
-		$v = $arrayValue [$i];
+		if (isset($arrayValue[$c])){
+			$v = $arrayValue[$c];
+		}
+		else{
+			$v = $arrayValue [$i];
+		}
 		if ($quoteValue == "true") {
 			$v = "\"$v\"";
 		}
@@ -1244,7 +1252,26 @@ function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true") 
  */
 function createSqlDelete($table, $key, $value) {
 	$condition = createSqlWhere ( $key, $value );
-	$sql = "Delete from `$table` WHERE $condition";
+	return createSqlDeleteWithcondition($table, $condition);
+	//$sql = "Delete from `$table` WHERE $condition";
+	//return $sql;
+}
+
+/**
+ * createSqlDeleteWithcondition
+ * @param unknown $table
+ * @param unknown $condition
+ * @return string
+ */
+function createSqlDeleteWithcondition($table, $condition) {
+	$sql = "Delete from `$table` ";
+	
+	if ($condition==""){
+		//nothing to do
+	}
+	else{
+		$sql = $sql." WHERE $condition";
+	}
 	return $sql;
 }
 

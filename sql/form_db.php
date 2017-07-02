@@ -7,6 +7,21 @@ $ID_TABLE_GET = "idTable";
 
 $ITEM_COMBOBOX_SELECTION = "[selection]";
 
+// variable par defaut d'une form
+class FORM_VARIABLE {
+	const ACTION_GET = "action";
+	const DATE_GET = "date";
+	const DATE_DEBUT_GET = "date_debut";
+	const DATE_FIN_GET = "date_fin";
+	const ID_TABLE_GET = "idTable";
+}
+
+// valeur par defaut pour les combo box
+class FORM_COMBOX_BOX_VALUE {
+	const ITEM_COMBOBOX_SELECTION = "[selection]";
+}
+	
+
 // sql type
 // see $KEY_INFO
 class SQL_TYPE {
@@ -478,14 +493,15 @@ function showFormDateElement($formName = "form", $showLabel = "yes") {
  * @param string $date
  *        	date par defaut
  */
-function showFormDateElementForVariable($formName = "form", $DATE_GET, $showLabel = "yes", $useTD = "yes", $date = "", $size = "", $statusEdit = "enabled") {
+function showFormDateElementForVariable($formName = "form", $DATE_GET, 
+		$showLabel = "yes", $useTD = "yes", $date = "", $size = "", $statusEdit = "enabled", $label="date") {
 	// $date = getURLVariable($DATE_GET);
 	global $URL_IMAGES;
 	if ($useTD == "yes") {
 		echo "<td>";
 	}
 	if ($showLabel == "yes") {
-		echo "date (aaa/mm/jj) ";
+		echo "$label (aaa/mm/jj) ";
 	}
 	
 	$statusEdit = prepareFlagStatus ( $statusEdit );
