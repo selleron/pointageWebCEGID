@@ -1465,27 +1465,27 @@ function showTableHeader($param, $html = "") {
 			if (isset ( $param [ORDER_ENUM::ORDER_DIRECTION] ) && $param [ORDER_ENUM::ORDER_DIRECTION] == ORDER_ENUM::ORDER_DIRECTION_DESC) {
 				echo getBeginTableHeaderCell()."
 					<a 
-					   href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_NO \">" . $c . "</a> 
+					   href=\"$html&".ORDER_ENUM::ORDER_GET."=$c&".ORDER_ENUM::ORDER_DIRECTION."=".ORDER_ENUM::ORDER_DIRECTION_NO."\">" . $c . "</a> 
 					   <img src=\"$URL_IMAGES/b.png\">
 					".getEndTableHeaderCell();
 			} else if (isset ( $param [ORDER_ENUM::ORDER_DIRECTION] ) && $param [ORDER_ENUM::ORDER_DIRECTION] == ORDER_ENUM::ORDER_DIRECTION_ASC) {
 				echo getBeginTableHeaderCell()."
 					<a 
-					   href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_DESC \">" . $c . "</a> 
+					   href=\"$html&".ORDER_ENUM::ORDER_GET."=$c&".ORDER_ENUM::ORDER_DIRECTION."=".ORDER_ENUM::ORDER_DIRECTION_DESC."\">" . $c . "</a> 
 					   <img src=\"$URL_IMAGES/h.png\">
 					".getEndTableHeaderCell();
 			} else if (isset ( $param [ORDER_ENUM::ORDER_DIRECTION] ) && $param [ORDER_ENUM::ORDER_DIRECTION] == ORDER_ENUM::ORDER_DIRECTION_NO) {
 				echo getBeginTableHeaderCell()."
 					<a 
-					   href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_ASC \">" . $c . "</a> 
+					   href=\"$html&".ORDER_ENUM::ORDER_GET."=$c&".ORDER_ENUM::ORDER_DIRECTION."=".ORDER_ENUM::ORDER_DIRECTION_ASC."\">" . $c . "</a> 
 					".getEndTableHeaderCell();
 			} else {
-				echo getBeginTableHeaderCell()." <a href=\"$html&ORDER_ENUM::ORDER_GET=$c&ORDER_ENUM::ORDER_DIRECTION=ORDER_ENUM::ORDER_DIRECTION_DESC  \">" . $c . "</a> 
+				echo getBeginTableHeaderCell()." <a href=\"$html&".ORDER_ENUM::ORDER_GET."=$c&".ORDER_ENUM::ORDER_DIRECTION."=".ORDER_ENUM::ORDER_DIRECTION_DESC."\">" . $c . "</a> 
 			    <img src=\"$URL_IMAGES/h.png\">
 				".getEndTableHeaderCell();
 			}
 		} else {
-			echo getBeginTableHeaderCell()." <a href=\"$html&ORDER_ENUM::ORDER_GET=$c\">" . $c . "</a> 
+			echo getBeginTableHeaderCell()." <a href=\"$html&".ORDER_ENUM::ORDER_GET."=$c\">" . $c . "</a> 
 				".getEndTableHeaderCell();
 		}
 	}

@@ -478,10 +478,10 @@ function showHistoryConnection($url, $param){
 	echo"<table>";
 echo "<table>";
 beginTableHeader();
-echo "  <td width=\"170\"><a href=\"$html&ORDER_ENUM::ORDER_GET=$SQL_COL_LOGIN_DATE_HISTORY\">Date</a></td>
-		<td width=\"20\"><a href=\"$html&ORDER_ENUM::ORDER_GET=$SQL_COL_ID_REAL_MEMBER\">ID</a></td>
-		<td width=\"200\"><a href=\"$html&ORDER_ENUM::ORDER_GET=$SQL_COL_MEMBER_PSEUDO\">Member</a></td>
-		<td width=\"100\"><a href=\"$html&ORDER_ENUM::ORDER_GET=$SQL_COL_IP\">IP</a></td>
+echo "  <td width=\"170\"><a href=\"$html&".ORDER_ENUM::ORDER_GET."=$SQL_COL_LOGIN_DATE_HISTORY\">Date</a></td>
+		<td width=\"20\"><a href=\"$html&".ORDER_ENUM::ORDER_GET."=$SQL_COL_ID_REAL_MEMBER\">ID</a></td>
+		<td width=\"200\"><a href=\"$html&".ORDER_ENUM::ORDER_GET."=$SQL_COL_MEMBER_PSEUDO\">Member</a></td>
+		<td width=\"100\"><a href=\"$html&".ORDER_ENUM::ORDER_GET."=$SQL_COL_IP\">IP</a></td>
 		<td>Action</td>
 		<td></td>";
 endTableHeader();
@@ -692,7 +692,7 @@ function showFormDocumentElementValue($doc){
 //show document elt $doc has ORDER_ENUM::ORDER_GET
 function showFormOrderElementValue($value){
 	
-	echo "<INPUT TYPE=\"hidden\"   NAME=\"ORDER_ENUM::ORDER_GET\" VALUE=\"$value\">";
+	echo "<INPUT TYPE=\"hidden\"   NAME=\"".ORDER_ENUM::ORDER_GET."\" VALUE=\"$value\">";
 }
 
 
