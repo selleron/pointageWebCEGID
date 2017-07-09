@@ -411,12 +411,37 @@ function createDefaultParamSql($table = "", $columnsTxt = "", $condition = "") {
 	return $param;
 }
 
+/**
+ * addParamActionCommand
+ * @param unknown $param
+ * @param unknown $url
+ * @param string $cmdName
+ * @param string $cmdAction
+ * @param string $reference
+ * @return string
+ */
+function addParamActionCommand($param, $url, $cmdName="action name!", $cmdAction="action", $reference="idTable"){
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_COMMNAND])){
+        $nb = count($param[PARAM_TABLE_ACTION::TABLE_COMMNAND]);
+    }
+    else{
+        $nb=0;
+    }
+    
+    $param[PARAM_TABLE_ACTION::TABLE_COMMNAND][$nb][PARAM_TABLE_COMMAND::URL]=$url;
+    $param[PARAM_TABLE_ACTION::TABLE_COMMNAND][$nb][PARAM_TABLE_COMMAND::NAME]=$cmdName;
+    $param[PARAM_TABLE_ACTION::TABLE_COMMNAND][$nb][PARAM_TABLE_COMMAND::ACTION]=$cmdAction;
+    $param[PARAM_TABLE_ACTION::TABLE_COMMNAND][$nb][PARAM_TABLE_COMMAND::REFERENCE]=$reference;
+    
+    
+    return $param;
+}
 
 /**
- * ajoute une colonne en parametre
- * @param unknown $aram
- * @param unknown $columnsTxt
- * @return string
+ * ajoute une colonne en parametre pour pouvoir l'afficher
+ * @param param array $param
+ * @param string $columnsTxt column name
+ * @return param array modified
  */
 function addParamSqlColumn($param, $columnsTxt){
 	global $COLUMNS_SUMMARY;
@@ -2147,14 +2172,6 @@ function showTableOneData($html, $Resultat, $cpt, $param) {
 		}
 	}
 	
-	// // parcours des colonnes
-	// $i=0;
-	// foreach ( $columns as $c ) {
-	// $res = mysql_fieldname($Resultat, $i);
-	// echo "<td>" . $res . "</td>";
-	// $i++;
-	// }
-	
 	// parcours des colonnes
 	$r = 0;
 	foreach ( $columns as $c ) {
@@ -2189,6 +2206,13 @@ function showTableOneData($html, $Resultat, $cpt, $param) {
 	if (isset ( $param [$TABLE_DELETE_BY_ROW] ) & ($param [$TABLE_DELETE_BY_ROW] == "yes")) {
 		showMiniFormArray ( $html, "", "delete", "delete !", $columns, $resArray, "yes", $infoForm );
 	}
+	
+	if (isset($param[PARAM_TABLE_ACTION::TABLE_COMMNAND])){
+	    foreach ($param[PARAM_TABLE_ACTION::TABLE_COMMNAND] as $actionCmd){
+	        showMiniFormArray ( $actionCmd[PARAM_TABLE_COMMAND::URL] , "", $actionCmd[PARAM_TABLE_COMMAND::ACTION], $actionCmd[PARAM_TABLE_COMMAND::NAME], $columns, $resArray, "yes", $infoForm );
+	    }
+	}
+	
 }
 
 /**

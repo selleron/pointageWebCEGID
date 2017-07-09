@@ -59,11 +59,14 @@ if (isMemberGroup(2)){
 	echo "<li><a title=\"Gestion Pointage\" href=\"$urlpointage\"> <img src=\"$URL_IMAGES/menu_planning.png\" $menuIconSize > Pointage</a></li>";
 
 	$urloneproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/one_project_cegid.php$argument");
-	echo "<li><a title=\"Gestion projet\" href=\"$urloneproject\"> <img src=\"$URL_IMAGES/menu_projets.png\" $menuIconSize > Projet</a></li>";
+	echo "<li><a title=\"Gestion par projet\" href=\"$urloneproject\"> <img src=\"$URL_IMAGES/menu_projets.png\" $menuIconSize > Projet</a></li>";
 	
 	$urlprevision  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php$argument");
-	echo "<li><a title=\"Gestion projet\" href=\"$urlprevision\"> <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Previsionnel</a></li>";
-	}
+	echo "<li><a title=\"Prevision projet\" href=\"$urlprevision\"> <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Previsionnel</a></li>";
+
+	$urlprevisionuser  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_user_cegid.php$argument");
+	echo "<li><a title=\"Prevision Collaborateur\" href=\"$urlprevisionuser\"> <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Prev. collaborateur</a></li>";
+}
 else{
 	$date = $ANNEE_RESERVATION;
 	echo "<li><a title=\"Planning/Tarifs $date\"	href=\"$URL_ROOT_POINTAGE/planning".$date.".php$argument\"> 	<img src=\"$URL_IMAGES/menu_planning.png\" $menuIconSize > Planning $date</a></li>";

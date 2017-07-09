@@ -302,7 +302,15 @@ function exportCSVTableGestionPointageProjetCegid( $table) {
  */
 function applyNextPreviousSelectPointage() {
 	//showSQLAction("action ".getActionGet ()." test ".LabelAction::ACTION_PREVIOUS);
-	if ((getActionGet () == LabelAction::ACTION_PREVIOUS) || (getActionGet () == LabelAction::ACTION_NEXT)) {
+	if (getActionGet() == LabelAction::ACTION_POINTAGE){
+	    global $SQL_COL_NAME_PROJECT;
+	    global $PROJECT_SELECTION;;
+	    //showSQLAction("traitement action : ".LabelAction::ACTION_POINTAGE." = $PROJECT_SELECTION - $SQL_COL_NAME_PROJECT");
+	    setURLVariable("$PROJECT_SELECTION", getURLVariable("$SQL_COL_NAME_PROJECT"));
+	    //showGet();
+	    //showPost();
+	}
+	else if ((getActionGet () == LabelAction::ACTION_PREVIOUS) || (getActionGet () == LabelAction::ACTION_NEXT)) {
 		 //showSQLAction("action previous demanded");
 		
 		global $SQL_TABLE_PROJECT;

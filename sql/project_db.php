@@ -142,7 +142,15 @@ function showTableProject() {
 	
 	//showTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name);
 	$param = prepareshowTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name, $condition);
+	//par defaut on a edit & delete
+	
+	//ajout export CSV
 	$param[$TABLE_EXPORT_CSV] = "yes";
+	
+	//ajout edit pointage
+	global $URL_ROOT_POINTAGE;
+	$url = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
+	$param = addParamActionCommand($param, $url, "pointage!", LabelAction::ACTION_POINTAGE);
 	
 	showTableByParam($param);
 	

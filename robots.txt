@@ -1,7 +1,8 @@
 User-agent: *
 Disallow: /archives/
-Disallow: /stockages/
+Disallow: /stockage/
 Disallow: /depot/
+Disallow: /upload/
 Disallow: /configuration/
 Disallow: /contact.php
 Allow: /

@@ -6,6 +6,7 @@ class LabelAction {
 	const ACTION_NEXT = "next >>";
 	const ACTION_PREVIOUS = "<< previous";
 	const ACTION_SYNCHRONIZE = "synchroniser";
+    const ACTION_POINTAGE = "pointage";
 }
 
 
