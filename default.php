@@ -17,7 +17,7 @@
 
 <div id="contenu">
 	<?PHP 
-	showBandeauHeaderPage("Bienvenue sur le site de Pointage");
+	showBandeauHeaderPage("Site de Pointage");
 	?>
 
   <div class="article">
