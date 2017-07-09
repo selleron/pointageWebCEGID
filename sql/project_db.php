@@ -17,9 +17,10 @@ $SQL_LABEL_PROJECT_NAME = "PROJECT";
 
 $SQL_SHOW_COL_PROJECT = "$SQL_COL_ID_PROJECT, $SQL_COL_NAME_PROJECT, $SQL_COL_PRIX_VENTE_PROJECT, $SQL_COL_DEBUT_PROJECT, $SQL_COL_FIN_PROJECT, $SQL_COL_FIN_GARANTIE";
 
-// include_once 'connection_db.php';
-// include_once 'tool_db.php';
-include_once 'table_db.php';
+//include_once 'connection_db.php';
+//include_once 'tool_db.php';
+include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
+include_once (dirname ( __FILE__ ) . "/table_db.php");
 
 
 
@@ -140,6 +141,8 @@ function showTableProject() {
 	$form_name = $FORM_TABLE_CEGID_PROJECT."_insert";
 	$condition="";
 	
+	//showSQLAction("showTableProject - ...");
+	
 	//showTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name);
 	$param = prepareshowTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name, $condition);
 	//par defaut on a edit & delete
@@ -150,138 +153,16 @@ function showTableProject() {
 	//ajout edit pointage
 	global $URL_ROOT_POINTAGE;
 	$url = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
-	$param = addParamActionCommand($param, $url, "pointage!", LabelAction::ACTION_POINTAGE);
+	//showSQLAction("showTableProject - addParamActionCommand()");
+	$param = addParamActionCommand($param, $url, "pointage!", LabelAction::ACTION_POINTAGE );
+	//showSQLAction("showTableProject - addParamActionCommand() retour");
 	
+	
+	//showSQLAction("showTableProject - showTableByParam()");
 	showTableByParam($param);
 	
 }
 
 
-
-
-// /**
-//  * application des actions sur la page projet
-//  */
-// function applyGestionProject() {
-// 	// trace
-// 	$url = getCurrentURL ();
-// 	$action = getActionGet ();
-// 	showAction ( "action : [$action]  $url" );
-// 	// end trace
-	
-// 	insertInProjectByGet ();
-// 	editProjectByGet ();
-// 	updateProjectByGet ();
-// 	deleteProjectByGet ();
-// }
-// function deleteProjectByGet() {
-// 	global $ID_TABLE_GET;
-// 	if (getActionGet () == "delete") {
-// 		$idTable = getURLVariable ( $ID_TABLE_GET );
-// 		deleteInProject ( $idTable );
-// 	}
-// }
-// function deleteInProject($idTable) {
-// 	global $SQL_TABLE_PROJECT;
-// 	global $SQL_SHOW_COL_PROJECT;
-	
-// 	$columns = stringToArray ( $SQL_SHOW_COL_PROJECT );
-	
-// 	$sql = createSqlDelete ( $SQL_TABLE_PROJECT, $columns [0], $idTable );
-	
-// 	showSQLAction ( $sql );
-// 	$txt = "sql delete : " . mysql_query ( $sql ) . "   " . mysql_error ();
-// 	showAction ( $txt );
-	
-// 	// historisationDocument("`$SQL_COL_DOCUMENT_NAME` = \"$documentName\"");
-// }
-// function editProjectByGet() {
-// 	global $ID_TABLE_GET;
-// 	if (getActionGet () == "edit") {
-// 		$idTable = getURLVariable ( $ID_TABLE_GET );
-// 		editProject ( $idTable );
-// 	}
-// }
-
-// /**
-//  * updateProjectByGet
-//  * use url to found information
-//  */
-// function updateProjectByGet() {
-// 	if (getActionGet () == "update") {
-// 		global $SQL_SHOW_COL_PROJECT;
-// 		global $SQL_TABLE_PROJECT;
-		
-// 		$sql = createSqlUpdateByID ( $SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT );
-// 		showSQLAction ( "update action : $sql" );
-// 		 $txt = "sql result : " . mysql_query ( $sql ) . " " . mysql_error ();
-// 		 showAction ( $txt );
-		
-// 		global $ID_TABLE_GET;
-// 		$idTable = getURLVariable ( $ID_TABLE_GET );
-// 		editProject ( $idTable );
-// 	}
-// }
-// function insertInProjectByGet() {
-// 	if (getActionGet () == "inserer") {
-// 		$url = getCurrentURL ();
-// 		insertInProject ();
-// 	}
-// }
-// function editProject($idTable) {
-// 	global $SQL_SHOW_COL_PROJECT;
-// 	global $SQL_TABLE_PROJECT;
-// 	global $TABLE_SIZE;
-// 	global $COLUMNS_SUMMARY;
-	
-// 	$form_name = "form_table_project";
-// 	$param = createDefaultParamSql ( $SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT );
-// 	$param = modifierTableParamSql ( $param, $form_name );
-// 	$idKey = $param [$COLUMNS_SUMMARY] [0];
-// 	$param = updateParamSqlWhereId ( $param, $idKey, $idTable );
-// 	$param [$TABLE_SIZE] = 740;
-	
-// 	$html = getCurrentURL ();
-// 	// $request = createRequeteTableData($param);
-// 	// showSQLAction($request);
-// 	$Resultat = requeteTableData ( $param );
-// 	echo "<table>";
-// 	editTableOneData ( $html, $Resultat, 0, $param, $idTable );
-// 	echo "</table>";
-	
-// 	// showTableOneData($html, $Resultat, 0, $param);
-// }
-// function insertInProject() {
-// 	global $SQL_TABLE_PROJECT;
-// 	global $SQL_SHOW_COL_PROJECT;
-	
-// 	$columns = stringToArray ( $SQL_SHOW_COL_PROJECT );
-// 	$values = getURLVariableArray ( $columns );
-	
-// 	// showAction($document2);
-// 	$sql = createSqlInsert ( $SQL_TABLE_PROJECT, $columns, $values );
-// 	showSQLAction ( $sql );
-// 	$txt = "sql result : " . mysql_query ( $sql ) . "   " . mysql_error ();
-// 	showAction ( $txt );
-	
-// 	// historisationDocument("`$SQL_COL_DOCUMENT_NAME` = \"$documentName\"");
-// }
-
-// /**
-//  * affiche les versions des elements du projet
-//  * (description)
-//  */
-// function showTableProject() {
-// 	global $SQL_SHOW_COL_PROJECT;
-// 	global $SQL_TABLE_PROJECT;
-// 	global $TABLE_SIZE;
-// 	$form_name = "form_table_project";
-// 	$param = createDefaultParamSql ( $SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT );
-// 	$param = modifierTableParamSql ( $param, $form_name );
-// 	$param [$TABLE_SIZE] = 740;
-	
-// 	showTableHeader ( $param );
-// 	showTableData ( $param );
-// }
 
 ?>

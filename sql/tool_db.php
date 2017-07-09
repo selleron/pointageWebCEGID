@@ -421,6 +421,8 @@ function createDefaultParamSql($table = "", $columnsTxt = "", $condition = "") {
  * @return string
  */
 function addParamActionCommand($param, $url, $cmdName="action name!", $cmdAction="action", $reference="idTable"){
+    //showSQLAction("addParamActionCommand()...");
+    
     if (isset($param[PARAM_TABLE_ACTION::TABLE_COMMNAND])){
         $nb = count($param[PARAM_TABLE_ACTION::TABLE_COMMNAND]);
     }
