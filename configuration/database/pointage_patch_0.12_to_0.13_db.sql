@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
---DROP TABLE IF EXISTS `files`;
+-- DROP TABLE IF EXISTS `files`;
 
 CREATE TABLE `files` (
   `id` int(11) NOT NULL,
