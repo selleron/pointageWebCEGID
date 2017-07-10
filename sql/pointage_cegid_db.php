@@ -767,148 +767,313 @@ function getTableauPointageProjetCegid($projectName = "", $showAll = "yes") {
  * @return array pointage
  */
 function getTableauPointageProjetCegid2($projectName = "", $showAll = "yes", $table_pointage,  $table_pointage2) {
-	global $SQL_SHOW_COL_CEGID_POINTAGE2_2; 
-	global $SQL_SELECT_COL_CEGID_POINTAGE2_2;
-	global $FORM_TABLE_CEGID_POINTAGE2;
-	global $SQL_SHOW_WHERE_CEGID_POINTAGE2;
-	$form_name = $FORM_TABLE_CEGID_POINTAGE2 . "_insert";
-	$condition = $SQL_SHOW_WHERE_CEGID_POINTAGE2;
-	
-	global $LIST_COLS_MONTHS;
-	global $ITEM_COMBOBOX_SELECTION;
-	
-	// condition project
-	global $PROJECT_SELECTION;
-	global $SQL_COL_NAME_PROJECT;
-	if ($projectName == "") {
-		$projectName = getURLVariable ( $PROJECT_SELECTION );
-	}
-	if ($projectName) {
-		if ($projectName == "$ITEM_COMBOBOX_SELECTION") {
-			// nothing to do
-			// showSQLAction("no project selected");
-		} else {
-			$condition = $condition . " AND pj.$SQL_COL_NAME_PROJECT=\"$projectName\"";
-		}
-	}
-	
-	// condition user
-	global $USER_SELECTION;
-	global $SQL_COL_NAME_CEGID_USER;
-	$userName = getURLVariable ( $USER_SELECTION );
-	if ($userName) {
-		if ($userName == "$ITEM_COMBOBOX_SELECTION") {
-			// nothing to do
-			// showSQLAction("no user selected");
-		} else {
-			$condition = $condition . " AND u.$SQL_COL_NAME_PROJECT=\"$userName\"";
-		}
-	}
-	
-	// showSQLAction ( "show all : $showAll" );
-	if ($showAll == "yes") {
-		// nothing to do
-	} else {
-		// showSQLAction ( "show project : $projectName user : $userName" );
-		if (((! $projectName) || ($projectName == "$ITEM_COMBOBOX_SELECTION")) && ((! $userName) || ($userName == "$ITEM_COMBOBOX_SELECTION"))) {
-			$condition = $condition . " AND 0";
-		}
-	}
-	
-	// requete selection User,profil/project
-	$param = prepareshowTable ( $table_pointage2, $SQL_SHOW_COL_CEGID_POINTAGE2_2, $form_name, $condition );
-	$param = modifierTableParamSql ( $param, /*$form =*/ $form_name, /*$insert =*/ "no", /*$edit =*/ "no", /*$delete =*/ "no", /*export csv*/ "no" );
-	$param = updateParamSqlWithDistinct ( $param );
-	$param = updateParamSqlColumnFilter ( $param, $SQL_SELECT_COL_CEGID_POINTAGE2_2 );
-	$request = createRequeteTableData ( $param );
-	showSQLAction ( $request );
-	// showTableByParam ( $param );
-	
-	// condition year
-	$year = getURLYear ();
-	// global $YEAR_SELECTION;
-	// $year = getURLVariable ( $YEAR_SELECTION );
-	// if (! is_numeric ( $year )) {
-	// $year = date ( "Y" );
-	// }
-	
-	// showSQLAction("year = [$year]");
-	global $SQL_COL_DATE_CEGID_POINTAGE;
-	$conditionDateYear = "year(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$year\"";
-	// showSQLAction("year = [$conditionDateYear]");
-	
-	global $LIST_COLS_MONTHS;
-	$arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
-	
-	global $SQL_COL_PROJECT_ID_CEGID_POINTAGE;
-	// global $SQL_COL_DATE_CEGID_POINTAGE;
-	global $SQL_COL_USER_CEGID_POINTAGE;
-	global $SQL_COL_PROFIL_CEGID_POINTAGE;
-	
-	// creation tableau resultat
-	$Resultat = mysqlQuery ( $request );
-	// showSQLError ( "", $request . "<br><br>" );
-	// showSQLAction("columns : ".$SQL_SHOW_COL_CEGID_POINTAGE2_2);
-	$nbRes = mysqlNumrows ( $Resultat );
-	$columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
-	
-	// set type des columns depuis le resultat Sql
-	$ci = 0;
-	$tableau = array ();
-	foreach ( $columns as $c ) {
-		$type2 = mysqlFieldType ( $Resultat, $ci );
-		$tableau = setSQLFlagType ( $tableau, $c, $type2 );
-		if ($c == "$SQL_COL_PROJECT_ID_CEGID_POINTAGE") {
-			$tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
-		} else if ($c == "$SQL_COL_USER_CEGID_POINTAGE") {
-			$tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
-		} else if ($c == "$SQL_COL_PROFIL_CEGID_POINTAGE") {
-			$tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
-		} else {
-			$tableau = setSQLFlagStatus ( $tableau, $c, "disabled" );
-			// echo "getTableauPointageProjetCegid() column $c is disabled <br>";
-		}
-		$ci ++;
-	}
-	
-	foreach ( $arrayMonth as $m ) {
-		$tableau = setSQLFlagType ( $tableau, $m, SQL_TYPE::SQL_REAL );
-		$tableau = setSQLFlagTypeSize ( $tableau, $m, 3 );
-	}
-	
-	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
-		foreach ( $columns as $c ) {
-			$field_offset = indexOfValueInArray ( $columns, $c );
-			// $colName = mysql_field_name ( $Resultat , $field_offset );
-			// showSQLAction("result $cpt - column : $c - position : $field_offset - colName : $colName");
-			$res = mysql_result ( $Resultat, $cpt, $field_offset );
-			// $res = mysql_result ( $Resultat, $cpt, $c );
-			$tableau [$c] [$cpt] = $res;
-		}
-		
-		// U.O par date
-		foreach ( $arrayMonth as $m ) {
-			// valeurs des premieres colonnes
-			$valueProject = $tableau [$SQL_COL_PROJECT_ID_CEGID_POINTAGE] [$cpt];
-			$valueUser = $tableau [$SQL_COL_USER_CEGID_POINTAGE] [$cpt];
-			$valueDate = $tableau [$SQL_COL_PROFIL_CEGID_POINTAGE] [$cpt];
-			
-			$month = array_search ( $m, $arrayMonth ) + 1;
-			
-			$reqDate = "select p.UO from $table_pointage as p WHERE $conditionDateYear ";
-			$reqDate = $reqDate . " AND  month(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$month\"";
-			$reqDate = $reqDate . " AND p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE=\"$valueProject\"  ";
-			$reqDate = $reqDate . " AND p.$SQL_COL_USER_CEGID_POINTAGE=\"$valueUser\"  ";
-			$reqDate = $reqDate . " AND p.$SQL_COL_PROFIL_CEGID_POINTAGE=\"$valueDate\"  ";
-			// showSQLAction($reqDate);
-			
-			$resDate = mysqlQuery ( $reqDate );
-			$tableau [$m] [$cpt] = mysqlResult ( $resDate, 0, 0, "" );
-		}
-	}
-	
-	return $tableau;
+    global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+    global $SQL_SELECT_COL_CEGID_POINTAGE2_2;
+    global $FORM_TABLE_CEGID_POINTAGE2;
+    global $SQL_SHOW_WHERE_CEGID_POINTAGE2;
+    
+    return getTableauPointageProjetCegid3($projectName, $showAll, $table_pointage, $table_pointage2, 
+     $SQL_SHOW_COL_CEGID_POINTAGE2_2,
+     $SQL_SELECT_COL_CEGID_POINTAGE2_2,
+     $FORM_TABLE_CEGID_POINTAGE2,
+     $SQL_SHOW_WHERE_CEGID_POINTAGE2
+    );
 }
+
+// function getTableauPointageProjetCegid2($projectName = "", $showAll = "yes", $table_pointage,  $table_pointage2) {
+//     global $SQL_SHOW_COL_CEGID_POINTAGE2_2; 
+// 	global $SQL_SELECT_COL_CEGID_POINTAGE2_2;
+// 	global $FORM_TABLE_CEGID_POINTAGE2;
+// 	global $SQL_SHOW_WHERE_CEGID_POINTAGE2;
+// 	$form_name = $FORM_TABLE_CEGID_POINTAGE2 . "_insert";
+// 	$condition = $SQL_SHOW_WHERE_CEGID_POINTAGE2;
+	
+// 	global $LIST_COLS_MONTHS;
+// 	global $ITEM_COMBOBOX_SELECTION;
+	
+// 	// condition project
+// 	global $PROJECT_SELECTION;
+// 	global $SQL_COL_NAME_PROJECT;
+// 	if ($projectName == "") {
+// 		$projectName = getURLVariable ( $PROJECT_SELECTION );
+// 	}
+// 	if ($projectName) {
+// 		if ($projectName == "$ITEM_COMBOBOX_SELECTION") {
+// 			// nothing to do
+// 			// showSQLAction("no project selected");
+// 		} else {
+// 			$condition = $condition . " AND pj.$SQL_COL_NAME_PROJECT=\"$projectName\"";
+// 		}
+// 	}
+	
+// 	// condition user
+// 	global $USER_SELECTION;
+// 	global $SQL_COL_NAME_CEGID_USER;
+// 	$userName = getURLVariable ( $USER_SELECTION );
+// 	if ($userName) {
+// 		if ($userName == "$ITEM_COMBOBOX_SELECTION") {
+// 			// nothing to do
+// 			// showSQLAction("no user selected");
+// 		} else {
+// 			$condition = $condition . " AND u.$SQL_COL_NAME_PROJECT=\"$userName\"";
+// 		}
+// 	}
+	
+// 	// showSQLAction ( "show all : $showAll" );
+// 	if ($showAll == "yes") {
+// 		// nothing to do
+// 	} else {
+// 		// showSQLAction ( "show project : $projectName user : $userName" );
+// 		if (((! $projectName) || ($projectName == "$ITEM_COMBOBOX_SELECTION")) && ((! $userName) || ($userName == "$ITEM_COMBOBOX_SELECTION"))) {
+// 			$condition = $condition . " AND 0";
+// 		}
+// 	}
+	
+// 	// requete selection User,profil/project
+// 	$param = prepareshowTable ( $table_pointage2, $SQL_SHOW_COL_CEGID_POINTAGE2_2, $form_name, $condition );
+// 	$param = modifierTableParamSql ( $param, /*$form =*/ $form_name, /*$insert =*/ "no", /*$edit =*/ "no", /*$delete =*/ "no", /*export csv*/ "no" );
+// 	$param = updateParamSqlWithDistinct ( $param );
+// 	$param = updateParamSqlColumnFilter ( $param, $SQL_SELECT_COL_CEGID_POINTAGE2_2 );
+// 	$request = createRequeteTableData ( $param );
+// 	showSQLAction ( $request );
+// 	// showTableByParam ( $param );
+	
+// 	// condition year
+// 	$year = getURLYear ();
+// 	// global $YEAR_SELECTION;
+// 	// $year = getURLVariable ( $YEAR_SELECTION );
+// 	// if (! is_numeric ( $year )) {
+// 	// $year = date ( "Y" );
+// 	// }
+	
+// 	// showSQLAction("year = [$year]");
+// 	global $SQL_COL_DATE_CEGID_POINTAGE;
+// 	$conditionDateYear = "year(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$year\"";
+// 	// showSQLAction("year = [$conditionDateYear]");
+	
+// 	global $LIST_COLS_MONTHS;
+// 	$arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
+	
+// 	global $SQL_COL_PROJECT_ID_CEGID_POINTAGE;
+// 	// global $SQL_COL_DATE_CEGID_POINTAGE;
+// 	global $SQL_COL_USER_CEGID_POINTAGE;
+// 	global $SQL_COL_PROFIL_CEGID_POINTAGE;
+	
+// 	// creation tableau resultat
+// 	$Resultat = mysqlQuery ( $request );
+// 	// showSQLError ( "", $request . "<br><br>" );
+// 	// showSQLAction("columns : ".$SQL_SHOW_COL_CEGID_POINTAGE2_2);
+// 	$nbRes = mysqlNumrows ( $Resultat );
+// 	$columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
+	
+// 	// set type des columns depuis le resultat Sql
+// 	$ci = 0;
+// 	$tableau = array ();
+// 	foreach ( $columns as $c ) {
+// 		$type2 = mysqlFieldType ( $Resultat, $ci );
+// 		$tableau = setSQLFlagType ( $tableau, $c, $type2 );
+// 		if ($c == "$SQL_COL_PROJECT_ID_CEGID_POINTAGE") {
+// 			$tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
+// 		} else if ($c == "$SQL_COL_USER_CEGID_POINTAGE") {
+// 			$tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
+// 		} else if ($c == "$SQL_COL_PROFIL_CEGID_POINTAGE") {
+// 			$tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
+// 		} else {
+// 			$tableau = setSQLFlagStatus ( $tableau, $c, "disabled" );
+// 			// echo "getTableauPointageProjetCegid() column $c is disabled <br>";
+// 		}
+// 		$ci ++;
+// 	}
+	
+// 	foreach ( $arrayMonth as $m ) {
+// 		$tableau = setSQLFlagType ( $tableau, $m, SQL_TYPE::SQL_REAL );
+// 		$tableau = setSQLFlagTypeSize ( $tableau, $m, 3 );
+// 	}
+	
+// 	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+// 		foreach ( $columns as $c ) {
+// 			$field_offset = indexOfValueInArray ( $columns, $c );
+// 			// $colName = mysql_field_name ( $Resultat , $field_offset );
+// 			// showSQLAction("result $cpt - column : $c - position : $field_offset - colName : $colName");
+// 			$res = mysql_result ( $Resultat, $cpt, $field_offset );
+// 			// $res = mysql_result ( $Resultat, $cpt, $c );
+// 			$tableau [$c] [$cpt] = $res;
+// 		}
+		
+// 		// U.O par date
+// 		foreach ( $arrayMonth as $m ) {
+// 			// valeurs des premieres colonnes
+// 			$valueProject = $tableau [$SQL_COL_PROJECT_ID_CEGID_POINTAGE] [$cpt];
+// 			$valueUser = $tableau [$SQL_COL_USER_CEGID_POINTAGE] [$cpt];
+// 			$valueDate = $tableau [$SQL_COL_PROFIL_CEGID_POINTAGE] [$cpt];
+			
+// 			$month = array_search ( $m, $arrayMonth ) + 1;
+			
+// 			$reqDate = "select p.UO from $table_pointage as p WHERE $conditionDateYear ";
+// 			$reqDate = $reqDate . " AND  month(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$month\"";
+// 			$reqDate = $reqDate . " AND p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE=\"$valueProject\"  ";
+// 			$reqDate = $reqDate . " AND p.$SQL_COL_USER_CEGID_POINTAGE=\"$valueUser\"  ";
+// 			$reqDate = $reqDate . " AND p.$SQL_COL_PROFIL_CEGID_POINTAGE=\"$valueDate\"  ";
+// 			// showSQLAction($reqDate);
+			
+// 			$resDate = mysqlQuery ( $reqDate );
+// 			$tableau [$m] [$cpt] = mysqlResult ( $resDate, 0, 0, "" );
+// 		}
+// 	}
+	
+// 	return $tableau;
+// }
+
+/**
+ * getTableauPointageProjetCegid3
+ *
+ * @param string $projectName
+ * @return array pointage
+ */
+function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes", $table_pointage,  $table_pointage2,
+     $showColPointage,
+     $selectColPointage,
+     $formName,
+     $conditionPointage){
+    $form_name = $formName . "_insert";
+    $condition = $conditionPointage;
+    
+    global $LIST_COLS_MONTHS;
+    global $ITEM_COMBOBOX_SELECTION;
+    
+    // condition project
+    global $PROJECT_SELECTION;
+    global $SQL_COL_NAME_PROJECT;
+    if ($projectName == "") {
+        $projectName = getURLVariable ( $PROJECT_SELECTION );
+    }
+    if ($projectName) {
+        if ($projectName == "$ITEM_COMBOBOX_SELECTION") {
+            // nothing to do
+            // showSQLAction("no project selected");
+        } else {
+            $condition = $condition . " AND pj.$SQL_COL_NAME_PROJECT=\"$projectName\"";
+        }
+    }
+    
+    // condition user
+    global $USER_SELECTION;
+    global $SQL_COL_NAME_CEGID_USER;
+    $userName = getURLVariable ( $USER_SELECTION );
+    if ($userName) {
+        if ($userName == "$ITEM_COMBOBOX_SELECTION") {
+            // nothing to do
+            // showSQLAction("no user selected");
+        } else {
+            $condition = $condition . " AND u.$SQL_COL_NAME_PROJECT=\"$userName\"";
+        }
+    }
+    
+    // showSQLAction ( "show all : $showAll" );
+    if ($showAll == "yes") {
+        // nothing to do
+    } else {
+        // showSQLAction ( "show project : $projectName user : $userName" );
+        if (((! $projectName) || ($projectName == "$ITEM_COMBOBOX_SELECTION")) && ((! $userName) || ($userName == "$ITEM_COMBOBOX_SELECTION"))) {
+            $condition = $condition . " AND 0";
+        }
+    }
+    
+    // requete selection User,profil/project
+    $param = prepareshowTable ( $table_pointage2, $showColPointage, $form_name, $condition );
+    $param = modifierTableParamSql ( $param, /*$form =*/ $form_name, /*$insert =*/ "no", /*$edit =*/ "no", /*$delete =*/ "no", /*export csv*/ "no" );
+    $param = updateParamSqlWithDistinct ( $param );
+    $param = updateParamSqlColumnFilter ( $param, $selectColPointage );
+    $request = createRequeteTableData ( $param );
+    showSQLAction ( $request );
+    // showTableByParam ( $param );
+    
+    // condition year
+    $year = getURLYear ();
+    // global $YEAR_SELECTION;
+    // $year = getURLVariable ( $YEAR_SELECTION );
+    // if (! is_numeric ( $year )) {
+    // $year = date ( "Y" );
+    // }
+    
+    // showSQLAction("year = [$year]");
+    global $SQL_COL_DATE_CEGID_POINTAGE;
+    $conditionDateYear = "year(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$year\"";
+    // showSQLAction("year = [$conditionDateYear]");
+    
+    global $LIST_COLS_MONTHS;
+    $arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
+    
+    global $SQL_COL_PROJECT_ID_CEGID_POINTAGE;
+    // global $SQL_COL_DATE_CEGID_POINTAGE;
+    global $SQL_COL_USER_CEGID_POINTAGE;
+    global $SQL_COL_PROFIL_CEGID_POINTAGE;
+    
+    // creation tableau resultat
+    $Resultat = mysqlQuery ( $request );
+    // showSQLError ( "", $request . "<br><br>" );
+    // showSQLAction("columns : ".$SQL_SHOW_COL_CEGID_POINTAGE2_2);
+    $nbRes = mysqlNumrows ( $Resultat );
+    $columns = stringToArray ( $showColPointage );
+    
+    // set type des columns depuis le resultat Sql
+    $ci = 0;
+    $tableau = array ();
+    foreach ( $columns as $c ) {
+        $type2 = mysqlFieldType ( $Resultat, $ci );
+        $tableau = setSQLFlagType ( $tableau, $c, $type2 );
+        if ($c == "$SQL_COL_PROJECT_ID_CEGID_POINTAGE") {
+            $tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
+        } else if ($c == "$SQL_COL_USER_CEGID_POINTAGE") {
+            $tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
+        } else if ($c == "$SQL_COL_PROFIL_CEGID_POINTAGE") {
+            $tableau = setSQLFlagStatus ( $tableau, $c, "enabled" );
+        } else {
+            $tableau = setSQLFlagStatus ( $tableau, $c, "disabled" );
+            // echo "getTableauPointageProjetCegid() column $c is disabled <br>";
+        }
+        $ci ++;
+    }
+    
+    foreach ( $arrayMonth as $m ) {
+        $tableau = setSQLFlagType ( $tableau, $m, SQL_TYPE::SQL_REAL );
+        $tableau = setSQLFlagTypeSize ( $tableau, $m, 3 );
+    }
+    
+    for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+        foreach ( $columns as $c ) {
+            $field_offset = indexOfValueInArray ( $columns, $c );
+            // $colName = mysql_field_name ( $Resultat , $field_offset );
+            // showSQLAction("result $cpt - column : $c - position : $field_offset - colName : $colName");
+            $res = mysql_result ( $Resultat, $cpt, $field_offset );
+            // $res = mysql_result ( $Resultat, $cpt, $c );
+            $tableau [$c] [$cpt] = $res;
+        }
+        
+        // U.O par date
+        foreach ( $arrayMonth as $m ) {
+            // valeurs des premieres colonnes
+            $valueProject = $tableau [$SQL_COL_PROJECT_ID_CEGID_POINTAGE] [$cpt];
+            $valueUser = $tableau [$SQL_COL_USER_CEGID_POINTAGE] [$cpt];
+            $valueDate = $tableau [$SQL_COL_PROFIL_CEGID_POINTAGE] [$cpt];
+            
+            $month = array_search ( $m, $arrayMonth ) + 1;
+            
+            $reqDate = "select p.UO from $table_pointage as p WHERE $conditionDateYear ";
+            $reqDate = $reqDate . " AND  month(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$month\"";
+            $reqDate = $reqDate . " AND p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE=\"$valueProject\"  ";
+            $reqDate = $reqDate . " AND p.$SQL_COL_USER_CEGID_POINTAGE=\"$valueUser\"  ";
+            $reqDate = $reqDate . " AND p.$SQL_COL_PROFIL_CEGID_POINTAGE=\"$valueDate\"  ";
+            // showSQLAction($reqDate);
+            
+            $resDate = mysqlQuery ( $reqDate );
+            $tableau [$m] [$cpt] = mysqlResult ( $resDate, 0, 0, "" );
+        }
+    }
+    
+    return $tableau;
+}
+
 
 /**
  * prepareParam for ShowArrayPointageProjetCegid
