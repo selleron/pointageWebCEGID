@@ -667,6 +667,11 @@ function showTablePointageOneProjetCegid($tableau="") {
 	
 	// condition year
 	$year = getURLYear ();
+	
+	global $USER_SELECTION;
+	$userName = getURLVariable($USER_SELECTION);
+	showSQLAction("user selected to transmit form  $USER_SELECTION : $userName" );
+	
 	if (!$tableau){
 		// create tableau de pointage
 		$tableau = getTableauPointageProjetCegid ( $projectName, "no" );
@@ -692,7 +697,7 @@ function showTablePointageOneProjetCegid($tableau="") {
 	// prepare tableau
 	$colsFromSummation = $LIST_COLS_MONTHS . "," . $colTotalName;
 	$columnsComplet = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . $colsFromSummation;
-	$param2 = prepareParamShowArrayPointageProjetCegid ( $tableau, $projectName, $year, $columnsComplet );
+	$param2 = prepareParamShowArrayPointageProjetCegid ( $tableau, $projectName, $year, $columnsComplet, $userName );
 	// $param2 [$TABLE_OTHER] = "onchange=\"sommeColonneRowHTMLTable(this,'$LIST_COLS_MONTHS', '$colTotalName', '$LIST_COLS_MONTHS')\"";
 	$param2 [$TABLE_OTHER] = "onchange=\"sommeColonneRowHTMLTable(this,'$colsFromSummation', '$colTotalName', '$LIST_COLS_MONTHS')\"";
 	
@@ -708,28 +713,6 @@ function showTablePointageOneProjetCegid($tableau="") {
 	
 	// show sum row
 	showTablelineSummation ( $param2, $columnsComplet, $colsFromSummation );
-	
-	// //echo "<tr>";
-	// beginTableRow();
-	// if ($param2 [$SHOW_COL_COUNT] == "yes") {
-	// //index
-	// echoTD ( "" );
-	// }
-	
-	// $firstCols = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
-	// foreach ( $firstCols as $col ) {
-	// //col info
-	// echoTD ( "" );
-	// }
-	// //$colsMonths = stringToArray ( $LIST_COLS_MONTHS );
-	// $colsMonths = stringToArray ( $colsFromSummation );
-	// foreach ( $colsMonths as $col ) {
-	// //col months + total
-	// showFormTextElementForVariable ( "maForm", "sum_col_" . $col, "no", "", "", "", "3", "disabled" );
-	// }
-	// //echo "</tr>";
-	// endTableRow();
-	
 	showTableRowAction ( $param2, $tableau );
 	endForm ();
 	
@@ -751,10 +734,13 @@ function showTablePointageProjetCegid() {
 	$projectName = getURLVariable ( $PROJECT_SELECTION );
 	// condition year
 	$year = getURLYear ();
+	//selection user
+	global $USER_SELECTION;
+	$userName = getURLVariable($USER_SELECTION);
 	// create tableau de pointage
 	$tableau = getTableauPointageProjetCegid ();
 	// show tableau
-	showArrayPointageProjetCegid ( $tableau, $projectName, $year );
+	showArrayPointageProjetCegid ( $tableau, $projectName, $year, ""/*col lis*/, $userName );
 }
 
 /**
@@ -931,11 +917,12 @@ function getTableauPointageProjetCegid2($projectName = "", $showAll = "yes", $ta
  * @param unknown $projectName        	
  * @param unknown $year        	
  */
-function prepareParamShowArrayPointageProjetCegid($tableau, $projectName, $year, $columnsComplet = "") {
+function prepareParamShowArrayPointageProjetCegid($tableau, $projectName, $year, $columnsComplet = "", $userName="") {
 	global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
 	global $LIST_COLS_MONTHS;
 	global $YEAR_SELECTION;
 	global $PROJECT_SELECTION;
+	global $USER_SELECTION;
 	global $TABLE_FORM_INFO;
 	
 	if ($columnsComplet == "") {
@@ -954,6 +941,9 @@ function prepareParamShowArrayPointageProjetCegid($tableau, $projectName, $year,
 	// info formulaire
 	$infoForm = streamFormHidden ( $YEAR_SELECTION, $year );
 	$infoForm = $infoForm . streamFormHidden ( $PROJECT_SELECTION, $projectName );
+	if ($userName!=""){
+	    $infoForm = $infoForm . streamFormHidden ( $USER_SELECTION, $userName );
+	}
 	$param2 [$TABLE_FORM_INFO] = $infoForm;
 	
 	return $param2;
@@ -966,20 +956,8 @@ function prepareParamShowArrayPointageProjetCegid($tableau, $projectName, $year,
  * @param unknown $projectName        	
  * @param unknown $year        	
  */
-function showArrayPointageProjetCegid($tableau, $projectName, $year, $columnsComplet = "") {
-	// global $YEAR_SELECTION;
-	// global $PROJECT_SELECTION;
-	// global $TABLE_FORM_INFO;
-	$param2 = prepareParamShowArrayPointageProjetCegid ( $tableau, $projectName, $year, $columnsComplet );
-	
-	// info formulaire
-	// $infoForm = streamFormHidden ( $YEAR_SELECTION, $year );
-	// $infoForm = $infoForm . streamFormHidden ( $PROJECT_SELECTION, $projectName );
-	// $param2[$TABLE_FORM_INFO]=$infoForm;
-	
-	// showSQLAction("form info : $infoForm");
-	
-	// printMatrice($tableau);
+function showArrayPointageProjetCegid($tableau, $projectName, $year, $columnsComplet = "", $userName = "" ) {
+	$param2 = prepareParamShowArrayPointageProjetCegid ( $tableau, $projectName, $year, $columnsComplet, $userName );
 	
 	// show
 	showTableHeader ( $param2 );
