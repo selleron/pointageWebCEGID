@@ -686,7 +686,7 @@ function showTablePointageOneProjetCegid($tableau="", $showColPointage="", $subp
 	
 	$nbRows = mysqlNumrows ( $tableau );
 	for($row = 0; $row < $nbRows; $row ++) {
-		$tableau = setSQLValue ( $tableau, $colTotalName, $row, "mon total" );
+	    $tableau = setSQLValue ( $tableau, $colTotalName, $row, "mon total" );
 	}
 	
 	if ($showColPointage==""){
@@ -975,7 +975,7 @@ function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes",
     if ($userName) {
         if ($userName == "$ITEM_COMBOBOX_SELECTION") {
             // nothing to do
-            // showSQLAction("no user selected");
+            //showSQLAction("no user selected");
         } else {
             $condition = $condition . " AND u.$SQL_COL_NAME_PROJECT=\"$userName\"";
         }
@@ -1082,6 +1082,8 @@ function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes",
             $tableau [$m] [$cpt] = mysqlResult ( $resDate, 0, 0, "" );
         }
     }
+    
+    
     
     return $tableau;
 }

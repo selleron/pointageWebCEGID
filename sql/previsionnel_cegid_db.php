@@ -314,7 +314,7 @@ function showTablePrevisionnelPointageCegid() {
 * - modification par mois
 * - sommation automatique
 */
-function fusionTableauPointage($tableauPointage, $tableauPrev)  {
+function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="")  {
     showAction ( "function showTablePrevisionnelPointageCegid2()" );
     
 //     // condition project
@@ -340,8 +340,11 @@ function fusionTableauPointage($tableauPointage, $tableauPrev)  {
     global $LIST_COLS_MONTHS;
     $arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
     
-    global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
-    $columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
+    $columns = $colPointage;
+    if($columns==""){
+        global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+        $columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
+    }
     
     // copie pointage
     $tableau = $tableauPointage;
@@ -384,6 +387,17 @@ function fusionTableauPointage($tableauPointage, $tableauPrev)  {
             $cpt2 ++;
         }
     }
+    
+//     //trace
+//     printArray($columns);
+//     $keys = arrayKeys ( $tableauPrev );
+//     printArray($keys);
+//     $keys = arrayKeys ( $tableauPointage );
+//     printArray($keys);
+//     $keys = arrayKeys ( $tableau );
+//     printArray($keys);
+//     //end trace
+    
     
     return $tableau;
     //showTablePointageOneProjetCegid ( $tableau );

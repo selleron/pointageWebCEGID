@@ -2317,7 +2317,7 @@ function editSqlRow($Resultat, $c, $cpt, $formName, $idxField, $param = "") {
 		return;
 	} else {
 		$value = mysqlResult ( $Resultat, $cpt, $c );
-		// echoTD( "$c($idxField)/$cpt : $value <br>");
+		//echoTD( "$c($idxField)/$cpt : $value <br>");
 		editSqlRowWithValue ( $Resultat, $c, $cpt, $formName, $idxField, $value, $param );
 	}
 }
@@ -2351,8 +2351,9 @@ function editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, 
 		$size = mysqlFieldTypeSize ( $Resultat, $idxField );
 		$statusEdit = mysqlFieldStatus ( $Resultat, $idxField, $param );
 		$otherStyle = mysqlFieldStyle ( $Resultat, $idxField, $cpt, $param );
-		// echo "tool_db.editSqlRowWithValue() idxField: $idxField -- cpt: $cpt -- type: $type -- flag: $flags -- name: $name ";
-		// echo "-- size: $size -- value: $value -- status : $statusEdit --<br>";
+		//echoTD( "$idxField/$cpt -- $type  $name ");
+		//echoTD( "tool_db.editSqlRowWithValue() idxField: $idxField -- cpt: $cpt -- type: $type -- flag: $flags -- name: $name ");
+		//echoTD( "-- size: $size -- value: $value -- status : $statusEdit --");
 		
 		// if ($cpt > - 1) {
 		// // le nom du champ est suffixe par sa position

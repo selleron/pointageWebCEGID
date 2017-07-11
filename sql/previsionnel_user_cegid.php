@@ -129,7 +129,10 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
         );
     
     
-    $tableau = fusionTableauPointage($tableauPointage, $tableauPrev);
+    $tableau = fusionTableauPointage($tableauPointage, $tableauPrev, $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER);
+    
+
+    
     global $TABLE_UPDATE;
     global $TABLE_INSERT;
     global $TABLE_EXPORT_CSV;
