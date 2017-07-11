@@ -66,6 +66,9 @@ if (isMemberGroup(2)){
 
 	$urlprevisionuser  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_user_cegid.php$argument");
 	echo "<li><a title=\"Prevision Collaborateur\" href=\"$urlprevisionuser\"> <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Prev. collaborateur</a></li>";
+
+	$urlprevisionuser2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_user2_cegid.php$argument");
+	echo "<li><a title=\"Prevision par Collaborateur\" href=\"$urlprevisionuser2\"> <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Prev. par collab.</a></li>";
 }
 else{
 	$date = $ANNEE_RESERVATION;

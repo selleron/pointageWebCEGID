@@ -653,7 +653,8 @@ function getURLYear($defaultValue = null) {
  * - modification par mois
  * - sommation automatique
  */
-function showTablePointageOneProjetCegid($tableau="") {
+function showTablePointageOneProjetCegid($tableau="", $showColPointage="", $subparam) {
+    
 	showAction ( "function showTablePointageOneProjetCegid()" );
 	// condition project
 	global $ITEM_COMBOBOX_SELECTION;
@@ -688,7 +689,10 @@ function showTablePointageOneProjetCegid($tableau="") {
 		$tableau = setSQLValue ( $tableau, $colTotalName, $row, "mon total" );
 	}
 	
-	global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+	if ($showColPointage==""){
+	   global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+	   $showColPointage = $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+	}
 	global $LIST_COLS_MONTHS;
 	global $TABLE_ID;
 	global $TABLE_OTHER;
@@ -696,10 +700,17 @@ function showTablePointageOneProjetCegid($tableau="") {
 	
 	// prepare tableau
 	$colsFromSummation = $LIST_COLS_MONTHS . "," . $colTotalName;
-	$columnsComplet = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . $colsFromSummation;
+	$columnsComplet = $showColPointage . "," . $colsFromSummation;
 	$param2 = prepareParamShowArrayPointageProjetCegid ( $tableau, $projectName, $year, $columnsComplet, $userName );
 	// $param2 [$TABLE_OTHER] = "onchange=\"sommeColonneRowHTMLTable(this,'$LIST_COLS_MONTHS', '$colTotalName', '$LIST_COLS_MONTHS')\"";
 	$param2 [$TABLE_OTHER] = "onchange=\"sommeColonneRowHTMLTable(this,'$colsFromSummation', '$colTotalName', '$LIST_COLS_MONTHS')\"";
+	
+	if($subparam){
+	  $param2 = updateParamSqlWithSubParam($param2, $subparam);
+	}
+	
+	//global $TABLE_ID;
+	//showAction("table id : $param2[$TABLE_ID]");
 	
 	// show table header
 	showTableHeader ( $param2 );
@@ -930,11 +941,12 @@ function getTableauPointageProjetCegid2($projectName = "", $showAll = "yes", $ta
  * @param string $projectName
  * @return array pointage
  */
-function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes", $table_pointage,  $table_pointage2,
-     $showColPointage,
-     $selectColPointage,
+function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes", 
+     $table_pointage,  $table_pointage2,  //tables
+     $showColPointage,   $selectColPointage,  //columns
      $formName,
-     $conditionPointage){
+     $conditionPointage,
+     $select="p.UO"){
     $form_name = $formName . "_insert";
     $condition = $conditionPointage;
     
@@ -1059,12 +1071,12 @@ function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes", $ta
             
             $month = array_search ( $m, $arrayMonth ) + 1;
             
-            $reqDate = "select p.UO from $table_pointage as p WHERE $conditionDateYear ";
+            $reqDate = "select $select from $table_pointage as p WHERE $conditionDateYear ";
             $reqDate = $reqDate . " AND  month(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$month\"";
-            $reqDate = $reqDate . " AND p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE=\"$valueProject\"  ";
+            if ($valueProject!="") $reqDate = $reqDate . " AND p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE=\"$valueProject\"  ";
             $reqDate = $reqDate . " AND p.$SQL_COL_USER_CEGID_POINTAGE=\"$valueUser\"  ";
-            $reqDate = $reqDate . " AND p.$SQL_COL_PROFIL_CEGID_POINTAGE=\"$valueDate\"  ";
-            // showSQLAction($reqDate);
+            if ($valueDate!="") $reqDate = $reqDate . " AND p.$SQL_COL_PROFIL_CEGID_POINTAGE=\"$valueDate\"  ";
+            //showSQLAction($reqDate);
             
             $resDate = mysqlQuery ( $reqDate );
             $tableau [$m] [$cpt] = mysqlResult ( $resDate, 0, 0, "" );
@@ -1092,6 +1104,9 @@ function prepareParamShowArrayPointageProjetCegid($tableau, $projectName, $year,
 	
 	if ($columnsComplet == "") {
 		$columnsComplet = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . $LIST_COLS_MONTHS;
+	}
+	if ($tableName==""){
+	    $tableName="ma_table_pointage";
 	}
 	$param2 = prepareshowTable ( "ma_table_pointage", $columnsComplet, "form_table_cegid_pointage_update" );
 	// showTableHeader ( $param2 );

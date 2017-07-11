@@ -75,7 +75,7 @@
  	echo"<br>";
 	
  	//show prevision
- 	showTablePrevisionnelPointageCegid();
+ 	showTablePrevisionnelByUserPointageCegid("yes");
 	
 	
 	

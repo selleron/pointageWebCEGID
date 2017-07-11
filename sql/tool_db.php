@@ -393,7 +393,7 @@ function createDefaultParamSql($table = "", $columnsTxt = "", $condition = "") {
 	$param [$TABLE_INFO_FORM] = "";
 	
 	if ($table) {
-		$param [$TABLE_ID] = "$table" . "_" . time ();
+		$param [$TABLE_ID] = "$table" . "_" .time ();
 	}
 	// ordonne suivant une colonne
 	$param = updateParamSqlWithOrder ( $param );
@@ -1924,13 +1924,16 @@ function showTableRowAction($param, $html = "", $Resultat = "") {
 	$infoForm = checkInfoForm ( $param, $infoForm );
 	
 	global $ACTION_GET;
+	global $TABLE_UPDATE;
 	
 	echo "<tr>";
 	echo "<td>";
 	showFormIDElement ();
 	echo "$infoForm";
 	// showFormAction ( "replace" );
-	showFormSubmit ( "update", $ACTION_GET );
+	if (isset ( $param [$TABLE_UPDATE] ) && ($param [$TABLE_UPDATE] == "yes")) {
+	    showFormSubmit ( "update", $ACTION_GET );
+	}
 	echo "</td>";
 	
 	showLineExportCSV ( $param, $infoForm );

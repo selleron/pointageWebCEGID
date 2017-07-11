@@ -6,8 +6,15 @@ include_once (dirname ( __FILE__ ) . "/previsionnel_cegid_db.php");
 include_once (dirname ( __FILE__ ) . "/user_cegid_db.php");
 
 $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL_USER = "cegid_pointage_previsionnel as p,  cegid_user as u, cegid_project as pj, cegid_project_cout as pc";
+
 $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_USER = "    PROJECT_ID,            $SQL_LABEL_PROJECT_NAME,   USER_ID,           NAME,   PROFIL,    COUT";
 $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_USER = "p.PROJECT_ID, pj.NAME as $SQL_LABEL_PROJECT_NAME, p.USER_ID, u.NAME as NAME, p.PROFIL, pc.COUT";
+
+
+$SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER   = "   USER_ID,           NAME ";
+$SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER = " p.USER_ID, u.NAME as NAME ";
+
+
 
 /**
  * applyPreviousSelectPointage
@@ -75,5 +82,69 @@ function applyNextPreviousSelectUser() {
         return - 1;
     }
 }
+
+/**
+ * showTablePrevisionnelByUserPointageCegid
+ */
+function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
+    showAction ( "function showTablePrevisionnelPointageCegid()" );
+    
+    // condition project
+    global $ITEM_COMBOBOX_SELECTION;
+    global $PROJECT_SELECTION;
+    $projectName = getURLVariable ( $PROJECT_SELECTION );
+    if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
+        showSQLAction ( "No project Selected..." );
+        // $projectName = "no project";
+        $projectName = $ITEM_COMBOBOX_SELECTION;
+    }
+    
+    // create tableau de pointage et previsionnel
+    global $SQL_TABLE_CEGID_POINTAGE;
+    global $SQL_TABLE_CEGID_POINTAGE2;
+    global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
+    global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2;
+    
+    global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+    global $SQL_SELECT_COL_CEGID_POINTAGE2_2;
+    global $FORM_TABLE_CEGID_POINTAGE2;
+    global $SQL_SHOW_WHERE_CEGID_POINTAGE2;
+    
+    global $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER;
+    global $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER;
+    
+    $tableauPointage =  getTableauPointageProjetCegid3($projectName, $showAll, $SQL_TABLE_CEGID_POINTAGE, $SQL_TABLE_CEGID_POINTAGE2,
+        $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER,
+        $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER,
+        $FORM_TABLE_CEGID_POINTAGE2,
+        $SQL_SHOW_WHERE_CEGID_POINTAGE2,
+        "sum(p.UO)"
+        );
+    $tableauPrev =  getTableauPointageProjetCegid3($projectName, $showAll, $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL, $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2,
+        $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER,
+        $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER,
+        $FORM_TABLE_CEGID_POINTAGE2,
+        $SQL_SHOW_WHERE_CEGID_POINTAGE2,
+        "sum(p.UO)"
+        );
+    
+    
+    $tableau = fusionTableauPointage($tableauPointage, $tableauPrev);
+    global $TABLE_UPDATE;
+    global $TABLE_INSERT;
+    global $TABLE_EXPORT_CSV;
+    //showError("TABLE_UPDATE $TABLE_UPDATE");
+    $subparam [$TABLE_UPDATE] = "no";
+    $subparam [$TABLE_INSERT] = "no";
+    $subparam [$TABLE_EXPORT_CSV] = "no";
+    
+    showTablePointageOneProjetCegid ( $tableau, $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER, $subparam );
+    }
+    
+
+
+
+        
+
 
 ?>

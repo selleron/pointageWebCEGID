@@ -189,8 +189,8 @@ function getTableauPrevisionnelCegid($projectName = "", $showAll = "yes") {
  * @param string $tableauPrev        	
  * @param string $tableauPointage        	
  * @param string $columns        	
- * @param index $cpt        	
- * @param index $cptP        	
+ * @param integer $cpt index        	
+ * @param integer $cptP  index      	
  * @return number|unknown index trouvé dans $tableauPrev
  */
 function isSamePointageRef($tableauPrev, $tableauPointage, $columns, $cpt, $cptP) {
@@ -212,8 +212,8 @@ function isSamePointageRef($tableauPrev, $tableauPointage, $columns, $cpt, $cptP
  * @param string $tableauPrev        	
  * @param string $tableauPointage        	
  * @param string $columns        	
- * @param index $cptP        	
- * @return number|unknown index trouvé dans $tableauPrev
+ * @param integer $cptP ndex       	
+ * @return number index trouvé dans $tableauPrev, can be -1
  */
 function findIndexPointage($tableauPrev, $tableauPointage, $columns, $cptP) {
 	$nbResPrevision = mysqlNumrows ( $tableauPointage );
@@ -250,61 +250,143 @@ function showTablePrevisionnelPointageCegid() {
 	$tableauPointage = getTableauPointageProjetCegid ( $projectName, "yes" );
 	$tableauPrev = getTableauPrevisionnelCegid ( $projectName, "yes" );
 	
-	// fusion des deux tableaux
-	$tableau = $tableauPrev;
+// 	// fusion des deux tableaux
+// 	$tableau = $tableauPrev;
 	
-	$nbResPointage = mysqlNumrows ( $tableauPointage );
-	$nbResPrevision = mysqlNumrows ( $tableauPrev );
+// 	$nbResPointage = mysqlNumrows ( $tableauPointage );
+// 	$nbResPrevision = mysqlNumrows ( $tableauPrev );
 	
-	global $LIST_COLS_MONTHS;
-	$arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
+// 	global $LIST_COLS_MONTHS;
+// 	$arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
 	
-	global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
-	$columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
+// 	global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+// 	$columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
 	
-	// copie pointage
-	$tableau = $tableauPointage;
-	for($cpt = 0; $cpt < $nbResPointage; $cpt ++) {
-		// //copie premieres colonnes
-		// foreach ( $columns as $c ) {
-		// $tableau[$c][$cpt] = $tableauPointage[$c][$cpt];
-		// }
-		// U.O par date
-		foreach ( $arrayMonth as $m ) {
-			// $value = $tableauPointage[$m][$cpt];
-			$value = $tableau [$m] [$cpt];
-			if ($value == "") {
-				$index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
-				$value = $tableauPrev [$m] [$index];
-				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style='color: #0000FF;' " );
-				$tableau [$m] [$cpt] = $value;
-			} else {
-				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"background: #E0E0E0; font-weight:bold\" " );
-			}
-		}
-	}
+// 	// copie pointage
+// 	$tableau = $tableauPointage;
+// 	for($cpt = 0; $cpt < $nbResPointage; $cpt ++) {
+// 		// //copie premieres colonnes
+// 		// foreach ( $columns as $c ) {
+// 		// $tableau[$c][$cpt] = $tableauPointage[$c][$cpt];
+// 		// }
+// 		// U.O par date
+// 		foreach ( $arrayMonth as $m ) {
+// 			// $value = $tableauPointage[$m][$cpt];
+// 			$value = $tableau [$m] [$cpt];
+// 			if ($value == "") {
+// 				$index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
+// 				$value = $tableauPrev [$m] [$index];
+// 				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style='color: #0000FF;' " );
+// 				$tableau [$m] [$cpt] = $value;
+// 			} else {
+// 				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"background: #E0E0E0; font-weight:bold\" " );
+// 			}
+// 		}
+// 	}
 	
-	$cpt2 = $nbResPointage;
-	showAction ( "nb row previsionnel : $nbResPrevision" );
-	// add previsionnel
-	for($cpt = 0; $cpt < $nbResPrevision; $cpt ++) {
-		$index = findIndexPointage ( $tableauPointage, $tableauPrev, $columns, $cpt );
-		if ($index < 0) {
-			// copie premieres colonnes
-			foreach ( $columns as $c ) {
-				$tableau [$c] [$cpt2] = $tableauPrev [$c] [$cpt];
-			}
-			// U.O par date
-			foreach ( $arrayMonth as $m ) {
-				$value = $tableauPrev [$m] [$cpt];
-				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt2, " style='color: #0000FF;' " );
-				$tableau [$m] [$cpt2] = $value;
-			}
-			$cpt2 ++;
-		}
-	}
+// 	$cpt2 = $nbResPointage;
+// 	showAction ( "nb row previsionnel : $nbResPrevision" );
+// 	// add previsionnel
+// 	for($cpt = 0; $cpt < $nbResPrevision; $cpt ++) {
+// 		$index = findIndexPointage ( $tableauPointage, $tableauPrev, $columns, $cpt );
+// 		if ($index < 0) {
+// 			// copie premieres colonnes
+// 			foreach ( $columns as $c ) {
+// 				$tableau [$c] [$cpt2] = $tableauPrev [$c] [$cpt];
+// 			}
+// 			// U.O par date
+// 			foreach ( $arrayMonth as $m ) {
+// 				$value = $tableauPrev [$m] [$cpt];
+// 				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt2, " style='color: #0000FF;' " );
+// 				$tableau [$m] [$cpt2] = $value;
+// 			}
+// 			$cpt2 ++;
+// 		}
+// 	}
 	
+	$tableau = fusionTableauPointage($tableauPointage, $tableauPrev);
 	showTablePointageOneProjetCegid ( $tableau );
+}
+
+/**
+* showTablePrevisionnelPointageCegid
+* Affichage du previsionnel
+* - modification par mois
+* - sommation automatique
+*/
+function fusionTableauPointage($tableauPointage, $tableauPrev)  {
+    showAction ( "function showTablePrevisionnelPointageCegid2()" );
+    
+//     // condition project
+//     global $ITEM_COMBOBOX_SELECTION;
+//     global $PROJECT_SELECTION;
+//     $projectName = getURLVariable ( $PROJECT_SELECTION );
+//     if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
+//         showSQLAction ( "No project Selected..." );
+//         // $projectName = "no project";
+//         $projectName = $ITEM_COMBOBOX_SELECTION;
+//     }
+    
+//     // create tableau de pointage et previsionnel
+//     $tableauPointage = getTableauPointageProjetCegid ( $projectName, "yes" );
+//     $tableauPrev = getTableauPrevisionnelCegid ( $projectName, "yes" );
+    
+    // fusion des deux tableaux
+    $tableau = $tableauPrev;
+    
+    $nbResPointage = mysqlNumrows ( $tableauPointage );
+    $nbResPrevision = mysqlNumrows ( $tableauPrev );
+    
+    global $LIST_COLS_MONTHS;
+    $arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
+    
+    global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+    $columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
+    
+    // copie pointage
+    $tableau = $tableauPointage;
+    for($cpt = 0; $cpt < $nbResPointage; $cpt ++) {
+        // //copie premieres colonnes
+        // foreach ( $columns as $c ) {
+        // $tableau[$c][$cpt] = $tableauPointage[$c][$cpt];
+            // }
+            // U.O par date
+            foreach ( $arrayMonth as $m ) {
+                // $value = $tableauPointage[$m][$cpt];
+                $value = $tableau [$m] [$cpt];
+                if ($value == "") {
+                    $index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
+                    $value = $tableauPrev [$m] [$index];
+                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style='color: #0000FF;' " );
+                    $tableau [$m] [$cpt] = $value;
+                } else {
+                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"background: #E0E0E0; font-weight:bold\" " );
+                }
+            }
+    }
+    
+    $cpt2 = $nbResPointage;
+    showAction ( "nb row previsionnel : $nbResPrevision" );
+    // add previsionnel
+    for($cpt = 0; $cpt < $nbResPrevision; $cpt ++) {
+        $index = findIndexPointage ( $tableauPointage, $tableauPrev, $columns, $cpt );
+        if ($index < 0) {
+            // copie premieres colonnes
+            foreach ( $columns as $c ) {
+                $tableau [$c] [$cpt2] = $tableauPrev [$c] [$cpt];
+            }
+            // U.O par date
+            foreach ( $arrayMonth as $m ) {
+                $value = $tableauPrev [$m] [$cpt];
+                $tableau = setSQLFlagStyle ( $tableau, $m, $cpt2, " style='color: #0000FF;' " );
+                $tableau [$m] [$cpt2] = $value;
+            }
+            $cpt2 ++;
+        }
+    }
+    
+    return $tableau;
+    //showTablePointageOneProjetCegid ( $tableau );
 }
 
 ?>
