@@ -172,7 +172,8 @@ function timeFromDDMMYY( $day,  $month,  $year){
  * @param int $year
  */
 function sqlDateFromDDMMYY( $day,  $month,  $year){
-	$timestamp 	= mktime(0, 0, 0, $month, $day, $year);
+    //echoTD("time : -$day-$month-$year-");
+    $timestamp 	= mktime(0, 0, 0, intval($month), intval($day), intval($year));
 	return timeToSqlDate($timestamp);
 }
 

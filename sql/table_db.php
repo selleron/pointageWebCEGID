@@ -63,17 +63,17 @@ function importCSVTableByGet($table, $cols, $form_name) {
 			$condition = createSqlWhereID ( $key, $idTable );
 			$sql = createSqlInsert ( $table, $columns, $values );
 			showSQLAction ( "table_db.importCSVTableByGet() insert action : $sql" );
-			$res_query = mysql_query ( $sql );
+			$res_query = mysqlQuery ( $sql );
 			$nbRow = mysql_affected_rows ();
-			$res_error = mysql_error ();
+			$res_error = mySqlError ();
 			showSQLError ( "# $nbRow", $txt );
 			if ($nbRow < 1) {
 				$sql = createSqlUpdate ( $table, $columns, $values, $condition );
 				
 				showSQLAction ( "table_db.importCSVTableByGet() update action : $sql" );
-				$res_query = mysql_query ( $sql );
+				$res_query = mysqlQuery ( $sql );
 				$nbRow = mysql_affected_rows ();
-				$res_error = mysql_error ();
+				$res_error = mySqlError ();
 				
 				$txt = "table_db.importCSVTableByGet() sql result : " . $res_query . " " . $res_error;
 				showSQLError ( "# $nbRow", $txt );
@@ -407,7 +407,7 @@ function deleteInTableByWhere($table, $cols, $values, $trace = "no") {
 	if ($trace == "yes") {
 		showSQLAction ( $sql );
 	}
-	$txt = "sql delete : " . mysql_query ( $sql ) . "   " . mysql_error ();
+	$txt = "sql delete : " . mysqlQuery ( $sql ) . "   " . mySqlError ();
 	if ($trace == "yes") {
 		showAction ( $txt );
 	}
@@ -428,7 +428,7 @@ function deleteInTableByID($table, $colIdx, $idTable, $trace = "no") {
 	if ($trace == "yes") {
 		showSQLAction ( $sql );
 	}
-	$txt = "sql delete : " . mysql_query ( $sql ) . "   " . mysql_error ();
+	$txt = "sql delete : " . mysqlQuery ( $sql ) . "   " . mySqlError ();
 	if ($trace == "yes") {
 		showAction ( $txt );
 	}
@@ -513,7 +513,7 @@ function updateTableByGet($table, $cols, $form_name, $reedit = "yes") {
 		$sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
 		showSQLAction ( "update action : $sql" );
 		mysqlQuery ( $sql );
-		// $txt = "sql result : " . mysql_query ( $sql ) . " " . mysql_error ();
+		// $txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
 		// showAction ( $txt );
 		
 		// on reaffiche les information de l'update
@@ -541,7 +541,7 @@ function updateTableByGet($table, $cols, $form_name, $reedit = "yes") {
 // $sql = createSqlInsertUpdate ( $table, $cols, $cols, $cpt );
 
 // showSQLAction ( "update action : $sql" );
-// //$txt = "sql result : " . mysql_query ( $sql ) . " " . mysql_error ();
+// //$txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
 // //showAction ( $txt );
 // return 1;
 // }
@@ -569,7 +569,7 @@ function replaceTableByGet($table, $columnsString, $form_name, $cpt = "", $trace
 		if ($trace == "yes") {
 			showSQLAction ( "table_db.replaceTableByGet() replace action : $sql" );
 		}
-		$txt = "table_db.replaceTableByGet() sql result : " . mysql_query ( $sql ) . " " . mysql_error ();
+		$txt = "table_db.replaceTableByGet() sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
 		// showAction ( $txt );
 		return 1;
 	} else {
@@ -664,7 +664,7 @@ function insertInTable($table, $cols, $form) {
 	// showAction($document2);
 	$sql = createSqlInsert ( $table, $columns, $values );
 	showSQLAction ( $sql );
-	$txt = "sql result : " . mysql_query ( $sql ) . "   " . mysql_error ();
+	$txt = "sql result : " . mysqlQuery ( $sql ) . "   " . mySqlError ();
 	showAction ( $txt );
 	
 	// historisationDocument("`$SQL_COL_DOCUMENT_NAME` = \"$documentName\"");

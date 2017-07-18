@@ -12,7 +12,7 @@ if (!isset($TOOL_DB_PHP)){
 	include_once( $_SERVER ['DOCUMENT_ROOT']. "/sql/tool_db.php");
 }
 if(!isset($RESERVATION_DB)){
-   include_once($_SERVER ['DOCUMENT_ROOT']. "/sql/reservation_db.php");
+    include_once(dirname(__FILE__)."/reservation_db.php");
 }
 
 $SERVER_NAME = getenv("SERVER_NAME");

@@ -183,7 +183,7 @@ function getURLVariableArraySQLForm($variables, $form) {
 function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbose") {
 	if ($status == "") {
 		global $SHOW_VARIBLE_SUBSTITUTE_SEARCH;
-		$status = getURLVariable ( $$SHOW_VARIBLE_SUBSTITUTE_SEARCH );
+		$status = getURLVariable ( $SHOW_VARIBLE_SUBSTITUTE_SEARCH );
 	}
 	if ($tableau == "") {
 		global $FORM_VALUE_INSERT;
@@ -200,7 +200,7 @@ function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbo
 		if (isset ( $tableau [$form] [$variable] ["VARIABLE"] )) {
 			$foreignVariable = $tableau [$form] [$variable] ["VARIABLE"];
 			// echo "fv : $foreignVariable";
-			$replace = getURLVariableSQLForm ( $foreignVariable, $form, $tableau, $status, $searchInURL );
+			$replace = getURLVariableSQLForm ( $foreignVariable, $form, $tableau, $status );
 			if (isset ( $tableau [$form] [$variable] ["SQL"] )) {
 				$sql = $tableau [$form] [$variable] ["SQL"];
 				// echo ">>>> $sql <br>";
@@ -328,7 +328,7 @@ function getCurrentPageName() {
  * @param $value peut
  *        	etre ""
  */
-function suppressPageURL($url, $variable, $value) {
+function suppressPageURL($url, $variable, $value="") {
 	if ($url == "") {
 		$url = currentPageURL ();
 	}
@@ -512,8 +512,9 @@ function modifierTableParamSql($param, $form = "form_insert_table", $insert = "y
  *        	x="toto" and y="titi"
  * @return array $param modified
  */
-function updateParamSqlCondition($param, $condition) {
+function updateParamSqlCondition($param="", $condition) {
 	global $TABLE_WHERE_CONDITION;
+	if ($param=="")$param = array();
 	$param [$TABLE_WHERE_CONDITION] = $condition;
 	
 	return $param;
@@ -684,7 +685,7 @@ function updateParamSqlWithResult($param, $sqlResult) {
 	
 	// detection des colonnes
 	$param [$COLUMNS_SUMMARY] = array ();
-	$num = $numfields = mysql_num_fields ( $sqlResult );
+	$num = $numfields = mysqli_num_fields ( $sqlResult );
 	for($Compteur = 0; $Compteur < $num; $Compteur ++) {
 		$name = mysql_field_name ( $sqlResult, $Compteur );
 		$param [$COLUMNS_SUMMARY] [$Compteur] = $name;
@@ -756,7 +757,7 @@ function printParam($param, $header = "") {
 function traceConnectionID() {
 	global $SHOW_CONNECTION_ID;
 	global $CONNECTION_ID;
-	$txt = "---- $CONNECTION_ID -----";
+	$txt = "---- ".$CONNECTION_ID->info." -----";
 	echo showActionVariable ( $txt, $SHOW_CONNECTION_ID );
 }
 
@@ -817,7 +818,8 @@ function showTracePOST() {
  * @return sql error
  */
 function showSQLError($txt, $txtError = "") {
-	$sqlError = mysql_error ();
+    global $CONNECTION_ID;
+	$sqlError = mysqli_error ($CONNECTION_ID);
 	showSQLError2 ( $txt, $sqlError, $txtError );
 	return $sqlError;
 }
@@ -919,11 +921,11 @@ function getEndActionMessage() {
  */
 function sqlRequestToArray($request, $col) {
 	$res = array ();
-	$Resultat = mysql_query ( $request );
+	$Resultat = mysqlQuery ( $request );
 	showSQLError ( "" );
-	$nbRes = mysql_numrows ( $Resultat );
+	$nbRes = mysqlNumrows ( $Resultat );
 	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
-		$v = mysql_result ( $Resultat, $cpt, $col );
+		$v = mysqlResult ( $Resultat, $cpt, $col );
 		$res [$cpt] = $v;
 	}
 	
@@ -942,9 +944,9 @@ function sqlRequestToArray($request, $col) {
  */
 function sqlRequestToArray2($request, $col) {
 	$res = array ();
-	$Resultat = mysql_query ( $request );
+	$Resultat = mysqlQuery ( $request );
 	showSQLError ( "" );
-	$nbRes = mysql_numrows ( $Resultat );
+	$nbRes = mysqlNumrows ( $Resultat );
 	
 	if (!is_array($col)){
 		$col = stringToArray($col);
@@ -956,7 +958,7 @@ function sqlRequestToArray2($request, $col) {
 	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
 		$i = 0;
 		foreach ( $col as $c ) {
-			$v = mysql_result ( $Resultat, $cpt, $c );
+			$v = mysqlResult ( $Resultat, $cpt, $c );
 			// echo" value $v";
 			$res [$cpt] [$i] = $v;
 			$i ++;
@@ -1023,7 +1025,7 @@ function sqlParamToArrayResult($param) {
 	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
 		foreach ( $columns as $c ) {
 			$field_offset = indexOfValueInArray ( $columns, $c );
-			$res = mysql_result ( $Resultat, $cpt, $field_offset );
+			$res = mysqlResult ( $Resultat, $cpt, $field_offset );
 			$tableau [$c] [$cpt] = $res;
 		}
 	}
@@ -1463,6 +1465,7 @@ function showTableHeader($param, $html = "") {
 		$tableId = "id='$param[$TABLE_ID]'";
 	}
 	
+	$tableSize="";
 	if ($param [$TABLE_SIZE]) {
 		$tableSize = "width='$param[$TABLE_SIZE]'";
 	}
@@ -1623,6 +1626,9 @@ function requeteTableData($param) {
  */
 function setInfoForm($param, $infoForm) {
 	global $TABLE_FORM_INFO;
+	if ($param==""){
+	    $param =  array();
+	}
 	$param [$TABLE_FORM_INFO] = $infoForm;
 	return $param;
 }
@@ -1921,6 +1927,7 @@ function showEditRowsTableData($param, $html = "", $Resultat = "") {
  * @param string $infoForm        	
  */
 function showTableRowAction($param, $html = "", $Resultat = "") {
+    $infoForm="";
 	$infoForm = checkInfoForm ( $param, $infoForm );
 	
 	global $ACTION_GET;
@@ -2194,21 +2201,21 @@ function showTableOneData($html, $Resultat, $cpt, $param) {
 	// echo "<td>info form : $infoForm</td>";
 	
 	// bouton edit by id
-	if (isset ( $param [$TABLE_EDIT] ) & ($param [$TABLE_EDIT] == "yes")) {
+	if (isset ( $param [$TABLE_EDIT] ) && ($param [$TABLE_EDIT] == "yes")) {
 		showMiniForm ( $html, "", "edit", "edit", $idTable, "yes", $infoForm );
 	}
 	// bouton delete by id
-	if (isset ( $param [$TABLE_DELETE] ) & ($param [$TABLE_DELETE] == "yes")) {
+	if (isset ( $param [$TABLE_DELETE] ) && ($param [$TABLE_DELETE] == "yes")) {
 		showMiniForm ( $html, "", "delete", "delete", $idTable, "yes", $infoForm );
 	}
 	
 	// bouton edit by row
-	if (isset ( $param [$TABLE_EDIT_BY_ROW] ) & ($param [$TABLE_EDIT_BY_ROW] == "yes")) {
+	if (isset ( $param [$TABLE_EDIT_BY_ROW] ) && ($param [$TABLE_EDIT_BY_ROW] == "yes")) {
 		showMiniFormArray ( $html, "", "edit", "edit !", $columns, $resArray, "yes", $infoForm );
 	}
 	
 	// bouton delete by row
-	if (isset ( $param [$TABLE_DELETE_BY_ROW] ) & ($param [$TABLE_DELETE_BY_ROW] == "yes")) {
+	if (isset ( $param [$TABLE_DELETE_BY_ROW] ) && ($param [$TABLE_DELETE_BY_ROW] == "yes")) {
 		showMiniFormArray ( $html, "", "delete", "delete !", $columns, $resArray, "yes", $infoForm );
 	}
 	
@@ -2344,6 +2351,7 @@ function editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, 
 		$name = $c;
 		$size = "";
 		$otherStyle="";
+		$statusEdit="enabled";
 	} else {
 		$type = mysqlFieldType ( $Resultat, $idxField );
 		$flags = mysqlFieldFlags ( $Resultat, $idxField );

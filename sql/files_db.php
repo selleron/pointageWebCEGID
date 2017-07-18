@@ -164,7 +164,7 @@ function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
 		$req= "INSERT INTO ".$table.
 			" ( $SQL_COL_TITLE_FILE, $SQL_COL_NAME_FILE, $SQL_COL_LINK_FILE,  $SQL_COL_MIME_FILE, $SQL_COL_SIZEBLOB_FILE )".
 			" VALUES ('$title','$name', '$link', '$mime', $size)";
-		$res = mysql_query($req);
+		$res = mysqlQuery($req);
 		showSQLError("");
 		echo "fin de mise en base de donnees.<br>";
 	}
@@ -176,8 +176,8 @@ function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
 			$req= "INSERT INTO ".$table.
 			" ( $SQL_COL_TITLE_FILE, $SQL_COL_NAME_FILE, $SQL_COL_LINK_FILE, $SQL_COL_DATA_FILE, $SQL_COL_MIME_FILE, $SQL_COL_SIZEBLOB_FILE )".
 			" VALUES ('$title','$name', '$link', '$data','$mime', $size)";
-			$res = mysql_query($req);
-			if (mysql_error()==$SQL_ERROR_SIZE_BLOB){
+			$res = mysqlQuery($req);
+			if (mySqlError()==$SQL_ERROR_SIZE_BLOB){
 				echo "error : file too long for blob : $size.";
 				actionStockOneFile( $aFile, $link, $table, 0);
 			}

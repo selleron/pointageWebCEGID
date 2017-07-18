@@ -69,9 +69,9 @@ function trace_access_history(){
 		VALUES ('$REMOTE_ADDR', '$idMember', '$URL', '$AGENT')";
 	
 		showActionVariable("$sql", $SHOW_ACCESS_TRACE );
-		$requete=mysql_query($sql);
+		$requete=mysqlQuery($sql);
 		if ($requete==FALSE){
-			$res=mysql_error();
+			$res=mySqlError();
 		}
 	}
 }
@@ -96,7 +96,7 @@ function getCounterAcessRequest($ip=""){
 				WHERE `$SQL_COL_IP_ACCESS_COUNTER`='$ip';";
 
 	//showSQLAction("$request");
-	$Resultat = mysql_query($request);
+	$Resultat = mysqlQuery($request);
 	showSQLError("");
 	return $Resultat;
 }
@@ -109,13 +109,13 @@ function getCounterAcessRequest($ip=""){
 function getCounterAccess($Resultat){
 	global $SQL_COL_COUNT_ACCESS_COUNTER;
 	
-	$nbRes = mysql_numrows($Resultat);
+	$nbRes = mysqlNumrows($Resultat);
 	
 	if ($nbRes==0){
 		return 0;
 	}
 
-	$res = mysql_result($Resultat , 0 , $SQL_COL_COUNT_ACCESS_COUNTER);
+	$res = mysqlResult($Resultat , 0 , $SQL_COL_COUNT_ACCESS_COUNTER);
 	return $res;
 }
 
@@ -127,13 +127,13 @@ function getCounterAccess($Resultat){
 function getLastDateCountAccess($Resultat){
 	global $SQL_COL_DATE_LAST_ACCESS_COUNTER;
 	
-	$nbRes = mysql_numrows($Resultat);
+	$nbRes = mysqlNumrows($Resultat);
 	
 	if ($nbRes==0){
 		return 0;
 	}
 
-	$res = mysql_result($Resultat , 0 , $SQL_COL_DATE_LAST_ACCESS_COUNTER);
+	$res = mysqlResult($Resultat , 0 , $SQL_COL_DATE_LAST_ACCESS_COUNTER);
 	return $res;
 }
 
@@ -260,9 +260,9 @@ function updateCounterAccess($ip=""){
 		VALUES ('$ip', '$counter', '$url', '$idMember', '$agent', NOW() )";
 		
 		showActionVariable("$sql",  $SHOW_ACCESS_TRACE);
-		$requete=mysql_query($sql);
+		$requete=mysqlQuery($sql);
 		if ($requete==FALSE){
-			$res=mysql_error();
+			$res=mySqlError();
 		}
 		else{
 			return $counter;

@@ -93,8 +93,7 @@ function applyGestionCoutProjectForm($subParam="") {
  * applyGestionCoutOneProjectForm
  * prise en compte year, project user
  */
-function applyGestionCoutOneProjectForm(){
-	//$subParam
+function applyGestionCoutOneProjectForm($subParam=""){
 	
 	//info form
 	// ajout selection project et year
@@ -116,6 +115,7 @@ function showTableCoutOneProject($tablePointage="", $showOnlyOneProject = "yes")
 	//global $SQL_TABLE_PROJECT_COUT2;
 	global $FORM_TABLE_CEGID_PROJECT_COUT;
 	global $TABLE_FORM_NAME_INSERT;
+	global $SQL_SHOW_COL_PROJECT;
 	$form_name = $FORM_TABLE_CEGID_PROJECT_COUT/*."_one_update"*/;
 	$project_found = "yes";
 	
@@ -159,6 +159,7 @@ function showTableCoutOneProject($tablePointage="", $showOnlyOneProject = "yes")
 	}
 
 	//echoTD(">>>> $condition");
+	$subParam = "";
 	$subParam  = updateParamSqlCondition($subParam, $condition);
 	$subParam  = setInfoForm($subParam, $infoForm);
 	if ($project_found == "no"){

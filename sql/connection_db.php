@@ -11,15 +11,15 @@
 	}
 
 	//echo "my_sql_connect : db host[".$SQL_HOST."], db user[".$SQL_USER."]<br>";
-	$CONNECTION_ID = mysql_connect($SQL_HOST, $SQL_USER, $SQL_PWD);
+	$CONNECTION_ID = mysqli_connect($SQL_HOST, $SQL_USER, $SQL_PWD);
 	//echo "connection ID [CONNECTION_ID]<br>";
 	
 	if ($CONNECTION_ID == ""){
 		echo "Impossible de se connecter &agrave; la base de données : host : $SQL_HOST {".gethostbyname($SQL_HOST)."}- user : $SQL_USER -<br>";
-		echo "[".mysql_error()."]<br>";
+		echo "[".mysqli_connect_error()."]<br>";
 	}
-	//or die("Impossible de se connecter &agrave; la base de données : host : $SQL_HOST {".gethostbyname($SQL_HOST)."}- user : $SQL_USER -[".mysql_error()."]");
-	@mysql_select_db($SQL_DATABASE)
-	or die("Impossible de selectionner $SQL_DATABASE");
+	//or die("Impossible de se connecter &agrave; la base de données : host : $SQL_HOST {".gethostbyname($SQL_HOST)."}- user : $SQL_USER -[".mySqlError()."]");
+	@mysqli_select_db($CONNECTION_ID, $SQL_DATABASE)
+	or die("Impossible de selectionner [$SQL_DATABASE] [".mysqli_connect_error()."]");
 	//echo "db connexion.<br>";
 ?>

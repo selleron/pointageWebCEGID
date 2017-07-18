@@ -40,7 +40,7 @@ function mysqlNumrows($Resultat) {
 			$nbRes = count ( $Resultat [$keys [0]] );
 		}
 	} else {
-		$nbRes = mysql_numrows ( $Resultat );
+		$nbRes = mysqli_num_rows ( $Resultat );
 	}
 	return $nbRes;
 }
@@ -89,13 +89,40 @@ function mysqlResult($Resultat, $cpt, $c, $defaultValue = "") {
 		return $txt;
 	} else {
 		if (isset ( $defaultValue )) {
-			if ($cpt >= mysql_numrows ( $Resultat )) {
+			if ($cpt >= mysqlNumrows ( $Resultat )) {
 				return $defaultValue;
 			}
 		}
-		return mysql_result ( $Resultat, $cpt, $c );
+		return mysqli_result2 ( $Resultat, $cpt, $c );
 	}
 }
+
+
+function mysqlClose(){
+    global $CONNECTION_ID;
+    return mysqli_close($CONNECTION_ID);
+}
+
+function mysqli_result2($result,$row,$field=0) {
+    if ($result===false) return false;
+    if ($row>=mysqli_num_rows($result)) return false;
+    if (is_string($field) && !(strpos($field,".")===false)) {
+        $t_field=explode(".",$field);
+        $field=-1;
+        $t_fields=mysqli_fetch_fields($result);
+        for ($id=0;$id<mysqli_num_fields($result);$id++) {
+            if ($t_fields[$id]->table==$t_field[0] && $t_fields[$id]->name==$t_field[1]) {
+                $field=$id;
+                break;
+            }
+        }
+        if ($field==-1) return false;
+    }
+    mysqli_data_seek($result,$row);
+    $line=mysqli_fetch_array($result);
+    return isset($line[$field])?$line[$field]:false;
+}
+
 
 /**
  * mysqlResultExist
@@ -114,7 +141,7 @@ function mysqlResultExist($Resultat, $c) {
 		if (is_numeric ( $c )) {
 			return TRUE;
 		} else {
-			return mysql_result ( $Resultat, $cpt, $c );
+			return mysqlResult ( $Resultat, $cpt, $c );
 		}
 	}
 }
@@ -149,10 +176,46 @@ function mysqlNumFields($resultat) {
 		$keys = arrayKeys ( $resultat );
 		$res = count ( $keys );
 	} else {
-		$res = mysql_num_fields ( $resultat );
+		$res = mysqli_num_fields ( $resultat );
 	}
 	
 	return $res;
+}
+
+function mysqli_field_name($result, $field_nr){
+    return mysqli_fetch_field_direct($result, $field_nr)->name;
+}
+
+function mysqli_field_flags($result, $field_nr){
+    return mysqli_fetch_field_direct($result, $field_nr)->flags;
+}
+
+function mysqli_field_type($result, $field_nr){
+    $type =  mysqli_fetch_field_direct($result, $field_nr)->type;
+    $type2 = $type;
+    switch ($type){
+        case SQL_TYPE_CODE::SQL_INT : $type2 = SQL_TYPE::SQL_INT;
+        break;
+        case SQL_TYPE_CODE::SQL_REAL : $type2 = SQL_TYPE::SQL_REAL;
+        break;
+        case SQL_TYPE_CODE::SQL_DOUBLE : $type2 = SQL_TYPE::SQL_REAL;
+        break;
+        case SQL_TYPE_CODE::SQL_DATE : $type2 = SQL_TYPE::SQL_DATE;
+        break;
+        case SQL_TYPE_CODE::SQL_STRING : $type2 = SQL_TYPE::SQL_STRING;
+        break;
+        case SQL_TYPE_CODE::SQL_BLOB : $type2 = SQL_TYPE::SQL_BLOB;
+        break;
+        case SQL_TYPE_CODE::SQL_REQUEST : $type2 = SQL_TYPE::SQL_REQUEST;
+        break;
+    }
+    //$name = mysqli_field_name($result, $field_nr);
+    //echoTD(" $name - type : $type == $type2");
+    return $type2;
+}
+
+function mysqli_field_len($result, $field_nr){
+    return mysqli_fetch_field_direct($result, $field_nr)->length;
 }
 
 /**
@@ -233,7 +296,7 @@ function mysqlFieldType($Resultat, $idx) {
 		global $KEY_INFO_TYPE;
 		return mysqlFieldValueByKey ( $Resultat, $idx, $KEY_INFO_TYPE );
 	} else {
-		return mysql_field_type ( $Resultat, $idx );
+		return mysqli_field_type ( $Resultat, $idx );
 	}
 }
 
@@ -250,7 +313,7 @@ function mysqlFieldTypeSize($Resultat, $idx) {
 		global $KEY_INFO_TYPE_SIZE;
 		return mysqlFieldValueByKey ( $Resultat, $idx, $KEY_INFO_TYPE_SIZE, "" );
 	} else {
-		return mysql_field_len ( $Resultat, $idx );
+		return mysqli_field_len ( $Resultat, $idx );
 	}
 }
 
@@ -303,9 +366,9 @@ function mysqlFieldStyle($Resultat, $idxCol, $idxRow , $param = "") {
 	} else if ($param == "") {
 		return "";
 	} else {
-		$col = $idx;
-		if (is_numeric($idx)){
-			$col = mysqlFieldName($Resultat, $idx);
+	    $col = $idxCol;
+	    if (is_numeric($idxCol)){
+	        $col = mysqlFieldName($Resultat, $idxCol);
 		}
 		//echoTD("mysqlFieldStatus() parameter found. Search for idx : $idx / $col ...");
 		return mysqlFieldStyle($param, $col,null);
@@ -450,7 +513,7 @@ function mysqlFieldFlags($Resultat, $idx) {
 		global $KEY_INFO_FIELD;	
 		$flags = mysqlFieldValueByKey($Resultat, $idx, $KEY_INFO_FIELD); 
 	} else {
-		$flags = mysql_field_flags ( $Resultat, $idx );
+		$flags = mysqli_field_flags ( $Resultat, $idx );
 	}
 	return $flags;
 }
@@ -475,23 +538,30 @@ function mysqlFieldName($resultat, $cpt) {
 			return "!!!";
 		}
 	} else {
-		$name = mysql_field_name ( $resultat, $cpt );
+		$name = mysqli_field_name ( $resultat, $cpt );
 	}
 	return $name;
 }
 
 /**
  * mysqlQuery
- * gérère une requete Sql a partir d'une String SQL
+ * generer une requete Sql a partir d'une String SQL
  *
  * @param
  *        	txt sql $request
  * @return request result
  */
 function mysqlQuery($request) {
-	$resultat = mysql_query ( $request );
+    global $CONNECTION_ID;
+    $resultat = mysqli_query ($CONNECTION_ID, $request );
 	showSQLError ( "", $request . "<br><br>" );
 	return $resultat;
+}
+
+
+function mySqlError(){
+    global $CONNECTION_ID;
+    return mysqli_error($CONNECTION_ID);
 }
 
 /**

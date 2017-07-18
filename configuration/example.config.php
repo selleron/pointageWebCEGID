@@ -43,7 +43,7 @@ $SHOW_VARIBLE_SUBSTITUTE_SEARCH="quiet";	//trace ou non les recherches de valeur
 $SHOW_FORM_SUBSTITUTE_SEARCH="quiet";	    //trace ou non les recherches de valeurs de variable dans form quiet | verbose | yes
 $SHOW_FORM_TRACE="no";	    				//trace form name parameter yes | no
 $SHOW_SYNCHRO_PREVISION_TRACE="no";		//trace synchro previsionnel
-
+    
 // Affichage
 /////////////////////////////////////
 

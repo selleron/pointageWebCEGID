@@ -75,6 +75,7 @@ function showGestionOneProject(){
 		
 	//$projectId = getURLVariableSQLForm($variables, $form)
 	$condition = createSqlWhere($SQL_COL_NAME_PROJECT, $projectName);
+	$subParam="";
 	$subParam  = updateParamSqlCondition($subParam, $condition);
 	$subParam  = setInfoForm($subParam, $infoForm);
 	if ($project_found == "no"){

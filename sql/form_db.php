@@ -25,13 +25,23 @@ class FORM_COMBOX_BOX_VALUE {
 // sql type
 // see $KEY_INFO
 class SQL_TYPE {
-	const  SQL_INT = "int";
-	const  SQL_BLOB = "blob";
-	const  SQL_DATE = "date";
-	const  SQL_STRING = "string";
-	const  SQL_REAL = "real";
-	const  SQL_REQUEST = "request";
-	}
+    const  SQL_INT = "int";
+    const  SQL_BLOB = "blob";
+    const  SQL_DATE = "date";
+    const  SQL_STRING = "string";
+    const  SQL_REAL = "real";
+    const  SQL_REQUEST = "request";
+}
+
+class SQL_TYPE_CODE {
+    const  SQL_INT = "3";
+    const  SQL_BLOB = "blob";
+    const  SQL_DATE = "10";
+    const  SQL_STRING = "253";
+    const  SQL_REAL = "4";
+    const  SQL_DOUBLE = "5";
+    const  SQL_REQUEST = "request";
+}
 
 /**
  * createForm
@@ -298,9 +308,9 @@ function getResultSqlDefaultValueFormColumn($form, $name) {
 	if (is_array ( $request )) {
 		$res = "";
 	} else {
-		$resultat = mysql_query ( $request );
-		// $nbRes = mysql_numrows ( $Resultat );
-		$res = mysql_result ( $resultat, 0, 0 );
+		$resultat = mysqlQuery ( $request );
+		// $nbRes = mysqlNumrows ( $Resultat );
+		$res = mysqlResult ( $resultat, 0, 0 );
 	}
 	// echo "default value : [$res]";
 	
@@ -334,7 +344,7 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 		beginTable ();
 		beginTableRow ();
 		// echoTD("type: $type -- flag: $flags -- name: $name <br>size: $size -- value: $value -- status : $statusEdit");
-		echoTD ( $name . " [" . $type . "] {" . $flags."}", $useTD );
+		echoTD ( $nameNoDimension . " [" . $type . "] {" . $flags."}", $useTD );
 		if (isNotNUllFlag ( $flags )) {
 			echoTD ( "*", $useTD );
 		}
@@ -393,10 +403,11 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 	} else if ($type == SQL_TYPE::SQL_DATE) {
 		showFormDateElementForVariable ( $form, $name, $showLabel, $useTD, $value, $size, $statusEdit, $otherStyle );
 	} else {
-		echoTD ( $name . " [" . $type . "] " . $flags, $useTD );
+		echoTD ( "??".$name . " [" . $type . "] " . $flags, $useTD );
 	}
 	
 	// edn trace
+	global $SHOW_FORM_SUBSTITUTE_SEARCH;
 	if ($SHOW_FORM_SUBSTITUTE_SEARCH == "yes") {
 		endTableRow ();
 		endTable ();
@@ -671,8 +682,8 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 	$enabledStatus = prepareFlagStatus ( $enabledStatus );
 	
 	// showSQLAction ( $Request );
-	$Resultat = mysql_query ( $Request );
-	$nbRes = mysql_numrows ( $Resultat );
+	$Resultat = mysqlQuery ( $Request );
+	$nbRes = mysqlNumrows ( $Resultat );
 	
 	if ($useTD == "yes") {
 		echo "<td>";
@@ -680,7 +691,7 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 	echo "<SELECT $enabledStatus name=\"$name\"  onchange=\"this.submit()\" >";
 	echo "<OPTION> $ITEM_COMBOBOX_SELECTION";
 	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
-		$res = mysql_result ( $Resultat, $cpt, $sql_col );
+		$res = mysqlResult ( $Resultat, $cpt, $sql_col );
 		if ($res == $current_selection) {
 			$selected = "selected";
 		} else {

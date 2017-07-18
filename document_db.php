@@ -114,12 +114,12 @@ function getDocumentForQuery( $Request ){
 	//echo "$Request   <br>";
 	global $SQL_COL_DOCUMENT_TEXT;
 
-	$Resultat = mysql_query($Request);
-	$nbRes = mysql_numrows($Resultat);
+	$Resultat = mysqlQuery($Request);
+	$nbRes = mysqlNumrows($Resultat);
 	//echo "nb resultat :$nbRes <br>";
 	$res="No Data";
 	if ($nbRes>0){
-		$res = mysql_result($Resultat , 0 , $SQL_COL_DOCUMENT_TEXT);
+		$res = mysqlResult($Resultat , 0 , $SQL_COL_DOCUMENT_TEXT);
 		//echo "res : $res";
 	}
 	return $res ;
@@ -170,13 +170,13 @@ function showComboBoxDocument($html){
 	$document=getDocumentName();
 	$Request="SELECT $SQL_COL_DOCUMENT_NAME FROM $SQL_TABLE_DOCUMENT";
 	//echo "$Request <br>";
-	$Resultat = mysql_query($Request);
-	$nbRes = mysql_numrows($Resultat);
+	$Resultat = mysqlQuery($Request);
+	$nbRes = mysqlNumrows($Resultat);
 
 	echo "<SELECT name=\"$DOCUMENT_NAME_GET\"  onchange=\"this.submit()\" >";
 	echo "<OPTION> [selection]";
 	for( $cpt=0 ; $cpt<$nbRes ; $cpt++){
-		$res = mysql_result($Resultat , $cpt , $SQL_DOCUMENT_NAME);
+		$res = mysqlResult($Resultat , $cpt , $SQL_DOCUMENT_NAME);
 		if ($res==$document){
 			$selected="selected";
 		}
@@ -244,7 +244,7 @@ function createDocument($documentName){
 	//$txt="$sql";
 	showSQLAction($sql);
 
-	$txt = "sql result : ".mysql_query($sql)."   ".mysql_error();
+	$txt = "sql result : ".mysqlQuery($sql)."   ".mySqlError();
 	showAction($txt);
 
 	historisationDocument("`$SQL_COL_DOCUMENT_NAME` = \"$documentName\"");
@@ -282,7 +282,7 @@ function updateDocument($documentName, $document){
 		//$txt="$sql";
 		showSQLAction($sql);
 
-		$txt = "sql result : ".mysql_query($sql)."   ".mysql_error();
+		$txt = "sql result : ".mysqlQuery($sql)."   ".mySqlError();
 		showAction($txt);
 
 		historisationDocument("`$SQL_COL_DOCUMENT_NAME` = \"$documentName\"");
@@ -393,7 +393,7 @@ function showHistoryDocument($condition=""){
 	}
 
 	showSQLAction($sql);
-	$Resultat = mysql_query($sql);
+	$Resultat = mysqlQuery($sql);
 
 	echo"<table>";
 	echo "<table>";
@@ -405,10 +405,10 @@ function showHistoryDocument($condition=""){
 		<td></td>";
 	endTableHeader();
 
-	for ($Compteur=0 ; $Compteur<mysql_numrows($Resultat) ; $Compteur++)
+	for ($Compteur=0 ; $Compteur<mysqlNumrows($Resultat) ; $Compteur++)
 	{
-		$Date = mysql_result($Resultat , $Compteur , $SQL_COL_PLANNING_DATE_HISTORY);
-		$doc = mysql_result($Resultat , $Compteur , $SQL_COL_DOCUMENT_NAME);
+		$Date = mysqlResult($Resultat , $Compteur , $SQL_COL_PLANNING_DATE_HISTORY);
+		$doc = mysqlResult($Resultat , $Compteur , $SQL_COL_DOCUMENT_NAME);
 
 		showHistoryDocumentElementAction($Date, $doc);
 	}

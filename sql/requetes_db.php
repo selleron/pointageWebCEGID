@@ -95,7 +95,7 @@ function actionSauverRequest($html=""){
 	('$idRequete', '$name', '$description', '$sqlTxt')";
 	
 	showSQLAction($request);
-	$Resultat = mysql_query($request);
+	$Resultat = mysqlQuery($request);
 	showSQLError("", $request);
 	
 	echo "<br><br>";
@@ -122,11 +122,11 @@ function actionExecuteRequeteParID($idRequete, $html=""){
 	WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
 	
 	//showSQLAction($request);
-	$Resultat = mysql_query($request);
+	$Resultat = mysqlQuery($request);
 	showSQLError("", $request);
 	
-	for ($Compteur=0 ; $Compteur<mysql_numrows($Resultat) ; $Compteur++){
-		$sql = mysql_result($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
+	for ($Compteur=0 ; $Compteur<mysqlNumrows($Resultat) ; $Compteur++){
+		$sql = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
 		actionRequeteSql($sql, $html);
 	}
 }
@@ -148,7 +148,7 @@ function actionRequeteSql($request, $html=""){
 	//execute request
 	showSQLAction($request);
 	echo"<br><br>";
- 	$Resultat = mysql_query($request);
+ 	$Resultat = mysqlQuery($request);
  	showSQLError("", $request);
  	$param = updateParamSqlWithResult($param, $Resultat);
  	
@@ -182,16 +182,16 @@ function showFormulaireRequete($idRequete="", $html=""){
 		$request = $request."WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
 	}
 	//showSQLAction($request);
-	$Resultat = mysql_query($request);
+	$Resultat = mysqlQuery($request);
 	showSQLError("", $request);
 
-	$num=mysql_numrows($Resultat);
+	$num=mysqlNumrows($Resultat);
 	//if ($num>1){
 		echo "<table>";
 	//}
 	for ($Compteur=0 ; $Compteur<$num ; $Compteur++){
-		$id = mysql_result($Resultat , $Compteur , $SQL_COL_REQUETES_ID);
-		$name = mysql_result($Resultat , $Compteur , $SQL_COL_REQUETES_NAME);
+		$id = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_ID);
+		$name = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_NAME);
 		showFormulaireRequeteByName($id, $name, $html);
 	}
 	//if ($num>1){
@@ -335,16 +335,16 @@ function actionEditRequeteParID($idRequete, $html=""){
 	  WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
 	
 	//showSQLAction($request);
-	$Resultat = mysql_query($request);
+	$Resultat = mysqlQuery($request);
 	showSQLError("", $request);
 
-	$num=mysql_numrows($Resultat);
+	$num=mysqlNumrows($Resultat);
 	if($num>0){
 		$Compteur=0;
-		$id = mysql_result($Resultat , $Compteur , $SQL_COL_REQUETES_ID);
-		$name = mysql_result($Resultat , $Compteur , $SQL_COL_REQUETES_NAME);
-		$description = mysql_result($Resultat , $Compteur , $SQL_COL_REQUETES_DESCRIPTION);
-		$sqlTxt = mysql_result($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
+		$id = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_ID);
+		$name = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_NAME);
+		$description = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_DESCRIPTION);
+		$sqlTxt = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
 		showFormulaireEditRequete($id, $name, $description, $sqlTxt, $html);
 	}
 }
@@ -369,7 +369,7 @@ function actionDeleteRequeteParID($idRequete, $html=""){
 	WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
 
 	//showSQLAction($request);
-	$Resultat = mysql_query($request);
+	$Resultat = mysqlQuery($request);
 	showSQLError("", $request);
 }
 

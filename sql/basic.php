@@ -320,7 +320,13 @@ function showPost(){
 	 
 	
 	foreach ($_POST as $key => $value){
-		echo "<tr><td>".$key.'</td><td>=</td><td>'.$value.'</td></tr>';
+	    if (is_array($value)){
+	        $count = count($value);
+	        echo "<tr><td>".$key.'</td><td>=</td><td>array['.$count.']</td></tr>';
+	    }
+	    else{
+		   echo "<tr><td>".$key.'</td><td>=</td><td>'.$value.'</td></tr>';
+	    }
 	}
 	echo"</table></p>";
 }

@@ -54,9 +54,9 @@ function login(){
 	$pwd = myCrypt($passe);
 	// fin commenter
 	$request = "select * from $SQL_TABLE_MEMBER where $SQL_COL_MEMBER_PSEUDO=\"$pseudo\" and $SQL_COL_MEMBER_PWD=\"$pwd\"";
-	$Resultat = mysql_query($request);
+	$Resultat = mysqlQuery($request);
 	//echo $Resultat;
-	if(mysql_numrows($Resultat)==0)
+	if(mysqlNumrows($Resultat)==0)
 	{
 		//echo "url : ", $URL_ERREUR;
 		header("Location:$URL_ROOT_POINTAGE$URL_ERREUR");
@@ -65,12 +65,12 @@ function login(){
 	else
 	{
 		global $URL_ROOT_POINTAGE;
-		$destination=mysql_result($Resultat,0,"destination");
+		$destination=mysqlResult($Resultat,0,"destination");
 		$destination="$URL_ROOT_POINTAGE"."$destination";
-		$id_member=mysql_result($Resultat,0,"$SQL_COL_ID_REAL_MEMBER");
+		$id_member=mysqlResult($Resultat,0,"$SQL_COL_ID_REAL_MEMBER");
 		$id=generateID();
 			
-		$requete=mysql_query("update $SQL_TABLE_MEMBER set $SQL_COL_ID_SESSION=\"$id\" where $SQL_COL_MEMBER_PSEUDO=\"$pseudo\" and $SQL_COL_MEMBER_PWD=\"$pwd\"");
+		$requete=mysqlQuery("update $SQL_TABLE_MEMBER set $SQL_COL_ID_SESSION=\"$id\" where $SQL_COL_MEMBER_PSEUDO=\"$pseudo\" and $SQL_COL_MEMBER_PWD=\"$pwd\"");
 		updateConnection($id_member);
 		header("Location:$destination?$ID_GET=$id");
 		//echo "$destination?$ID_GET=$id";
@@ -93,9 +93,9 @@ function updateConnection($id){
 			VALUES ('$id', ' $REMOTE_ADDR')";	
 
 	//showSQLAction("$sql");
-	$requete=mysql_query($sql);
+	$requete=mysqlQuery($sql);
 	if ($requete==FALSE){
-		$res=mysql_error();
+		$res=mySqlError();
 	}
 }
 
@@ -121,9 +121,9 @@ function convertPassword(){
 	//echo " $passe : $pwd ";
 	$request = "select * from $SQL_TABLE_MEMBER where $SQL_COL_MEMBER_PSEUDO=\"$pseudo\" and $SQL_COL_MEMBER_PWD=\"$passe\"";
 	//echo $request;
-	$Resultat = mysql_query($request);
+	$Resultat = mysqlQuery($request);
 	//echo $Resultat;
-	if(mysql_numrows($Resultat)==0)
+	if(mysqlNumrows($Resultat)==0)
 	{
 		//nothing to do
 		//bad login or already crypted
@@ -131,7 +131,7 @@ function convertPassword(){
 	else
 	{
 		//echo "<br>Crypt password for $pseudo : $pwd";
-		$requete=mysql_query("update $SQL_TABLE_MEMBER set $SQL_COL_MEMBER_PWD=\"$pwd\" where $SQL_COL_MEMBER_PSEUDO=\"$pseudo\" and $SQL_COL_MEMBER_PWD=\"$passe\"");
+		$requete=mysqlQuery("update $SQL_TABLE_MEMBER set $SQL_COL_MEMBER_PWD=\"$pwd\" where $SQL_COL_MEMBER_PSEUDO=\"$pseudo\" and $SQL_COL_MEMBER_PWD=\"$passe\"");
 		//showSQLError("");
 		//echo " ok...<br>";
 		header("Location:/admin/cryptLogin.php");
@@ -223,9 +223,9 @@ function applyGestionUser($url){
 			VALUES ('$login', '$pwd', '$destination', '$email')";	
 
 		showSQLAction("$sql");
-		$requete=mysql_query($sql);
+		$requete=mysqlQuery($sql);
 		if ($requete==FALSE){
-			$res=mysql_error();
+			$res=mySqlError();
 			showSQLAction($res);
 			showAddUserForm($url, $action, $login, $pwd, $destination, $email);
 		}
@@ -241,17 +241,17 @@ function applyGestionUser($url){
 		//affiche les infos � modifier
 		$sql="SELECT * FROM $SQL_TABLE_MEMBER WHERE $SQL_COL_MEMBER_PSEUDO=\"$current_selection\"";
 		showSQLAction("$sql");
-		$requete=mysql_query($sql);
+		$requete=mysqlQuery($sql);
 		if ($requete==FALSE){
-			$res=mysql_error();
+			$res=mySqlError();
 			showSQLAction($res);
 		}
 		else{
 			$login=$current_selection;
 			$passe="";
-			$pwd = mysql_result($requete , 0 , $SQL_COL_MEMBER_PWD);
-			$destination = mysql_result($requete , 0 , $SQL_COL_DESTINATION);
-			$email = mysql_result($requete , 0 , $QL_COL_EMAIL);
+			$pwd = mysqlResult($requete , 0 , $SQL_COL_MEMBER_PWD);
+			$destination = mysqlResult($requete , 0 , $SQL_COL_DESTINATION);
+			$email = mysqlResult($requete , 0 , $QL_COL_EMAIL);
 			$action="modifyUser";
 			showModifyUserForm($url, $current_selection);
 			$action="executeModifyUser";
@@ -274,9 +274,9 @@ function applyGestionUser($url){
 		    `$SQL_COL_DESTINATION`=\"$destination\" , `$QL_COL_EMAIL`=\"$email\"
 		WHERE `$SQL_COL_MEMBER_PSEUDO`=\"$current_selection\"";
 		showSQLAction("$sql");
-		$requete=mysql_query($sql);
+		$requete=mysqlQuery($sql);
 		if ($requete==FALSE){
-			$res=mysql_error();
+			$res=mySqlError();
 			showSQLAction($res);
 		}
 		$action="modifyUser";
@@ -287,9 +287,9 @@ function applyGestionUser($url){
 	else if ($action=="deleteUser"){
 		$sql="DELETE FROM $SQL_TABLE_MEMBER WHERE $SQL_COL_MEMBER_PSEUDO=\"$current_selection\"";
 		showSQLAction("$sql");
-		$requete=mysql_query($sql);
+		$requete=mysqlQuery($sql);
 		if ($requete==FALSE){
-			$res=mysql_error();
+			$res=mySqlError();
 			showSQLAction($res);
 		}
 		showModifyUserForm($url, $current_selection);
@@ -315,7 +315,8 @@ function showModifyUserForm($url, $current_selection){
 	echo "<form method=\"get\" action=\"$url\">
 		 <p></p>
 	    <table> <tr><td>";
-	showComboBox("pseudoToModify", $SQL_TABLE_MEMBER, $SQL_COL_MEMBER_PSEUDO, $current_selection);
+	showFormComboBox( "pseudoToModify",  "pseudoToModify",   $SQL_TABLE_MEMBER, $SQL_COL_MEMBER_PSEUDO, "yes", $current_selection);
+	//showFormComboBox($formName,       $name,              $sql_table,        $sql_col,              $useTD, $current_selection)
 	showFormIDElement();
 	echo"
 		<input type=\"submit\" name=\"$ACTION_GET\" value=\"modifyUser\" class=\"input\">
@@ -465,7 +466,7 @@ function showHistoryConnection($url, $param){
 	}
 
 	showSQLAction($sql);
-	$Resultat = mysql_query($sql);
+	$Resultat = mysqlQuery($sql);
 	showSQLError("");
 
 	$columnSummary[0]=$SQL_COL_LOGIN_DATE_HISTORY;
@@ -486,12 +487,12 @@ echo "  <td width=\"170\"><a href=\"$html&".ORDER_ENUM::ORDER_GET."=$SQL_COL_LOG
 		<td></td>";
 endTableHeader();
 
-	for ($Compteur=0 ; $Compteur<mysql_numrows($Resultat) ; $Compteur++)
+	for ($Compteur=0 ; $Compteur<mysqlNumrows($Resultat) ; $Compteur++)
 	{
-		$Date = mysql_result($Resultat , $Compteur , $SQL_COL_LOGIN_DATE_HISTORY);
-		$id = mysql_result($Resultat , $Compteur , $SQL_COL_ID_REAL_MEMBER);
-		$ip = mysql_result($Resultat , $Compteur , $SQL_COL_IP);
-		$pseudo = mysql_result($Resultat , $Compteur , $SQL_COL_MEMBER_PSEUDO);
+		$Date = mysqlResult($Resultat , $Compteur , $SQL_COL_LOGIN_DATE_HISTORY);
+		$id = mysqlResult($Resultat , $Compteur , $SQL_COL_ID_REAL_MEMBER);
+		$ip = mysqlResult($Resultat , $Compteur , $SQL_COL_IP);
+		$pseudo = mysqlResult($Resultat , $Compteur , $SQL_COL_MEMBER_PSEUDO);
 		showHistoryConnectionElementAction($Date, $id, $pseudo, $ip);
 	}
 
@@ -542,8 +543,8 @@ function testMember(){
 	$id=getMemberID();
 
 	//echo "select * from $SQL_TABLE_MEMBER where id=\"$id\"";
-	$requete=mysql_query("select * from $SQL_TABLE_MEMBER where $SQL_COL_ID_SESSION=\"$id\"");
-	if(mysql_numrows($requete)==0)
+	$requete=mysqlQuery("select * from $SQL_TABLE_MEMBER where $SQL_COL_ID_SESSION=\"$id\"");
+	if(mysqlNumrows($requete)==0)
 	{
 		//echo "id not found";
 		header("Location:$URL_ROOT_POINTAGE$URL_LOGIN");
@@ -565,14 +566,14 @@ function getRealMemberID(){
 
 	$realID="unknown";
 	$sql="select $SQL_COL_ID_REAL_MEMBER from $SQL_TABLE_MEMBER where $SQL_COL_ID_SESSION=\"$id\"";
-	$requete=mysql_query("$sql");
+	$requete=mysqlQuery("$sql");
 	traceConnectionID();
 	showActionVariable("request : $sql", $SHOW_MENU_TRACE);
-	$nb = mysql_numrows($requete);
+	$nb = mysqlNumrows($requete);
 	//echo "nb real id found : $nb";
-	if(mysql_numrows($requete)>0)
+	if(mysqlNumrows($requete)>0)
 	{
-		$realID = mysql_result($requete , 0 , $SQL_COL_ID_REAL_MEMBER);
+		$realID = mysqlResult($requete , 0 , $SQL_COL_ID_REAL_MEMBER);
 	}
 	return $realID;
 }
@@ -591,15 +592,15 @@ function getLogin(){
 
 	$realID="unknown";
 	$sql="select $SQL_COL_MEMBER_PSEUDO from $SQL_TABLE_MEMBER where $SQL_COL_ID_SESSION=\"$id\"";
-	$requete=mysql_query("$sql");
+	$requete=mysqlQuery("$sql");
 	traceConnectionID();
 	showActionVariable("request : $sql", $SHOW_MENU_TRACE);
-	$nb = mysql_numrows($requete);
+	$nb = mysqlNumrows($requete);
 	//echo "nb real id found : $nb";
 	$login="";
-	if(mysql_numrows($requete)>0)
+	if(mysqlNumrows($requete)>0)
 	{
-		$login = mysql_result($requete , 0 , $SQL_COL_MEMBER_PSEUDO);
+		$login = mysqlResult($requete , 0 , $SQL_COL_MEMBER_PSEUDO);
 	}
 	return $login;
 }
@@ -630,11 +631,11 @@ function isMemberGroup($group_id){
 			$SQL_COL_ID_MEMBER_IN_RELATION=\"$idMember\"
 			AND
 			$SQL_COL_ID_GROUP_IN_RELATION=\"$group_id\"";
-			$requete=mysql_query("$sql");
+			$requete=mysqlQuery("$sql");
 			showActionVariable("request : $sql", $SHOW_MENU_TRACE);
-			$nb=mysql_numrows($requete);
+			$nb=mysqlNumrows($requete);
 			//echo "nb relation : $nb <br>";
-			if(mysql_numrows($requete)==0)
+			if(mysqlNumrows($requete)==0)
 			{
 				return false;
 			}
@@ -662,7 +663,7 @@ function logout(){
 	
 
 	//echo "update SQL_TABLE_MEMBER set id=\"$newid\" where id=\"$id\"";
-	$requete=mysql_query("update SQL_TABLE_MEMBER set $SQL_COL_ID_SESSION=\"$newid\" where $SQL_COL_ID_SESSION=\"$id\"");
+	$requete=mysqlQuery("update SQL_TABLE_MEMBER set $SQL_COL_ID_SESSION=\"$newid\" where $SQL_COL_ID_SESSION=\"$id\"");
 	header("Location:$URL_ROOT_POINTAGE$URL_DEFAULT");
 }
 

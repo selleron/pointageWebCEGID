@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 INSERT INTO `member` (`id_member`, `id`, `pseudo`, `passe`, `url`, `destination`, `pays`, `remarques`, `email`) VALUES
 (1, 'r4xeb4xyjoh2n4xqfo1e', 'admin', 'bU.we73eauE', 'http://localhost/default.php', '/default.php', 'france', 'administrateur', 'adminmon_site.com'),
-(2, 'z167487ci6746zxrvugb', 'root', 'xC6N/EVpOi6', 'http://localhost/default.php', '/default.php', 'france', 'administrateur', 'root@mon_site.com'):
+(2, 'z167487ci6746zxrvugb', 'root', 'xC6N/EVpOi6', 'http://localhost/default.php', '/default.php', 'france', 'administrateur', 'root@mon_site.com');
 
 --
 -- Contenu de la table `member_group`

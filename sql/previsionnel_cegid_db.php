@@ -1,6 +1,6 @@
 <?php
 include_once 'pointage_cegid_db.php';
-include_once 'labelAction.php';
+include_once (dirname ( __FILE__ ) .'/../configuration/labelAction.php');
 include_once 'historisation_db.php';
 
 $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL = "cegid_pointage_previsionnel";
@@ -195,7 +195,8 @@ function getTableauPrevisionnelCegid($projectName = "", $showAll = "yes") {
  */
 function isSamePointageRef($tableauPrev, $tableauPointage, $columns, $cpt, $cptP) {
 	foreach ( $columns as $c ) {
-		if ($tableauPrev [$c] [$cpt] == $tableauPointage [$c] [$cptP]) {
+	    if (isset($tableauPrev [$c]) && isset($tableauPointage [$c]) && 
+	    ($tableauPrev [$c] [$cpt] == $tableauPointage [$c] [$cptP])) {
 			// on continue
 		} else {
 			return - 1;
@@ -359,7 +360,9 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
                 $value = $tableau [$m] [$cpt];
                 if ($value == "") {
                     $index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
-                    $value = $tableauPrev [$m] [$index];
+                    if (isset($tableauPrev [$m])){
+                        $value = $tableauPrev [$m] [$index];
+                    }
                     $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style='color: #0000FF;' " );
                     $tableau [$m] [$cpt] = $value;
                 } else {

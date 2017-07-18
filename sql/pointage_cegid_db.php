@@ -653,7 +653,7 @@ function getURLYear($defaultValue = null) {
  * - modification par mois
  * - sommation automatique
  */
-function showTablePointageOneProjetCegid($tableau="", $showColPointage="", $subparam) {
+function showTablePointageOneProjetCegid($tableau="", $showColPointage="", $subparam="") {
     
 	showAction ( "function showTablePointageOneProjetCegid()" );
 	// condition project
@@ -906,8 +906,8 @@ function getTableauPointageProjetCegid2($projectName = "", $showAll = "yes", $ta
 // 			$field_offset = indexOfValueInArray ( $columns, $c );
 // 			// $colName = mysql_field_name ( $Resultat , $field_offset );
 // 			// showSQLAction("result $cpt - column : $c - position : $field_offset - colName : $colName");
-// 			$res = mysql_result ( $Resultat, $cpt, $field_offset );
-// 			// $res = mysql_result ( $Resultat, $cpt, $c );
+// 			$res = mysqlResult ( $Resultat, $cpt, $field_offset );
+// 			// $res = mysqlResult ( $Resultat, $cpt, $c );
 // 			$tableau [$c] [$cpt] = $res;
 // 		}
 		
@@ -1057,8 +1057,8 @@ function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes",
             $field_offset = indexOfValueInArray ( $columns, $c );
             // $colName = mysql_field_name ( $Resultat , $field_offset );
             // showSQLAction("result $cpt - column : $c - position : $field_offset - colName : $colName");
-            $res = mysql_result ( $Resultat, $cpt, $field_offset );
-            // $res = mysql_result ( $Resultat, $cpt, $c );
+            $res = mysqlResult ( $Resultat, $cpt, $field_offset );
+            // $res = mysqlResult ( $Resultat, $cpt, $c );
             $tableau [$c] [$cpt] = $res;
         }
         
@@ -1106,9 +1106,6 @@ function prepareParamShowArrayPointageProjetCegid($tableau, $projectName, $year,
 	
 	if ($columnsComplet == "") {
 		$columnsComplet = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . $LIST_COLS_MONTHS;
-	}
-	if ($tableName==""){
-	    $tableName="ma_table_pointage";
 	}
 	$param2 = prepareshowTable ( "ma_table_pointage", $columnsComplet, "form_table_cegid_pointage_update" );
 	// showTableHeader ( $param2 );

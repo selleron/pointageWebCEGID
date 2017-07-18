@@ -20,11 +20,11 @@ $id=getMemberID();
 
 //gestion des arguments par defaut
 $argument=propagateArguments();
-if (! strpos ( $html, "?" )) {
-	//$argument = propagateArguments ( "yes" );
-	$argument = propagateArguments ( "" );
-	$html = $html . $argument;
-}
+// if (! strpos ( $html, "?" )) {
+// 	//$argument = propagateArguments ( "yes" );
+// 	$argument = propagateArguments ( "" );
+// 	$html = $html . $argument;
+// }
 
 
 trace_access_history();

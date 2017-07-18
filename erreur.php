@@ -4,7 +4,7 @@
 <head>
   <title>Serveur Web MobilHome200. Erreur</title>
 	<?PHP include("./header.php"); ?> 
-	<?PHP include("./sql/document_db.php"); ?> 
+	<!--<?PHP include("./sql/document_db.php"); ?> --> 
 	<?PHP include("sql/connection_db.php"); ?>
 </head>
 
@@ -30,7 +30,7 @@
 	<td>
 	<?php 
 	global $URL_IMAGES;
-	echo '<img src="$URL_IMAGES/warning.gif">';
+	echo "<img src=\"$URL_IMAGES/warning.gif\">";
 	?>
 	</td>
     <td>
