@@ -587,6 +587,9 @@ function updateParamSqlWithDeleteByRow($param) {
  */
 function updateParamSqlColumnFilter($param, $columns) {
 	global $COLUMNS_FILTER;
+	if (!is_array($param)){
+	    $param = array();
+	}
 	$param [$COLUMNS_FILTER] = $columns;
 	
 	return $param;
@@ -2652,10 +2655,10 @@ function showBandeauHeaderPageMobile($txtAbout) {
  * @param string $colsForSum
  *        	colonnes sur laquelle ont lieux les sommations horizontale
  */
-function showSommation($table, $colsList, $colsSumList, $colsForSum) {
+function showSommation($table, $colsList, $colsSumList, $colsForSum, $operation="sum") {
 	echo "<script type=\"text/javascript\">";
 	// echo "test();";
-	echo "sommeColonneRowHTMLTable(document.getElementById('$table'),'$colsList', '$colsSumList', '$colsForSum');";
+	echo "sommeColonneRowHTMLTable(document.getElementById('$table'),'$colsList', '$colsSumList', '$colsForSum','$operation');";
 	echo "</script>";
 }
 

@@ -98,7 +98,7 @@
   endForm();
 
 
-  showSommation('maTable','name,uo,no form', 'sum_row_xxx', 'uo,jours');
+  showSommation('maTable','name,uo,no form', 'sum_row_xxx', 'uo,jours', "sum");
   
 ?>
 
