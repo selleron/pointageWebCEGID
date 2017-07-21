@@ -66,7 +66,7 @@ function sommeColonneRowHTMLTable( obj, nameForColSum, nameForRowSum, nameColsFo
  * cols : liste des colonnes à sommer
  */
 function sommeRowsHTMLTable( obj, name, cols, operation="sum") {
-	//alert("operation "+ operation);
+	//alert("operation name: "+name+" - cols: "+cols+" op: "+ operation);
 	table = getParentHTMLTableElement(obj);
 	if (table == null){
 		alert("function sommeRowsHTMLTable().\n  no table found for "+obj);
@@ -160,7 +160,8 @@ function sommeColonneHTMLTable( obj, name, operation="sum") {
  * variable name a sommer
  */
 function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="sum") {
-
+	//alert("sommeRowHTMLTable name: "+name+" - row : "+row+" - cols: "+cols+" op: "+ operation);
+	
 	var nameArray = name.split(",");
 	if (nameArray.length > 1){
 		for(var i= 0; i < nameArray.length; i++){
@@ -188,8 +189,16 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 			idCell = getCellId(colArray[i], row);
 			cell = document.getElementById(idCell);
 			if (cell!=null){
-				//alert("cell : "+idCell+" value :" + cell.value);
-				value = parseFloat(cell.value);
+				if (cell.value){
+				  value = parseFloat(cell.value);
+				}
+				else if (cell.textContent){
+					value = parseFloat(cell.textContent);
+				}
+				else{
+					value=NaN;
+				}
+				//alert("sommeRowHTMLTable "+name+" cell : "+cell+" id : "+idCell+" value :" + value);
 				if (!isNaN(value)){
 					countSum+=1;
 					if (operation=="sum"){
@@ -207,7 +216,14 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 				//alert("no cell found for id : "+idCell);
 			}
 		}
-		sommeElement.value = somme;
+		if (sommeElement.value){
+			sommeElement.value = somme;
+		}
+		else{
+			sommeElement.textContent = somme;			
+		}
+		//alert("sommeRowHTMLTable name :"+name+"  "+sommeElement+" somme : "+somme);
+		
 	}
 }
 

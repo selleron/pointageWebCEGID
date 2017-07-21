@@ -21,6 +21,9 @@ $SQL_SHOW_COL_PROJECT_COUT2 = " $SQL_COL_ID_PROJECT_COUT, $SQL_COL_DATE_PROJECT_
 $SQL_SELECT_COL_COUT_PROJECT = "pc.$SQL_COL_ID_PROJECT_COUT as $SQL_COL_ID_PROJECT_COUT, pc.$SQL_COL_DATE_PROJECT_COUT as $SQL_COL_DATE_PROJECT_COUT, pj.$SQL_COL_NAME_PROJECT as $SQL_COL_PROJECT_NAME_COUT_PROJECT,  pc.$SQL_COL_PROJECT_COUT_PROFIL as $SQL_COL_PROJECT_COUT_PROFIL, pc.$SQL_COL_COUT_PROJECT_COUT as $SQL_COL_COUT_PROJECT_COUT, pc.$SQL_COL_UO_PROJECT_COUT as $SQL_COL_UO_PROJECT_COUT";
 $SQL_SHOW_WHERE_COUT_PROJECT = "`$SQL_COL_ID_PROJECT` = `$SQL_COL_PROJECT_ID_COUT_PROJECT`	";
 
+$SQL_COL_TOTAL_PROJECT_COUT = "Total.COUT";
+$SQL_COL_POINTAGE_PROJECT_COUT = "U.O.Pointage";
+
 // include_once 'connection_db.php';
 // include_once 'tool_db.php';
 include_once 'table_db.php';
@@ -197,8 +200,13 @@ function showTableCoutProject($param="", $tablePointage = "") {
 	
 	//ajouter une colonne
 	global $COLUMNS_SUMMARY;
-	$colpointage = "U.O.Pointage";
-	$param2 = addParamSqlColumn($param, $colpointage);
+	global $SQL_COL_TOTAL_PROJECT_COUT;
+	global $SQL_COL_POINTAGE_PROJECT_COUT;
+	
+	$colTotal = $SQL_COL_TOTAL_PROJECT_COUT;
+	$param2 = addParamSqlColumn($param, $colTotal);
+	$colpointage = $SQL_COL_POINTAGE_PROJECT_COUT;
+	$param2 = addParamSqlColumn($param2, $colpointage);
 	
 	
 	//header
@@ -213,8 +221,10 @@ function showTableCoutProject($param="", $tablePointage = "") {
 	//printMatrice($result);
 	
 	//ajout colonne
+	$result = setSQLFlagType ( $result, $colTotal, SQL_TYPE::SQL_REAL );
+	$result = setSQLFlagTypeSize ( $result, $colTotal, 5 );
 	$result = setSQLFlagType ( $result, $colpointage, SQL_TYPE::SQL_REQUEST );
- 	$result = setSQLFlagTypeSize ( $result, $colpointage, 3 );
+	$result = setSQLFlagTypeSize ( $result, $colpointage, 3 );
 	
  	if ($tablePointage == ""){
  		global $SQL_TABLE_CEGID_POINTAGE;
@@ -229,6 +239,7 @@ function showTableCoutProject($param="", $tablePointage = "") {
  		" AND year(DATE) = year('". mysqlResult ( $result, $cpt, 'DATE' )."')".
  		" AND PROJECT_ID in (select CEGID from cegid_project where NAME = '". mysqlResult($result, $cpt, 'PROJECT') ."')".
  		" group by PROFIL";
+ 		$result[$colTotal] [$cpt] = "" ;
  	}
  	
 	//end ajout colonne
@@ -242,7 +253,7 @@ function showTableCoutProject($param="", $tablePointage = "") {
 	beginTableRow ();
 	endTableRow ();
 	$colsFromSummation="";
-	showTablelineSummation($param2, "" /** liste des colonnes */, "$SQL_COL_UO_PROJECT_COUT, $colpointage");
+	showTablelineSummation($param2, "" /** liste des colonnes */, "$SQL_COL_UO_PROJECT_COUT, $colTotal, $colpointage");
 	
 	
 	
@@ -261,9 +272,10 @@ function showTableCoutProject($param="", $tablePointage = "") {
 	
 	//activation sommation
 	global $TABLE_ID;
+	global $SQL_COL_COUT_PROJECT_COUT;
 	
-	showSommation($param[$TABLE_ID],"$SQL_COL_UO_PROJECT_COUT,$colpointage", "","");
-	
+	showSommation($param[$TABLE_ID], "",    "$SQL_COL_TOTAL_PROJECT_COUT", "$SQL_COL_COUT_PROJECT_COUT,$SQL_COL_UO_PROJECT_COUT","mult");
+	showSommation($param[$TABLE_ID],"$SQL_COL_UO_PROJECT_COUT,$SQL_COL_TOTAL_PROJECT_COUT,$colpointage", "","");
 }
 
 /**
