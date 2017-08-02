@@ -217,14 +217,26 @@ function isSamePointageRef($tableauPrev, $tableauPointage, $columns, $cpt, $cptP
  * @return number index trouvé dans $tableauPrev, can be -1
  */
 function findIndexPointage($tableauPrev, $tableauPointage, $columns, $cptP) {
-	$nbResPrevision = mysqlNumrows ( $tableauPointage );
+	$nbResPrevision = mysqlNumrows ( $tableauPrev );
 	
 	for($cpt = 0; $cpt < $nbResPrevision; $cpt ++) {
 		$index = isSamePointageRef ( $tableauPrev, $tableauPointage, $columns, $cpt, $cptP );
 		if ($index >= 0) {
-			return $index;
+// 		    echoTD("found : ".$tableauPointage[$columns[0]][$cptP].
+// 		        " - ".$tableauPointage[$columns[1]][$cptP].
+// 		        " - ".$tableauPointage[$columns[2]][$cptP].
+// 		        " - ".$tableauPointage[$columns[3]][$cptP].
+// 		        " - ".$tableauPointage[$columns[4]][$cptP].
+// 		        " in previsonnel at index $index  for $cpt / $cptP <br>");
+		    return $index;
 		}
 	}
+// 	echoTD("not found : ".$tableauPointage[$columns[0]][$cptP].
+// 	    " - ".$tableauPointage[$columns[1]][$cptP].
+// 	    " - ".$tableauPointage[$columns[2]][$cptP].
+// 	    " - ".$tableauPointage[$columns[3]][$cptP].
+// 	    " - ".$tableauPointage[$columns[4]][$cptP].
+// 	    " in previsonnel <br>");
 	return - 1;
 }
 
@@ -382,6 +394,7 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
     
     $cpt2 = $nbResPointage;
     showAction ( "nb row previsionnel : $nbResPrevision" );
+    //printMatrice($tableauPrev);
     // add previsionnel
     for($cpt = 0; $cpt < $nbResPrevision; $cpt ++) {
         $index = findIndexPointage ( $tableauPointage, $tableauPrev, $columns, $cpt );
