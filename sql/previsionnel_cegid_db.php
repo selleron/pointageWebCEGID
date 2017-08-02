@@ -358,15 +358,24 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
             foreach ( $arrayMonth as $m ) {
                 // $value = $tableauPointage[$m][$cpt];
                 $value = $tableau [$m] [$cpt];
+                $index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
+                if (isset($tableauPrev [$m])){
+                    $value2 = $tableauPrev [$m] [$index];
+                }
+                else{
+                    $value2="";
+                }
                 if ($value == "") {
-                    $index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
-                    if (isset($tableauPrev [$m])){
-                        $value = $tableauPrev [$m] [$index];
-                    }
+                    $value = $value2;
                     $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style='color: #0000FF;' " );
                     $tableau [$m] [$cpt] = $value;
                 } else {
-                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"background: #E0E0E0; font-weight:bold\" " );
+                    if (($value2!="") && ($value2!=$value)){
+                        $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"color: #FF0000; background: #E0E0E0; font-weight:bold\" " );
+                    }
+                    else{
+                        $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"background: #E0E0E0; font-weight:bold\" " );
+                    }
                 }
             }
     }
