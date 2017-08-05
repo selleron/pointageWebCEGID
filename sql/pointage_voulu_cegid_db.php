@@ -64,7 +64,7 @@ function addPrevisionnelVoulu($tableau){
             " AND $SQL_COL_PROJECT_ID_CEGID_POINTAGE ='". mysqlResult($tableau, $cpt, "$SQL_COL_PROJECT_ID_CEGID_POINTAGE") ."'" ;
         $result[$colUOVoulu] [$cpt] = $txt;
         //$result[$colUOVoulu] [$cpt] = "ok";
-        showSQLAction("request [$colUOVoulu] [$cpt] =  $txt");
+        //showSQLAction("request [$colUOVoulu] [$cpt] =  $txt");
     }
     return $result;
 }

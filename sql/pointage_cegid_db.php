@@ -210,7 +210,7 @@ function applyGestionTablePointageProjetCegid($table)
         global $SQL_TABLE_CEGID_POINTAGE_VOULU;
         global $FORM_TABLE_CEGID_POINTAGE_VOULU;
         global $SQL_SHOW_COL_CEGID_POINTAGE;
-        multiUpdateTableByGet2($SQL_TABLE_CEGID_POINTAGE_VOULU, $SQL_SHOW_COL_CEGID_POINTAGE, $FORM_TABLE_CEGID_POINTAGE_VOULU);
+        multiReplaceTableByGet2($SQL_TABLE_CEGID_POINTAGE_VOULU, $SQL_SHOW_COL_CEGID_POINTAGE, $FORM_TABLE_CEGID_POINTAGE_VOULU);
     }
     if ($exec > 0) {
         return;

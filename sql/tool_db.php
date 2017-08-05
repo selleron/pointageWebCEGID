@@ -105,6 +105,25 @@ function getURLVariable($variable)
 }
 
 /**
+ * return variable $variable[$row]
+ * 
+ * @param string $variable
+ * @param index $row
+ * @return string|array
+ */
+function getURLVariableForRow($variable, $row){
+    $res = getURLVariable($variable);
+    if (isset($row) && is_array($res)){
+        $res2 = "$res[$row]";
+    }
+    else{
+        $res2 = $res;
+    }
+    return $res2;
+}
+
+
+/**
  * setURLVariable
  *
  * @param unknown $variable
@@ -157,18 +176,17 @@ function getURLVariableArray($variables, $idx)
 /**
  * getURLVariableArraySQLForm
  *
- * @param
- *            string array $variables
+ * @param string array $variables
  * @param string $form
- *            form name
+ * @param index $row : can be null
  * @return string array of variables values
  */
-function getURLVariableArraySQLForm($variables, $form)
+function getURLVariableArraySQLForm($variables, $form, $row)
 {
     $result;
     $i = 0;
     foreach ($variables as $v) {
-        $result[$i] = getURLVariableSQLForm($v, $form);
+        $result[$i] = getURLVariableSQLForm($v, $form, "", "verbose", $row);
         $i ++;
     }
     return $result;
@@ -185,10 +203,13 @@ function getURLVariableArraySQLForm($variables, $form)
  *            tableau des valeurs (on utilisepas le post)
  * @param string $status
  *            quiet / verbose
- * @return string|unknown
+ * @param index $row : can be null
+ * @return string|array
  */
-function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbose")
+function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbose", $row)
 {
+    //showSQLAction("getURLVariableSQLForm( variable : $variable, form : $form, row : $row)");
+    
     if ($status == "") {
         global $SHOW_VARIBLE_SUBSTITUTE_SEARCH;
         $status = getURLVariable($SHOW_VARIBLE_SUBSTITUTE_SEARCH);
@@ -198,7 +219,7 @@ function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbo
         $tableau = $FORM_VALUE_INSERT;
     }
     
-    $result = getURLVariable($variable);
+    $result = getURLVariableForRow($variable, $row);
     if (is_array($result)) {
         $result = $result[0];
     }
@@ -208,7 +229,7 @@ function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbo
         if (isset($tableau[$form][$variable]["VARIABLE"])) {
             $foreignVariable = $tableau[$form][$variable]["VARIABLE"];
             // echo "fv : $foreignVariable";
-            $replace = getURLVariableSQLForm($foreignVariable, $form, $tableau, $status);
+            $replace = getURLVariableSQLForm($foreignVariable, $form, $tableau, $status, $row);
             if (isset($tableau[$form][$variable]["SQL"])) {
                 $sql = $tableau[$form][$variable]["SQL"];
                 // echo ">>>> $sql <br>";
@@ -228,11 +249,14 @@ function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbo
             } else {
                 if ($status == "verbose") {
                     echo "variable $variable not found in url parameters for form [$form] ;;;;<br>";
-                    echo "configuration not found : \$" . "FORM_VALUE_INSERT [" . $form . "][" . $variable . "][SQL]<br>";
+                    echo "configuration not found : \$" . "FORM_VALUE_INSERT [" . $form . "][\"" . $variable . "\"][\"SQL\"]<br>";
                 }
             }
         } else {
-            if ($status == "verbose") {
+            if (isset($tableau[$form][$variable]["DEFAULT"])) {
+                $result = $tableau[$form][$variable]["DEFAULT"];
+            }
+            else  if ($status == "verbose") {
                 echo getBeginActionMessage();
                 echo "getURLVariableSQLForm()<br>";
                 echoSpace(3);
@@ -240,7 +264,7 @@ function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbo
                 echoSpace(3);
                 echo "variable $variable not found in url parameters for form [$form]::::<br>";
                 echoSpace(3);
-                echo "configuration not found : \$" . "FORM_VALUE_INSERT [" . $form . "][" . $variable . "][SQL]<br>";
+                echo "configuration not found : \$" . "FORM_VALUE_INSERT [\"" . $form . "\"][\"" . $variable . "\"][\"SQL\"]<br>";
                 debug_print_backtrace();
                 echo "<br>";
                 echo getEndActionMessage();
@@ -1173,9 +1197,9 @@ function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "",
     // columns & values
     $columns = stringToArray($columnsString);
     if ($formName) {
-        $arrayValues = getURLVariableArraySQLForm($columns, $formName);
+        $arrayValues = getURLVariableArraySQLForm($columns, $formName, $row);
     } else {
-        $arrayValues = getURLVariableArray($columns);
+        $arrayValues = getURLVariableArray($columns, $row);
     }
     $key = $columns[0];
     // where
@@ -1202,7 +1226,7 @@ function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "",
                 //showAction("primary keys : $keys");
                 $keys = stringToArray($keys);
             }
-                $values = getURLVariableArraySQLForm($keys, $formName);
+                $values = getURLVariableArraySQLForm($keys, $formName, $row);
                 $condition = createSqlWhere($keys, $values, $condition);
                 showAction("create update condition : $condition");
             
@@ -1213,12 +1237,11 @@ function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "",
           $condition = "0";
         }
         
-        //a supprimer
-        $condition = "0";
+        //a supprimer pour pouvoir faire reellement l'update
+        //$condition = "0";
     }
     
-    $sql = createSqlUpdate($table, $columns, $arrayValues, $condition);
-    
+    $sql = createSqlUpdate($table, $columns, $arrayValues, $condition);    
     return $sql;
 }
 
@@ -1226,14 +1249,35 @@ function createMultiSqlUpdateByIdAndCondition($table, $columnsString, $formName 
     $cols=stringToArray($columnsString);
     $firstValues=getURLVariable($cols[0]);
     $nbVal = count($firstValues);
-
+    
     $request = array();
     for ( $cpt=0; $cpt<$nbVal; $cpt++){
         $request[$cpt]= createSqlUpdateByIdAndCondition($table, $columnsString, $formName, $cpt);
     }
     
     return $request;
+}
+
+/**
+ * createMultiSqlReplace
+ * 
+ * @param string $table
+ * @param stringœ $columnsString
+ * @param string $formName
+ * @return string[] request replace
+ */
+function createMultiSqlReplace($table, $columnsString, $formName = ""){
+    $cols=stringToArray($columnsString);
+    $firstValues=getURLVariable($cols[0]);
+    $nbVal = count($firstValues);
     
+    $request = array();
+    for ( $cpt=0; $cpt<$nbVal; $cpt++){
+        $arrayValue = getURLVariableArraySQLForm($cols, $formName, $cpt);
+        $request[$cpt]= createSqlReplace($table, $cols, $arrayValue);
+    }
+    
+    return $request;
 }
 
 // function createSqlInsertUpdate($table, $columnsStringSet, $columnsStringWhere, $idx) {
@@ -1284,7 +1328,7 @@ function createSqlUpdate($table, $arrayCol, $arrayValue, $condition, $quoteValue
         }
         $sql = $sql . "`$c` = ";
         if ($quoteValue == "true")
-            $v = "\"$v\"";
+            if ($v!="NULL"){$v = "\"$v\"";}
         $sql = $sql . $v;
         $i ++;
     }
@@ -1327,7 +1371,7 @@ function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true")
             $sql = $sql . " , ";
         }
         if ($quoteValue == "true")
-            $v = "\"$v\"";
+            if ($v!="NULL"){$v = "\"$v\"";}
         $sql = $sql . $v;
         $i ++;
     }
@@ -1365,7 +1409,7 @@ function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true")
             $v = $arrayValue[$i];
         }
         if ($quoteValue == "true") {
-            $v = "\"$v\"";
+            if ($v!="NULL"){$v = "\"$v\"";}
         }
         $sql = $sql . $v;
         $i ++;

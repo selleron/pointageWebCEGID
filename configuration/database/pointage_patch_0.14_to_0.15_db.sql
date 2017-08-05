@@ -48,6 +48,8 @@ CREATE TABLE `cegid_pointage_voulu` (
   `UO` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+ALTER TABLE `cegid_pointage_voulu` CHANGE `UO` `UO` FLOAT NULL;
+
 --
 -- Index pour les tables exportées
 --

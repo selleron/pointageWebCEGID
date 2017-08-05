@@ -556,6 +556,7 @@ function mysqlQuery($request) {
     global $CONNECTION_ID;
     $resultat = mysqli_query ($CONNECTION_ID, $request );
 	showSQLError ( "", $request . "<br><br>" );
+	//var_dump($resultat);
 	return $resultat;
 }
 

@@ -574,13 +574,23 @@ function updateTableByGet2($table, $cols, $form_name, $reedit = "yes") {
 }
 
 function multiUpdateTableByGet2($table, $cols, $form_name) {
-    showSQLAction ( "multiUpdateTableByGet2()" );
+    showAction ( "multiUpdateTableByGet2()" );
     // on execute le update
     $sql = createMultiSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
     mysqlQueries ( $sql );
     
     return 1;
 }
+
+function multiReplaceTableByGet2($table, $cols, $form_name) {
+    showAction ( "multiReplaceTableByGet2()" );
+    // on execute le replace
+    $sql = createMultiSqlReplace ( $table, $cols, $form_name );
+    mysqlQueries ( $sql );
+    
+    return 1;
+}
+
 
 
 // function insertOrUpdateTableByGet($table, $colsSet, $form_name, $cpt ) {
