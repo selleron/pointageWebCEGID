@@ -21,7 +21,12 @@ $SQL_LABEL_UO_CEGID_POINTAGE_VOULU = "UO.voulu";
 $SQL_SHOW_COL_CEGID_POINTAGE = "$SQL_COL_PROJECT_ID_CEGID_POINTAGE, $SQL_COL_DATE_CEGID_POINTAGE, $SQL_COL_USER_CEGID_POINTAGE, $SQL_COL_UO_VOULU_CEGID_POINTAGE";
 
 
-
+/**
+ * addPrevisionnelVoulu
+ * ajoute la colonne U.O.prevu au tableau
+ * @param array sql result $tableau
+ * @return array
+ */
 function addPrevisionnelVoulu($tableau){
     showAction("function pointage_voulu_cegid_db.addPrevisionnelVoulu()");
     
@@ -42,7 +47,7 @@ function addPrevisionnelVoulu($tableau){
     $result = setSQLFlagType ( $result, $colUOVoulu, SQL_TYPE::SQL_REQUEST );
     //$result = setSQLFlagType ( $result, $colUOVoulu, SQL_TYPE::SQL_STRING );
     $result = setSQLFlagTypeSize ( $result, $colUOVoulu, 3 );
-    $result = setSQLFlagStatus ( $result, $colUOVoulu, "disabled" );
+    $result = setSQLFlagStatus ( $result, $colUOVoulu, "enable" );
     
     
     $nbRes = mysqlNumrows ( $tableau );

@@ -10,10 +10,18 @@ class ORDER_ENUM{
 }
 
 // param table
-$TABLE_SIZE = "table_size";
-$TABLE_ID = "table_id";
-$TABLE_OTHER = "table_other";
-$TABLE_FORM_INFO = "TABLE_FORM_INFO";
+class PARAM_TABLE_TABLE {
+    const TABLE_SIZE = "table_size";
+    const TABLE_ID = "table_id";
+    const TABLE_PRIMARY = "table_primary";
+    const TABLE_OTHER = "table_other";
+    const TABLE_FORM_INFO = "TABLE_FORM_INFO";
+}
+
+$TABLE_SIZE = PARAM_TABLE_TABLE::TABLE_SIZE;
+$TABLE_ID = PARAM_TABLE_TABLE::TABLE_ID;
+$TABLE_OTHER = PARAM_TABLE_TABLE::TABLE_OTHER;
+$TABLE_FORM_INFO = PARAM_TABLE_TABLE::TABLE_FORM_INFO;
 
 // gestion table pour sql
 $CONDITION_GET = "condition";

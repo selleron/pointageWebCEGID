@@ -508,33 +508,71 @@ function editTable2($table, $cols, $form_name, $subParam = null) {
  */
 function updateTableByGet($table, $cols, $form_name, $reedit = "yes") {
 	if (getActionGet () == "update") {
+		return updateTableByGet2($table, $cols, $form_name, $reedit);
+// 		// on execute le update
+// 		$sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
+// 		showSQLAction ( "update action : $sql" );
+// 		mysqlQuery ( $sql );
+// 		// $txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
+// 		// showAction ( $txt );
 		
-		// on execute le update
-		$sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
-		showSQLAction ( "update action : $sql" );
-		mysqlQuery ( $sql );
-		// $txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
-		// showAction ( $txt );
-		
-		// on reaffiche les information de l'update
-		if ($reedit == "yes") {
-			global $ID_TABLE_GET;
-			$idTable = getURLVariable ( $ID_TABLE_GET );
-			if ($idTable) {
-				editTable ( $table, $cols, $idTable, $form_name );
-			} else {
-				$columns = stringToArray ( $cols );
-				$arrayValues = getURLVariableArray ( $columns );
-				$condition2 = createSqlWhereArray ( $columns, $arrayValues );
-				$subParam = updateParamSqlCondition ( $subParam, $condition2 );
-				editTable ( $table, $cols, $idTable, $form_name, $subParam );
-			}
-		}
-		return 1;
-	} else {
-		return 0;
-	}
+// 		// on reaffiche les information de l'update
+// 		if ($reedit == "yes") {
+// 			global $ID_TABLE_GET;
+// 			$idTable = getURLVariable ( $ID_TABLE_GET );
+// 			if ($idTable) {
+// 				editTable ( $table, $cols, $idTable, $form_name );
+// 			} else {
+// 				$columns = stringToArray ( $cols );
+// 				$arrayValues = getURLVariableArray ( $columns );
+// 				$condition2 = createSqlWhereArray ( $columns, $arrayValues );
+// 				$subParam = updateParamSqlCondition ( $subParam, $condition2 );
+// 				editTable ( $table, $cols, $idTable, $form_name, $subParam );
+// 			}
+// 		}
+// 		return 1;
+ 	} else {
+ 		return 0;
+ 	}
 }
+
+/**
+ * 
+ * updateTableByGet2
+ * realise l'update (ne test pas $action)
+ * use url to found information
+ *
+ * @param string $table        	
+ * @param string $cols        	
+ * @param string $form_name        	
+ * @param string $reedit   	yes|no
+ * @return 1
+ */
+function updateTableByGet2($table, $cols, $form_name, $reedit = "yes") {
+        // on execute le update
+        $sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
+        showSQLAction ( "update action : $sql" );
+        mysqlQuery ( $sql );
+        // $txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
+        // showAction ( $txt );
+        
+        // on reaffiche les information de l'update
+        if ($reedit == "yes") {
+            global $ID_TABLE_GET;
+            $idTable = getURLVariable ( $ID_TABLE_GET );
+            if ($idTable) {
+                editTable ( $table, $cols, $idTable, $form_name );
+            } else {
+                $columns = stringToArray ( $cols );
+                $arrayValues = getURLVariableArray ( $columns );
+                $condition2 = createSqlWhereArray ( $columns, $arrayValues );
+                $subParam = updateParamSqlCondition ( $subParam, $condition2 );
+                editTable ( $table, $cols, $idTable, $form_name, $subParam );
+            }
+        }
+        return 1;
+}
+
 
 // function insertOrUpdateTableByGet($table, $colsSet, $form_name, $cpt ) {
 // if (getActionGet () == "insertorupdate") {
