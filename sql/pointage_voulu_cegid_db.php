@@ -50,10 +50,12 @@ function addPrevisionnelVoulu($tableau){
     //showSQLAction("showTableCoutProject() tablePointage '$tablePointage'");
     
     for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+        $resultUser = mysqlResult ( $tableau, $cpt, "$SQL_COL_USER_CEGID_POINTAGE");
+        
         $txt = "select $SQL_COL_UO_CEGID_POINTAGE_VOULU from $SQL_TABLE_CEGID_POINTAGE_VOULU ".
             " where $SQL_COL_PROFIL_CEGID_POINTAGE   ='". mysqlResult ( $tableau, $cpt, "$SQL_COL_PROFIL_CEGID_POINTAGE" )."'".
             " AND year($SQL_COL_DATE_CEGID_POINTAGE) = '".$year."'".
-            " AND $SQL_COL_USER_CEGID_POINTAGE = '". mysqlResult ( $tableau, $cpt, "$SQL_COL_USER_CEGID_POINTAGE")."'".
+            " AND $SQL_COL_USER_CEGID_POINTAGE = '". $resultUser."'".
             " AND $SQL_COL_PROJECT_ID_CEGID_POINTAGE ='". mysqlResult($tableau, $cpt, "$SQL_COL_PROJECT_ID_CEGID_POINTAGE") ."'" ;
         $result[$colUOVoulu] [$cpt] = $txt;
         //$result[$colUOVoulu] [$cpt] = "ok";

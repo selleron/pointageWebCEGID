@@ -174,7 +174,7 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
     $subparam [$TABLE_INSERT] = "no";
     $subparam [$TABLE_EXPORT_CSV] = "no";
     
-    showTablePointageOneProjetCegid ( $tableau, $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER, $subparam );
+    showTablePointageOneProjetCegid ( $tableau, $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER, $subparam, "no" );
     }
     
 

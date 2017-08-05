@@ -831,7 +831,7 @@ function showSQLError($txt, $txtError = "") {
  * showSQLError2
  *
  * @param string $txt
- *        	message toujours affich�
+ *        	message toujours affiche
  * @param string $sqlError
  *        	message d'erreur
  */
@@ -848,13 +848,21 @@ function showSQLError2($txt, $sqlError, $txtError = "") {
 }
 
 function showError($txt){
-	echo getActionMessage ( "<font color=\"red\">  $txt </font>" );
+    echo getErrorMessage ( $txt );
 }
 
+function getErrorMessage($txt){
+    return getColorMessage ($txt, "red" );
+}
+
+function getColorMessage($txt, $color){
+    return getActionMessage ( "<font color=\"$color\">  $txt </font>" );
+}
+    
 /**
  *
  * showActionVariable
- * affiche le texte si debugVariable est positionn�
+ * affiche le texte si debugVariable est positionne
  *
  * @param
  *        	$txt

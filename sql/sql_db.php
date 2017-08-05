@@ -78,13 +78,14 @@ function mysqlResult($Resultat, $cpt, $c, $defaultValue = "") {
 				    $txt = $defaultValue;
 				}
 				else{
-					$txt = "$txt".mysqlResult($res, 0, 0,"not found on request $txt");
+					$txt = "$txt".mysqlResult($res, 0, 0, getErrorMessage("not found on request $txt")); 
+					//showError($txt);
 				}
 			}
 			
 		} else {
 			$keys = arrayKeys ( $Resultat );
-			$txt = "result key not found : resultat[$c][$cpt] <br> ".arrayToString ( $keys );
+			$txt = getErrorMessage("result key not found : resultat[$c][$cpt] <br> ".arrayToString ( $keys ));
 		}
 		return $txt;
 	} else {
@@ -126,8 +127,8 @@ function mysqli_result2($result,$row,$field=0) {
 
 /**
  * mysqlResultExist
- * @param unknown $Resultat
- * @param unknown $c
+ * @param sql result $Resultat
+ * @param column $c
  * @return boolean|unknown
  */
 function mysqlResultExist($Resultat, $c) {
