@@ -153,7 +153,7 @@ function showFormSubmit($txt, $action = "") {
 
 /**
  * showFormAction
- * Affiche dans un formulaire une entre correspondant � l'action � effectuer
+ * Affiche dans un formulaire une entre correspondant a l'action a effectuer
  *
  * @param string $action
  *        	nom de l'action
@@ -401,9 +401,11 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 		showFormINTElementForVariable ( $form, $name, $showLabel, $useTD, $value, $size, $statusEdit );
 		// }
 	} else if ($type == SQL_TYPE::SQL_DATE) {
-		showFormDateElementForVariable ( $form, $name, $showLabel, $useTD, $value, $size, $statusEdit, $otherStyle );
+	    showFormDateElementForVariable ( $form, $name, $showLabel, $useTD, $value, $size, $statusEdit, $otherStyle );
+	} else if ($type == SQL_TYPE::SQL_REQUEST) {
+	    showFormTextElementForVariable ( $form, $name, $showLabel, $useTD, $value, $type, $size, $statusEdit, $otherStyle );
 	} else {
-		echoTD ( "??".$name . " [" . $type . "] " . $flags, $useTD );
+	    echoTD ( "??".$name . " [" . $type . "] " . $flags, $useTD );
 	}
 	
 	// edn trace

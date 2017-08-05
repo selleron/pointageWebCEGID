@@ -75,7 +75,7 @@ function mysqlResult($Resultat, $cpt, $c, $defaultValue = "") {
 					$txt="";
 				}
 				if( mysqlNumrows($res) < 1){
-					$txt = "$txt-";
+				    $txt = $defaultValue;
 				}
 				else{
 					$txt = "$txt".mysqlResult($res, 0, 0,"not found on request $txt");

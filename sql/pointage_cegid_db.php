@@ -5,6 +5,7 @@ include_once 'table_db.php';
 include_once 'project_db.php';
 include_once 'time.php';
 include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
+include_once 'pointage_voulu_cegid_db.php';
 
 $SQL_TABLE_CEGID_POINTAGE = "cegid_pointage";
 $FORM_TABLE_CEGID_POINTAGE = "form_table_cegid_pointage";
@@ -653,7 +654,7 @@ function getURLYear($defaultValue = null) {
  * - modification par mois
  * - sommation automatique
  */
-function showTablePointageOneProjetCegid($tableau="", $showColPointage="", $subparam="") {
+function showTablePointageOneProjetCegid($tableau="", $showColPointage="", $subparam="", $showVoulu="yes") {
     
 	showAction ( "function showTablePointageOneProjetCegid()" );
 	// condition project
@@ -701,6 +702,17 @@ function showTablePointageOneProjetCegid($tableau="", $showColPointage="", $subp
 	// prepare tableau
 	$colsFromSummation = $LIST_COLS_MONTHS . "," . $colTotalName;
 	$columnsComplet = $showColPointage . "," . $colsFromSummation;
+	
+	if ($showVoulu=="yes"){
+	    global $SQL_LABEL_UO_CEGID_POINTAGE_VOULU;
+	    $columnsComplet = "$columnsComplet, $SQL_LABEL_UO_CEGID_POINTAGE_VOULU";
+	    $colsFromSummation = $colsFromSummation . "," . $SQL_LABEL_UO_CEGID_POINTAGE_VOULU;
+	    
+	    $tableau = addPrevisionnelVoulu($tableau);
+	    //printMatrice($tableauPointage2);
+	    
+	}
+	
 	$param2 = prepareParamShowArrayPointageProjetCegid ( $tableau, $projectName, $year, $columnsComplet, $userName );
 	// $param2 [$TABLE_OTHER] = "onchange=\"sommeColonneRowHTMLTable(this,'$LIST_COLS_MONTHS', '$colTotalName', '$LIST_COLS_MONTHS')\"";
 	$param2 [$TABLE_OTHER] = "onchange=\"sommeColonneRowHTMLTable(this,'$colsFromSummation', '$colTotalName', '$LIST_COLS_MONTHS')\"";
@@ -753,6 +765,8 @@ function showTablePointageProjetCegid() {
 	// show tableau
 	showArrayPointageProjetCegid ( $tableau, $projectName, $year, ""/*col lis*/, $userName );
 }
+
+
 
 /**
  * getTableauPointageProjetCegid

@@ -3,6 +3,7 @@ include_once 'pointage_cegid_db.php';
 include_once (dirname ( __FILE__ ) .'/../configuration/labelAction.php');
 include_once 'historisation_db.php';
 
+
 $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL = "cegid_pointage_previsionnel";
 $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2 = "cegid_pointage_previsionnel as p,  cegid_user as u, cegid_project as pj";
 
@@ -262,60 +263,6 @@ function showTablePrevisionnelPointageCegid() {
 	// create tableau de pointage et previsionnel
 	$tableauPointage = getTableauPointageProjetCegid ( $projectName, "yes" );
 	$tableauPrev = getTableauPrevisionnelCegid ( $projectName, "yes" );
-	
-// 	// fusion des deux tableaux
-// 	$tableau = $tableauPrev;
-	
-// 	$nbResPointage = mysqlNumrows ( $tableauPointage );
-// 	$nbResPrevision = mysqlNumrows ( $tableauPrev );
-	
-// 	global $LIST_COLS_MONTHS;
-// 	$arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
-	
-// 	global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
-// 	$columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
-	
-// 	// copie pointage
-// 	$tableau = $tableauPointage;
-// 	for($cpt = 0; $cpt < $nbResPointage; $cpt ++) {
-// 		// //copie premieres colonnes
-// 		// foreach ( $columns as $c ) {
-// 		// $tableau[$c][$cpt] = $tableauPointage[$c][$cpt];
-// 		// }
-// 		// U.O par date
-// 		foreach ( $arrayMonth as $m ) {
-// 			// $value = $tableauPointage[$m][$cpt];
-// 			$value = $tableau [$m] [$cpt];
-// 			if ($value == "") {
-// 				$index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
-// 				$value = $tableauPrev [$m] [$index];
-// 				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style='color: #0000FF;' " );
-// 				$tableau [$m] [$cpt] = $value;
-// 			} else {
-// 				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"background: #E0E0E0; font-weight:bold\" " );
-// 			}
-// 		}
-// 	}
-	
-// 	$cpt2 = $nbResPointage;
-// 	showAction ( "nb row previsionnel : $nbResPrevision" );
-// 	// add previsionnel
-// 	for($cpt = 0; $cpt < $nbResPrevision; $cpt ++) {
-// 		$index = findIndexPointage ( $tableauPointage, $tableauPrev, $columns, $cpt );
-// 		if ($index < 0) {
-// 			// copie premieres colonnes
-// 			foreach ( $columns as $c ) {
-// 				$tableau [$c] [$cpt2] = $tableauPrev [$c] [$cpt];
-// 			}
-// 			// U.O par date
-// 			foreach ( $arrayMonth as $m ) {
-// 				$value = $tableauPrev [$m] [$cpt];
-// 				$tableau = setSQLFlagStyle ( $tableau, $m, $cpt2, " style='color: #0000FF;' " );
-// 				$tableau [$m] [$cpt2] = $value;
-// 			}
-// 			$cpt2 ++;
-// 		}
-// 	}
 	
 	$tableau = fusionTableauPointage($tableauPointage, $tableauPrev);
 	showTablePointageOneProjetCegid ( $tableau );
