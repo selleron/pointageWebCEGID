@@ -559,6 +559,18 @@ function mysqlQuery($request) {
 	return $resultat;
 }
 
+function mysqlQueries($requests){
+    if (is_array($requests)){
+        foreach ($requests as $req){
+            showSQLAction($req);
+            mysqlQuery($req);
+        }
+    }
+    else{
+        return mysqlQuery($requests);
+    }
+}
+
 
 function mySqlError(){
     global $CONNECTION_ID;

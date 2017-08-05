@@ -551,7 +551,7 @@ function updateTableByGet($table, $cols, $form_name, $reedit = "yes") {
 function updateTableByGet2($table, $cols, $form_name, $reedit = "yes") {
         // on execute le update
         $sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
-        showSQLAction ( "update action : $sql" );
+        //showSQLAction ( "update action : $sql" );
         mysqlQuery ( $sql );
         // $txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
         // showAction ( $txt );
@@ -571,6 +571,15 @@ function updateTableByGet2($table, $cols, $form_name, $reedit = "yes") {
             }
         }
         return 1;
+}
+
+function multiUpdateTableByGet2($table, $cols, $form_name) {
+    showSQLAction ( "multiUpdateTableByGet2()" );
+    // on execute le update
+    $sql = createMultiSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
+    mysqlQueries ( $sql );
+    
+    return 1;
 }
 
 

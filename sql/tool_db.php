@@ -203,7 +203,7 @@ function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbo
         $result = $result[0];
     }
     if ($result == "") {
-        // echo "search variable : [$variable] <br>";
+        //echo "search variable : [$variable] <br>";
         // search variable
         if (isset($tableau[$form][$variable]["VARIABLE"])) {
             $foreignVariable = $tableau[$form][$variable]["VARIABLE"];
@@ -1162,7 +1162,7 @@ function createSqlUpdateByID($table, $columnsString)
  * @param string $columnsString
  * @return string SQL
  */
-function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "")
+function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "", $row)
 {
     global $ID_TABLE_GET;
     global $CONDITION_GET;
@@ -1183,29 +1183,57 @@ function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "")
     if ($idTable) {
         $condition = createSqlWhereID($key, $idTable, $condition);
     }
-    else{
-//         $tablePrimary = getURLVariable(PARAM_TABLE_TABLE::TABLE_PRIMARY);
-//         if (isset($tablePrimary)){
-//             if (is_array($tablePrimary)){
-//                 //nothing to do
-//             }
-//             else{
-//                 $tablePrimary = stringToArray($tablePrimary);
-//             }
-            
-//         }
-    }
+    
     
     if ($condition) {
         // nothing to do
     } else {
-        // attention on a pas de condition pour l'update, pas normal
+        // attention on a pas de condition pour l'update
+        //on va chercher le primary
+        global $PRIMARY_TABLE;
+        $tableauPrimary = $PRIMARY_TABLE;
+        if ( isset($tableauPrimary["$table"]) ){
+            //recuperation des cles
+            $keys = $tableauPrimary["$table"];
+            if( is_array($keys)){
+                //nothing to do
+            }
+            else{
+                //showAction("primary keys : $keys");
+                $keys = stringToArray($keys);
+            }
+                $values = getURLVariableArraySQLForm($keys, $formName);
+                $condition = createSqlWhere($keys, $values, $condition);
+                showAction("create update condition : $condition");
+            
+        }
+        else{
+          showError("information not found :\$PRIMARY_TABLE [ \"$table\" ]");  
+          //pas normal, on empeche l'update avec un WHERE 0
+          $condition = "0";
+        }
+        
+        //a supprimer
         $condition = "0";
     }
     
     $sql = createSqlUpdate($table, $columns, $arrayValues, $condition);
     
     return $sql;
+}
+
+function createMultiSqlUpdateByIdAndCondition($table, $columnsString, $formName = ""){
+    $cols=stringToArray($columnsString);
+    $firstValues=getURLVariable($cols[0]);
+    $nbVal = count($firstValues);
+
+    $request = array();
+    for ( $cpt=0; $cpt<$nbVal; $cpt++){
+        $request[$cpt]= createSqlUpdateByIdAndCondition($table, $columnsString, $formName, $cpt);
+    }
+    
+    return $request;
+    
 }
 
 // function createSqlInsertUpdate($table, $columnsStringSet, $columnsStringWhere, $idx) {

@@ -1,8 +1,13 @@
 <?php
 
+$FORM_VALUE_POSSIBLE ["<formulaire>"]["<variable>"]="ma requete sql";   //requete pour une liste de choix
+$FORM_VALUE_DEFAULT  ["<formulaire>"]["<variable>"]="ma requete sql";    //requete pour une valeur par defaut
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["SQL"]="ma requete sql avec WHERE <variable2>=\"???\"";
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["VARIABLE"]="<variable3>";
 
-$FORM_VALUE_POSSIBLE["formulaire"]["variable"]="ma requete sql";   //requete pour une liste de choix
-$FORM_VALUE_DEFAULT["formulaire"]["variable"]="ma requete sql";    //requete pour une valeur par defaut
+
+//primary
+$PRIMARY_TABLE [ "cegid_pointage_voulu" ] = "PROJECT_ID,DATE,USER_ID,PROFIL";
 
 
 //table cegid_user
@@ -78,5 +83,8 @@ $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["DATE"]["SQL"]="select \"
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["DATE"]["VARIABLE"]="year";
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO"]["SQL"]="select \"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO"]["VARIABLE"]="UO_voulu";
+
+
+
 
 ?>
