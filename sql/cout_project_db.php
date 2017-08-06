@@ -116,6 +116,9 @@ function applyGestionCoutOneProjectForm($subParam=""){
  * prend en compte la selection du projet et de la date
  */
 function showTableCoutOneProject($tablePointage="", $showOnlyOneProject = "yes") {
+    $idBalise="tablePointage_$tablePointage";
+    createHeaderBaliseDiv($idBalise,"<h3>Table des coûts</h3>");
+    
 	//global $SQL_TABLE_PROJECT_COUT2;
 	global $FORM_TABLE_CEGID_PROJECT_COUT;
 	global $TABLE_FORM_NAME_INSERT;
@@ -182,6 +185,7 @@ function showTableCoutOneProject($tablePointage="", $showOnlyOneProject = "yes")
 	//end trace
 	
 	showTableCoutProject($param, $tablePointage);
+	endHeaderBaliseDiv($idBalise);
 }
 
 

@@ -2676,14 +2676,14 @@ function getSQLIndexFromName($resultat, $colName)
 
 /**
  * createHeaderBaliseDiv
- * permet de creer une balise avec changement de visibilit�
+ * permet de creer une balise avec changement de visibilite
  * il faut charger le script menu.js pour avoir le changement
  * ne pas oublier de fermer la balise!!! see endHeaderBaliseDiv
  *
  * @param string $idBalise
- *            id de la balise div � creer
+ *            id de la balise div à creer
  * @param string $txt
- *            texte avant la balise qui permet de changer la visibilit� de la balise
+ *            texte avant la balise qui permet de changer la visibilite de la balise
  */
 function createHeaderBaliseDiv($idBalise, $txt = "")
 {

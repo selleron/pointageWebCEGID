@@ -43,48 +43,53 @@ function applyGestionOneProject() {
 /**
  * showGestionOneProject
  */
-function showGestionOneProject(){
-	global $SQL_SHOW_COL_PROJECT;
-	global $FORM_TABLE_CEGID_PROJECT;
-	global $TABLE_FORM_NAME_INSERT;
-	$form_name = $FORM_TABLE_CEGID_PROJECT/*."_one_update"*/;
-	$project_found = "yes";
-	
-	//selection table de stockage si pas definie
-	global $SQL_TABLE_PROJECT;
-	$tableProject=$SQL_TABLE_PROJECT;
-	
-	//recuperation project name
-	global $PROJECT_SELECTION;
-	global $ITEM_COMBOBOX_SELECTION;
-	global $SQL_COL_NAME_PROJECT;
-	$projectName = getURLVariable ( $PROJECT_SELECTION );
-	if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
-		showSQLAction ( "No project Selected..." );
-		$projectName = "no project";
-		$project_found = "no";
-	}
-	
-	// info formulaire year et project name
-	global $YEAR_SELECTION;
-	$year = getURLYear();
-	$infoForm = streamFormHidden ( $YEAR_SELECTION, $year );
-	$infoForm = $infoForm . streamFormHidden ( $PROJECT_SELECTION, $projectName );
-	$infoForm = $infoForm . streamFormHidden ( $TABLE_FORM_NAME_INSERT, $form_name );
-		
-		
-	//$projectId = getURLVariableSQLForm($variables, $form)
-	$condition = createSqlWhere($SQL_COL_NAME_PROJECT, $projectName);
-	$subParam="";
-	$subParam  = updateParamSqlCondition($subParam, $condition);
-	$subParam  = setInfoForm($subParam, $infoForm);
-	if ($project_found == "no"){
-		//echo "project not found....<br>";
-		$subParam = setSQLFlagStatus($subParam, stringToArray($SQL_SHOW_COL_PROJECT), "disabled");
-	}
-	
-	editTable ( $tableProject, $SQL_SHOW_COL_PROJECT, "", $form_name,  $subParam );
-	//applyGestionOneProjectTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name);
+function showGestionOneProject()
+{
+    $idBalise = "gestionon_project";
+    createHeaderBaliseDiv($idBalise, "<h3>Infomation projet </h3>");
+    {
+        global $SQL_SHOW_COL_PROJECT;
+        global $FORM_TABLE_CEGID_PROJECT;
+        global $TABLE_FORM_NAME_INSERT;
+        $form_name = $FORM_TABLE_CEGID_PROJECT/*."_one_update"*/;
+        $project_found = "yes";
+        
+        // selection table de stockage si pas definie
+        global $SQL_TABLE_PROJECT;
+        $tableProject = $SQL_TABLE_PROJECT;
+        
+        // recuperation project name
+        global $PROJECT_SELECTION;
+        global $ITEM_COMBOBOX_SELECTION;
+        global $SQL_COL_NAME_PROJECT;
+        $projectName = getURLVariable($PROJECT_SELECTION);
+        if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
+            showSQLAction("No project Selected...");
+            $projectName = "no project";
+            $project_found = "no";
+        }
+        
+        // info formulaire year et project name
+        global $YEAR_SELECTION;
+        $year = getURLYear();
+        $infoForm = streamFormHidden($YEAR_SELECTION, $year);
+        $infoForm = $infoForm . streamFormHidden($PROJECT_SELECTION, $projectName);
+        $infoForm = $infoForm . streamFormHidden($TABLE_FORM_NAME_INSERT, $form_name);
+        
+        // $projectId = getURLVariableSQLForm($variables, $form)
+        $condition = createSqlWhere($SQL_COL_NAME_PROJECT, $projectName);
+        $subParam = "";
+        $subParam = updateParamSqlCondition($subParam, $condition);
+        $subParam = setInfoForm($subParam, $infoForm);
+        if ($project_found == "no") {
+            // echo "project not found....<br>";
+            $subParam = setSQLFlagStatus($subParam, stringToArray($SQL_SHOW_COL_PROJECT), "disabled");
+        }
+        
+        editTable($tableProject, $SQL_SHOW_COL_PROJECT, "", $form_name, $subParam);
+        // applyGestionOneProjectTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name);
+    }
+    endHeaderBaliseDiv($idBalise);
 }
 
 /**

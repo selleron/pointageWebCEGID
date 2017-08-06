@@ -332,6 +332,16 @@ p, dl, .article li {
 	margin-left:15px;
 }
 .section h3 {
+	background-color:#BBBBFF;
+	color: black;
+	margin:2px;
+	text-align:left;
+	font-size:12pt;
+	border-bottom:1px solid #C9D1DD;
+	padding: 2px;
+	font-variant: small-caps;
+	
+	/* original
 	font-variant: small-caps;
 	font-size: 12pt;
 	font-style: italic;
@@ -342,6 +352,7 @@ p, dl, .article li {
 	background-image: url(../images/heading3.png);
 	background-repeat: no-repeat;
 	background-position: left bottom;
+	*/
 }
 /** Inspired by japan css */
 .section h4:before {
