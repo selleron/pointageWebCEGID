@@ -560,10 +560,16 @@ function mysqlQuery($request) {
 	return $resultat;
 }
 
+/**
+ * mysqlQueries
+ * 
+ * @param array $requests
+ * @return request result or null
+ */
 function mysqlQueries($requests){
     if (is_array($requests)){
         foreach ($requests as $req){
-            showSQLAction($req);
+            //showSQLAction($req);
             mysqlQuery($req);
         }
     }
