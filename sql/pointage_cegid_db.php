@@ -156,11 +156,12 @@ function showInsertTablePointageCegid()
 /**
  * applyGestionPointageProjetCegid
  */
-function applyGestionPointageProjetCegid()
+function applyGestionPointageProjetCegid($table="")
 {
-    global $SQL_TABLE_CEGID_POINTAGE;
-    
-    $table = $SQL_TABLE_CEGID_POINTAGE;
+    if ($table==""){
+        global $SQL_TABLE_CEGID_POINTAGE;
+        $table = $SQL_TABLE_CEGID_POINTAGE;
+    }
     return applyGestionTablePointageProjetCegid($table);
 }
 
@@ -176,7 +177,7 @@ function applyGestionTablePointageProjetCegid($table)
     global $FORM_TABLE_CEGID_POINTAGE;
     $form_name = $FORM_TABLE_CEGID_POINTAGE . "_replace";
     
-    $exec = applyExportCSVSelectPointage();
+    $exec = applyExportCSVSelectPointage($table);
     if ($exec > 0) {
         return;
     }
@@ -395,15 +396,15 @@ function applyNextPreviousSelectPointage()
  *
  * @return number
  */
-function applyExportCSVSelectPointage()
+function applyExportCSVSelectPointage($table="")
 {
     // if (getURLVariable ( "exportCSVSelect" ) == "") {
     // // showSQLAction("No export action demanded");
     // return - 1;
     // }
     if (getActionGet() == LabelAction::ActionExport) {
-        // showSQLAction("Export action demanded");
-        return exportCSVArrayGestionPointageProjetCegid();
+        showSQLAction("Export action demanded on [$table]");
+        return exportCSVArrayGestionPointageProjetCegid($table);
     } else {
         return - 1;
     }
@@ -414,11 +415,10 @@ function applyExportCSVSelectPointage()
  *
  * @return number
  */
-function exportCSVArrayGestionPointageProjetCegid()
+function exportCSVArrayGestionPointageProjetCegid($table="")
 {
     global $SQL_DEL_COL_CEGID_POINTAGE;
     global $SQL_SHOW_COL_CEGID_POINTAGE;
-    global $SQL_TABLE_CEGID_POINTAGE;
     global $FORM_TABLE_CEGID_POINTAGE;
     $form_name = $FORM_TABLE_CEGID_POINTAGE . "_replace";
     global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
@@ -426,8 +426,13 @@ function exportCSVArrayGestionPointageProjetCegid()
     $columnsAction = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . $LIST_COLS_MONTHS;
     $columnsExport = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . getExportMonths();
     
-    $matrice = getTableauPointageProjetCegid();
-    $exec = exportCSVArray($SQL_TABLE_CEGID_POINTAGE, $columnsAction, $columnsExport, $matrice);
+    if ($table==""){
+        global $SQL_TABLE_CEGID_POINTAGE;
+        $table = $SQL_TABLE_CEGID_POINTAGE;
+    }
+    
+    $matrice = getTableauPointageProjetCegid("","",$table);
+    $exec = exportCSVArray($table, $columnsAction, $columnsExport, $matrice);
     
     return $exec;
 }
@@ -807,13 +812,18 @@ function showTablePointageProjetCegid()
  * @param string $projectName
  * @return array pointage
  */
-function getTableauPointageProjetCegid($projectName = "", $showAll = "yes")
+function getTableauPointageProjetCegid($projectName = "", $showAll = "yes", $table_pointage="")
 {
-    global $SQL_TABLE_CEGID_POINTAGE;
-    $table_pointage = $SQL_TABLE_CEGID_POINTAGE;
-    
+
     global $SQL_TABLE_CEGID_POINTAGE2;
     $table_pointage2 = $SQL_TABLE_CEGID_POINTAGE2;
+    
+    global $SQL_TABLE_CEGID_POINTAGE;
+    if ($table_pointage==""){
+        $table_pointage = $SQL_TABLE_CEGID_POINTAGE;
+    }else{
+        str_replace($SQL_TABLE_CEGID_POINTAGE, $table_pointage, $table_pointage2);
+    }
     
     return getTableauPointageProjetCegid2($projectName, $showAll, $table_pointage, $table_pointage2);
 }
@@ -988,6 +998,10 @@ function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes", $ta
 $showColPointage, $selectColPointage, // columns
 $formName, $conditionPointage, $select = "p.UO")
 {
+    if ($showAll==""){
+        $showAll="yes";
+    }
+    
     $form_name = $formName . "_insert";
     $condition = $conditionPointage;
     

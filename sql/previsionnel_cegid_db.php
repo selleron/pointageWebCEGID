@@ -12,9 +12,13 @@ $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2 = "cegid_pointage_previsionnel as p,  ce
  * applyGestionPointagePrevisionnelCegid
  */
 function applyGestionPrevisionnelProjetCegid() {
+    
 	global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
-	
 	$table = $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
+	
+	global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2;
+	$table2 = $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2;
+	
 	return applyGestionTablePointageProjetCegid ( $table );
 }
 
