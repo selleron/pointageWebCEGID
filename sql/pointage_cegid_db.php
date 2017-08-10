@@ -398,12 +398,8 @@ function applyNextPreviousSelectPointage()
  */
 function applyExportCSVSelectPointage($table="")
 {
-    // if (getURLVariable ( "exportCSVSelect" ) == "") {
-    // // showSQLAction("No export action demanded");
-    // return - 1;
-    // }
     if (getActionGet() == LabelAction::ActionExport) {
-        showSQLAction("Export action demanded on [$table]");
+        //showSQLAction("Export action demanded on [$table]");
         return exportCSVArrayGestionPointageProjetCegid($table);
     } else {
         return - 1;
