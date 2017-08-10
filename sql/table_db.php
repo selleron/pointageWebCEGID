@@ -212,23 +212,24 @@ function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name) {
 			// show data
 			for($idxRow = 0; $idxRow < $nbRow; $idxRow ++) {
 				for($idxCol = 0; $idxCol < $nbCol; $idxCol ++) {
-				    $colValues = getURLVariable ( $colList [$idxCol] );
-				    if (isset($colValues [$idxRow])){
-				        $aRow [$idxCol] = $colValues [$idxRow];
-				    }
-				    else{
-				        $aRow [$idxCol] = "";
-				    }
-				    
-// 				    //$aValue = getURLVariableForRow( $colList [$idxCol], $idxRow );
-// 				    $aValue = getURLVariableSQLForm($colList [$idxCol], $form_name, "", "verbose", $idxRow);
-// 				    echo ("CSV [  $idxCol  ][ $idxRow ] = $aValue <br>");
-// 				    if (isset($aValue)){
-// 				        $aRow [$idxCol] = $aValue;
+// 				    $colValues = getURLVariable ( $colList [$idxCol] );
+// 				    if (isset($colValues [$idxRow])){
+// 				        $aRow [$idxCol] = $colValues [$idxRow];
 // 				    }
 // 				    else{
 // 				        $aRow [$idxCol] = "";
 // 				    }
+				    
+ 				    //$aValue = getURLVariableForRow( $colList [$idxCol], $idxRow );
+				    //$aValue = getURLVariableSQLForm($colList [$idxCol], $form_name, "", "verbose", $idxRow);
+				    $aValue = getURLVariableSQLForm($colList [$idxCol], $form_name, "", "quiet", $idxRow);
+				    //echo ("CSV [  $idxCol  ][ $idxRow ] = $aValue <br>");
+ 				    if (isset($aValue)){
+ 				        $aRow [$idxCol] = $aValue;
+ 				    }
+ 				    else{
+ 				        $aRow [$idxCol] = "";
+ 				    }
 				}
 				myfputcsv ( $handle, $aRow );
 			}

@@ -65,11 +65,13 @@ $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["user"]="select NAME from c
 
 
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["USER_ID"]["SQL"]="select ID from cegid_user  WHERE NAME=\"???\"";
-$FORM_VALUE_INSERT["form_table_cegid_pointage_replace"]["USER_ID"]["VARIABLE"]="NAME";
+$FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["USER_ID"]["VARIABLE"]="NAME";
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project  WHERE NAME=\"???\"";
-$FORM_VALUE_INSERT["form_table_cegid_pointage_replace"]["PROJECT_ID"]["VARIABLE"]="PROJECT";
-
-
+$FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["PROJECT_ID"]["VARIABLE"]="PROJECT";
+$FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["PROJECT"]["SQL"]="select NAME from cegid_project  WHERE CEGID=\"???\"";
+$FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["PROJECT"]["VARIABLE"]="PROJECT_ID";
+$FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["NAME"]["SQL"]="select NAME from cegid_user  WHERE ID=\"???\"";
+$FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["NAME"]["VARIABLE"]="USER_ID";
 //form project cout
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"] ["PROJECT"]="select NAME from cegid_project";
 
