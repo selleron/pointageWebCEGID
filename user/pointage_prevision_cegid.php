@@ -42,7 +42,7 @@
 	
 	
 	echo"<p>";
- 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,"no"/*export*/,"yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
+ 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,"yes"/*export*/,"yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
  	echo"<br/></p>";
 
  	

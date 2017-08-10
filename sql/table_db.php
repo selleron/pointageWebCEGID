@@ -128,8 +128,18 @@ function exportCSVArray($table, $colsSet, $colsSetExport, $matrice) {
 	// show data
 	for($idxRow = 0; $idxRow < $nbRow; $idxRow ++) {
 		for($idxCol = 0; $idxCol < $nbCol; $idxCol ++) {
-			$colValue = $matrice [$colList [$idxCol]];
+		    if (isset($colList [$idxCol]) && isset( $matrice [$colList [$idxCol]])){
+		        $colValue = $matrice [$colList [$idxCol]];
+		    }
+		    else{
+		        $colValue = "";
+		    }
+		    if (isset($colValue [$idxRow])){
 			$aRow [$idxCol] = $colValue [$idxRow];
+		    }
+		    else{
+		        $aRow [$idxCol] = "";
+		    }
 		}
 		myfputcsv ( $handle, $aRow );
 	}

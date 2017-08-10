@@ -318,7 +318,7 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
                 // $value = $tableauPointage[$m][$cpt];
                 $value = $tableau [$m] [$cpt];
                 $index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
-                if (isset($tableauPrev [$m])){
+                if (isset($tableauPrev [$m])&& isset($tableauPrev [$m] [$index])){
                     $value2 = $tableauPrev [$m] [$index];
                 }
                 else{
