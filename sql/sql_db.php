@@ -205,6 +205,8 @@ function mysqli_field_type($result, $field_nr){
         break;
         case SQL_TYPE_CODE::SQL_STRING : $type2 = SQL_TYPE::SQL_STRING;
         break;
+        case SQL_TYPE_CODE::SQL_TEXT : $type2 = SQL_TYPE::SQL_TEXT;
+        break;
         case SQL_TYPE_CODE::SQL_BLOB : $type2 = SQL_TYPE::SQL_BLOB;
         break;
         case SQL_TYPE_CODE::SQL_REQUEST : $type2 = SQL_TYPE::SQL_REQUEST;

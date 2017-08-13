@@ -577,7 +577,7 @@ function updateTableByGet($table, $cols, $form_name, $reedit = "yes") {
  */
 function updateTableByGet2($table, $cols, $form_name, $reedit = "yes") {
         // on execute le update
-        $sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
+        $sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name, null );
         //showSQLAction ( "update action : $sql" );
         mysqlQuery ( $sql );
         // $txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();

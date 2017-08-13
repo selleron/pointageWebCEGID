@@ -29,6 +29,7 @@ class SQL_TYPE {
     const  SQL_BLOB = "blob";
     const  SQL_DATE = "date";
     const  SQL_STRING = "string";
+    const  SQL_TEXT = "text";
     const  SQL_REAL = "real";
     const  SQL_REQUEST = "request";
 }
@@ -38,6 +39,7 @@ class SQL_TYPE_CODE {
     const  SQL_BLOB = "blob";
     const  SQL_DATE = "10";
     const  SQL_STRING = "253";
+    const  SQL_TEXT = "252";
     const  SQL_REAL = "4";
     const  SQL_DOUBLE = "5";
     const  SQL_REQUEST = "request";
@@ -386,8 +388,11 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 		showFormPrimary ( $form, $name, $showLabel, $useTD, $value );
 		// echoTD ( "[auto.]", $useTD );
 	} else if ($type == SQL_TYPE::SQL_STRING) {
-		// traitement des type classique
-		showFormTextElementForVariable ( $form, $name, $showLabel, $useTD, $value, $type, $size, $statusEdit, $otherStyle );
+	    // traitement des type classique
+	    showFormTextElementForVariable ( $form, $name, $showLabel, $useTD, $value, $type, $size, $statusEdit, $otherStyle );
+	} else if ($type == SQL_TYPE::SQL_TEXT) {
+	    // traitement des type classique
+	    showFormAreaElementForVariable ( $form, $name, $showLabel, $useTD, $value, $type, $size, $statusEdit, $otherStyle );
 	} else if ($type == SQL_TYPE::SQL_BLOB) {
 		showFormTextElementForVariable ( $form, $name, $showLabel, $useTD, $value, $type, $size, $statusEdit, $otherStyle );
 	} else if ($type == SQL_TYPE::SQL_REAL) {
@@ -405,7 +410,7 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 	} else if ($type == SQL_TYPE::SQL_REQUEST) {
 	    showFormTextElementForVariable ( $form, $name, $showLabel, $useTD, $value, $type, $size, $statusEdit, $otherStyle );
 	} else {
-	    echoTD ( "??".$name . " [" . $type . "] " . $flags, $useTD );
+	    echoTD ( "??".$name . " type : [" . $type . "] flags : " . $flags, $useTD );
 	}
 	
 	// edn trace
@@ -622,6 +627,66 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
 		echo "</td>";
 	}
 }
+
+/**
+ * showFormAreaElementForVariable
+ * use test area
+ * @param string $formName
+ * @param unknown $name
+ * @param string $showType
+ * @param string $useTD
+ * @param string $value
+ * @param string $type
+ * @param string $size
+ * @param string $enabledStatus
+ * @param string $otherCondition
+ */
+function showFormAreaElementForVariable($formName = "form", $name, $showType = "yes", $useTD = "yes", $value = "", $type = "", $size = "", $enabledStatus = "", $otherCondition = "")
+{
+    if ($formName == "") {
+        $formName = "form";
+    }
+    if ($name == "") {
+        $name = "no_name";
+    }
+    if ($showType == "") {
+        $showType = "yes";
+    }
+    if ($useTD == "") {
+        $useTD = "yes";
+    }
+    // if ( $value == "" ) $value = "";
+    // if ( $type == "" ) $type = "";
+    // if ( $size == "" ) $size = "";
+    $enabledStatus = prepareFlagStatus($enabledStatus);
+    // if ( $otherCondition == "" ) $otherCondition = "";
+    
+    $date = getURLVariable($name);
+    if ($useTD == "yes") {
+        echo "<td>";
+    }
+    if ($showType == "yes") {
+        if ($type) {
+            echo $type;
+        } else {
+            echo "text area ";
+        }
+    }
+//     if ($size == "") {
+//         $sizeTxt = "";
+//     } else {
+//         $sizeTxt = "size=\"$size\"";
+//     }
+    echo "<textarea  rows=3 cols=50 $enabledStatus id=\"$name\" type=\"text\" name=\"$name\">";
+    echo "$value ";
+    //$otherCondition />";
+    echo "</textarea>";
+    
+    if ($useTD == "yes") {
+        echo "</td>";
+    }
+}
+
 
 /**
  * prepare le formatage enable disable pour un imput

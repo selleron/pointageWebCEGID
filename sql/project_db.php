@@ -1,21 +1,23 @@
 <?PHP
 $PROJECT_DB_PHP = "loaded";
 
-$SQL_TABLE_PROJECT = "cegid_project";
-$FORM_TABLE_CEGID_PROJECT = "form_table_cegid_project";
+$SQL_TABLE_PROJECT         = "cegid_project";
+$FORM_TABLE_CEGID_PROJECT  = "form_table_cegid_project";
 
-$SQL_COL_ID_PROJECT = "CEGID";
-$SQL_COL_NAME_PROJECT = "NAME";
-$SQL_COL_DESCRIPTION_PROJECT = "description";
-$SQL_COL_DEBUT_PROJECT = "DEBUT";
-$SQL_COL_FIN_PROJECT = "FIN";
-$SQL_COL_FIN_GARANTIE = "FIN_GARANTIE";
-$SQL_COL_PRIX_VENTE_PROJECT = "PRIX_VENTE";
+$SQL_COL_ID_PROJECT           = "CEGID";
+$SQL_COL_NAME_PROJECT         = "NAME";
+$SQL_COL_DESCRIPTION_PROJECT  = "description";
+$SQL_COL_DEBUT_PROJECT        = "DEBUT";
+$SQL_COL_FIN_PROJECT          = "FIN";
+$SQL_COL_FIN_GARANTIE         = "FIN_GARANTIE";
+$SQL_COL_PRIX_VENTE_PROJECT   = "PRIX_VENTE";
+$SQL_COL_COMMENTAIRE_PROJECT  = "COMMENTAIRE";
 
 $SQL_LABEL_PROJECT_NAME = "PROJECT";
 
 
 $SQL_SHOW_COL_PROJECT = "$SQL_COL_ID_PROJECT, $SQL_COL_NAME_PROJECT, $SQL_COL_PRIX_VENTE_PROJECT, $SQL_COL_DEBUT_PROJECT, $SQL_COL_FIN_PROJECT, $SQL_COL_FIN_GARANTIE";
+$SQL_SHOW_ALL_COL_PROJECT = $SQL_SHOW_COL_PROJECT.",  $SQL_COL_COMMENTAIRE_PROJECT";
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
@@ -48,7 +50,8 @@ function showGestionOneProject()
     $idBalise = "gestionon_project";
     createHeaderBaliseDiv($idBalise, "<h3>Infomation projet </h3>");
     {
-        global $SQL_SHOW_COL_PROJECT;
+        global $SQL_SHOW_ALL_COL_PROJECT;
+        $colProject = $SQL_SHOW_ALL_COL_PROJECT;
         global $FORM_TABLE_CEGID_PROJECT;
         global $TABLE_FORM_NAME_INSERT;
         $form_name = $FORM_TABLE_CEGID_PROJECT/*."_one_update"*/;
@@ -83,10 +86,10 @@ function showGestionOneProject()
         $subParam = setInfoForm($subParam, $infoForm);
         if ($project_found == "no") {
             // echo "project not found....<br>";
-            $subParam = setSQLFlagStatus($subParam, stringToArray($SQL_SHOW_COL_PROJECT), "disabled");
+            $subParam = setSQLFlagStatus($subParam, stringToArray($colProject), "disabled");
         }
         
-        editTable($tableProject, $SQL_SHOW_COL_PROJECT, "", $form_name, $subParam);
+        editTable($tableProject, $colProject, "", $form_name, $subParam);
         // applyGestionOneProjectTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name);
     }
     endHeaderBaliseDiv($idBalise);
@@ -119,17 +122,19 @@ function applyGestionOneProjectTable($table, $cols, $form_name) {
  * @return number 0 nothing 1 action traitée
  */
 function applyGestionProject() {
-	global $SQL_SHOW_COL_PROJECT;
-	global $SQL_TABLE_PROJECT;
+    global $SQL_SHOW_COL_PROJECT;
+    global $SQL_SHOW_ALL_COL_PROJECT;
+    $colProject = $SQL_SHOW_ALL_COL_PROJECT;
+    global $SQL_TABLE_PROJECT;
 	global $FORM_TABLE_CEGID_PROJECT;
 	$form_name = $FORM_TABLE_CEGID_PROJECT."_update";
 
 	//traitement du update
-	$res = updateTableByGet ($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name, "no"/** re-edit */ );
+	$res = updateTableByGet ($SQL_TABLE_PROJECT, $colProject, $form_name, "no"/** re-edit */ );
 	
 	//cas classique : edit, export, ...
 	if ($res<=0){
-		$res =  applyGestionTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name);
+	    $res =  applyGestionTable($SQL_TABLE_PROJECT, $colProject, $form_name);
 	}
 	return $res;
 }
