@@ -864,11 +864,13 @@ function showTracePOST()
     global $TRACE_POST;
     
     if ($TRACE_POST == "yes") {
+        createHeaderBaliseDiv("POST","<h3>Post</h3>");
         echo '<table><tr><td valign="top">';
         showGet();
         echo '</td><td valign="top" >';
         showPost();
         echo "</td></tr></table>";
+        endHeaderBaliseDiv("POST");
     }
 }
 
