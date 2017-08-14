@@ -181,7 +181,7 @@ function getURLVariableArray($variables, $idx)
  * @param index $row : can be null
  * @return string array of variables values
  */
-function getURLVariableArraySQLForm($variables, $form, $row)
+function getURLVariableArraySQLForm($variables, $form, $row=NULL)
 {
     $result;
     $i = 0;

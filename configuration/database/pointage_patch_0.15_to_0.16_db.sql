@@ -25,10 +25,42 @@ SET time_zone = "+00:00";
 
 -- --------------------------------------------------------
 
+
+--
+-- Structure de la table `cegid_status_project`
+--
+
+CREATE TABLE `cegid_status_project` (
+  `ID` varchar(15) NOT NULL,
+  `NAME` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `cegid_status_project`  ADD PRIMARY KEY (`ID`);
+
+--
+-- Déchargement des données de la table `cegid_status_project`
+--
+
+INSERT INTO `cegid_status_project` (`ID`, `NAME`) VALUES
+('Prevision', 'Prevision'),
+('En cours', 'En cours'),
+('En recette', 'En recette'),
+('En garantie', 'En garantie'),
+('Clos', 'Clos'),
+('Archive', 'Archive'),
+('Annule', 'Annulé');
+
+---
+--- table project
+---
+
 ALTER TABLE `cegid_project` CHANGE `NAME` `NAME` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ALTER TABLE `cegid_project` ADD `COMMENTAIRE` TEXT NOT NULL AFTER `FIN_GARANTIE`;
+ALTER TABLE `cegid_project` ADD `STATUS` VARCHAR(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Prevision' AFTER `FIN_GARANTIE`;
+ALTER TABLE `cegid_project` ADD FOREIGN KEY (`STATUS`) REFERENCES `cegid_status_project`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
+-- --------------------------------------------------------
 
 
 UPDATE `version` SET `DATE` = '2017-08-13 00:00:00', `value` = '0.16.0' WHERE `version`.`id` = 'database';

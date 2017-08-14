@@ -408,7 +408,7 @@ function applyDeleteTableByGet($table, $cols, $form_name) {
  * @param unknown $table        	
  * @param unknown $cols        	
  */
-function deleteTableByGet($table, $cols, $form_name, $row, $trace = "no") {
+function deleteTableByGet($table, $cols, $form_name, $row=NULL, $trace = "no") {
 	global $ID_TABLE_GET;
 	$idTable = getURLVariable ( $ID_TABLE_GET );
 	if ($idTable == "") {

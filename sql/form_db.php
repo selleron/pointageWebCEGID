@@ -346,7 +346,7 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 		beginTable ();
 		beginTableRow ();
 		// echoTD("type: $type -- flag: $flags -- name: $name <br>size: $size -- value: $value -- status : $statusEdit");
-		echoTD ( $nameNoDimension . " [" . $type . "] {" . $flags."}", $useTD );
+		echoTD ("$form :: $nameNoDimension  type: [" . $type . "] flags: {" . $flags."}", $useTD );
 		if (isNotNUllFlag ( $flags )) {
 			echoTD ( "*", $useTD );
 		}

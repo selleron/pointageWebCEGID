@@ -122,6 +122,7 @@ else{
 		$urlproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_project.php$argument");
 		$urlproject2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/project_cegid.php$argument");
 		$urlprofils  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_profils.php$argument");
+		$urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
 		$urluser     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_user_cegid.php$argument");
 		$urlcout     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_cout_project_cegid.php$argument");
 		$urlpointage  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_pointage_cegid.php$argument");
@@ -129,6 +130,7 @@ else{
 		echo"
 		<ul>
 		<li><a title=\"Gestion Profils\" href=\"$urlprofils\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\" $menuIconSize> Gestion Profils</a></li>
+		<li><a title=\"Gestion Profils\" href=\"$urlstatusproject\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\" $menuIconSize> Gestion Etat Projet</a></li>
 		<li><a title=\"Gestion Profils\" href=\"$urluser\"> 	 <img src=\"$URL_IMAGES/modify_user.png\" $menuIconSize > Gestion Users</a></li>
 		<li><a title=\"Gestion Projet\" href=\"$urlproject\"> 	 <img src=\"$URL_IMAGES/menu_projets.png\" $menuIconSize > Gestion Projets</a></li>
 		<li><a title=\"Gestion Projet\" href=\"$urlcout\"> 	 	<img src=\"$URL_IMAGES/menu_cout.png\" $menuIconSize > Gestion Cout</a></li>
