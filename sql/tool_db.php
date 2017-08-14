@@ -140,13 +140,15 @@ function setURLVariable($variable, $value)
     }
 }
 
+
 /**
  * getURLVariableArray
- *
+ * 
  * @param array $variables
- * @return array of String
+ * @param int $idx index (can be null)
+ * @return array|string
  */
-function getURLVariableArray($variables, $idx)
+function getURLVariableArray($variables, $idx=NULL)
 {
     $result;
     $i = 0;

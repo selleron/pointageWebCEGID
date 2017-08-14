@@ -510,7 +510,7 @@ function editTable2($table, $cols, $form_name, $subParam = null) {
 	$idTable = getURLVariable ( $ID_TABLE_GET );
 	if ($idTable == "") {
 		$columns = stringToArray ( $cols );
-		$values = getURLVariableArray ( $columns, $row );
+		$values = getURLVariableArray ( $columns );
 		$condition = createSqlWhere ( $columns, $values );
 		$subParam = updateParamSqlCondition ( $subParam, $condition );
 		editTable ( $table, $cols, "", $form_name, $subParam );

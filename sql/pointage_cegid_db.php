@@ -326,6 +326,9 @@ function exportCSVTableGestionPointageProjetCegid($table)
  */
 function applyNextPreviousSelectPointage()
 {
+    $col = "";
+    $condition = "";
+    
     // showSQLAction("action ".getActionGet ()." test ".LabelAction::ACTION_PREVIOUS);
     if (getActionGet() == LabelAction::ACTION_POINTAGE) {
         global $SQL_COL_NAME_PROJECT;
@@ -342,7 +345,7 @@ function applyNextPreviousSelectPointage()
         global $SQL_COL_ID_PROJECT;
         global $SQL_COL_NAME_PROJECT;
         
-        $col = "";
+
         $param = createDefaultParamSql($SQL_TABLE_PROJECT, $col, $condition);
         if (getActionGet() == LabelAction::ACTION_PREVIOUS) {
             $param[ORDER_ENUM::ORDER_GET] = $SQL_COL_ID_PROJECT;
@@ -1116,9 +1119,19 @@ $formName, $conditionPointage, $select = "p.UO")
         // U.O par date
         foreach ($arrayMonth as $m) {
             // valeurs des premieres colonnes
+            if (isset($tableau[$SQL_COL_PROJECT_ID_CEGID_POINTAGE])){
             $valueProject = $tableau[$SQL_COL_PROJECT_ID_CEGID_POINTAGE][$cpt];
+            }
+            else{
+                $valueProject="";
+            }
             $valueUser = $tableau[$SQL_COL_USER_CEGID_POINTAGE][$cpt];
-            $valueDate = $tableau[$SQL_COL_PROFIL_CEGID_POINTAGE][$cpt];
+            if (isset($tableau[$SQL_COL_PROFIL_CEGID_POINTAGE])){
+                $valueDate = $tableau[$SQL_COL_PROFIL_CEGID_POINTAGE][$cpt];
+            }
+            else{
+                $valueDate="";
+            }
             
             $month = array_search($m, $arrayMonth) + 1;
             
