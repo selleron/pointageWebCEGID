@@ -36,6 +36,7 @@ CREATE TABLE `cegid_status_project` (
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 ALTER TABLE `cegid_status_project`  ADD PRIMARY KEY (`ID`);
+ALTER TABLE `cegid_status_project` ADD `ORDRE` INT NOT NULL AFTER `NAME`;
 
 --
 -- Déchargement des données de la table `cegid_status_project`
@@ -49,6 +50,42 @@ INSERT INTO `cegid_status_project` (`ID`, `NAME`) VALUES
 ('Clos', 'Clos'),
 ('Archive', 'Archive'),
 ('Annule', 'Annulé');
+
+
+
+---
+--- table devis
+---
+CREATE TABLE `cegid_status_devis` (
+  `ID` varchar(15) NOT NULL,
+  `NAME` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `cegid_status_devis`  ADD PRIMARY KEY (`ID`);
+ALTER TABLE `cegid_status_devis` ADD `ORDRE` INT NOT NULL AFTER `NAME`;
+
+INSERT INTO `cegid_status_devis` (`ID`, `NAME`) VALUES
+('A faire', 'A faire'),
+('En redaction', 'En redaction'),
+('A valider', 'A valider'),
+('En validation', 'En validation'),
+('Envoye', 'Evoye'),
+('En signature', 'En signature'),
+('Clos', 'Clos'),
+('Annule', 'Annulé');
+
+
+CREATE TABLE `cegid_devis_project` (
+  `ID` varchar(15) NOT NULL DEFAULT 'DP17XXX';,
+  `NAME` varchar(100) NOT NULL,
+  `VERSION` varchar(15) NOT NULL,
+  `STATUS` varchar(15) NOT NULL,
+  `COMMENTAIRE` TEXT NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+ALTER TABLE `cegid_devis_project`  ADD PRIMARY KEY (`ID`);
+ALTER TABLE `cegid_devis_project` ADD FOREIGN KEY (`STATUS`) REFERENCES `cegid_status_devis`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
 
 ---
 --- table project

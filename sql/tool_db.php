@@ -208,7 +208,7 @@ function getURLVariableArraySQLForm($variables, $form, $row=NULL)
  * @param index $row : can be null
  * @return string|array
  */
-function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbose", $row="")
+function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbose", $row=NULL)
 {
     //showSQLAction("getURLVariableSQLForm( variable : $variable, form : $form, row : $row)");
     

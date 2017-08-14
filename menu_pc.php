@@ -119,20 +119,32 @@ else{
 	//creation balise <id>
 	createHeaderBaliseDiv("id_div_edition","<h2>Edition</h2>");
 	if (isMemberGroup(2)){
-		$urlproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_project.php$argument");
-		$urlproject2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/project_cegid.php$argument");
-		$urlprofils  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_profils.php$argument");
-		$urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
-		$urluser     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_user_cegid.php$argument");
-		$urlcout     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_cout_project_cegid.php$argument");
-		$urlpointage  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_pointage_cegid.php$argument");
-		$urlpointagebrut  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/pointage_simple_cegid.php$argument");
-		echo"
+	    $urlproject        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_project.php$argument");
+	    $urldevis          = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_devis.php$argument");
+	    $urlprofils        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_profils.php$argument");
+	    $urlstatusdevis    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_devis.php$argument");
+	    $urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
+	    $urluser           = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_user_cegid.php$argument");
+	    echo"
 		<ul>
-		<li><a title=\"Gestion Profils\" href=\"$urlprofils\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\" $menuIconSize> Gestion Profils</a></li>
-		<li><a title=\"Gestion Profils\" href=\"$urlstatusproject\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\" $menuIconSize> Gestion Etat Projet</a></li>
-		<li><a title=\"Gestion Profils\" href=\"$urluser\"> 	 <img src=\"$URL_IMAGES/modify_user.png\" $menuIconSize > Gestion Users</a></li>
-		<li><a title=\"Gestion Projet\" href=\"$urlproject\"> 	 <img src=\"$URL_IMAGES/menu_projets.png\" $menuIconSize > Gestion Projets</a></li>
+		<li><a title=\"Gestion Profils\" href=\"$urlprofils\"> 	             <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Gestion Profils</a></li>
+		<li><a title=\"Gestion Status Devis\" href=\"$urlstatusdevis\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Gestion Etat Devis</a></li>
+		<li><a title=\"Gestion Status Project\" href=\"$urlstatusproject\">  <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Gestion Etat Projet</a></li>
+		<li><a title=\"Gestion Users\" href=\"$urluser\"> 	                 <img src=\"$URL_IMAGES/modify_user.png\"   $menuIconSize > Gestion Users</a></li>
+		<li><a title=\"Gestion Devis\" href=\"$urldevis\"> 	                 <img src=\"$URL_IMAGES/menu_projets.png\"  $menuIconSize > Gestion Devis</a></li>
+		<li><a title=\"Gestion Projet\" href=\"$urlproject\"> 	             <img src=\"$URL_IMAGES/menu_projets.png\"  $menuIconSize > Gestion Projets</a></li>
+		</ul>";
+	}
+	echo "</div>";
+	createHeaderBaliseDiv("id_div_edition_brut","<h2>Autres</h2>");
+	if (isMemberGroup(2)){
+	    $urlproject2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/project_cegid.php$argument");
+	    $urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
+	    $urlcout     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_cout_project_cegid.php$argument");
+	    $urlpointage  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_pointage_cegid.php$argument");
+	    $urlpointagebrut  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/pointage_simple_cegid.php$argument");
+	    echo"
+		<ul>
 		<li><a title=\"Gestion Projet\" href=\"$urlcout\"> 	 	<img src=\"$URL_IMAGES/menu_cout.png\" $menuIconSize > Gestion Cout</a></li>
 		<li><a title=\"Projet\" href=\"$urlproject2\"> 	 <img src=\"$URL_IMAGES/menu_projets.png\" $menuIconSize > Projet</a></li>
 		<li><a title=\"Gestion Pointage\" href=\"$urlpointage\"> <img src=\"$URL_IMAGES/menu_planning.png\" $menuIconSize > Gestion Pointage</a></li>
@@ -140,12 +152,14 @@ else{
 		<li><a title=\"Historique\" href=\"$URL_ROOT_POINTAGE/admin/administration_planning.php$argument\"> <img src=\"$URL_IMAGES/menu_historique.png\" $menuIconSize > Historique</a></li>
 		</ul>";
 	}
+	echo "</div>";
+	
 	echo"
 	<ul>
 	<li><a title=\"Logout\" href=\"$URL_ROOT_POINTAGE/admin/logout.php$argument\"> <img src=\"$URL_IMAGES/connexion_user.png\" $menuIconSize > D&eacute;connexion</a></li>
-	</ul>
-	</div>
-	";
+	</ul>";
+	
+	
 	if (isMemberGroup(3) || isMemberGroup(2)){
 		//creation balise <id>
 		createHeaderBaliseDiv("id_div_admin","<h2>Adm. Site</h2>");

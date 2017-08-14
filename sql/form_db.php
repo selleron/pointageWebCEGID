@@ -269,6 +269,12 @@ function getSqlListValueFormColumn($form, $name, $showNoFound = "no") {
  */
 function hasSqlDefaultValueFormColumn($form, $name) {
 	global $FORM_VALUE_DEFAULT;
+
+	global $SHOW_SQL_CB_SEARCH;
+	if ($SHOW_SQL_CB_SEARCH=="yes"){
+	    showSQLAction("hasSqlDefaultValueFormColumn \$FORM_VALUE_DEFAULT[\"$form\"] [\"$name\"]");
+	}
+	
 	return isset ( $FORM_VALUE_DEFAULT [$form] [$name] );
 }
 
@@ -281,6 +287,9 @@ function hasSqlDefaultValueFormColumn($form, $name) {
 function hasSqlDefaultValueFormVariable($form, $name) {
 	global $FORM_VALUE_DEFAULT;
 	global $SHOW_SQL_CB_SEARCH;
+	if ($SHOW_SQL_CB_SEARCH=="yes"){
+	    showSQLAction("hasSqlDefaultValueFormVariable \$FORM_VALUE_DEFAULT[\"$form\"] [\"$name\"] [\"VARIABLE\"]");
+	}
 	return isset ( $FORM_VALUE_DEFAULT [$form] [$name] ["VARIABLE"] );
 }
 
@@ -362,10 +371,11 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 	// creation valeur par defaut si n'existe pas
 	// via elt url
 	if ((strlen ( $value ) == 0) && hasSqlDefaultValueFormVariable ( $form, $nameNoDimension )) {
+	    //echoTD("default value found ....");
 		global $SHOW_FORM_SUBSTITUTE_SEARCH;
 		$traceValue = getURLVariable ( $SHOW_FORM_SUBSTITUTE_SEARCH );
 		$value = getURLVariableSQLForm ( $nameNoDimension, $form, $FORM_VALUE_DEFAULT, $traceValue );
-		// echo "default found : $value";
+        //echoTD("default found : { $value }");
 	}
 	
 	// creation valeur par defaut si n'existe pas
