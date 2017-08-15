@@ -111,8 +111,8 @@ ALTER TABLE `cegid_project` ADD FOREIGN KEY (`STATUS`) REFERENCES `cegid_status_
 UPDATE `version` SET `DATE` = '2017-08-13 00:00:00', `value` = '0.16.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.15_vers_0.16', '101', '2017-08-13 00:00:00', 'udate project table', '0.16.0');
 
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.10.2_vers_0.1.21.0', '200', '2017-08-13 00:00:00', 'modification gestion projet', '0.1.21.0');
-UPDATE `version` SET `DATE` = '2017-08-16 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.21.0' WHERE `version`.`id` = 'php';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.10.2_vers_0.1.22.0', '200', '2017-08-13 00:00:00', 'modification gestion projet', '0.1.22.0');
+UPDATE `version` SET `DATE` = '2017-08-16 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.22.0' WHERE `version`.`id` = 'php';
 
 COMMIT;
 
