@@ -64,15 +64,19 @@ CREATE TABLE `cegid_status_devis` (
 ALTER TABLE `cegid_status_devis`  ADD PRIMARY KEY (`ID`);
 ALTER TABLE `cegid_status_devis` ADD `ORDRE` INT NOT NULL AFTER `NAME`;
 
-INSERT INTO `cegid_status_devis` (`ID`, `NAME`) VALUES
-('A faire', 'A faire'),
-('En redaction', 'En redaction'),
-('A valider', 'A valider'),
-('En validation', 'En validation'),
-('Envoye', 'Evoye'),
-('En signature', 'En signature'),
-('Clos', 'Clos'),
-('Annule', 'Annulé');
+INSERT INTO `cegid_status_devis` (`ID`, `NAME`, `ORDRE`) VALUES
+('A faire', 'A faire',1),
+('En redaction', 'En redaction',2),
+('A valider', 'A valider',3),
+('En validation', 'En validation',4),
+('Envoye', 'Evoye',5),
+('En signature', 'En signature',6),
+('Commande', 'Commande',7),
+('A/R Signe', 'A/R Signe',8),
+('Clos', 'Clos',9),
+('Annule', 'Annulé',10);
+
+
 
 
 CREATE TABLE `cegid_devis_project` (
@@ -80,11 +84,15 @@ CREATE TABLE `cegid_devis_project` (
   `NAME` varchar(100) NOT NULL,
   `VERSION` varchar(15) NOT NULL,
   `STATUS` varchar(15) NOT NULL,
+  `COMMANDE` varchar(50) NULL,
+  `MODIFICATION` INT NULL,
   `COMMENTAIRE` TEXT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
+
 ALTER TABLE `cegid_devis_project`  ADD PRIMARY KEY (`ID`);
 ALTER TABLE `cegid_devis_project` ADD FOREIGN KEY (`STATUS`) REFERENCES `cegid_status_devis`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
 
 
 ---

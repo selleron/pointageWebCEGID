@@ -688,7 +688,7 @@ function showFormAreaElementForVariable($formName = "form", $name, $showType = "
 //         $sizeTxt = "size=\"$size\"";
 //     }
     echo "<textarea  rows=3 cols=50 $enabledStatus id=\"$name\" type=\"text\" name=\"$name\">";
-    echo "$value ";
+    echo "$value";
     //$otherCondition />";
     echo "</textarea>";
     
