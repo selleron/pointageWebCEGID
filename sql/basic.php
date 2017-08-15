@@ -187,9 +187,9 @@ function endTableCell(){
 	echo "</td>";
 }
 
-function getBeginTableHeaderCell(){
+function getBeginTableHeaderCell($style=""){
 	//return "<th>";// a mettre avec les croll
-	return "<td>";
+	return "<td $style >";
 }
 
 function getEndTableHeaderCell(){

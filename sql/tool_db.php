@@ -508,6 +508,7 @@ function addParamSqlColumn($param, $columnsTxt)
     return $param;
 }
 
+
 /**
  *
  * modifierTableParamSql
@@ -523,25 +524,25 @@ function addParamSqlColumn($param, $columnsTxt)
  */
 function modifierTableParamSql($param, $form = "form_insert_table", $insert = "yes", $edit = "yes", $delete = "yes", $exportCSV = "no")
 {
-    global $TABLE_INSERT;
-    global $TABLE_FORM_NAME_INSERT;
-    global $TABLE_EDIT;
-    global $TABLE_DELETE;
-    global $TABLE_EXPORT_CSV;
-    global $SHOW_FORM_TRACE;
+//     global $TABLE_INSERT;
+//     global $TABLE_FORM_NAME_INSERT;
+//     global $TABLE_EDIT;
+//     global $TABLE_DELETE;
+//     global $TABLE_EXPORT_CSV;
+     global $SHOW_FORM_TRACE;
     
-    $param[$TABLE_INSERT] = $insert;
-    $param[$TABLE_EDIT] = $edit;
-    $param[$TABLE_DELETE] = $delete;
-    $param[$TABLE_EXPORT_CSV] = $exportCSV;
-    $param[$TABLE_FORM_NAME_INSERT] = $form;
+    $param[PARAM_TABLE_ACTION::TABLE_INSERT] = $insert;
+    $param[PARAM_TABLE_ACTION::TABLE_EDIT] = $edit;
+    $param[PARAM_TABLE_ACTION::TABLE_DELETE] = $delete;
+    $param[PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = $exportCSV;
+    $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT] = $form;
     
     // infoForm par defaut
     $infoForm = getInfoForm($param);
     if ($SHOW_FORM_TRACE == "yes") {
-        $infoForm = $infoForm . debugStreamFormHidden($TABLE_FORM_NAME_INSERT, $form);
+        $infoForm = $infoForm . debugStreamFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $form);
     } else {
-        $infoForm = $infoForm . streamFormHidden($TABLE_FORM_NAME_INSERT, $form);
+        $infoForm = $infoForm . streamFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $form);
     }
     $param = setInfoForm($param, $infoForm);
     
@@ -1675,7 +1676,7 @@ function showTableHeader($param, $html = "")
 				" . getEndTableHeaderCell();
             }
         } else {
-            echo getBeginTableHeaderCell() . " <a href=\"$html&" . ORDER_ENUM::ORDER_GET . "=$c\">" . $c . "</a> 
+            echo getBeginTableHeaderCell() . "<a href=\"$html&" . ORDER_ENUM::ORDER_GET . "=$c\">" . $c . "</a> 
 				" . getEndTableHeaderCell();
         }
     }
