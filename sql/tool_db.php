@@ -2584,7 +2584,8 @@ function editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, 
         $type = mysqlFieldType($Resultat, $idxField);
         $flags = mysqlFieldFlags($Resultat, $idxField);
         $name = mysqlFieldName($Resultat, $idxField);
-        $size = mysqlFieldTypeSize($Resultat, $idxField);
+        $size = getFormStyle($Resultat, $param, $idxField);
+        if (!isset($size)) { $size = mysqlFieldTypeSize($Resultat, $idxField);}
         $statusEdit = mysqlFieldStatus($Resultat, $idxField, $param);
         $otherStyle = mysqlFieldStyle($Resultat, $idxField, $cpt, $param);
         // echoTD( "$idxField/$cpt -- $type $name ");
@@ -2639,7 +2640,7 @@ function insertTableOneData($html, $Resultat, /*$cpt,*/ $param, $value = "")
             $valueSelected = $value[$idxField];
         }
         
-        editSqlRowWithValue($Resultat, $c, - 1/*$cpt*/, $formName, $idxField, $valueSelected);
+        editSqlRowWithValue($Resultat, $c, - 1/*$cpt*/, $formName, $idxField, $valueSelected, $param);
     }
     
     echo "<td>";

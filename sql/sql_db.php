@@ -5,23 +5,29 @@
 $SQL_DB_PHP = "loaded";
 
 include_once (dirname ( __FILE__ ) . "/basic.php");
+include_once (dirname ( __FILE__ ) . "/param_table_db.php");
+include_once (dirname ( __FILE__ ) . "/../configuration/form_db_config.php");
+
 
 // key info
 // $param[$KEY_INFO][$KEY_INFO_TYPE, $KEY_INFO_TYPE_SIZE][Colonne]
-$KEY_INFO = "array key info";
-$KEY_INFO_FIELD = "array key info flag";
-$KEY_INFO_TYPE = "array key info type";
-$KEY_INFO_TYPE_SIZE = "array key info type size";
-$KEY_INFO_STATUS = "array key info status";
 
 class KEY_INFO{
-	const KEY_INFO = "array key info";
-	const KEY_INFO_FIELD = "array key info flag";
-	const KEY_INFO_TYPE = "array key info type";
-	const KEY_INFO_TYPE_SIZE = "array key info type size";
-	const KEY_INFO_STATUS = "array key info status";
-	const KEY_INFO_STYLE = "array key info style";
+	const KEY_INFO           = "array key info";
+	const KEY_INFO_FIELD     = "array key info flag";
+	const KEY_INFO_TYPE      = "array key info type";
+	//const KEY_INFO_TYPE_SIZE = "array key info type size";
+	const KEY_INFO_TYPE_SIZE = "SIZE";
+	const KEY_INFO_STATUS    = "array key info status";
+	const KEY_INFO_STYLE     = "array key info style";
 }
+
+$KEY_INFO           = KEY_INFO::KEY_INFO;
+$KEY_INFO_FIELD     = KEY_INFO::KEY_INFO_FIELD;
+$KEY_INFO_TYPE      = KEY_INFO::KEY_INFO_STYLE;
+$KEY_INFO_TYPE_SIZE = KEY_INFO::KEY_INFO_TYPE_SIZE;
+$KEY_INFO_STATUS    = KEY_INFO::KEY_INFO_STATUS;
+
 
 /**
  * mysqlNumrows
@@ -173,15 +179,41 @@ function arrayKeys($resultat) {
  * @return number
  */
 function mysqlNumFields($resultat) {
-	if (is_array ( $resultat )) {
-		$keys = arrayKeys ( $resultat );
-		$res = count ( $keys );
-	} else {
-		$res = mysqli_num_fields ( $resultat );
-	}
-	
-	return $res;
+    if (is_array ( $resultat )) {
+        $keys = arrayKeys ( $resultat );
+        $res = count ( $keys );
+    } else {
+        $res = mysqli_num_fields ( $resultat );
+    }
+    
+    return $res;
 }
+
+/**
+ * mysqlFieldName
+ * retourne le nom de la colonne du resultat SQL
+ *
+ * @param
+ *        	array sql or request sql result $resultat
+ * @param
+ *        	interger or String $cpt column index or colonne name
+ * @return String column name
+ */
+function mysqlFieldName($resultat, $cpt) {
+    if (is_array ( $resultat )) {
+        $keys = arrayKeys ( $resultat );
+        if (isset ( $keys [$cpt] )) {
+            $name = $keys [$cpt];
+        } else {
+            echo "not found index $cpt in keys " . arrayToString ( $keys ) . " <br> ";
+            return "!!!";
+        }
+    } else {
+        $name = mysqli_field_name ( $resultat, $cpt );
+    }
+    return $name;
+}
+
 
 function mysqli_field_name($result, $field_nr){
     return mysqli_fetch_field_direct($result, $field_nr)->name;
@@ -311,13 +343,39 @@ function mysqlFieldType($Resultat, $idx) {
  * @param string $idx        	
  * @return int size
  */
-function mysqlFieldTypeSize($Resultat, $idx) {
+function mysqlFieldTypeSize($Resultat, $idx, $param=NULL) {
 	if (is_array ( $Resultat )) {
 		global $KEY_INFO_TYPE_SIZE;
-		return mysqlFieldValueByKey ( $Resultat, $idx, $KEY_INFO_TYPE_SIZE, "" );
+		return mysqlFieldValueByKey ( $Resultat, $idx, KEY_INFO::KEY_INFO_TYPE_SIZE, "" );
 	} else {
 		return mysqli_field_len ( $Resultat, $idx );
 	}
+}
+
+function getFormStyle($Resultat, $param, $idx){
+    if (isset($param)){
+        $form="";
+        if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
+            $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+        }
+        $variable = mysqli_field_name($Resultat, $idx);  
+        global $SHOW_FORM_VARIABLE_STYLE;
+        if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
+            echoTD("getFormStyle() search \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] ");
+        }
+        global $FORM_STYLE;
+        //$value = $FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE];
+        if (isset($FORM_STYLE) && isset($FORM_STYLE[$form]) && isset($FORM_STYLE[$form][$variable])){
+            if(isset($FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE])){
+                $value = $FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE];
+                if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
+                    echoTD("getFormStyle() find \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] : $value");
+                }
+                return $value;
+            }
+        }
+    }
+    return NULL;
 }
 
 /**
@@ -521,30 +579,6 @@ function mysqlFieldFlags($Resultat, $idx) {
 	return $flags;
 }
 
-/**
- * mysqlFieldName
- * retourne le nom de la colonne du resultat SQL
- *
- * @param
- *        	array sql or request sql result $resultat
- * @param
- *        	interger or String $cpt column index or colonne name
- * @return String column name
- */
-function mysqlFieldName($resultat, $cpt) {
-	if (is_array ( $resultat )) {
-		$keys = arrayKeys ( $resultat );
-		if (isset ( $keys [$cpt] )) {
-			$name = $keys [$cpt];
-		} else {
-			echo "not found index $cpt in keys " . arrayToString ( $keys ) . " <br> ";
-			return "!!!";
-		}
-	} else {
-		$name = mysqli_field_name ( $resultat, $cpt );
-	}
-	return $name;
-}
 
 /**
  * mysqlQuery
