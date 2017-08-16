@@ -26,10 +26,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 
---
--- Structure de la table `cegid_status_project`
---
-
 CREATE TABLE `cegid_status_project` (
   `ID` varchar(15) NOT NULL,
   `NAME` varchar(100) NOT NULL
@@ -38,9 +34,6 @@ CREATE TABLE `cegid_status_project` (
 ALTER TABLE `cegid_status_project`  ADD PRIMARY KEY (`ID`);
 ALTER TABLE `cegid_status_project` ADD `ORDRE` INT NOT NULL AFTER `NAME`;
 
---
--- Déchargement des données de la table `cegid_status_project`
---
 
 INSERT INTO `cegid_status_project` (`ID`, `NAME`) VALUES
 ('Prevision', 'Prevision'),
@@ -53,9 +46,6 @@ INSERT INTO `cegid_status_project` (`ID`, `NAME`) VALUES
 
 
 
----
---- table devis
----
 CREATE TABLE `cegid_status_devis` (
   `ID` varchar(15) NOT NULL,
   `NAME` varchar(100) NOT NULL
@@ -80,7 +70,7 @@ INSERT INTO `cegid_status_devis` (`ID`, `NAME`, `ORDRE`) VALUES
 
 
 CREATE TABLE `cegid_devis_project` (
-  `ID` varchar(15) NOT NULL DEFAULT 'DP17XXX';,
+  `ID` varchar(15) NOT NULL DEFAULT 'DP17XXX',
   `NAME` varchar(100) NOT NULL,
   `VERSION` varchar(15) NOT NULL,
   `STATUS` varchar(15) NOT NULL,
@@ -95,17 +85,11 @@ ALTER TABLE `cegid_devis_project` ADD FOREIGN KEY (`STATUS`) REFERENCES `cegid_s
 
 
 
----
---- table project
----
-
 ALTER TABLE `cegid_project` CHANGE `NAME` `NAME` VARCHAR(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 ALTER TABLE `cegid_project` ADD `COMMENTAIRE` TEXT NOT NULL AFTER `FIN_GARANTIE`;
 ALTER TABLE `cegid_project` ADD `STATUS` VARCHAR(15) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'Prevision' AFTER `FIN_GARANTIE`;
 ALTER TABLE `cegid_project` ADD FOREIGN KEY (`STATUS`) REFERENCES `cegid_status_project`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
-
--- --------------------------------------------------------
 
 
 UPDATE `version` SET `DATE` = '2017-08-13 00:00:00', `value` = '0.16.0' WHERE `version`.`id` = 'database';
