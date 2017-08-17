@@ -596,6 +596,12 @@ function mysqlQuery($request) {
 	return $resultat;
 }
 
+
+function mysql_affected_rows(){
+    global $CONNECTION_ID;
+    return mysqli_affected_rows($CONNECTION_ID);    
+}
+
 /**
  * mysqlQueries
  * 
