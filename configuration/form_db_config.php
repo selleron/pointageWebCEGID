@@ -20,11 +20,12 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS"]="select ID from 
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS"]="select \"A faire\"";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["VERSION"]="select \"1.0\"";
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["NAME"]["SIZE"]=50;
-$FORM_STYLE         ["form_table_cegid_devis_insert"]["COMMANDE"]["SIZE"]=50;
+$FORM_STYLE         ["form_table_cegid_devis_insert"]["COMMANDE"]["SIZE"]=35;
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["MODIFICATION"]["SIZE"]=5;
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["VERSION"]["SIZE"]=5;
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS"]="select ID from cegid_status_devis order by ORDRE";
 $FORM_STYLE         ["form_table_cegid_devis_update"]["NAME"]["SIZE"]=50;
+$FORM_STYLE         ["form_table_cegid_devis_update"]["NUXEO"]["SIZE"]=100;
 $FORM_STYLE         ["form_table_cegid_devis_update"]["MODIFICATION"]["SIZE"]=5;
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["STATUS"]="select ID from cegid_status_project";

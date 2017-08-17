@@ -265,7 +265,7 @@ function myfputcsv($handle, $aRow, $delimiter = "") {
  */
 function myfgetcsv($handle, $length = null) {
 	$delimiter = ";";
-	return fgetcsv ( $handle, $lenght, $delimiter );
+	return fgetcsv ( $handle, $length, $delimiter );
 }
 
 /**
