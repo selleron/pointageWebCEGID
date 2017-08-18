@@ -64,7 +64,7 @@ function importCSVTableByGet($table, $cols, $form_name) {
 			$sql = createSqlInsert ( $table, $columns, $values );
 			showSQLAction ( "table_db.importCSVTableByGet() insert action : $sql" );
 			$res_query = mysqlQuery ( $sql );
-			$nbRow = mysql_affected_rows ();
+			$nbRow = mysqlAffectedRows ();
 			$res_error = mySqlError ();
 			showSQLError ( "# $nbRow", $txt );
 			if ($nbRow < 1) {
@@ -72,7 +72,7 @@ function importCSVTableByGet($table, $cols, $form_name) {
 				
 				showSQLAction ( "table_db.importCSVTableByGet() update action : $sql" );
 				$res_query = mysqlQuery ( $sql );
-				$nbRow = mysql_affected_rows ();
+				$nbRow = mysqlAffectedRows();
 				$res_error = mySqlError ();
 				
 				$txt = "table_db.importCSVTableByGet() sql result : " . $res_query . " " . $res_error;

@@ -597,7 +597,7 @@ function mysqlQuery($request) {
 }
 
 
-function mysql_affected_rows(){
+function mysqlAffectedRows(){
     global $CONNECTION_ID;
     return mysqli_affected_rows($CONNECTION_ID);    
 }
