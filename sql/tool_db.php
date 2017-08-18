@@ -1891,24 +1891,13 @@ function showTableData($param, $html = "", $Resultat = "", $closeTable = "yes")
             echo "</tr>";
         }
         showTableLineExportCSV($param, $html);
-        // beginTableRow ();
-        // showLineExportCSV ( $param, $infoForm = "", "yes", $html, "" );
-        // endTableRow ();
     }
     
     // action insertion
     showTableLineInsert($param, $html, $Resultat);
-    // global $TABLE_INSERT;
-    // if (isset ( $param [$TABLE_INSERT] ) && ($param [$TABLE_INSERT] == "yes")) {
-    // echo "<tr>";
-    // insertTableOneData ( $html, $Resultat, /*$cpt,*/ $param );
-    // echo "</tr>";
-    // }
     
     if ($closeTable == "yes") {
         endTable();
-        // echo "</table>";
-        // showAction("close table");
     }
     
     return $Resultat;

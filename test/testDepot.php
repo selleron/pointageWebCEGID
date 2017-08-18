@@ -132,6 +132,9 @@ if ($action == "showTableStockage"){
 	global $ORDER_GET;
 	$param = createDefaultParamSql("files", $SQL_SHOW_COL_FILE);
 	
+	//$req = createRequeteTableData($param);
+	//showSQLAction($req);
+	
 	$param[$TABLE_SIZE]=1200;
 	showTableHeader($param);
 	showTableData($param);
