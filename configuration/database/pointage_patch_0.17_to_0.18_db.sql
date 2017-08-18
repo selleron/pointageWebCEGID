@@ -31,19 +31,28 @@ CREATE TABLE `cegid_status_evolution` (
   `ORIGIN` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
-CREATE TRIGGER `evol_status_devis` AFTER UPDATE ON `cegid_devis_project`
- FOR EACH ROW IF NEW.STATUS <> OLD.STATUS THEN  
+
+
+DELIMITER $$
+CREATE TRIGGER `evol_status_devis` AFTER UPDATE ON `cegid_devis_project` FOR EACH ROW IF NEW.STATUS <> OLD.STATUS THEN  
 			INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.ID, NEW.STATUS, "cegid_devis_project") ;
 			END IF
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `insert_status_devis` AFTER INSERT ON `cegid_devis_project` FOR EACH ROW INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.ID, NEW.STATUS, "cegid_devis_project")
+$$
+DELIMITER ;
 
-CREATE TRIGGER `insert_status_devis` AFTER INSERT ON `cegid_devis_project`
- FOR EACH ROW INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.ID, NEW.STATUS, "cegid_devis_project")
 
-CREATE TRIGGER `update_status_project` AFTER UPDATE ON `cegid_project`
- FOR EACH ROW INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.CEGID, NEW.STATUS, "cegid_project")
-
-CREATE TRIGGER `insert_status_project` AFTER INSERT ON `cegid_project`
- FOR EACH ROW INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.CEGID, NEW.STATUS, "cegid_project")
+DELIMITER $$
+CREATE TRIGGER `insert_status_project` AFTER INSERT ON `cegid_project` FOR EACH ROW INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.CEGID, NEW.STATUS, "cegid_project")
+$$
+DELIMITER ;
+DELIMITER $$
+CREATE TRIGGER `update_status_project` AFTER UPDATE ON `cegid_project` FOR EACH ROW INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.CEGID, NEW.STATUS, "cegid_project")
+$$
+DELIMITER ;
 
  
 CREATE TABLE `cegid_file` (
@@ -54,7 +63,7 @@ CREATE TABLE `cegid_file` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Index pour les tables déchargées
+-- Index pour les tables dï¿½chargï¿½es
 --
 
 --
