@@ -1332,8 +1332,9 @@ function createSqlUpdate($table, $arrayCol, $arrayValue, $condition, $quoteValue
             $sql = $sql . " , ";
         }
         $sql = $sql . "`$c` = ";
-        if ($quoteValue == "true")
-            if ($v!="NULL"){$v = "\"$v\"";}
+        $v = transformSqlValueFormInsert($v, $quoteValue);
+//         if ($quoteValue == "true")
+//             if ($v!="NULL"){$v = "\"$v\"";}
         $sql = $sql . $v;
         $i ++;
     }
@@ -1375,14 +1376,30 @@ function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true")
         if ($i > 0) {
             $sql = $sql . " , ";
         }
-        if ($quoteValue == "true")
-            if ($v!="NULL"){$v = "\"$v\"";}
+        $v = transformSqlValueFormInsert($v, $quoteValue);
+//         if ($v==FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION){
+//             $v="NULL";
+//         }
+//         else if ($quoteValue == "true"){
+//             if ($v!="NULL"){$v = "\"$v\"";}
+//         }
         $sql = $sql . $v;
         $i ++;
     }
     $sql = $sql . ")";
     
     return $sql;
+}
+
+function transformSqlValueFormInsert($v, $quoteValue){
+    if ($v==FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION){
+        $v="NULL";
+    }
+    else if ($quoteValue == "true"){
+        if ($v!="NULL"){$v = "\"$v\"";}
+    }
+    
+    return $v;
 }
 
 /**
@@ -1413,9 +1430,10 @@ function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true")
         } else {
             $v = $arrayValue[$i];
         }
-        if ($quoteValue == "true") {
-            if ($v!="NULL"){$v = "\"$v\"";}
-        }
+        $v = transformSqlValueFormInsert($v, $quoteValue);
+//         if ($quoteValue == "true") {
+//             if ($v!="NULL"){$v = "\"$v\"";}
+//         }
         $sql = $sql . $v;
         $i ++;
     }

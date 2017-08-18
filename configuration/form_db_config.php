@@ -16,6 +16,8 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from c
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from cegid_profil";
 
 //table cegid_project
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["CEGID"]="select CEGID from cegid_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["CEGID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS"]="select ID from cegid_status_devis order by ORDRE";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS"]="select \"A faire\"";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["VERSION"]="select \"1.0\"";
