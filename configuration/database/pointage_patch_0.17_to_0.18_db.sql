@@ -46,7 +46,13 @@ CREATE TRIGGER `insert_status_project` AFTER INSERT ON `cegid_project`
  FOR EACH ROW INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.CEGID, NEW.STATUS, "cegid_project")
 
  
- 
+ CREATE TABLE `cegid_file` (
+  `REFERENCE` varchar(50) NOT NULL,
+  `FILE` int(11) NOT NULL,
+  `VERSION` int(11) T NULL,
+  `COMMENTAIRE` varchar(400)  NULL
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
  
 
 UPDATE `version` SET `DATE` = '2017-08-18 00:00:00', `value` = '0.18.0' WHERE `version`.`id` = 'database';
