@@ -602,6 +602,11 @@ function mysql_affected_rows(){
     return mysqli_affected_rows($CONNECTION_ID);    
 }
 
+function mysqlInsertId(){
+    global $CONNECTION_ID;
+    return mysqli_insert_id($CONNECTION_ID);
+}
+
 /**
  * mysqlQueries
  * 

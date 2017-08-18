@@ -129,8 +129,8 @@ function actionWithHistoryLinkOneFile($aFile, $link, $table="", $sizeblobmax="")
 
 
 function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
-	$txt="file on depot : [$aFile] <br>";
-	//showSQLAction($txt);
+	$txt="file on depot : [$aFile] -- link [$link]  <br>";
+	showSQLAction($txt);
 
 	global $SQL_TABLE_FILE;
 	global $SQL_COL_ID_FILE;
@@ -164,6 +164,7 @@ function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
 		$req= "INSERT INTO ".$table.
 			" ( $SQL_COL_TITLE_FILE, $SQL_COL_NAME_FILE, $SQL_COL_LINK_FILE,  $SQL_COL_MIME_FILE, $SQL_COL_SIZEBLOB_FILE )".
 			" VALUES ('$title','$name', '$link', '$mime', $size)";
+		showSQLAction($req);
 		$res = mysqlQuery($req);
 		showSQLError("");
 		echo "fin de mise en base de donnees.<br>";
@@ -176,6 +177,7 @@ function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
 			$req= "INSERT INTO ".$table.
 			" ( $SQL_COL_TITLE_FILE, $SQL_COL_NAME_FILE, $SQL_COL_LINK_FILE, $SQL_COL_DATA_FILE, $SQL_COL_MIME_FILE, $SQL_COL_SIZEBLOB_FILE )".
 			" VALUES ('$title','$name', '$link', '$data','$mime', $size)";
+			showSQLAction($req);
 			$res = mysqlQuery($req);
 			if (mySqlError()==$SQL_ERROR_SIZE_BLOB){
 				echo "error : file too long for blob : $size.";
@@ -192,7 +194,7 @@ function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
 	}
 	echo "</p>";
 	
-	$id= mysql_insert_id();
+	$id= mysqlInsertId();
 	return $id;
 }
 

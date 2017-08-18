@@ -402,10 +402,11 @@ function showDirectoryWithParam($param) {
 	
 	// les fichiers
 	$count = 0;
+	$cpt=0;
 	$col_file = $param ["col_file"];
 	echo '<table>';
 	foreach ( $contenu as $aFile ) {
-		echo $afile;
+		echo $aFile;
 		if (($cpt + 1) < $col_file) {
 			$cpt = $cpt + 1;
 		} else {

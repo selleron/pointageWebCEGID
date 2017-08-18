@@ -21,7 +21,7 @@ function getCounterValue($counter){
 		$query="SELECT COUNT(*) FROM $TABLE_COUNTER WHERE $TABLE_COUNTER.name = '$counter'";
 		$result = mysqlQuery($query);
 	}
-	$v = mysqlResult($result, 0);
+	$v = mysqlResult($result, 0, 0);
 	showSQLError("",$query);
 	if ( $v=="0" || $v==""){
 		$query="INSERT INTO $TABLE_COUNTER ($TABLE_COUNTER.name, $TABLE_COUNTER.value) VALUES ('$counter', 0)";
@@ -35,7 +35,7 @@ function getCounterValue($counter){
 	$query="SELECT $TABLE_COUNTER.value FROM $TABLE_COUNTER WHERE $TABLE_COUNTER.name = '$counter'";
 	$result = mysqlQuery($query);
 	showSQLError("",$query);
-	$v = mysqlResult($result, 0);
+	$v = mysqlResult($result, 0, 0);
 
 	return $v;
 }
