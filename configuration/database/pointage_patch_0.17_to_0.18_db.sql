@@ -46,12 +46,28 @@ CREATE TRIGGER `insert_status_project` AFTER INSERT ON `cegid_project`
  FOR EACH ROW INSERT INTO `cegid_status_evolution`(`REFERENCE`, `STATUS`, `ORIGIN`) VALUES (NEW.CEGID, NEW.STATUS, "cegid_project")
 
  
- CREATE TABLE `cegid_file` (
+CREATE TABLE `cegid_file` (
   `REFERENCE` varchar(50) NOT NULL,
   `FILE` int(11) NOT NULL,
-  `VERSION` int(11) T NULL,
-  `COMMENTAIRE` varchar(400)  NULL
-) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+  `VERSION` int(11) DEFAULT NULL,
+  `COMMENTAIRE` varchar(400) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Index pour les tables déchargées
+--
+
+--
+-- Index pour la table `cegid_file`
+--
+
+ALTER TABLE `cegid_file`
+  ADD KEY `FILE` (`FILE`),
+  ADD KEY `REFERENCE` (`REFERENCE`);
+
+
+ALTER TABLE `cegid_file`
+  ADD CONSTRAINT `cegid_file_ibfk_1` FOREIGN KEY (`FILE`) REFERENCES `files` (`id`);
 
  
 

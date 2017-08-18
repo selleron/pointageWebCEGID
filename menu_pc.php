@@ -143,8 +143,10 @@ else{
 	    $urlcout     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_cout_project_cegid.php$argument");
 	    $urlpointage  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_pointage_cegid.php$argument");
 	    $urlpointagebrut  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/pointage_simple_cegid.php$argument");
+	    $urlcegidfile  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_cegid_file.php$argument");
 	    echo"
 		<ul>
+		<li><a title=\"Gestion File CEGID\" href=\"$urlcegidfile\"> 	 	<img src=\"$URL_IMAGES/menu_historique.png\" $menuIconSize > Gestion Ref Files</a></li>
 		<li><a title=\"Gestion Projet\" href=\"$urlcout\"> 	 	<img src=\"$URL_IMAGES/menu_cout.png\" $menuIconSize > Gestion Cout</a></li>
 		<li><a title=\"Projet\" href=\"$urlproject2\"> 	 <img src=\"$URL_IMAGES/menu_projets.png\" $menuIconSize > Projet</a></li>
 		<li><a title=\"Gestion Pointage\" href=\"$urlpointage\"> <img src=\"$URL_IMAGES/menu_planning.png\" $menuIconSize > Gestion Pointage</a></li>
