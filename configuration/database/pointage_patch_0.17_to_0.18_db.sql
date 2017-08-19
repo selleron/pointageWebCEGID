@@ -60,11 +60,8 @@ CREATE TABLE `cegid_file` (
   `FILE` int(11) NOT NULL,
   `VERSION` int(11) DEFAULT NULL,
   `COMMENTAIRE` varchar(400) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
---
--- Index pour les tables d�charg�es
---
 
 --
 -- Index pour la table `cegid_file`

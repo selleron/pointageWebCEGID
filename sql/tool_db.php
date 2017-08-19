@@ -1791,6 +1791,11 @@ function requeteTableData($param)
 {
     $request = createRequeteTableData($param);
     
+    global $SHOW_REQUEST_TABLE_DATA;
+    if ($SHOW_REQUEST_TABLE_DATA=="yes"){
+        showSQLAction($request);
+    }
+    
     $Resultat = mysqlQuery($request);
     // showSQLError ( "", $request . "<br><br>" );
     
@@ -2090,10 +2095,10 @@ function showEditRowsTableData($param, $html = "", $Resultat = "")
         // parcours des colonnes
         $idx = 0;
         foreach ($columns as $c) {
-            // echo "<td align=\"right\">$c :</td>";
-            editSqlRow($Resultat, $c, $cpt, $formName, $idx);
+            editSqlRow($Resultat, $c, $cpt, $formName, $idx, $param);
             $idx ++;
         }
+        //echoTD("[ici pas d'action]");
         echo "</tr>";
     }
     return $Resultat;

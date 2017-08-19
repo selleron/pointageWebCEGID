@@ -10,6 +10,17 @@ $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["DEFAULT"]="une string";
 //primary
 $PRIMARY_TABLE [ "cegid_pointage_voulu" ] = "PROJECT_ID,DATE,USER_ID,PROFIL";
 
+//table cegid_file
+$FORM_STYLE["form_table_cegid_file_insert"]["REFERENCE"]["SIZE"]=50;
+$FORM_STYLE["form_table_cegid_file_update"]["REFERENCE"]["SIZE"]=50;
+$FORM_STYLE["form_table_cegid_file_insert"]["title"]["SIZE"]=120;
+$FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["title"]="select TITLE from files";
+$FORM_STYLE["form_table_cegid_file_update"]["title"]["SIZE"]=120;
+$FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["title"]="select TITLE from files";
+$FORM_STYLE["form_table_cegid_file_insert"]["COMMENTAIRE"]["SIZE"]=40;
+$FORM_STYLE["form_table_cegid_file_update"]["COMMENTAIRE"]["SIZE"]=40;
+$FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["FILE"]="select ID from files";
+$FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["FILE"]="select ID from files";
 
 //table cegid_user
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from cegid_profil";

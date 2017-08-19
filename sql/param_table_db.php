@@ -27,7 +27,23 @@ class PARAM_TABLE {
     const COLUMNS_SUMMARY = "columns_summary";
     
 }
+
 // gestion table pour sql
+class PARAM_TABLE_SQL {
+    const CONDITION_GET = "condition";
+    const SHOW_COL_COUNT = "show_col_count";
+    const COLUMNS_SUMMARY = PARAM_TABLE::COLUMNS_SUMMARY;
+    const COLUMNS_FILTER = "columns_filtered";
+    const TABLE_NAME = "TABLE_NAME";
+    const TABLE_ROW_FIRST = "TABLE_ROW_FIRST";
+    const TABLE_ROW_LIMIT = "TABLE_ROW_LIMIT";
+    const TABLE_WHERE_ID_KEY = "TABLE_WHERE_KEY";
+    const TABLE_WHERE_ID_VALUE = "TABLE_WHERE_VALUE";
+    const TABLE_WHERE_CONDITION = "TABLE_WHERE_CONDITION";
+    const TABLE_WHERE_CONDITION_FOR_UPDATE = "TABLE_WHERE_CONDITION_FOR_UPDATE";
+    const TABLE_DISTINCT = "USE_SELECT_DISTINCT";
+}
+    
 $CONDITION_GET = "condition";
 $SHOW_COL_COUNT = "show_col_count";
 $COLUMNS_SUMMARY = PARAM_TABLE::COLUMNS_SUMMARY;
