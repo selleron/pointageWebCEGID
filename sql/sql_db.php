@@ -352,31 +352,98 @@ function mysqlFieldTypeSize($Resultat, $idx, $param=NULL) {
 	}
 }
 
-function getFormStyle($Resultat, $param, $idx){
+/**
+ * getFormStyleSize
+ * @param array $Resultat request result
+ * @param array $param parameter sql
+ * @param int|String $idx column index or column name
+ * @return int|NULL
+ */
+function getFormStyleSize($Resultat, $param, $idx){
+    if (isset($param)){
+//         $form="";
+//         if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
+//             $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+//         }
+//         $variable = mysqli_field_name($Resultat, $idx);  
+//         global $SHOW_FORM_VARIABLE_STYLE;
+//         if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
+//             echoTD("getFormStyle() search \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] ");
+//         }
+        
+        return getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_SIZE);
+
+//         global $FORM_STYLE;
+        
+//         $style = getFormStyleArray($Resultat, $param, $idx);
+//         if (isset($style)){
+//             if(isset($style[KEY_INFO::KEY_INFO_TYPE_SIZE])){
+//                 $value = $style[KEY_INFO::KEY_INFO_TYPE_SIZE];
+//                 if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
+//                     echoTD("getFormStyle() find \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] : $value");
+//                 }
+//                 return $value;
+//             }
+//         }
+        
+        
+// //             global $FORM_STYLE;
+// //             if (isset($FORM_STYLE) && isset($FORM_STYLE[$form]) && isset($FORM_STYLE[$form][$variable])){
+// //                 if(isset($FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE])){
+// //                     $value = $FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE];
+// //                     if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
+// //                         echoTD("getFormStyle() find \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] : $value");
+// //                     }
+// //                     return $value;
+// //                 }
+// //             }
+    }
+    return NULL;
+}
+
+ function getFormStyleKey ($Resultat, $param, $idx, $key) {
+    $style = getFormStyleArray($Resultat, $param, $idx);
+    if (isset($style)){
+        if(isset($style[$key])){
+            $value = $style[$key];
+            if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
+                echoTD("getFormStyle() find \$FORM_STYLE[\"$form\"][\"$variable\"][\"".$key ."\"] : $value");
+            }
+            return $value;
+        }
+    }
+     return NULL;
+ }
+    
+
+/**
+ * getFormStyleArray
+ * @param array $Resultat request result
+ * @param array $param parameter sql
+ * @param int|String $idx column index or column name
+ * @return array
+ */
+function getFormStyleArray($Resultat, $param, $idx){
     if (isset($param)){
         $form="";
         if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
             $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
         }
-        $variable = mysqli_field_name($Resultat, $idx);  
+        $variable = mysqli_field_name($Resultat, $idx);
         global $SHOW_FORM_VARIABLE_STYLE;
         if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
-            echoTD("getFormStyle() search \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] ");
+            echoTD("getFormStyle() search \$FORM_STYLE[\"$form\"][\"$variable\"][key] ");
         }
         global $FORM_STYLE;
         //$value = $FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE];
         if (isset($FORM_STYLE) && isset($FORM_STYLE[$form]) && isset($FORM_STYLE[$form][$variable])){
-            if(isset($FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE])){
-                $value = $FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE];
-                if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
-                    echoTD("getFormStyle() find \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] : $value");
-                }
-                return $value;
-            }
+            return $FORM_STYLE[$form][$variable];
+            
         }
     }
     return NULL;
 }
+
 
 /**
  * mysqlFieldStatus

@@ -2596,7 +2596,7 @@ function editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, 
         $type = mysqlFieldType($Resultat, $idxField);
         $flags = mysqlFieldFlags($Resultat, $idxField);
         $name = mysqlFieldName($Resultat, $idxField);
-        $size = getFormStyle($Resultat, $param, $idxField);
+        $size = getFormStyleSize($Resultat, $param, $idxField);
         if (!isset($size)) { $size = mysqlFieldTypeSize($Resultat, $idxField);}
         $statusEdit = mysqlFieldStatus($Resultat, $idxField, $param);
         $otherStyle = mysqlFieldStyle($Resultat, $idxField, $cpt, $param);
