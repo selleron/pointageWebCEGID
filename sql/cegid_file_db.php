@@ -40,6 +40,7 @@ function applyGestionCEGID_FILE() {
 	global $FORM_TABLE_CEGID_CEGID_FILE;
 	$form_name = $FORM_TABLE_CEGID_CEGID_FILE."_update";
 
+	$res=0;
 	//traitement du update
 	$res = updateTableByGet ($SQL_TABLE_CEGID_FILE, $colCEGID_FILE, $form_name, "no"/** re-edit */ );
 	

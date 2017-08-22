@@ -21,6 +21,10 @@ $FORM_STYLE["form_table_cegid_file_insert"]["COMMENTAIRE"]["SIZE"]=40;
 $FORM_STYLE["form_table_cegid_file_update"]["COMMENTAIRE"]["SIZE"]=40;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["FILE"]="select ID from files";
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["FILE"]="select ID from files";
+$FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["SQL"]="select ID from files where title=\"???\"";
+$FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["VARIABLE"]="title";
+$FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
+$FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
 
 //table cegid_user
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from cegid_profil";

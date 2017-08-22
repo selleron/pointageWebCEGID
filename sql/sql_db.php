@@ -18,7 +18,7 @@ class KEY_INFO{
 	const KEY_INFO_TYPE      = "array key info type";
 	//const KEY_INFO_TYPE_SIZE = "array key info type size";
 	const KEY_INFO_TYPE_SIZE = "SIZE";
-	const KEY_INFO_STATUS    = "array key info status";
+	const KEY_INFO_STATUS    = "STATUS";
 	const KEY_INFO_STYLE     = "array key info style";
 }
 
@@ -361,54 +361,39 @@ function mysqlFieldTypeSize($Resultat, $idx, $param=NULL) {
  */
 function getFormStyleSize($Resultat, $param, $idx){
     if (isset($param)){
-//         $form="";
-//         if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
-//             $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
-//         }
-//         $variable = mysqli_field_name($Resultat, $idx);  
-//         global $SHOW_FORM_VARIABLE_STYLE;
-//         if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
-//             echoTD("getFormStyle() search \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] ");
-//         }
-        
         return getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_SIZE);
-
-//         global $FORM_STYLE;
-        
-//         $style = getFormStyleArray($Resultat, $param, $idx);
-//         if (isset($style)){
-//             if(isset($style[KEY_INFO::KEY_INFO_TYPE_SIZE])){
-//                 $value = $style[KEY_INFO::KEY_INFO_TYPE_SIZE];
-//                 if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
-//                     echoTD("getFormStyle() find \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] : $value");
-//                 }
-//                 return $value;
-//             }
-//         }
-        
-        
-// //             global $FORM_STYLE;
-// //             if (isset($FORM_STYLE) && isset($FORM_STYLE[$form]) && isset($FORM_STYLE[$form][$variable])){
-// //                 if(isset($FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE])){
-// //                     $value = $FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE];
-// //                     if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
-// //                         echoTD("getFormStyle() find \$FORM_STYLE[\"$form\"][\"$variable\"][\"".KEY_INFO::KEY_INFO_TYPE_SIZE ."\"] : $value");
-// //                     }
-// //                     return $value;
-// //                 }
-// //             }
     }
     return NULL;
 }
 
+/**
+ * getFormStyleStatus
+ * @param array $Resultat request result
+ * @param array $param parameter sql
+ * @param int|String $idxField column index or column name
+ * @return NULL
+ */
+function getFormStyleStatus($Resultat, $param, $idxField){
+    $status=NULL;
+    if (isset($param)){
+        $status = getFormStyleKey($Resultat, $param, $idxField, KEY_INFO::KEY_INFO_STATUS);
+    }
+    if (!isset($status)){
+        $status = mysqlFieldStatus($Resultat, $idxField, $param);
+    }
+    return $status;
+}
+
+
  function getFormStyleKey ($Resultat, $param, $idx, $key) {
+     global $SHOW_FORM_VARIABLE_STYLE;
     $style = getFormStyleArray($Resultat, $param, $idx);
+    if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
+        echoTD("[\"$key\"]");
+    }
     if (isset($style)){
         if(isset($style[$key])){
             $value = $style[$key];
-            if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
-                echoTD("getFormStyle() find \$FORM_STYLE[\"$form\"][\"$variable\"][\"".$key ."\"] : $value");
-            }
             return $value;
         }
     }
@@ -432,7 +417,7 @@ function getFormStyleArray($Resultat, $param, $idx){
         $variable = mysqli_field_name($Resultat, $idx);
         global $SHOW_FORM_VARIABLE_STYLE;
         if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
-            echoTD("getFormStyle() search \$FORM_STYLE[\"$form\"][\"$variable\"][key] ");
+            echoTD("getFormStyle() search \$FORM_STYLE[\"$form\"][\"$variable\"]");
         }
         global $FORM_STYLE;
         //$value = $FORM_STYLE[$form][$variable][KEY_INFO::KEY_INFO_TYPE_SIZE];

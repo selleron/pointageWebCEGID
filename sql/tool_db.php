@@ -2598,7 +2598,8 @@ function editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, 
         $name = mysqlFieldName($Resultat, $idxField);
         $size = getFormStyleSize($Resultat, $param, $idxField);
         if (!isset($size)) { $size = mysqlFieldTypeSize($Resultat, $idxField);}
-        $statusEdit = mysqlFieldStatus($Resultat, $idxField, $param);
+        $statusEdit = getFormStyleStatus($Resultat, $param, $idxField);
+        //$statusEdit = mysqlFieldStatus($Resultat, $idxField, $param);
         $otherStyle = mysqlFieldStyle($Resultat, $idxField, $cpt, $param);
         // echoTD( "$idxField/$cpt -- $type $name ");
         // echoTD( "tool_db.editSqlRowWithValue() idxField: $idxField -- cpt: $cpt -- type: $type -- flag: $flags -- name: $name ");

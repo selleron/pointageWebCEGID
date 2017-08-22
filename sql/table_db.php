@@ -536,28 +536,6 @@ function editTable2($table, $cols, $form_name, $subParam = null) {
 function updateTableByGet($table, $cols, $form_name, $reedit = "yes") {
 	if (getActionGet () == "update") {
 		return updateTableByGet2($table, $cols, $form_name, $reedit);
-// 		// on execute le update
-// 		$sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name );
-// 		showSQLAction ( "update action : $sql" );
-// 		mysqlQuery ( $sql );
-// 		// $txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
-// 		// showAction ( $txt );
-		
-// 		// on reaffiche les information de l'update
-// 		if ($reedit == "yes") {
-// 			global $ID_TABLE_GET;
-// 			$idTable = getURLVariable ( $ID_TABLE_GET );
-// 			if ($idTable) {
-// 				editTable ( $table, $cols, $idTable, $form_name );
-// 			} else {
-// 				$columns = stringToArray ( $cols );
-// 				$arrayValues = getURLVariableArray ( $columns );
-// 				$condition2 = createSqlWhereArray ( $columns, $arrayValues );
-// 				$subParam = updateParamSqlCondition ( $subParam, $condition2 );
-// 				editTable ( $table, $cols, $idTable, $form_name, $subParam );
-// 			}
-// 		}
-// 		return 1;
  	} else {
  		return 0;
  	}
