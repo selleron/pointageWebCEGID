@@ -453,6 +453,14 @@ function createDefaultParamSql($table = "", $columnsTxt = "", $condition = "")
     return $param;
 }
 
+function updateTableParamSql($param, $form, $colFilter=NULL){
+    $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT] = $form;
+    $param = updateParamSqlColumnFilter($param, $colFilter);
+    
+    return $param;
+}
+
+
 /**
  * addParamActionCommand
  * 
@@ -507,6 +515,8 @@ function addParamSqlColumn($param, $columnsTxt)
     // showSQLAction("col apres add : $col");
     return $param;
 }
+
+
 
 
 /**
@@ -640,11 +650,10 @@ function updateParamSqlWithDeleteByRow($param)
  */
 function updateParamSqlColumnFilter($param, $columns)
 {
-    global $COLUMNS_FILTER;
     if (! is_array($param)) {
         $param = array();
     }
-    $param[$COLUMNS_FILTER] = $columns;
+    $param[PARAM_TABLE_SQL::COLUMNS_FILTER] = $columns;
     
     return $param;
 }
@@ -1721,7 +1730,6 @@ function createRequeteTableData($param)
     global $TABLE_WHERE_ID_VALUE;
     global $TABLE_WHERE_CONDITION;
     global $TABLE_DISTINCT;
-    global $COLUMNS_FILTER;
     
     $table = $param[$TABLE_NAME];
     $request = "select ";
@@ -1734,8 +1742,8 @@ function createRequeteTableData($param)
     }
     
     // ajout column filter
-    if (array_key_exists($COLUMNS_FILTER, $param)) {
-        $request = $request . " $param[$COLUMNS_FILTER] from $table";
+    if (array_key_exists(PARAM_TABLE_SQL::COLUMNS_FILTER, $param)) {
+        $request = $request . " ".$param[ PARAM_TABLE_SQL::COLUMNS_FILTER ]." from $table";
     } else {
         $request = $request . "* from $table";
     }

@@ -216,6 +216,7 @@ function mysqlFieldName($resultat, $cpt) {
 
 
 function mysqli_field_name($result, $field_nr){
+    //debug_print_backtrace();
     return mysqli_fetch_field_direct($result, $field_nr)->name;
 }
 
@@ -414,7 +415,8 @@ function getFormStyleArray($Resultat, $param, $idx){
         if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
             $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
         }
-        $variable = mysqli_field_name($Resultat, $idx);
+        $variable = mysqlFieldName($Resultat, $idx);;
+        //$variable = mysqli_field_name($Resultat, $idx);
         global $SHOW_FORM_VARIABLE_STYLE;
         if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
             echoTD("getFormStyle() search \$FORM_STYLE[\"$form\"][\"$variable\"]");

@@ -42,7 +42,7 @@ function applyGestionCEGID_FILE() {
 
 	$res=0;
 	//traitement du update
-	$res = updateTableByGet ($SQL_TABLE_CEGID_FILE, $colCEGID_FILE, $form_name, "no"/** re-edit */ );
+	//$res = updateTableByGet ($SQL_TABLE_CEGID_FILE, $colCEGID_FILE, $form_name, "no"/** re-edit */ );
 	
 	//cas classique : edit, export, ...
 	if ($res<=0){

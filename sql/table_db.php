@@ -4,16 +4,22 @@ $TABLE_DB_PHP = "loaded";
 include_once 'connection_db.php';
 include_once 'tool_db.php';
 
-/**
- * application des actions sur la page projet
- */
-function applyGestionTable($table, $cols, $form_name, $colFilter = "") {
-	// trace
+
+
+  /**
+   * application des actions sur la page projet
+   */
+ function applyGestionTable($table, $cols, $form_name, $colFilter = "") {
+     $condition="";
+     $param = createDefaultParamSql ( $table, $cols, $condition );
+     $param = updateTableParamSql ( $param, $form_name, $colFilter );
+     
+     // trace
 	$url = getCurrentURL ();
 	$action = getActionGet ();
 	showAction ( "action : [$action]  $url" );
 	// end trace
-	
+
 	$res = insertInTableByGet ( $table, $cols, $form_name );
 	if ($res <= 0) {
 		// showSQLAction("col filter : $colFilter");
