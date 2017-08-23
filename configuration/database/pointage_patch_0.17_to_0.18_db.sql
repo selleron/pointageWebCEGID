@@ -72,9 +72,8 @@ ALTER TABLE `cegid_file`
   ADD KEY `REFERENCE` (`REFERENCE`);
 
 
-ALTER TABLE `cegid_file`
-  ADD CONSTRAINT `cegid_file_ibfk_1` FOREIGN KEY (`FILE`) REFERENCES `files` (`id`);
-
+ALTER TABLE `cegid_file` ADD CONSTRAINT `cegid_file_ibfk_1` FOREIGN KEY (`FILE`) REFERENCES `files` (`id`);
+ALTER TABLE `cegid_file` ADD `ID` INT NOT NULL AUTO_INCREMENT FIRST, ADD PRIMARY KEY (`ID`);
  
 
 UPDATE `version` SET `DATE` = '2017-08-18 00:00:00', `value` = '0.18.0' WHERE `version`.`id` = 'database';

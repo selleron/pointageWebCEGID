@@ -33,8 +33,10 @@ class PARAM_TABLE_SQL {
     const CONDITION_GET = "condition";
     const SHOW_COL_COUNT = "show_col_count";
     const COLUMNS_SUMMARY = PARAM_TABLE::COLUMNS_SUMMARY;
+    const COLUMNS_INSERT = "columns_insert";
     const COLUMNS_FILTER = "columns_filtered";
     const TABLE_NAME = "TABLE_NAME";
+    const TABLE_NAME_INSERT = "TABLE_NAME_INSERT";
     const TABLE_ROW_FIRST = "TABLE_ROW_FIRST";
     const TABLE_ROW_LIMIT = "TABLE_ROW_LIMIT";
     const TABLE_WHERE_ID_KEY = "TABLE_WHERE_KEY";

@@ -9,10 +9,12 @@ include_once 'tool_db.php';
   /**
    * application des actions sur la page projet
    */
- function applyGestionTable($table, $cols, $form_name, $colFilter = "") {
-     $condition="";
-     $param = createDefaultParamSql ( $table, $cols, $condition );
-     $param = updateTableParamSql ( $param, $form_name, $colFilter );
+ function applyGestionTable($table, $cols, $form_name, $colFilter = "", $param=NULL) {
+     if (!isset($param)){
+        $condition="";
+        $param = createDefaultParamSql ( $table, $cols, $condition );
+        $param = updateTableParamSql ( $param, $form_name, $colFilter );
+     }
      
      // trace
 	$url = getCurrentURL ();
@@ -20,13 +22,12 @@ include_once 'tool_db.php';
 	showAction ( "action : [$action]  $url" );
 	// end trace
 
-	$res = insertInTableByGet ( $table, $cols, $form_name );
+	$res = insertInTableByGet ( $param );
 	if ($res <= 0) {
-		// showSQLAction("col filter : $colFilter");
-		$res = editTableByGet ( $table, $cols, $form_name, $colFilter );
+		$res = editTableByGet ( /*$table, $cols, $form_name,*/ $param );
 	}
 	if ($res <= 0) {
-		$res = updateTableByGet ( $table, $cols, $form_name );
+		$res = updateTableByGet ( $table, $cols, $form_name, $param );
 	}
 	if ($res <= 0) {
 		$res = exportCSVTableByGet ( $table, $cols, $cols, $form_name );
@@ -483,9 +484,9 @@ function deleteInTableByID($table, $colIdx, $idTable, $trace = "no") {
  *        	column name list in select
  * @return number 0 nothing 1 excuted
  */
-function editTableByGet($table, $cols, $form_name, $subParam = "") {
+function editTableByGet(/*$table, $cols, $form_name,*/ $subParam = "") {
 	if (getActionGet () == "edit") {
-		$res = editTable2 ( $table, $cols, $form_name, $subParam );
+		$res = editTable2 ( /*$table, $cols, $form_name,*/ $subParam );
 	} else {
 		$res = 0;
 	}
@@ -507,7 +508,13 @@ function editTableByGet($table, $cols, $form_name, $subParam = "") {
  *        	column name list in select
  * @return number 0 nothing 1 excuted
  */
-function editTable2($table, $cols, $form_name, $subParam = null) {
+function editTable2(/*$table, $cols, $form_name,*/ $subParam = null) {
+    //showSQLAction("editTable2( $table; $cols ; $form_name ) ");
+    
+    $table = $subParam[PARAM_TABLE_SQL::TABLE_NAME];
+    $cols = arrayToString($subParam[PARAM_TABLE_SQL::COLUMNS_SUMMARY]);
+    $form_name = $subParam[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+    
 	if ($subParam == "") {
 		$subParam = null;
 	} 
@@ -515,13 +522,19 @@ function editTable2($table, $cols, $form_name, $subParam = null) {
 	global $ID_TABLE_GET;
 	$idTable = getURLVariable ( $ID_TABLE_GET );
 	if ($idTable == "") {
-		$columns = stringToArray ( $cols );
+	    //ici par de cle primaire pour la selection de la donnée à editer
+		//$columns = stringToArray ( $cols );
+	    $columns = $subParam[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
+	    $columnsWhere = $columns;
+	    if (isset($subParam[PARAM_TABLE_SQL::COLUMNS_FILTER]) && $subParam[PARAM_TABLE_SQL::COLUMNS_FILTER]!=""){
+	        $columnsWhere = stringToArray($subParam[PARAM_TABLE_SQL::COLUMNS_FILTER]);
+	    }
 		$values = getURLVariableArray ( $columns );
-		$condition = createSqlWhere ( $columns, $values );
+		$condition = createSqlWhere ( $columnsWhere, $values );
 		$subParam = updateParamSqlCondition ( $subParam, $condition );
 		editTable ( $table, $cols, "", $form_name, $subParam );
 	} else {
-		// echo "idTable : $idTable <br>";
+		 //echo "editTable2() idTable : $idTable <br>";
 		// var_dump($subParam);
 		editTable ( $table, $cols, $idTable, $form_name, $subParam );
 	}
@@ -539,9 +552,9 @@ function editTable2($table, $cols, $form_name, $subParam = null) {
  *        	yes|no
  * @return number 0 si pas d'action faite
  */
-function updateTableByGet($table, $cols, $form_name, $reedit = "yes") {
+function updateTableByGet($table, $cols, $form_name, $param, $reedit = "yes") {
 	if (getActionGet () == "update") {
-		return updateTableByGet2($table, $cols, $form_name, $reedit);
+		return updateTableByGet2($table, $cols, $form_name, $param, $reedit);
  	} else {
  		return 0;
  	}
@@ -559,7 +572,28 @@ function updateTableByGet($table, $cols, $form_name, $reedit = "yes") {
  * @param string $reedit   	yes|no
  * @return 1
  */
-function updateTableByGet2($table, $cols, $form_name, $reedit = "yes") {
+function updateTableByGet2($table, $cols, $form_name, $param, $reedit = "yes") {
+    if (isset($param) && $param!=""){
+        if (isset($param[PARAM_TABLE_SQL::TABLE_NAME_INSERT])){
+            $table = $param[PARAM_TABLE_SQL::TABLE_NAME_INSERT];
+            //echoTD("found PARAM_TABLE_SQL::TABLE_NAME_INSERT : $table");
+        }
+        else{
+            $table = $param[PARAM_TABLE_SQL::TABLE_NAME];
+            //echoTD("found PARAM_TABLE_SQL::TABLE_NAME : $table");
+        }
+        if (isset($param[PARAM_TABLE_SQL::COLUMNS_INSERT])){
+            $cols = $param[PARAM_TABLE_SQL::COLUMNS_INSERT];
+        }
+        else{
+            $cols = $param[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
+        }
+        $cols = arrayToString($cols);
+        $form_name = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+    }
+    
+    
+    
         // on execute le update
         $sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name, null );
         //showSQLAction ( "update action : $sql" );
@@ -649,14 +683,13 @@ function replaceTableByGet($table, $columnsString, $form_name, $cpt = "", $trace
 /**
  * insertInTableByGet
  *
- * @param unknown $table        	
- * @param unknown $cols        	
- * @param unknown $form        	
+ * @param array $param : sql parameters
+ * name, columns & form are nedeed        	
  */
-function insertInTableByGet($table, $cols, $form) {
+function insertInTableByGet($param) {
 	if (getActionGet () == "inserer") {
-		$url = getCurrentURL ();
-		insertInTable ( $table, $cols, $form );
+		//$url = getCurrentURL ();
+		insertInTable ( $param );
 		
 		return 1;
 	}
@@ -679,33 +712,39 @@ function insertInTableByGet($table, $cols, $form) {
  * @param string $subParam        	
  */
 function editTable($table, $cols, $idTable, $form_name, $subParam = "") {
-	global $SQL_SHOW_COL_PROFIL;
+    //showSQLAction("editTable( $table; $cols ; $idTable; $form_name ) ");
+    
+    global $SQL_SHOW_COL_PROFIL;
 	global $SQL_TABLE_PROFILS;
 	global $TABLE_SIZE;
 	global $COLUMNS_SUMMARY;
 	
 	$param = createDefaultParamSql ( $table, $cols/*, $sqlCondition*/ );
 	$param = modifierTableParamSql ( $param, $form_name );
-		
+	$param [$TABLE_SIZE] = 740;
+	$param = updateParamSqlWithSubParam ( $param, $subParam );
+	
 	// traitement id
 	if ($idTable == "") {
 		// nothing to do
 	} else {
-		$idKey = $param [$COLUMNS_SUMMARY] [0];
+	    if (isset($param[PARAM_TABLE_SQL::COLUMNS_FILTER])&&($param[PARAM_TABLE_SQL::COLUMNS_FILTER]!="")){
+	        $idKey = stringToArray($param[PARAM_TABLE_SQL::COLUMNS_FILTER]) [0];
+	    }
+	    else {
+		  $idKey = $param [$COLUMNS_SUMMARY] [0];
+	    }
 		$param = updateParamSqlWhereId ( $param, $idKey, $idTable );
 	}
 	
-	$param [$TABLE_SIZE] = 740;
 	$html = getCurrentURL ();
 	
-	// set sub param
-	$param = updateParamSqlWithSubParam ( $param, $subParam );
 	
 	// trace
 	global $SHOW_SQL_EDIT;
 	if ($SHOW_SQL_EDIT == "yes") {
 		$request = createRequeteTableData ( $param );
-		showSQLAction ( $request );
+		showSQLAction ( "editTable() : $request" );
 	}
 	
 	// affichage
@@ -720,13 +759,33 @@ function editTable($table, $cols, $idTable, $form_name, $subParam = "") {
 /**
  * insertInTable
  *
- * @param unknown $table        	
- * @param unknown $cols        	
- * @param unknown $form        	
+ * @param array $param : sql parameters
+ * name, columns & form are nedeed        	
  */
-function insertInTable($table, $cols, $form) {
+function insertInTable($param) {
+    showSQLAction("insertInTable()");
+    
+    //table name
+    if (isset($param[PARAM_TABLE_SQL::TABLE_NAME_INSERT])){
+        $table = $param[PARAM_TABLE_SQL::TABLE_NAME_INSERT];
+    }
+    else{
+        $table = $param[PARAM_TABLE_SQL::TABLE_NAME];
+    }
+    //columns
+    if (isset($param[PARAM_TABLE_SQL::COLUMNS_INSERT])){
+        $columns = $param[PARAM_TABLE_SQL::COLUMNS_INSERT];
+    }
+    else{
+        $columns = $param[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
+    }
+    //forme
+    $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+
+    showSQLAction("insertInTable( $table ; ".arrayToString($columns)." ; $form)");
+    
 	// echo "search columns : [$cols]";
-	$columns = stringToArray ( $cols );
+	//$columns = stringToArray ( $cols );
 	$values = getURLVariableArraySQLForm ( $columns, $form );
 	
 	// showAction($document2);

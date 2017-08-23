@@ -130,8 +130,14 @@ function applyGestionProject() {
 	global $FORM_TABLE_CEGID_PROJECT;
 	$form_name = $FORM_TABLE_CEGID_PROJECT."_update";
 
+	$condition="";
+	$colFilter=NULL;
+	$param = createDefaultParamSql ( $SQL_TABLE_PROJECT, $colProject, $condition );
+	$param = updateTableParamSql ( $param, $form_name, $colFilter );
+	
+	
 	//traitement du update
-	$res = updateTableByGet ($SQL_TABLE_PROJECT, $colProject, $form_name, "no"/** re-edit */ );
+	$res = updateTableByGet ($SQL_TABLE_PROJECT, $colProject, $form_name, $param, "no"/** re-edit */ );
 	
 	//cas classique : edit, export, ...
 	if ($res<=0){

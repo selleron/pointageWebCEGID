@@ -41,8 +41,14 @@ function applyGestionDevis() {
 	global $FORM_TABLE_CEGID_DEVIS;
 	$form_name = $FORM_TABLE_CEGID_DEVIS."_update";
 
+	$condition="";
+	$colFilter=NULL;
+	$param = createDefaultParamSql ( $SQL_TABLE_DEVIS, $colDEVIS, $condition );
+	$param = updateTableParamSql ( $param, $form_name, $colFilter );
+	
+	
 	//traitement du update
-	$res = updateTableByGet ($SQL_TABLE_DEVIS, $colDEVIS, $form_name, "no"/** re-edit */ );
+	$res = updateTableByGet ($SQL_TABLE_DEVIS, $colDEVIS, $form_name, $param, "no"/** re-edit */ );
 	
 	//cas classique : edit, export, ...
 	if ($res<=0){

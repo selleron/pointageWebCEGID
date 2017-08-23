@@ -93,6 +93,11 @@ function indexToKeyArray1D( $tableau, $col="" ){
  * @return string
  */
 function stringToArray($columnsTxt) {
+    
+    if (is_array($columnsTxt)){
+        debug_print_backtrace();
+    }
+    
 	$columnsTxt = str_replace ( " ", "", $columnsTxt );
 	$column = explode ( ",", $columnsTxt );
 	return $column;

@@ -459,6 +459,15 @@ function updateTableParamSql($param, $form, $colFilter=NULL){
     
     return $param;
 }
+function updateTableParamSqlInsert($param, $table, $cols){
+    if (!is_array($cols)){
+        $cols = stringToArray($cols);
+    }
+    $param[PARAM_TABLE_SQL::TABLE_NAME_INSERT] = $table;
+    $param[PARAM_TABLE_SQL::COLUMNS_INSERT] = $cols;
+    
+    return $param;
+}
 
 
 /**
@@ -571,10 +580,12 @@ function modifierTableParamSql($param, $form = "form_insert_table", $insert = "y
  */
 function updateParamSqlCondition($param = "", $condition)
 {
-    global $TABLE_WHERE_CONDITION;
-    if ($param == "")
+    if (($param==NULL) || ($param == "")){
         $param = array();
-    $param[$TABLE_WHERE_CONDITION] = $condition;
+    }
+    //debug_print_backtrace();
+    
+    $param[PARAM_TABLE_SQL::TABLE_WHERE_CONDITION] = $condition;
     
     return $param;
 }
@@ -781,7 +792,7 @@ function updateParamSqlWithResult($param, $sqlResult)
  */
 function updateParamSqlWithSubParam($param, $subParam)
 {
-    if ($subParam == "") {
+    if (($subParam == NULL) || ($subParam == "")) {
         // nothing to do
     } else {
         // traitement par ajout
@@ -792,6 +803,7 @@ function updateParamSqlWithSubParam($param, $subParam)
         
         // where
         $condition = mergeSqlWhere($subParam, $param);
+        //echoTD("updateParamSqlWithSubParam() condition : $condition");
         $subParam = updateParamSqlCondition($subParam, $condition);
         
         // traitement normal
@@ -803,6 +815,7 @@ function updateParamSqlWithSubParam($param, $subParam)
             $param[$k] = $subParam[$k];
         }
     }
+    //echoTD("updateParamSqlWithSubParam() condition : ".$param[PARAM_TABLE_SQL::TABLE_WHERE_CONDITION]);
     return $param;
 }
 
@@ -1731,42 +1744,47 @@ function createRequeteTableData($param)
     global $TABLE_WHERE_CONDITION;
     global $TABLE_DISTINCT;
     
-    $table = $param[$TABLE_NAME];
+    $table = $param[PARAM_TABLE_SQL::TABLE_NAME];
     $request = "select ";
     
     // ajout distinct
-    if (array_key_exists($TABLE_DISTINCT, $param)) {
-        if ($param[$TABLE_DISTINCT] == "yes") {
+    if (array_key_exists(PARAM_TABLE_SQL::TABLE_DISTINCT, $param)) {
+        if ($param[PARAM_TABLE_SQL::TABLE_DISTINCT] == "yes") {
             $request = $request . "distinct ";
         }
     }
     
     // ajout column filter
-    if (array_key_exists(PARAM_TABLE_SQL::COLUMNS_FILTER, $param)) {
+    if (array_key_exists(PARAM_TABLE_SQL::COLUMNS_FILTER, $param) && ($param[ PARAM_TABLE_SQL::COLUMNS_FILTER ]!="")) {
         $request = $request . " ".$param[ PARAM_TABLE_SQL::COLUMNS_FILTER ]." from $table";
     } else {
         $request = $request . "* from $table";
     }
     
     // ajout Where
-    if (array_key_exists($TABLE_WHERE_ID_KEY, $param) || array_key_exists($TABLE_WHERE_CONDITION, $param)) {
+    if (array_key_exists(PARAM_TABLE_SQL::TABLE_WHERE_ID_KEY, $param) || array_key_exists(PARAM_TABLE_SQL::TABLE_WHERE_CONDITION, $param)) {
         $request = $request . " WHERE ";
     }
     
     $cptWhere = 0;
-    if (array_key_exists($TABLE_WHERE_ID_KEY, $param)) {
+    if (array_key_exists(PARAM_TABLE_SQL::TABLE_WHERE_ID_KEY, $param)) {
         if ($cptWhere > 0) {
             $request = $request . " AND ";
         }
-        $request = $request . createSqlWhereID($param[$TABLE_WHERE_ID_KEY], $param[$TABLE_WHERE_ID_VALUE]);
+        $request = $request . createSqlWhereID($param[PARAM_TABLE_SQL::TABLE_WHERE_ID_KEY], $param[PARAM_TABLE_SQL::TABLE_WHERE_ID_VALUE]);
         $cptWhere ++;
     }
-    if (array_key_exists($TABLE_WHERE_CONDITION, $param)) {
-        if ($cptWhere > 0) {
-            $request = $request . " AND ";
+    if (array_key_exists(PARAM_TABLE_SQL::TABLE_WHERE_CONDITION, $param)) {
+        if ($param[PARAM_TABLE_SQL::TABLE_WHERE_CONDITION]==""){
+            //nothing to do 
         }
-        $request = $request . $param[$TABLE_WHERE_CONDITION];
-        $cptWhere ++;
+        else {
+            if ($cptWhere > 0) {
+                $request = $request . " AND ";
+            }
+            $request = $request . $param[PARAM_TABLE_SQL::TABLE_WHERE_CONDITION];
+            $cptWhere ++;
+        }
     }
     
     // gestion order by
@@ -1820,11 +1838,12 @@ function requeteTableData($param)
  */
 function setInfoForm($param, $infoForm)
 {
-    global $TABLE_FORM_INFO;
-    if ($param == "") {
+    if (($param== NULL) || ($param == "")) {
         $param = array();
     }
-    $param[$TABLE_FORM_INFO] = $infoForm;
+    //debug_print_backtrace();
+   
+    $param[ PARAM_TABLE_TABLE::TABLE_FORM_INFO ] = $infoForm;
     return $param;
 }
 
@@ -1838,10 +1857,8 @@ function setInfoForm($param, $infoForm)
  */
 function getInfoForm($param, $default = "")
 {
-    global $TABLE_FORM_INFO;
-    
-    if (isset($param[$TABLE_FORM_INFO])) {
-        return $param[$TABLE_FORM_INFO];
+    if (isset($param[PARAM_TABLE_TABLE::TABLE_FORM_INFO])) {
+        return $param[PARAM_TABLE_TABLE::TABLE_FORM_INFO];
     }
     
     return $default;
@@ -2322,7 +2339,7 @@ function createSqlWhereID($key, $value, $condition = "")
  *            condition to add
  * @return string where request without WHERE
  */
-function createSqlWhereArray($keyA, $valueA, $condition)
+function createSqlWhereArray($keyA, $valueA, $condition="")
 {
     $size = count($keyA);
     $txt = $condition;
@@ -2367,6 +2384,8 @@ function mergeSqlWhere($condition1 = "", $condition2 = "")
 {
     $condition1 = getSqlWhere($condition1);
     $condition2 = getSqlWhere($condition2);
+    
+    //echoTD("mergeSqlWhere condition : [$condition1] - [$condition2]");
     
     if ($condition1) {
         if ($condition2) {

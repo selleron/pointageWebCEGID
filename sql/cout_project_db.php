@@ -50,18 +50,25 @@ function applyGestionCoutProject($subParam="") {
 	
 	
 	//execution du edit
+	$subParam = createDefaultParamSql ( $SQL_TABLE_PROJECT_COUT2, $SQL_SHOW_COL_PROJECT_COUT2, $condition );
+	$subParam = updateTableParamSql ( $subParam, $form_name, $SQL_SELECT_COL_COUT_PROJECT );
 	$subParam = updateParamSqlColumnFilter ( $subParam, $SQL_SELECT_COL_COUT_PROJECT );
 	$subParam = updateParamSqlCondition($subParam, $SQL_SHOW_WHERE_COUT_PROJECT); //pour le join avec project_cegid
 	$subParam = updateParamSqlConditionForUpdate($subParam, "1"); //pour ne pas tenir compte de la condition edit pour le update
 	
 	
-	$res = editTableByGet ( $SQL_TABLE_PROJECT_COUT2, $SQL_SHOW_COL_PROJECT_COUT2, $form_name, $subParam );
+	$res = editTableByGet ( /*$SQL_TABLE_PROJECT_COUT2, $SQL_SHOW_COL_PROJECT_COUT2, $form_name,*/ $subParam );
 	
 	if ($res <= 0) {
 		//execution du update
-		$res = updateTableByGet ( $SQL_TABLE_PROJECT_COUT, $SQL_SHOW_COL_PROJECT_COUT, $form_name, "no" /**re-edit */);
+	    $condition="";
+	    $colFilter=NULL;
+	    $paramUpdate = createDefaultParamSql ( $SQL_TABLE_PROJECT_COUT, $SQL_SHOW_COL_PROJECT_COUT, $condition );
+	    $paramUpdate = updateTableParamSql ( $paramUpdate, $form_name, $colFilter );
+	    
+		$res = updateTableByGet ( $SQL_TABLE_PROJECT_COUT, $SQL_SHOW_COL_PROJECT_COUT, $form_name, $paramUpdate, "no" /**re-edit */);
 		//on re-affiche la table du edit
-		if ($res) editTable2 ( $SQL_TABLE_PROJECT_COUT2, $SQL_SHOW_COL_PROJECT_COUT2, $form_name, $subParam );
+		if ($res) editTable2 ( /*$SQL_TABLE_PROJECT_COUT2, $SQL_SHOW_COL_PROJECT_COUT2, $form_name,*/ $subParam );
 	}
 	
 	// cas classique : edit, export, ...
