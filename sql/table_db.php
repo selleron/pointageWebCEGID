@@ -531,6 +531,7 @@ function editTable2(/*$table, $cols, $form_name,*/ $subParam = null) {
 	    }
 		$values = getURLVariableArray ( $columns );
 		$condition = createSqlWhere ( $columnsWhere, $values );
+		//echoTD("editTable2() no ID, where : $condition");
 		$subParam = updateParamSqlCondition ( $subParam, $condition );
 		editTable ( $table, $cols, "", $form_name, $subParam );
 	} else {
@@ -603,10 +604,13 @@ function updateTableByGet2($table, $cols, $form_name, $param, $reedit = "yes") {
         
         // on reaffiche les information de l'update
         if ($reedit == "yes") {
+            
+            
+            
             global $ID_TABLE_GET;
             $idTable = getURLVariable ( $ID_TABLE_GET );
             if ($idTable) {
-                editTable ( $table, $cols, $idTable, $form_name );
+                editTable ( $table, $cols, $idTable, $form_name, $param );
             } else {
                 $columns = stringToArray ( $cols );
                 $arrayValues = getURLVariableArray ( $columns );

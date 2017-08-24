@@ -679,11 +679,11 @@ function updateParamSqlColumnFilter($param, $columns)
  */
 function updateParamSqlWhereId($param, $id, $value)
 {
-    global $TABLE_WHERE_ID_KEY;
-    global $TABLE_WHERE_ID_VALUE;
+//     global $TABLE_WHERE_ID_KEY;
+//     global $TABLE_WHERE_ID_VALUE;
     
-    $param[$TABLE_WHERE_ID_KEY] = $id;
-    $param[$TABLE_WHERE_ID_VALUE] = $value;
+    $param[PARAM_TABLE_SQL::TABLE_WHERE_ID_KEY] = $id;
+    $param[PARAM_TABLE_SQL::TABLE_WHERE_ID_VALUE] = $value;
     
     return $param;
 }
@@ -1213,7 +1213,7 @@ function createSqlUpdateByID($table, $columnsString)
  * @param string $columnsString
  * @return string SQL
  */
-function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "", $row)
+function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "", $row, $useOnlyIDIfPossible="yes")
 {
     global $ID_TABLE_GET;
     global $CONDITION_GET;
@@ -1232,6 +1232,9 @@ function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "",
     // where
     $idTable = getURLVariable($ID_TABLE_GET);
     if ($idTable) {
+        if ($useOnlyIDIfPossible=="yes"){
+            $condition="";
+        }
         $condition = createSqlWhereID($key, $idTable, $condition);
     }
     
