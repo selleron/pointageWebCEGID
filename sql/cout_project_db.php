@@ -66,7 +66,7 @@ function applyGestionCoutProject($subParam="") {
 	    $paramUpdate = createDefaultParamSql ( $SQL_TABLE_PROJECT_COUT, $SQL_SHOW_COL_PROJECT_COUT, $condition );
 	    $paramUpdate = updateTableParamSql ( $paramUpdate, $form_name, $colFilter );
 	    
-		$res = updateTableByGet ( $SQL_TABLE_PROJECT_COUT, $SQL_SHOW_COL_PROJECT_COUT, $form_name, $paramUpdate, "no" /**re-edit */);
+		$res = updateTableByGet (/* $SQL_TABLE_PROJECT_COUT, $SQL_SHOW_COL_PROJECT_COUT, $form_name,*/ $paramUpdate, "no" /**re-edit */);
 		//on re-affiche la table du edit
 		if ($res) editTable2 ( /*$SQL_TABLE_PROJECT_COUT2, $SQL_SHOW_COL_PROJECT_COUT2, $form_name,*/ $subParam );
 	}

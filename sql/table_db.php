@@ -27,7 +27,7 @@ include_once 'tool_db.php';
 		$res = editTableByGet ( /*$table, $cols, $form_name,*/ $param );
 	}
 	if ($res <= 0) {
-		$res = updateTableByGet ( $table, $cols, $form_name, $param );
+		$res = updateTableByGet ( /*$table, $cols, $form_name,*/ $param );
 	}
 	if ($res <= 0) {
 		$res = exportCSVTableByGet ( $table, $cols, $cols, $form_name );
@@ -553,9 +553,9 @@ function editTable2(/*$table, $cols, $form_name,*/ $subParam = null) {
  *        	yes|no
  * @return number 0 si pas d'action faite
  */
-function updateTableByGet($table, $cols, $form_name, $param, $reedit = "yes") {
+function updateTableByGet(/*$table, $cols, $form_name,*/ $param, $reedit = "yes") {
 	if (getActionGet () == "update") {
-		return updateTableByGet2($table, $cols, $form_name, $param, $reedit);
+		return updateTableByGet2(/*$table, $cols, $form_name,*/ $param, $reedit);
  	} else {
  		return 0;
  	}
@@ -573,8 +573,8 @@ function updateTableByGet($table, $cols, $form_name, $param, $reedit = "yes") {
  * @param string $reedit   	yes|no
  * @return 1
  */
-function updateTableByGet2($table, $cols, $form_name, $param, $reedit = "yes") {
-    if (isset($param) && $param!=""){
+function updateTableByGet2(/*$table, $cols, $form_name,*/ $param, $reedit = "yes") {
+    //if (isset($param) && $param!=""){
         if (isset($param[PARAM_TABLE_SQL::TABLE_NAME_INSERT])){
             $table = $param[PARAM_TABLE_SQL::TABLE_NAME_INSERT];
             //echoTD("found PARAM_TABLE_SQL::TABLE_NAME_INSERT : $table");
@@ -591,7 +591,7 @@ function updateTableByGet2($table, $cols, $form_name, $param, $reedit = "yes") {
         }
         $cols = arrayToString($cols);
         $form_name = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
-    }
+    //}
     
     
     

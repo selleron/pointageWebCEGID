@@ -137,7 +137,7 @@ function applyGestionProject() {
 	
 	
 	//traitement du update
-	$res = updateTableByGet ($SQL_TABLE_PROJECT, $colProject, $form_name, $param, "no"/** re-edit */ );
+	$res = updateTableByGet (/*$SQL_TABLE_PROJECT, $colProject, $form_name,*/ $param, "no"/** re-edit */ );
 	
 	//cas classique : edit, export, ...
 	if ($res<=0){
