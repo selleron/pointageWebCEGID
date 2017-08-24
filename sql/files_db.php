@@ -77,8 +77,9 @@ function actionStockTemporaryFile( $oldpath="../depot/", $newpath="../stockage/"
 	if(actionLoadFile($oldpath)){
 		//echo "load file ok ...<br>";
 		$aFileName = getLoadFileName();
-		actionStockOneFile($aFileName,$oldpath,$newpath);
+		return actionStockOneFile($aFileName,$oldpath,$newpath);
 	}	
+	return -1;
 }
 
 
@@ -88,8 +89,8 @@ function actionStockTemporaryFile( $oldpath="../depot/", $newpath="../stockage/"
  * @param $path
  */
 function actionStockOneFile( $aFileName, $oldpath="../depot/", $newpath="../stockage/"){
-	global $TRACE_FILE;
-	showActionVariable("actionStockOneFile() ->  $aFileName - $oldpath - $newpath ", $TRACE_FILE);
+    global $SHOW_FILE_ACTION;
+    showActionVariable("actionStockOneFile() ->  $aFileName - $oldpath - $newpath ", $SHOW_FILE_ACTION);
 	
 	$oldname="$oldpath$aFileName";
 
@@ -107,11 +108,12 @@ function actionStockOneFile( $aFileName, $oldpath="../depot/", $newpath="../stoc
 
 	//showSQLAction("rename ... : $aFileName => $newname");
 	if(rename($oldname, $newname)){
-		actionWithHistoryLinkOneFile( $aFileName, $newname);
+		return actionWithHistoryLinkOneFile( $aFileName, $newname);
 	}
 	else{
 		showError("rename impossible : $aFileName => $newname");
 	}
+	return -1;
 }
 
 function actionWithHistoryLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
@@ -121,7 +123,7 @@ function actionWithHistoryLinkOneFile($aFile, $link, $table="", $sizeblobmax="")
 	global $SQL_ALL_COL_FILE;
 
 	$id = actionLinkOneFile( $aFile, $link, $SQL_TABLE_FILE);
-	
+	return $id;
 	//historisation
 	//$condition = "$SQL_COL_ID_FILE='$id'";
 	//historisationTable($SQL_TABLE_FILE, $SQL_TABLE_FILE_HISTORY, $SQL_ALL_COL_FILE, $condition);

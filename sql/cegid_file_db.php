@@ -29,9 +29,55 @@ $SQL_CONDITION_CEGID_FILE2 = "cf.$SQL_COL_FILE_CEGID_FILE=f.$SQL_COL_ID_FILE AND
 //include_once 'tool_db.php';
 include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
 include_once (dirname ( __FILE__ ) . "/table_db.php");
+include_once (dirname ( __FILE__ ) . "/files.php");
 
 
+function applyGestionReference($url="gestion_project.php"){
+    $idObj = getURLVariable(FORM_VARIABLE::ID_TABLE_GET);
 
+    $action = getActionGet();
+    $form = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+    showSQLAction("form : $form     action : $action");
+        
+    //if (isset($idObj) && ($idObj!="")){
+        showLoadFile($url,"importer une reference","importer","loadReference");
+    
+        if ($action == "loadReference"){
+            //echo "actionStockTemporaryFile() ... <br><br>";
+            $idFile = actionStockTemporaryFile();
+            if ($idFile>=0){
+                insertReference($reference, $idFile);
+                    
+            }
+            //actionStockFiles();
+        }
+        
+        showTableFiles();
+        
+        
+    //}
+}
+
+function insertReference($reference, $idFile){
+    
+}
+
+function showTableFiles(){
+    echo "show table stockage ... <br><br>";
+    global $COLUMNS_SUMMARY;
+    global $SQL_SHOW_COL_FILE;
+    global $TABLE_NAME;
+    global $TABLE_SIZE;
+    global $ORDER_GET;
+    $param = createDefaultParamSql("files", $SQL_SHOW_COL_FILE);
+    
+    $req = createRequeteTableData($param);
+    showSQLAction($req);
+    
+    $param[$TABLE_SIZE]=1200;
+    showTableHeader($param);
+    showTableData($param);
+}
 
 
 function applyGestionCEGID_FILE() {

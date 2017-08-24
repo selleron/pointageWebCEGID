@@ -88,16 +88,16 @@ function actionGestionFile($destination = "../photos/") {
  */
 function actionLoadFile($destination = "../photos/") {
 	$order = getURLVariable ( ORDER_ENUM::ORDER_GET );
-	global $SHOW_SQL_ACTION;
-	showActionVariable ( "test upload ......", $SHOW_SQL_ACTION );
+	global $SHOW_FILE_ACTION;
+	showActionVariable ( "upload [".getTemporaryFile()."]", $SHOW_FILE_ACTION );
 	if (hasTemporaryFile () == "yes") {
-		showActionVariable ( "ok.<br>", $SHOW_SQL_ACTION );
+	    showActionVariable ( "ok.<br>", $SHOW_FILE_ACTION );
 		// $destination = getcwd()."/";
 		// $destination = "../photos/";
 		return uploadFile ( $destination );
 	} else {
-		showActionVariable ( " no file.<br>", $SHOW_SQL_ACTION );
-		showActionVariable ( getTemporaryFileError (), $SHOW_SQL_ACTION );
+	    showActionVariable ( " no file found at $destination.<br>", $SHOW_FILE_ACTION );
+	    showActionVariable ( getTemporaryFileError (), $SHOW_FILE_ACTION );
 		return FALSE;
 	}
 }
@@ -314,8 +314,9 @@ function importCSV($rowFirst = "yes", $firstline = 0) {
  * Retourne le nom du fichier load� (sans le path)
  */
 function getLoadFileName() {
-	$uploadfile = $uploaddir . basename ( $_FILES ['userfile'] ['name'] );
-	return $uploadfile;
+    //$uploadfile = $uploaddir . basename ( $_FILES ['userfile'] ['name'] );
+    $uploadfile = basename ( $_FILES ['userfile'] ['name'] );
+    return $uploadfile;
 }
 
 /**

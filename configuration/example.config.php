@@ -33,6 +33,7 @@ $SHOW_MENU_TRACE="false";					//trace dans les menus
 $SHOW_CONNECTION_ID="false"; 				//trace ou no l'id de connexion
 $SHOW_FUNCION_JAVA="yes";					//trace java script function
 $TRACE_POST="yes";							//trace POST
+$SHOW_FILE_ACTION="yes";				    //trace ou non les actions FILE
 
 $SHOW_SQL_EDIT="yes";						//trace ou non les actions SQL edit
 $SHOW_SQL_TYPE_REQUEST_REQUEST="no";		//trace ou non la requete dans une cellule de type SQL_TYPE::SQL_REQUEST
