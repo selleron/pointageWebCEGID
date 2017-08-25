@@ -8,7 +8,8 @@
 	include_once("../sql/files.php");
 	include_once("../sql/devis_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
-  	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
+	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
+	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
 </head>
 
@@ -34,8 +35,20 @@
 	echo "<p>Gestion des Devis.<br/></p>";
 	showTracePOST();
 	
+	beginTable();
+	beginTableRow();
+	beginTableCell();
+	applyGestionDevis();
+	endTableCell();
 	
-	applyGestionDevis(); 
+	beginTableCell();
+	applyGestionReference();
+	endTableCell();
+	
+	endTableRow();
+	endTable();
+	
+	
 	
 	echo "<p>";
 	showLoadFile("","","","import");
