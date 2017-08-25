@@ -38,7 +38,11 @@
 	beginTable();
 	beginTableRow();
     	beginTableCell();
-    	   applyGestionDevis();
+//     	global $FORM_TABLE_CEGID_DEVIS;
+//     	$form = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+//     	if ($form=="" || strpos($form, $FORM_TABLE_CEGID_DEVIS)){
+     	   applyGestionDevis();
+//     	}
     	endTableCell();
     	
     	beginTableCell();
