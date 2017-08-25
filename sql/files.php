@@ -14,7 +14,7 @@ $FILES_PHP = "loaded";
  *        	lorsque l'on appuie sur load
  *        	voir http://phpcodeur.net/articles/php/upload
  */
-function showLoadFile($url = "", $choose = "", $load = "", $action = "") {
+function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoForm="") {
 	if (! $action) {
 		$action = "load";
 	}
@@ -41,6 +41,7 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "") {
 	$choose : <input name=\"userfile\" type=\"file\" />";
 	showFormAction ( $action );
 	showFormIDElement ();
+	echo "$infoForm";
 	echo "
 	<input type=\"submit\" value=\"$load\" />
 	</form>
@@ -182,13 +183,13 @@ function getTemporaryFileError() {
 	if ($error == 0)
 		return "no error";
 	if ($error == 1)
-		return "Le fichier exc&egrave;de le poids autorisï¿½ par la directive upload_max_filesize";
+		return "Le fichier exc&egrave;de le poids autorisé par la directive upload_max_filesize";
 	if ($error == 2)
-		return "Le fichier exc&egrave;de le poids autorisï¿½ par le champ MAX_FILE_SIZE s'il a ï¿½tï¿½ donnï¿½";
+		return "Le fichier exc&egrave;de le poids autorisé par le champ MAX_FILE_SIZE s'il a été donné½";
 	if ($error == 3)
-		return "Le fichier n'a ï¿½tï¿½ uploadï¿½ que partiellement";
+		return "Le fichier n'a été uploadéque partiellement";
 	if ($error == 4)
-		return "Aucun fichier n'a ï¿½tï¿½ uploadï¿½";
+		return "Aucun fichier n'a été uploadé";
 	return "erreur inconnue $error";
 }
 
@@ -327,16 +328,18 @@ function getLoadFileName() {
  * @return TRUE or FALSE
  */
 function moveFile($tmpFile, $uploadfile) {
+    global $SHOW_SQL_ACTION;
+    
 	showSQLAction ( "file loaded : $tmpFile   <br>" );
 	showSQLAction ( "move to     : $uploadfile   <br>" );
 	showSQLAction ( "current dir : " . getcwd () . " <br>" );
 	
 	if (move_uploaded_file ( $tmpFile, $uploadfile )) {
-		echo "Le fichier est valide, et a &eacute;t&eacute; t&eacute;l&eacute;charg&eacute;
-				avec succ&egrave;s.<br>";
+        showActionVariable (  "Le fichier est valide, et a &eacute;t&eacute; t&eacute;l&eacute;charg&eacute;
+				avec succ&egrave;s.<br>", $SHOW_SQL_ACTION );
 		return TRUE;
 	} else {
-		echo "Attaque potentielle par t&eacute;l&eacute;chargement de fichiers.<b>";
+	    showActionVariable (  "Attaque potentielle par t&eacute;l&eacute;chargement de fichiers.<b>", $SHOW_SQL_ACTION );
 		return FALSE;
 	}
 	

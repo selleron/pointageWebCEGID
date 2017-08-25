@@ -37,14 +37,14 @@
 	
 	beginTable();
 	beginTableRow();
-	beginTableCell();
-	applyGestionDevis();
-	endTableCell();
-	
-	beginTableCell();
-	applyGestionReference();
-	endTableCell();
-	
+    	beginTableCell();
+    	   applyGestionDevis();
+    	endTableCell();
+    	
+    	beginTableCell();
+    	   applyGestionReference();
+    	endTableCell();
+    	
 	endTableRow();
 	endTable();
 	

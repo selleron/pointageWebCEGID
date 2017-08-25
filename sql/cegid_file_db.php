@@ -32,15 +32,18 @@ include_once (dirname ( __FILE__ ) . "/table_db.php");
 include_once (dirname ( __FILE__ ) . "/files.php");
 
 
-function applyGestionReference($url="gestion_project.php"){
+function applyGestionReference($url="gestion_devis.php"){
     $idObj = getURLVariable(FORM_VARIABLE::ID_TABLE_GET);
-
+    $reference=$idObj;
+    
     $action = getActionGet();
     $form = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
     showSQLAction("form : $form     action : $action");
         
     //if (isset($idObj) && ($idObj!="")){
-        showLoadFile($url,"importer une reference","importer","loadReference");
+        $infoForm = "";
+        $infoForm = $infoForm . streamFormHidden(FORM_VARIABLE::ID_TABLE_GET, $idObj);
+        showLoadFile($url,"importer une reference","importer","loadReference", $infoForm);
     
         if ($action == "loadReference"){
             //echo "actionStockTemporaryFile() ... <br><br>";
@@ -52,14 +55,50 @@ function applyGestionReference($url="gestion_project.php"){
             //actionStockFiles();
         }
         
+        //tableau files reference
+        global $SQL_COL_REFERENCE_CEGID_FILE;
+        $condition="$SQL_COL_REFERENCE_CEGID_FILE=\"$reference\"";
+        showTableCEGID_FILE($condition);
+        
+        //tableau files
+        createHeaderBaliseDiv("files","<h3>Files</h3>");
         showTableFiles();
+        endHeaderBaliseDiv("files");
         
         
     //}
 }
 
+/**
+ * insertReference
+ * @param string $reference     id reference
+ * @param string $idFile        id file
+ */
 function insertReference($reference, $idFile){
     
+    global $SQL_TABLE_CEGID_FILE;
+    
+    //global $SQL_COL_ID_CEGID_FILE;
+    global $SQL_COL_REFERENCE_CEGID_FILE;
+    global $SQL_COL_FILE_CEGID_FILE;
+    global $SQL_COL_VERSION_CEGID_FILE;
+    //global $SQL_COL_COMMENTAIRE_CEGID_FILE;
+    //global $SQL_COL_ID_FILE;
+    //global $SQL_COL_TITLE_FILE;
+    //global $SQL_COL_VERSION_FILE;
+    
+    $arrayCol =   array( $SQL_COL_REFERENCE_CEGID_FILE, $SQL_COL_FILE_CEGID_FILE, $SQL_COL_VERSION_CEGID_FILE);
+    $arrayValue = array( $reference, $idFile, "0" );
+    
+    
+    $request = createSqlInsert($SQL_TABLE_CEGID_FILE, $arrayCol, $arrayValue);
+    showSQLAction($request);
+    $res_query = mysqlQuery ( $request );
+    $nbRow = mysqlAffectedRows ();
+    $res_error = mySqlError ();
+    //showSQLError ( "# $nbRow", "error on request :$request" );
+    showSQLError ( "", "error on request :$request" );
+    return $nbRow;
 }
 
 function showTableFiles(){
@@ -99,7 +138,6 @@ function applyGestionCEGID_FILE() {
 	$res=0;
 	//traitement du update
 	//$res = updateTableByGet ($SQL_TABLE_CEGID_FILE, $colCEGID_FILE, $form_name, "no"/** re-edit */ );
-	
 	//cas classique : edit, export, ...
 	if ($res<=0){
 	    $res =  applyGestionTable($SQL_TABLE_CEGID_FILE2, $SQL_SHOW_COL_CEGID_FILE2, $form_name, $colFilter, $param);
@@ -107,19 +145,25 @@ function applyGestionCEGID_FILE() {
 	return $res;
 }
 
-
-function showTableCEGID_FILE() {
+/**
+ * showTableCEGID_FILE
+ * @param string $condition2
+ */
+function showTableCEGID_FILE($condition2="") {
     global $SQL_TABLE_CEGID_FILE2;
     global $SQL_SHOW_COL_CEGID_FILE2;
     global $SQL_SELECT_COL_CEGID_FILE2;
     global $FORM_TABLE_CEGID_CEGID_FILE;
 	global $SQL_CONDITION_CEGID_FILE2;
 	$form_name = $FORM_TABLE_CEGID_CEGID_FILE."_insert";
+	
 	$condition="$SQL_CONDITION_CEGID_FILE2";
+	$condition = mergeSqlWhere($condition, $condition2);
 	
 	//showSQLAction("showTableCEGID_FILE - ...");
 	
 	$param = prepareshowTable($SQL_TABLE_CEGID_FILE2, $SQL_SHOW_COL_CEGID_FILE2, $form_name, $condition);
+	
 	//par defaut on a edit & delete
 	$param[PARAM_TABLE_SQL::COLUMNS_FILTER] = "$SQL_SELECT_COL_CEGID_FILE2";
 // 	$param[PARAM_TABLE_ACTION::TABLE_EDIT] = "no";
@@ -133,6 +177,9 @@ function showTableCEGID_FILE() {
 	
 	//ajout export CSV
 	$param[PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "yes";
+	
+	$request=createRequeteTableData($param);
+	showSQLAction($request);
 	
 	//showSQLAction("showTableProject - showTableByParam()");
 	showTableByParam($param);
