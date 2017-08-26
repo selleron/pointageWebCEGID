@@ -33,6 +33,11 @@ include_once (dirname ( __FILE__ ) . "/files.php");
 
 
 function applyGestionReference($url="gestion_devis.php"){
+    $idBalise = "gestion_info_reference";
+    createHeaderBaliseDiv($idBalise, "<h3>Infomation reference file </h3>");
+    {
+        
+    
     $idObj = getURLVariable(FORM_VARIABLE::ID_TABLE_GET);
     $reference=$idObj;
     
@@ -54,6 +59,19 @@ function applyGestionReference($url="gestion_devis.php"){
             }
             //actionStockFiles();
         }
+        
+        
+        global $FORM_TABLE_CEGID_CEGID_FILE;
+        $formURL ="!".getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+        $pos = strpos( $formURL, $FORM_TABLE_CEGID_CEGID_FILE);
+        //showSQLAction("test $FORM_TABLE_CEGID_CEGID_FILE for $formURL :[$pos]");
+        if  ($pos>=1){
+            showSQLAction("action for cegid_file accepted");
+            applyGestionCEGID_FILE();
+        }
+    }
+    endHeaderBaliseDiv($idBalise);
+        
         
         //tableau files reference
         global $SQL_COL_REFERENCE_CEGID_FILE;

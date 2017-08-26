@@ -48,6 +48,19 @@ function applyGestionDevis() {
 	$param = updateTableParamSql ( $param, $form_name, $colFilter );
 	
 	$res = -1;
+	
+	$formURL ="!".getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+	$pos = strpos( $formURL, $FORM_TABLE_CEGID_DEVIS);
+	//showSQLAction("test $FORM_TABLE_CEGID_DEVIS for $formURL :[$pos]");
+	if  ($pos>=1){
+	    showSQLAction("action for cegid_devis accepted");
+	}
+	else{
+	    //on ne fait pas de traitement
+	    $res=1;
+	}
+	
+	
 	if ($res<=0){
 	  //traitement du update
  	  $res = updateTableByGet (/*$SQL_TABLE_DEVIS, $colDEVIS, $form_name,*/ $param, "no"/** re-edit */ ); 
