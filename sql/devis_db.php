@@ -53,7 +53,9 @@ function applyGestionDevis() {
 	$pos = strpos( $formURL, $FORM_TABLE_CEGID_DEVIS);
 	//showSQLAction("test $FORM_TABLE_CEGID_DEVIS for $formURL :[$pos]");
 	if  ($pos>=1){
-	    showSQLAction("action for cegid_devis accepted");
+	    //nothing to do
+	    global $SHOW_FORM_TRACE;
+	    showActionVariable("action for cegid_devis accepted", $SHOW_FORM_TRACE);
 	}
 	else{
 	    //on ne fait pas de traitement

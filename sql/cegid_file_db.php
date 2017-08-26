@@ -37,13 +37,13 @@ function applyGestionReference($url="gestion_devis.php"){
     createHeaderBaliseDiv($idBalise, "<h3>Infomation reference file </h3>");
     {
         
-    
+    global $SHOW_FORM_TRACE;
     $idObj = getURLVariable(FORM_VARIABLE::ID_TABLE_GET);
     $reference=$idObj;
     
     $action = getActionGet();
     $form = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
-    showSQLAction("form : $form     action : $action");
+    showActionVariable("form : $form     action : $action", $SHOW_FORM_TRACE);
         
     //if (isset($idObj) && ($idObj!="")){
         $infoForm = "";
@@ -66,7 +66,7 @@ function applyGestionReference($url="gestion_devis.php"){
         $pos = strpos( $formURL, $FORM_TABLE_CEGID_CEGID_FILE);
         //showSQLAction("test $FORM_TABLE_CEGID_CEGID_FILE for $formURL :[$pos]");
         if  ($pos>=1){
-            showSQLAction("action for cegid_file accepted");
+            showActionVariable("action for cegid_file accepted", $SHOW_FORM_TRACE);
             applyGestionCEGID_FILE();
         }
     }
