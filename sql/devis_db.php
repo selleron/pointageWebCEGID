@@ -24,6 +24,7 @@ $SQL_SHOW_ALL_COL_DEVIS = $SQL_SHOW_COL_DEVIS.", $SQL_COL_NUXEO_DEVIS, $SQL_COL_
 //include_once 'tool_db.php';
 include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
 include_once (dirname ( __FILE__ ) . "/table_db.php");
+include_once (dirname ( __FILE__ ) . "/tool_db.php");
 
 
 
@@ -46,17 +47,94 @@ function applyGestionDevis() {
 	$param = createDefaultParamSql ( $SQL_TABLE_DEVIS, $colDEVIS, $condition );
 	$param = updateTableParamSql ( $param, $form_name, $colFilter );
 	
-	
-	//traitement du update
-	$res = updateTableByGet (/*$SQL_TABLE_DEVIS, $colDEVIS, $form_name,*/ $param, "no"/** re-edit */ );
+	$res = -1;
+	if ($res<=0){
+	  //traitement du update
+ 	  $res = updateTableByGet (/*$SQL_TABLE_DEVIS, $colDEVIS, $form_name,*/ $param, "no"/** re-edit */ ); 
+	}
 	
 	//cas classique : edit, export, ...
+	if (getActionGet () == "edit") {
+	    //nothing to do
+	    //sera traité par editGestionDevis()
+	}
+	else{
 	if ($res<=0){
 	    $res =  applyGestionTable($SQL_TABLE_DEVIS, $colDEVIS, $form_name);
+	}
 	}
 	return $res;
 }
 
+
+function editGestionDevis()
+{
+    $idBalise = "gestion_info_devis";
+    createHeaderBaliseDiv($idBalise, "<h3>Infomation devis </h3>");
+    {
+        
+        global $SQL_SHOW_COL_DEVIS;
+        global $SQL_SHOW_ALL_COL_DEVIS;
+        $colDEVIS = $SQL_SHOW_ALL_COL_DEVIS;
+        global $SQL_TABLE_DEVIS;
+        global $FORM_TABLE_CEGID_DEVIS;
+        $form_name = $FORM_TABLE_CEGID_DEVIS . "_update";
+        
+        $condition = "";
+        $colFilter = NULL;
+        $param = createDefaultParamSql($SQL_TABLE_DEVIS, $colDEVIS, $condition);
+        $param = updateTableParamSql($param, $form_name, $colFilter);
+        
+        // preparation edition d'un devis
+        $idTableDevis="";
+        global $ID_TABLE_GET;
+        $idTable = getURLVariable($ID_TABLE_GET);
+        if ($idTable == "") {
+            $param = setSQLFlagStatus($param, stringToArray($colDEVIS), "disabled");
+        }
+        
+         global $FORM_TABLE_CEGID_CEGID_FILE;
+         $formURL ="!".getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+         $pos = strpos( $formURL, $FORM_TABLE_CEGID_CEGID_FILE);
+         ///showSQLAction("position $FORM_TABLE_CEGID_CEGID_FILE || $formURL => [$pos]");
+         if ($pos>=1 ){
+             //showSQLAction("reference id found. Search devis id");
+             global $SQL_TABLE_CEGID_FILE;
+             global $SQL_COL_ID_CEGID_FILE;
+             global $SQL_COL_REFERENCE_CEGID_FILE;
+            
+             $conditionSelect = createSqlWhere($SQL_COL_ID_CEGID_FILE, $idTable);
+             $paramSelect = createDefaultParamSql($SQL_TABLE_CEGID_FILE, $SQL_COL_REFERENCE_CEGID_FILE,$conditionSelect);
+             //$requestSelect = createRequeteTableData($paramSelect);
+             //showSQLAction($requestSelect);
+             $Resultat = requeteTableData ( $paramSelect );
+             $nbRes = mysqlNumrows ( $Resultat );
+             if ($nbRes > 0) {
+                $idTableDevis = mysqlResult ( $Resultat, 0, $SQL_COL_REFERENCE_CEGID_FILE );
+             }
+             else{
+                $param = setSQLFlagStatus($param, stringToArray($colDEVIS), "disabled");
+             }
+         }
+         else{
+             $idTableDevis = $idTable;
+         }
+        
+         
+         if ($idTableDevis!=""){
+             setURLVariable($ID_TABLE_GET, $idTableDevis);
+         }
+         
+        $res = editTable2 ( /*$table, $cols, $form_name,*/ $param);
+
+        if ($idTableDevis!=""){
+            setURLVariable($ID_TABLE_GET, $idTable);   
+        }
+        
+    }
+    endHeaderBaliseDiv($idBalise);
+    return $res;
+}
 
 /**
  * affiche les versions des elements du projet

@@ -42,6 +42,7 @@
 //     	$form = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
 //     	if ($form=="" || strpos($form, $FORM_TABLE_CEGID_DEVIS)){
      	   applyGestionDevis();
+     	   editGestionDevis();
 //     	}
     	endTableCell();
     	
