@@ -37,7 +37,7 @@ include_once 'tool_db.php';
 	}
 	// insertOrupdateTableByGet ($table, $cols, $form_name);
 	if ($res <= 0) {
-		$res = applyDeleteTableByGet ( $table, $cols, $form_name, "" );
+		$res = applyDeleteTableByGet ( /*$table, $cols, $form_name,*/$param, "" );
 	}
 	
 	return $res;
@@ -400,9 +400,9 @@ function exportCSVDataURL($handle, $table) {
  * @param unknown $table        	
  * @param unknown $cols        	
  */
-function applyDeleteTableByGet($table, $cols, $form_name) {
+function applyDeleteTableByGet(/*$table, $cols, $form_name,*/ $param="") {
 	if (getActionGet () == "delete") {
-		deleteTableByGet ( $table, $cols, $form_name );
+		deleteTableByGet ( /*$table, $cols, $form_name,*/ $param );
 		return 1;
 	}
 	return 0;
@@ -415,7 +415,27 @@ function applyDeleteTableByGet($table, $cols, $form_name) {
  * @param unknown $table        	
  * @param unknown $cols        	
  */
-function deleteTableByGet($table, $cols, $form_name, $row=NULL, $trace = "no") {
+function deleteTableByGet(/*$table, $cols, $form_name,*/  $param, $row=NULL, $trace = "no") {
+    if (isset($param[PARAM_TABLE_SQL::TABLE_NAME_INSERT])){
+        $table = $param[PARAM_TABLE_SQL::TABLE_NAME_INSERT];
+        //echoTD("found PARAM_TABLE_SQL::TABLE_NAME_INSERT : $table");
+    }
+    else{
+        $table = $param[PARAM_TABLE_SQL::TABLE_NAME];
+        //echoTD("found PARAM_TABLE_SQL::TABLE_NAME : $table");
+    }
+    if (isset($param[PARAM_TABLE_SQL::COLUMNS_INSERT])){
+        $cols = $param[PARAM_TABLE_SQL::COLUMNS_INSERT];
+    }
+    else{
+        $cols = $param[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
+    }
+    $cols = arrayToString($cols);
+    $form_name = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+    
+    
+    
+    
 	global $ID_TABLE_GET;
 	$idTable = getURLVariable ( $ID_TABLE_GET );
 	if ($idTable == "") {
@@ -522,7 +542,7 @@ function editTable2(/*$table, $cols, $form_name,*/ $subParam = null) {
 	global $ID_TABLE_GET;
 	$idTable = getURLVariable ( $ID_TABLE_GET );
 	if ($idTable == "") {
-	    //ici par de cle primaire pour la selection de la donnée à editer
+	    //ici par de cle primaire pour la selection de la donnï¿½e ï¿½ editer
 		//$columns = stringToArray ( $cols );
 	    $columns = $subParam[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
 	    $columnsWhere = $columns;

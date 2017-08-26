@@ -471,6 +471,12 @@ function getExportMonths()
 function replacePointage($table, $colsSet, $colsDelete, $form_name)
 {
     if ((getActionGet() == "replace") || (getActionGet() == "update")) {
+        $condition = "";
+        $paramDel = createDefaultParamSql($table, $colsDelete, $condition);
+        $paramDel = updateTableParamSql($paramDel, $form_name);
+        
+        $paramReplace = createDefaultParamSql($table, $colsSet, $condition);
+        $paramReplace = updateTableParamSql($paramReplace, $form_name);
         
         global $SHOW_SQL_REPLACE;
         $trace = $SHOW_SQL_REPLACE;
@@ -518,7 +524,7 @@ function replacePointage($table, $colsSet, $colsDelete, $form_name)
                             showAction("trace delete off");
                     }
                     
-                    deleteTableByGet($table, $colsDelete, $form_name, $cptRow, $trace_delete);
+                    deleteTableByGet(/*$table, $colsDelete, $form_name,*/$paramDel, $cptRow, $trace_delete);
                     $nb_delete ++;
                 } else {
                     if ($nb_replace == 3) {
@@ -526,6 +532,8 @@ function replacePointage($table, $colsSet, $colsDelete, $form_name)
                         if ($trace == "yes")
                             showAction("trace replace off x");
                     }
+                    
+                    //a modifier pour utiliser $paramReplace
                     replaceTableByGet($table, $colsSet, $form_name, $cptRow, $trace_replace);
                     $nb_replace ++;
                 }
