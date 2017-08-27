@@ -41,6 +41,7 @@ function convertDevisToProjectIfNeeded(){
         global $SQL_TABLE_DEVIS;
         global $SQL_COL_CEGID_DEVIS;
         global $SQL_COL_ID_DEVIS;
+        global $SQL_COL_NAME_PROJECT;
         
         $idDevis = getURLVariable($SQL_COL_ID_DEVIS);
         
@@ -54,10 +55,11 @@ function convertDevisToProjectIfNeeded(){
         //showSQLAction("id project found $idProject from devis $idDevis");
         if ($idProject){
             $projectName = getProjectNameFromID($idProject);
-            showSQLAction("project name found $projectName for $idProject => $PROJECT_SELECTION");
+            //showSQLAction("project name found $projectName for $idProject => $PROJECT_SELECTION || $SQL_COL_NAME_PROJECT");
             if ($projectName){
+                setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
                 setURLVariable($PROJECT_SELECTION, $projectName);
-                showGet();
+                //showGet();
             }
         }
         
