@@ -1,6 +1,7 @@
 <?PHP
 $PROINTAGE_DB_PHP = "loaded";
 
+include_once (dirname(__FILE__) . "/devis_db.php");
 include_once 'table_db.php';
 include_once 'project_db.php';
 include_once 'time.php';
@@ -328,6 +329,9 @@ function applyNextPreviousSelectPointage()
 {
     $col = "";
     $condition = "";
+    
+    //verification i on vint pas de devis
+    convertDevisToProjectIfNeeded();
     
     // showSQLAction("action ".getActionGet ()." test ".LabelAction::ACTION_PREVIOUS);
     if (getActionGet() == LabelAction::ACTION_POINTAGE) {

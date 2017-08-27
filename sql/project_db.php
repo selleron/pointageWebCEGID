@@ -27,6 +27,22 @@ include_once (dirname ( __FILE__ ) . "/table_db.php");
 
 
 
+function getProjectNameFromID($idProject){
+    global $SQL_COL_ID_PROJECT;
+    global $SQL_COL_NAME_PROJECT;
+    global $SQL_TABLE_PROJECT;
+    
+    //search project name
+    $condition = createSqlWhere($SQL_COL_ID_PROJECT, $idProject);
+    $param = createDefaultParamSql($SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, $condition );
+    $requete = $request = createRequeteTableData($param);
+    showSQLAction($requete);
+    $Resultat = requeteTableData($param);
+    $name = mysqlResult($Resultat, 0, $SQL_COL_NAME_PROJECT);
+    
+    return $name;
+}
+
 /**
  * application des actions sur la page one projet
  * @return number 0 si pas d'action faite

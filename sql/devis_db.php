@@ -25,7 +25,44 @@ $SQL_SHOW_ALL_COL_DEVIS = $SQL_SHOW_COL_DEVIS.", $SQL_COL_NUXEO_DEVIS, $SQL_COL_
 include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
 include_once (dirname ( __FILE__ ) . "/table_db.php");
 include_once (dirname ( __FILE__ ) . "/tool_db.php");
+include_once (dirname ( __FILE__ ) . "/project_db.php");
 
+
+function convertDevisToProjectIfNeeded(){
+    //verification i on vint pas de devis
+    global $FORM_TABLE_CEGID_DEVIS;
+    global $PROJECT_SELECTION;
+    $form = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+    $pos = strpos("!".$form,$FORM_TABLE_CEGID_DEVIS)>=1;
+    //showSQLAction("form devis : $FORM_TABLE_CEGID_DEVIS - $form - $pos");
+    if ($pos>=1){
+        //showSQLAction("id devis found, convertion needed");
+        
+        global $SQL_TABLE_DEVIS;
+        global $SQL_COL_CEGID_DEVIS;
+        global $SQL_COL_ID_DEVIS;
+        
+        $idDevis = getURLVariable($SQL_COL_ID_DEVIS);
+        
+        //search project id
+        $condition = createSqlWhere($SQL_COL_ID_DEVIS, $idDevis);
+        $param = createDefaultParamSql($SQL_TABLE_DEVIS, $SQL_COL_CEGID_DEVIS, $condition );
+        $requete = $request = createRequeteTableData($param);
+        showSQLAction($requete);
+        $Resultat = requeteTableData($param);
+        $idProject = mysqlResult($Resultat, 0, $SQL_COL_CEGID_DEVIS);
+        //showSQLAction("id project found $idProject from devis $idDevis");
+        if ($idProject){
+            $projectName = getProjectNameFromID($idProject);
+            showSQLAction("project name found $projectName for $idProject => $PROJECT_SELECTION");
+            if ($projectName){
+                setURLVariable($PROJECT_SELECTION, $projectName);
+                showGet();
+            }
+        }
+        
+    }
+}
 
 
 
