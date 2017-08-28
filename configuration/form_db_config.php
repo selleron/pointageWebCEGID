@@ -26,6 +26,8 @@ $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["VARIABLE"]="title";
 $FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
 $FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
 
+
+
 //table cegid_user
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from cegid_profil";
@@ -123,6 +125,6 @@ $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO"]["SQL"]="select \"??
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO"]["VARIABLE"]="UO_voulu";
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO_voulu"]["DEFAULT"]="NULL";
 
-
-
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["STATUS"]["DEFAULT"]="Prevision";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]="";
 ?>
