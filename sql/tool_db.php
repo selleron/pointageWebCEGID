@@ -2593,7 +2593,7 @@ function editSqlRow($Resultat, $c, $cpt, $formName, $idxField, $param = "")
         return;
     } else {
         $value = mysqlResult($Resultat, $cpt, $c);
-        // echoTD( "$c($idxField)/$cpt : $value <br>");
+        //echoTD( "$c($idxField)/$cpt : $value <br>");
         editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, $param);
     }
 }

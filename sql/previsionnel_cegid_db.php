@@ -269,6 +269,7 @@ function showTablePrevisionnelPointageCegid() {
 	$tableauPrev = getTableauPrevisionnelCegid ( $projectName, "yes" );
 	
 	$tableau = fusionTableauPointage($tableauPointage, $tableauPrev);
+	//printMatrice($tableau[KEY_INFO::KEY_INFO]);
 	showTablePointageOneProjetCegid ( $tableau );
 }
 
@@ -310,8 +311,10 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
         $columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
     }
     
+    
     // copie pointage
     $tableau = $tableauPointage;
+    
     for($cpt = 0; $cpt < $nbResPointage; $cpt ++) {
         // //copie premieres colonnes
         // foreach ( $columns as $c ) {
@@ -342,6 +345,7 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
                 }
             }
     }
+
     
     $cpt2 = $nbResPointage;
     showAction ( "nb row previsionnel : $nbResPrevision" );
@@ -364,6 +368,7 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
         }
     }
     
+//    printMatrice($tableau);
 //     //trace
 //     printArray($columns);
 //     $keys = arrayKeys ( $tableauPrev );
