@@ -108,7 +108,8 @@ ALTER TABLE `cegid_devis_project` ADD FOREIGN KEY (`STATUS_CEGID`) REFERENCES `c
 ALTER TABLE `cegid_devis_project` ADD FOREIGN KEY (`STATUS_COMMANDE`) REFERENCES `cegid_status_commande`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
-
+INSERT INTO `cegid_status_devis` (`ID`, `NAME`, `ORDRE`) VALUES ('Accepte', 'Accepte', '0');
+UPDATE `cegid_devis_project` SET `STATUS_DEVIS` = 'Accepte' WHERE `cegid_devis_project`.`STATUS_DEVIS` = 'A/R Signe';
 
   
 UPDATE `version` SET `DATE` = '2017-08-30 00:00:00', `value` = '0.19.0' WHERE `version`.`id` = 'database';
