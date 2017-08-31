@@ -361,7 +361,7 @@ function applyNextPreviousSelectPointage()
         
         global $PROJECT_SELECTION;
         global $ITEM_COMBOBOX_SELECTION;
-        
+        $nextProject="";
         $currentProject = getURLVariable($PROJECT_SELECTION);
         
         $Resultat = requeteTableData($param);

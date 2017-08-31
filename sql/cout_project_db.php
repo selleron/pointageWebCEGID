@@ -45,6 +45,7 @@ function applyGestionCoutProject($subParam="") {
 	global $TABLE_FORM_NAME_INSERT;
 	global $FORM_TABLE_CEGID_PROJECT_COUT;
 	$form_name = $FORM_TABLE_CEGID_PROJECT_COUT . "_update";
+	$condition="";
 	
 	//showSQLAction("applyGestionCoutProject() col filter : $SQL_SELECT_COL_COUT_PROJECT");
 	
