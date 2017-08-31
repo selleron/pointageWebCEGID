@@ -99,6 +99,7 @@ INSERT INTO `cegid_status_cegid` (`ID`, `NAME`, `ORDRE`) VALUES
 ('Demande', 'Demande', 2),
 ('Cree', 'Cree', 3),
 ('Annule', 'Annule', 4);
+INSERT INTO `cegid_status_cegid` (`ID`, `NAME`, `ORDRE`) VALUES ('Neant', 'Neant', '0');
 
 ALTER TABLE `cegid_status_cegid`
   ADD PRIMARY KEY (`ID`);
@@ -108,7 +109,8 @@ ALTER TABLE `cegid_devis_project` ADD FOREIGN KEY (`STATUS_CEGID`) REFERENCES `c
 ALTER TABLE `cegid_devis_project` ADD FOREIGN KEY (`STATUS_COMMANDE`) REFERENCES `cegid_status_commande`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
-INSERT INTO `cegid_status_devis` (`ID`, `NAME`, `ORDRE`) VALUES ('Accepte', 'Accepte', '0');
+INSERT INTO `cegid_status_devis` (`ID`, `NAME`, `ORDRE`) VALUES ('Accepte', 'Accepte', '7');
+INSERT INTO `cegid_status_devis` (`ID`, `NAME`, `ORDRE`) VALUES ('Valide', 'Valie', '5');
 UPDATE `cegid_devis_project` SET `STATUS_DEVIS` = 'Accepte' WHERE `cegid_devis_project`.`STATUS_DEVIS` = 'A/R Signe';
 
   
