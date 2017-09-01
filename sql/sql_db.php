@@ -29,6 +29,24 @@ $KEY_INFO_TYPE_SIZE = KEY_INFO::KEY_INFO_TYPE_SIZE;
 $KEY_INFO_STATUS    = KEY_INFO::KEY_INFO_STATUS;
 
 
+
+function IsSqlColIsNamed($col){
+    $res =  strpos("!".$col," as ")>0;
+    //echoTD("test is named : $col => $res");
+    return $res;
+}
+
+
+function getNameSqlCol($col){
+    if (IsSqlColIsNamed($col)){
+        $idx = strpos($col," as ");
+        return substr($col,$idx+4);
+    }
+    else{
+        return $col;
+    }
+}
+
 /**
  * mysqlNumrows
  *

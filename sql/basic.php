@@ -98,9 +98,18 @@ function stringToArray($columnsTxt) {
         debug_print_backtrace();
     }
     
-	$columnsTxt = str_replace ( " ", "", $columnsTxt );
+	//$columnsTxt = str_replace ( " ", "", $columnsTxt );
 	$column = explode ( ",", $columnsTxt );
+	$column= trimArray($column);
 	return $column;
+}
+
+function trimArray($array){
+    $keys = array_keys($array);
+    foreach ($keys as $k){
+        $array[$k] = trim($array[$k]);
+    }
+    return $array;
 }
 
 /***

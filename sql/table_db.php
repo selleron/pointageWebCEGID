@@ -754,6 +754,7 @@ function editTable($table, $cols, $idTable, $form_name, $subParam = "") {
 	} else {
 	    if (isset($param[PARAM_TABLE_SQL::COLUMNS_FILTER])&&($param[PARAM_TABLE_SQL::COLUMNS_FILTER]!="")){
 	        $idKey = stringToArray($param[PARAM_TABLE_SQL::COLUMNS_FILTER]) [0];
+	        $idKey = getNameSqlCol($idKey);
 	    }
 	    else {
 		  $idKey = $param [$COLUMNS_SUMMARY] [0];
