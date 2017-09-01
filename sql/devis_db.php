@@ -31,9 +31,12 @@ include_once (dirname ( __FILE__ ) . "/project_db.php");
 
 
 function convertDevisToProjectIfNeeded(){
-    //verification i on vint pas de devis
-    global $FORM_TABLE_CEGID_DEVIS;
     global $PROJECT_SELECTION;
+    global $SQL_COL_NAME_PROJECT;
+    
+     //verification i on vint pas de devis
+     global $FORM_TABLE_CEGID_DEVIS;
+    
     $form = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
     $pos = strpos("!".$form,$FORM_TABLE_CEGID_DEVIS)>=1;
     //showSQLAction("form devis : $FORM_TABLE_CEGID_DEVIS - $form - $pos");
@@ -43,7 +46,6 @@ function convertDevisToProjectIfNeeded(){
         global $SQL_TABLE_DEVIS;
         global $SQL_COL_CEGID_DEVIS;
         global $SQL_COL_ID_DEVIS;
-        global $SQL_COL_NAME_PROJECT;
         
         $idDevis = getURLVariable($SQL_COL_ID_DEVIS);
         

@@ -321,6 +321,25 @@ function exportCSVTableGestionPointageProjetCegid($table)
 }
 
 /**
+ * convert URL Variable PROJECT to project If Needed
+ */
+function convertURLVariablePROJECT_to_projectIfNeeded(){
+    global $PROJECT_SELECTION;
+    global $SQL_COL_NAME_PROJECT;
+    
+    //verifie que si on a pas "project, on peut etre PROJECT
+    $projectName = getURLVariable($PROJECT_SELECTION);
+    if ($projectName == NULL){
+        $projectName = getURLVariableForRow(strtoupper($PROJECT_SELECTION),0);
+        if ($projectName != NULL){
+            setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
+            setURLVariable($PROJECT_SELECTION, $projectName);
+            //showGet();
+        }
+    }
+}
+
+/**
  * applyPreviousSelectPointage
  *
  * @return number
@@ -330,10 +349,11 @@ function applyNextPreviousSelectPointage()
     $col = "";
     $condition = "";
     
+    convertURLVariablePROJECT_to_projectIfNeeded();
     //verification i on vint pas de devis
     convertDevisToProjectIfNeeded();
     
-    // showSQLAction("action ".getActionGet ()." test ".LabelAction::ACTION_PREVIOUS);
+    //showSQLAction("action ".getActionGet ()." test ".LabelAction::ACTION_PREVIOUS);
     if (getActionGet() == LabelAction::ACTION_POINTAGE) {
         global $SQL_COL_NAME_PROJECT;
         global $PROJECT_SELECTION;
