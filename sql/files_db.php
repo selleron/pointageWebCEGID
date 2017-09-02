@@ -64,18 +64,31 @@ function actionStockFiles($path="", $newpath=""){
 	foreach ($contenu as $aFile) {
 		showActionVariable("- move $aFile", $TRACE_FILE);
 		actionStockOneFile($aFile, $path, $newpath);
-		showActionVariable("- move ok", $TRACE_FILE);
+		showActionVariable("- move finished", $TRACE_FILE);
 	}
 }
 /**
  * actionStockTemporaryFile
  * stock un fichier temporaire dans le depot
- * @param unknown_type $oldpath
- * @param unknown_type $newpath
+ * @param string $oldpath  directory
+ * @param string $newpath  directory
  */
-function actionStockTemporaryFile( $oldpath="../depot/", $newpath="../stockage/"){
-	if(actionLoadFile($oldpath)){
-		//echo "load file ok ...<br>";
+function actionStockTemporaryFile( $oldpath="", $newpath=""){
+    global $DIR_DEPOT_FROM;
+    global $DIR_DEPOT;
+    global $TRACE_FILE;
+    
+    if ($oldpath==""){
+        $oldpath=$DIR_DEPOT_FROM;
+    }
+    if ($newpath==""){
+        $newpath=$DIR_DEPOT;
+    }
+    
+    
+    showActionVariable("actionStockTemporaryFile()", $TRACE_FILE);
+    if(actionLoadFile($oldpath)){	    
+	    //echo "load file ok ...<br>";
 		$aFileName = getLoadFileName();
 		return actionStockOneFile($aFileName,$oldpath,$newpath);
 	}	
@@ -93,18 +106,20 @@ function actionStockOneFile( $aFileName, $oldpath="../depot/", $newpath="../stoc
     showActionVariable("actionStockOneFile() ->  $aFileName - $oldpath - $newpath ", $SHOW_FILE_ACTION);
 	
 	$oldname="$oldpath$aFileName";
-
-	//showSQLAction(" getCounterValue() : $aFileName => $newname");
+	$oldFileName = getBaseName($oldname);
 	$counter = getCounterValue("stockage");
-	//showSQLAction(" getCounterValue() : $aFileName => $counter");
 	$extension = getFileExtension($oldname);
-	$newFileName="file_$counter.$extension";
+
+	//$newFileName="file_$counter.$extension";
+	$newFileName=$counter."_".$oldFileName;
+	
+	
 	$newname="$newpath$newFileName";
 
-	//showSQLAction("counter   : $counter");
-	//showSQLAction("extension : $extension ");
-	//showSQLAction("oldname   : $oldname");
-	//showSQLAction("newname   : $newname");
+	showActionVariable("counter   : $counter"    , $SHOW_FILE_ACTION);
+	showActionVariable("oldname   : $oldname "   , $SHOW_FILE_ACTION);
+	showActionVariable("extension : $extension " , $SHOW_FILE_ACTION);
+	showActionVariable("newname   : $newname"    , $SHOW_FILE_ACTION);
 
 	//showSQLAction("rename ... : $aFileName => $newname");
 	if(rename($oldname, $newname)){

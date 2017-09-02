@@ -6,6 +6,15 @@
 // echo "include files.php<br>";
 $FILES_PHP = "loaded";
 
+
+function numberToByte($num){
+    $num = str_replace("K", "000", $num);
+    $num = str_replace("M", "000000", $num);
+    $num = str_replace("G", "000000000", $num);
+    $num = str_replace(" ", "", $num);
+    return $num;
+}
+
 /**
  * showLoadFile
  * affiche le champ de selection d'un fichier a uploader
@@ -14,7 +23,7 @@ $FILES_PHP = "loaded";
  *        	lorsque l'on appuie sur load
  *        	voir http://phpcodeur.net/articles/php/upload
  */
-function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoForm="") {
+function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoForm="", $MAX_FILE_SIZE="") {
 	if (! $action) {
 		$action = "load";
 	}
@@ -31,12 +40,16 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	global $ACTION_GET;
 	$url = suppressPageURL ( $url, $ACTION_GET );
 	
+	if ($MAX_FILE_SIZE==""){
+	    $MAX_FILE_SIZE = numberToByte(ini_get('upload_max_filesize'));
+	}
+	
 	echo "
 	<!-- Le type d\'encodage des donnees, enctype, DOIT etre specifie comme ce qui suit: -->
 
 	<form enctype=\"multipart/form-data\" action=\"$url\" method=\"post\">
 	<!-- MAX_FILE_SIZE doit preceder le champ input de type file -->
-	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"300000\" />
+	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"$MAX_FILE_SIZE\" />
 	<!-- Le nom de l\'element input determine le nom dans le tableau -->
 	$choose : <input name=\"userfile\" type=\"file\" />";
 	showFormAction ( $action );
@@ -90,9 +103,9 @@ function actionGestionFile($destination = "../photos/") {
 function actionLoadFile($destination = "../photos/") {
 	$order = getURLVariable ( ORDER_ENUM::ORDER_GET );
 	global $SHOW_FILE_ACTION;
-	showActionVariable ( "upload [".getTemporaryFile()."]", $SHOW_FILE_ACTION );
+	showActionVariable ( "upload temporary file[ ".getTemporaryFile()." ]", $SHOW_FILE_ACTION );
 	if (hasTemporaryFile () == "yes") {
-	    showActionVariable ( "ok.<br>", $SHOW_FILE_ACTION );
+	    showActionVariable ( "temporary file found.<br>", $SHOW_FILE_ACTION );
 		// $destination = getcwd()."/";
 		// $destination = "../photos/";
 		return uploadFile ( $destination );
@@ -183,13 +196,13 @@ function getTemporaryFileError() {
 	if ($error == 0)
 		return "no error";
 	if ($error == 1)
-		return "Le fichier exc&egrave;de le poids autorisé par la directive upload_max_filesize";
+		return "Le fichier exc&egrave;de le poids autorisÃ© par la directive upload_max_filesize";
 	if ($error == 2)
-		return "Le fichier exc&egrave;de le poids autorisé par le champ MAX_FILE_SIZE s'il a été donné½";
+		return "Le fichier exc&egrave;de le poids autorisÃ© par le champ MAX_FILE_SIZE s'il a Ã©tÃ© donnÃ©";
 	if ($error == 3)
-		return "Le fichier n'a été uploadéque partiellement";
+		return "Le fichier n'a Ã©tÃ© uploadÃ© que partiellement";
 	if ($error == 4)
-		return "Aucun fichier n'a été uploadé";
+		return "Aucun fichier n'a Ã©tÃ© uploadÃ©";
 	return "erreur inconnue $error";
 }
 
@@ -213,8 +226,14 @@ function hasTemporaryFile() {
  */
 function uploadFile($uploaddir) {
 	createDirectoryIfNeeded ( $uploaddir );
+	if ($uploaddir==""){
+	    showError("no upload dir defined");
+	}
 	$tmpFile = getTemporaryFile ();
 	$uploadfile = $uploaddir . basename ( $_FILES ['userfile'] ['name'] );
+	
+	global $SHOW_FILE_ACTION;
+	showActionVariable ( "upload temporary file : $tmpFile -> $uploadfile ", $SHOW_FILE_ACTION );
 	
 	return moveFile ( $tmpFile, $uploadfile );
 }
@@ -525,14 +544,58 @@ function showActionFile($param, $file) {
 /**
  * getFileExtension
  * retourne l'extension d'un fichier
- * 
- * @param path $aFile        	
+ * @param string $aFile
+ * @return string
  */
 function getFileExtension($aFile) {
 	// $fichier = explode('.', $aFile);
 	// $extension = $fichier[1];
 	$extension = pathinfo ( $aFile, PATHINFO_EXTENSION );
 	return $extension;
+}
+
+
+/**
+ * getBaseName
+ * retourne le nom du fichier sans extension, ni path
+ * @param string $aFile
+ * @return string
+ */
+function getBaseName($aFile){
+    $baseName = pathinfo ( $aFile, PATHINFO_BASENAME );
+    return $baseName;
+}
+
+
+/**
+ * retourne le nom du fichier (baseName&extension)
+ * @param string $aFile
+ * @return string
+ */
+function getFileName($aFile){
+    $fileName = pathinfo ( $aFile, PATHINFO_FILENAME );
+    return $fileName;
+}
+
+/**
+ * getDirFile
+ * retourne le path du fichier
+ * @param string $aFile
+ * @return string
+ */
+function getDirName($aFile){
+    $dirName = pathinfo ( $aFile, PATHINFO_DIRNAME );
+    return $dirName;
+}
+
+/**
+ * getRealPath
+ * get Real Path (resolve .. & symbolic link)
+ * @param string $aPath
+ * @return string
+ */
+function getRealPath($aPath){
+    return realpath($aPath);
 }
 
 /**

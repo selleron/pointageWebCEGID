@@ -36,6 +36,43 @@ echo "<tr><td>Data Base Host  		</td>	<td>SQL_HOST		</td>		<td>".$SQL_HOST."		</
   	  <tr><td>Crypted password		</td>	<td>CRYPT_PWD		</td>		<td>".$CRYPT_PWD."		</td>		<td>les mots de passe user sont il crypt&eacute;s</td></tr>
    </table>";
 
+
+
+
+//php.ini
+$MAX_POST_SIZE    = ini_get('post_max_size');
+$file_uploads     = ini_get('file_uploads');
+$max_file_uploads = ini_get('max_file_uploads');
+$memory_limit        = ini_get('memory_limit');
+$upload_max_filesize = ini_get('upload_max_filesize');
+$max_input_vars      = ini_get('max_input_vars');
+$max_execution_time  = ini_get('max_execution_time');
+$max_input_time      = ini_get('max_input_time');
+
+echo "<h4> Configuration systeme (PHP.ini)</h4>";
+echo "<table>";
+beginTableHeader();
+echo "<td>Define</td><td>Value</td><td>Description</td>";
+endTableHeader();
+echo "
+	  <tr><td>file_uploads  </td>           <td>$file_uploads        </td>	  	<td> file uploads on/off  1/0 </td>		</tr>
+	  <tr><td>post_max_size  </td>          <td>$MAX_POST_SIZE       </td>   	<td> POST max size	        </td>		</tr>
+	  <tr><td>max_file_uploads  </td>       <td>$max_file_uploads    </td>	  	<td> max file uploads	    </td>		</tr>
+ 
+	  <tr><td>memory_limit         </td>       <td>$memory_limit           </td>	  	<td> memory limit	    </td>		</tr>
+	  <tr><td>upload_max_filesize  </td>       <td>$upload_max_filesize    </td>	  	<td> upload max file size	    </td>		</tr>
+	  <tr><td>max_input_vars       </td>       <td>$max_input_vars         </td>	  	<td> max input var	    </td>		</tr>
+	  <tr><td>max_execution_time   </td>       <td>$max_execution_time     </td>	  	<td> max execution time	    </td>		</tr>
+	  <tr><td>max_input_time       </td>       <td>$max_input_time         </td>	  	<td> max input time	    </td>		</tr>
+
+
+  </table>";
+
+
+
+
+
+
 // Affichage
 /////////////////////////////////////
 echo "<br>";
@@ -84,6 +121,8 @@ echo "
 	<tr>	<td> SHOW_CONNECTION_ID	</td>	<td> $SHOW_CONNECTION_ID	</td>	<td>trace ou no l'id de connexion	</td></tr>
 	<tr>	<td> SHOW_FUNCION_JAVA	</td>	<td> $SHOW_FUNCION_JAVA		</td>	<td>trace java script function		</td></tr>
 	<tr>	<td> TRACE_POST			</td>	<td> $TRACE_POST			</td>	<td>trace POST						</td></tr>
+	<tr>	<td> TRACE_FILE			</td>	<td> $TRACE_FILE			</td>	<td>trace file						</td></tr>
+	<tr>	<td> SHOW_FILE_ACTION	</td>	<td> $SHOW_FILE_ACTION		</td>	<td>trace file action				</td></tr>
 ";
 
 
