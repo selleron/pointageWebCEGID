@@ -1088,10 +1088,15 @@ function sqlRequestToArray2($request, $col)
  */
 function sqlRowFromSqlArrayResult($array, $rowNum)
 {
-    $row = "";
+    $row = array();
     $keys = array_keys($array);
     foreach ($keys as $col) {
-        $row[$col] = $array[$col][$rowNum];
+        if (isset($array[$col][$rowNum])){
+          $row[$col] = $array[$col][$rowNum];
+        }
+        else{
+            $row[$col]="";            
+        }
     }
     
     return $row;
