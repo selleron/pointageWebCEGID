@@ -769,12 +769,19 @@ function updateParamSqlWithResult($param, $sqlResult)
     $param[$COLUMNS_SUMMARY] = array();
     $num = $numfields = mysqli_num_fields($sqlResult);
     for ($Compteur = 0; $Compteur < $num; $Compteur ++) {
-        $name = mysql_field_name($sqlResult, $Compteur);
+        $name = mysqli_field_name($sqlResult, $Compteur);
         $param[$COLUMNS_SUMMARY][$Compteur] = $name;
     }
     
     // detection du nom de la table
-    $name = mysql_tablename($sqlResult, 0);
+    $name = mysql_tablename($sqlResult);
+//     $field = mysqli_fetch_fields($sqlResult);
+//     if (isset($field["table"])){
+//     $name = $field["table"];
+//     }
+//     else{
+//         $name = "undefine table";
+//     }
     $param[$TABLE_NAME] = $name;
     
     return $param;
@@ -1674,6 +1681,9 @@ function showTableHeader($param, $html = "")
     
     if ($param[$TABLE_ID]) {
         $tableId = "id='$param[$TABLE_ID]'";
+    }
+    else{
+        $tableId="";
     }
     
     $tableSize = "";

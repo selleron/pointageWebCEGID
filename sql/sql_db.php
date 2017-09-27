@@ -238,6 +238,17 @@ function mysqli_field_name($result, $field_nr){
     return mysqli_fetch_field_direct($result, $field_nr)->name;
 }
 
+function mysql_tablename($sqlResult){
+    $field = mysqli_fetch_fields($sqlResult);
+    if (isset($field["table"])){
+        $name = $field["table"];
+    }
+    else{
+        $name = "undefine table";
+    }
+    return $name;
+}
+
 function mysqli_field_flags($result, $field_nr){
     return mysqli_fetch_field_direct($result, $field_nr)->flags;
 }
