@@ -774,7 +774,7 @@ function updateParamSqlWithResult($param, $sqlResult)
     }
     
     // detection du nom de la table
-    $name = mysql_tablename($sqlResult);
+    $name = mysqli_tablename($sqlResult);
 //     $field = mysqli_fetch_fields($sqlResult);
 //     if (isset($field["table"])){
 //     $name = $field["table"];
