@@ -25,6 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 
+
 INSERT INTO `requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`) VALUES
 ('CA projets TMA', 'CA projets TMA', 'CA projets TMA', 'select project_id, NAME, sum(uo),  sum(total) CA from \r\n(select p.project_id, cp.NAME,  p.profil, sum(p.uo) uo, c.cout, (sum(p.uo)*cout) as total\r\nfrom cegid_pointage p, cegid_project_cout c, cegid_project cp\r\nwhere \r\n cp.CEGID > \"P17900\"\r\n and cp.CEGID =p.PROJECT_ID\r\n and year(p.date)=2017 and year(c.date)=2017 \r\n and p.PROJECT_ID = c.PROJECT_ID\r\n and p.PROFIL = c.PROFIL_ID\r\n group by p.project_id, p.profil\r\n order by p.project_id\r\n ) as CA\r\n  group by project_id, NAME\r\n  order by project_id\r\n'),
 ('CA TMA', 'CA TMA', 'CA TMA', 'select sum(CA) CA_TMA from \r\n(select project_id, NAME, sum(uo),  sum(total) CA from \r\n(select p.project_id, cp.NAME,  p.profil, sum(p.uo) uo, c.cout, (sum(p.uo)*cout) as total\r\nfrom cegid_pointage p, cegid_project_cout c, cegid_project cp\r\nwhere \r\n cp.CEGID > \"P17900\"\r\n and cp.CEGID =p.PROJECT_ID\r\n and year(p.date)=2017 and year(c.date)=2017 \r\n and p.PROJECT_ID = c.PROJECT_ID\r\n and p.PROFIL = c.PROFIL_ID\r\n group by p.project_id, p.profil\r\n order by p.project_id\r\n ) as CA\r\n  group by project_id, NAME\r\n  order by project_id\r\n) as CA'),
@@ -36,10 +37,6 @@ INSERT INTO `requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`) VALUES
 ('Previsionnel CA_project', 'Previsionnel CA par projet', 'Previsionnel CA par projet', 'select project_id, NAME, sum(uo),  sum(total) CA_prevision from \r\n(select p.project_id, cp.NAME,  p.profil, sum(p.uo) uo, c.cout, (sum(p.uo)*cout) as total\r\nfrom cegid_pointage_previsionnel p, cegid_project_cout c, cegid_project cp\r\nwhere \r\n cp.CEGID =p.PROJECT_ID\r\n and year(p.date)=2017 and year(c.date)=2017 \r\n and p.PROJECT_ID = c.PROJECT_ID\r\n and p.PROFIL = c.PROFIL_ID\r\n group by p.project_id, p.profil\r\n order by p.project_id\r\n ) as CA\r\n  group by project_id, NAME\r\n  order by project_id'),
 ('Previsionnel_CA_all', 'Previsionnel CA global', 'Previsionnel CA global', 'select sum(CA) CA_PREVISIONNEL from \r\n(select project_id, NAME, sum(uo),  sum(total) CA from \r\n(select p.project_id, cp.NAME,  p.profil, sum(p.uo) uo, c.cout, (sum(p.uo)*cout) as total\r\nfrom cegid_pointage_previsionnel p, cegid_project_cout c, cegid_project cp\r\nwhere \r\n cp.CEGID =p.PROJECT_ID\r\n and year(p.date)=2017 and year(c.date)=2017 \r\n and p.PROJECT_ID = c.PROJECT_ID\r\n and p.PROFIL = c.PROFIL_ID\r\n group by p.project_id, p.profil\r\n order by p.project_id\r\n ) as CA\r\n  group by project_id, NAME\r\n  order by project_id\r\n) as CA');
 
-
---
--- Déchargement des données de la table `requetes`
---
 
 
 UPDATE `version` SET `DATE` = '2017-09-27 00:00:00', `value` = '0.20.0' WHERE `version`.`id` = 'database';
