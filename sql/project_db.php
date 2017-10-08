@@ -186,9 +186,11 @@ function showTableProject() {
 	
 	//ajout edit pointage
 	global $URL_ROOT_POINTAGE;
-	$url = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
+	$urlPointage = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
+	$urlPrevision = "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php";
 	//showSQLAction("showTableProject - addParamActionCommand()");
-	$param = addParamActionCommand($param, $url, "pointage!", LabelAction::ACTION_POINTAGE );
+	$param = addParamActionCommand($param, $urlPointage   , "pointage!"   , LabelAction::ACTION_POINTAGE );
+	$param = addParamActionCommand($param, $urlPrevision  , "prevision!"  , LabelAction::ACTION_POINTAGE );
 	//showSQLAction("showTableProject - addParamActionCommand() retour");
 	
 	
