@@ -138,6 +138,7 @@ function showTableFiles(){
 
 
 function applyGestionCEGID_FILE() {
+    global $TRACE_FILE;
     global $SQL_SHOW_COL_CEGID_FILE;
     global $SQL_SHOW_COL_CEGID_FILE2;
     global $SQL_SELECT_COL_CEGID_FILE2;
@@ -152,8 +153,18 @@ function applyGestionCEGID_FILE() {
 	    $param = createDefaultParamSql ( $SQL_TABLE_CEGID_FILE2, $SQL_SHOW_COL_CEGID_FILE2, $condition );
 	    $param = updateTableParamSql ( $param, $form_name, $colFilter );
         $param = updateTableParamSqlInsert ( $param, $SQL_TABLE_CEGID_FILE, $SQL_SHOW_COL_CEGID_FILE );    
-            
+    
+    //showSQLAction("cegid_file_db.applyGestionCEGID_FILE($SQL_TABLE_CEGID_FILE2 -- $SQL_TABLE_CEGID_FILE)");   
+     
 	$res=0;
+	$action = getActionGet ();
+	if ($action == "load"){
+	    $res=1;
+	    showActionVariable(  "action [$action] : store reference file ...",$TRACE_FILE);
+	    showActionVariable(  "------------------- actionStockTemporaryFile() ...",$TRACE_FILE);
+	    $resTmp = actionStockTemporaryFile();
+	}
+	
 	//traitement du update
 	//$res = updateTableByGet ($SQL_TABLE_CEGID_FILE, $colCEGID_FILE, $form_name, "no"/** re-edit */ );
 	//cas classique : edit, export, ...

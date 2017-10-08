@@ -38,7 +38,7 @@
 	applyGestionCEGID_FILE(); 
 	
 	echo "<p>";
-	showLoadFile("","","","import");
+	showLoadFile("","","","load");
 	echo "<br/></p>";
 	
 	

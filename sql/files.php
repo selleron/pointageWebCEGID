@@ -198,7 +198,7 @@ function getTemporaryFileError() {
 	if ($error == 1)
 		return "Le fichier exc&egrave;de le poids autorisé par la directive upload_max_filesize";
 	if ($error == 2)
-		return "Le fichier exc&egrave;de le poids autorisé par le champ MAX_FILE_SIZE s'il a été donné";
+		return "Le fichier exc&egrave;de le poids autorisé par le champ MAX_FILE_SIZE du formulaire s'il a été donné";
 	if ($error == 3)
 		return "Le fichier n'a été uploadé que partiellement";
 	if ($error == 4)

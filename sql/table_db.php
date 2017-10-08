@@ -33,7 +33,7 @@ include_once 'tool_db.php';
 		$res = exportCSVTableByGet ( $table, $cols, $cols, $form_name );
 	}
 	if ($res <= 0) {
-		$res = importCSVTableByGet ( $table, $cols, $form_name );
+	    $res = importCSVTableByGet ( /*$table, $cols, $form_name,*/ $param );
 	}
 	// insertOrupdateTableByGet ($table, $cols, $form_name);
 	if ($res <= 0) {
@@ -45,14 +45,30 @@ include_once 'tool_db.php';
 
 /**
  * import from file
- *
- * @param unknown $table        	
- * @param unknown $cols        	
- * @param unknown $form_name        	
+ * @param array param ($table , $cols, $form_name)
  */
-function importCSVTableByGet($table, $cols, $form_name) {
+function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 	if ((getActionGet () == "import")) {
 		$array = actionImportCSV ();
+		
+		if (isset($param[PARAM_TABLE_SQL::TABLE_NAME_INSERT])){
+		    $table = $param[PARAM_TABLE_SQL::TABLE_NAME_INSERT];
+		    //echoTD("found PARAM_TABLE_SQL::TABLE_NAME_INSERT : $table");
+		}
+		else{
+		    $table = $param[PARAM_TABLE_SQL::TABLE_NAME];
+		    //echoTD("found PARAM_TABLE_SQL::TABLE_NAME : $table");
+		}
+		if (isset($param[PARAM_TABLE_SQL::COLUMNS_INSERT])){
+		    $cols = $param[PARAM_TABLE_SQL::COLUMNS_INSERT];
+		}
+		else{
+		    $cols = $param[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
+		}
+		$cols = arrayToString($cols);
+		$form_name = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+		
+		
 		
 		$valueTable = getCSVValueFromMatrice ( $array, "table", $table );
 		if ($valueTable != $table) {
