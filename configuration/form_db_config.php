@@ -39,7 +39,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from c
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 
-//table cegid_project
+//table cegid_devis
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["CEGID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["CEGID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS_DEVIS"]="select ID from cegid_status_devis order by ORDRE";
@@ -63,7 +63,8 @@ $FORM_STYLE         ["form_table_cegid_devis_update"]["MODIFICATION"]["SIZE"]=5;
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["STATUS"]="select ID from cegid_status_project";
 $FORM_STYLE         ["form_table_cegid_project_insert"]["PRIX_VENTE"]["SIZE"]=10;
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["STATUS"]="select ID from cegid_status_project";
- 
+$FORM_VALUE_POSSIBLE["form_table_cegid_project"]["STATUS"]="select ID from cegid_status_project";
+
 
 //table project cout
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
