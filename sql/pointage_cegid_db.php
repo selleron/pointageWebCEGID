@@ -299,7 +299,7 @@ function applyImportCSV()
  *
  * @return number
  */
-function exportCSVTableGestionPointageProjetCegid($table)
+function exportCSVTableGestionPointageProjetCegid($table, $firstColExport="")
 {
     global $SQL_DEL_COL_CEGID_POINTAGE;
     global $SQL_SHOW_COL_CEGID_POINTAGE;
@@ -308,13 +308,17 @@ function exportCSVTableGestionPointageProjetCegid($table)
     global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
     global $LIST_COLS_MONTHS;
     
+    if ($firstColExport==""){
+        $firstColExport = $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+    }
+    
     if ($table == "") {
         global $SQL_TABLE_CEGID_POINTAGE;
         $table = $SQL_TABLE_CEGID_POINTAGE;
     }
     
-    $columnsAction = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . $LIST_COLS_MONTHS;
-    $columnsExport = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . getExportMonths();
+    $columnsAction = $firstColExport . "," . $LIST_COLS_MONTHS;
+    $columnsExport = $firstColExport . "," . getExportMonths();
     $exec = exportCSVTableByGet($table, $columnsAction, $columnsExport, $form_name);
     
     return $exec;
@@ -425,8 +429,9 @@ function applyNextPreviousSelectPointage()
  */
 function applyExportCSVSelectPointage($table="")
 {
+    showAction("Test [".getActionGet()."] action demanded on [$table] action accepted : ".LabelAction::ActionExport);
     if (getActionGet() == LabelAction::ActionExport) {
-        //showSQLAction("Export action demanded on [$table]");
+        showAction("Export Pointage action demanded on [$table]");
         return exportCSVArrayGestionPointageProjetCegid($table);
     } else {
         return - 1;
@@ -448,6 +453,8 @@ function exportCSVArrayGestionPointageProjetCegid($table="")
     global $LIST_COLS_MONTHS;
     $columnsAction = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . $LIST_COLS_MONTHS;
     $columnsExport = $SQL_SHOW_COL_CEGID_POINTAGE2_2 . "," . getExportMonths();
+    
+    showAction("exportCSVArrayGestionPointageProjetCegid() on [$table]");
     
     if ($table==""){
         global $SQL_TABLE_CEGID_POINTAGE;

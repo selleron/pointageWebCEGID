@@ -118,7 +118,8 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
  *        	[col][row]
  * @return number 1 si ok 0 si nothing
  */
-function exportCSVArray($table, $colsSet, $colsSetExport, $matrice) {
+function exportCSVArray($table, $colsSet, $colsSetExport, $matrice) {    
+   
 	$colList = stringToArray ( $colsSet );
 	$colListHeader = stringToArray ( $colsSetExport );
 	$nbCol = count ( $matrice );
@@ -190,12 +191,12 @@ function exportCSVArray($table, $colsSet, $colsSetExport, $matrice) {
  */
 function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name) {
 	if ((getActionGet () == "export CSV") || (getActionGet () == "exportCSV")) {
-		
+	    global $TRACE_INFO_EXPORT;
+	    //debug_print_backtrace();
 		// trace
 		$url = getCurrentURL ();
 		$action = getActionGet ();
-		showAction ( "action : [$action]  $url" );
-		showAction ( "CSV : $table - [$colsSet] => [$colsSetExport]" );
+		showActionVariable( "exportCSVTableByGet() : [$action]  $url -- CSV : $table - [$colsSet] => [$colsSetExport]", $TRACE_INFO_EXPORT );
 		// end trace
 		
 		$colList = stringToArray ( $colsSet );
@@ -216,7 +217,7 @@ function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name) {
 		$fileName = $table . uniqid () . ".csv";
 		$path = $PATH_UPLOAD_DIRECTORY . '/' . $fileName;
 		$url = $URL_UPLOAD_DIRECTORY . '/' . $fileName;
-		showSQLAction ( "table : $table <br>" . "colsSet : $colsSet<br>" . "use data from url : " . is_array ( $colID ) . "<br>" . "nb columns : $nbCol - nb row : $nbRow<br>" . "current directory : $dir<br>" . "directory upload : $PATH_UPLOAD_DIRECTORY<br>" . "url upload : $URL_UPLOAD_DIRECTORY<br>" . "file name : $fileName<br>" . "file path : $path<br>" );
+		showActionVariable ( "table : $table <br>" . "colsSet : $colsSet<br>" . "use data from url : " . is_array ( $colID ) . "<br>" . "nb columns : $nbCol - nb row : $nbRow<br>" . "current directory : $dir<br>" . "directory upload : $PATH_UPLOAD_DIRECTORY<br>" . "url upload : $URL_UPLOAD_DIRECTORY<br>" . "file name : $fileName<br>" . "file path : $path<br>", $TRACE_INFO_EXPORT );
 		
 		// begin export
 		$handle = fopen ( $path, 'w+' );
@@ -387,7 +388,8 @@ function getCSVIndexFromMatrice($matrice, $key, $comment = "#") {
  *        	: table name
  */
 function exportCSVDataURL($handle, $table) {
-	$sql = "select * from $table";
+    //debug_print_backtrace();
+    $sql = "select * from $table";
 	$Resultat = mysqlQuery ( $sql );
 	
 	$nbRow = mysqlNumrows ( $Resultat );

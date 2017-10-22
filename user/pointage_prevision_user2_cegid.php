@@ -45,15 +45,20 @@
  	
  	//actions
  	$res = -1;
+ 	//showAction("applyGestionOneProject");
  	$res = applyGestionOneProject();
  	if ($res<=0){
- 		$res = applyGestionCoutOneProjectForm();
+ 	    //showAction("applyGestionCoutOneProjectForm");
+ 	    $res = applyGestionCoutOneProjectForm();
  	}
  	if ($res <=0){
- 		$res = applyGestionPrevisionnelProjetCegid();
+ 	    //showAction("applyGestionPrevisionnelUserCegid");
+ 	    //$res = applyGestionPrevisionnelProjetCegid();
+ 	    $res = applyGestionPrevisionnelUserCegid();
  	}
  	if ($res <=0){
- 		$res = applySynchronizePrevisionnel();
+ 	    //showAction("applySynchronizePrevisionnel");
+ 	    $res = applySynchronizePrevisionnel();
  	}
  	
 //   	beginTable();

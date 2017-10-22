@@ -34,6 +34,7 @@ $SHOW_CONNECTION_ID="false"; 				//trace ou no l'id de connexion
 $SHOW_FUNCION_JAVA="yes";					//trace java script function
 $TRACE_POST="yes";							//trace POST
 $TRACE_FILE="yes";							//trace File action
+$TRACE_INFO_EXPORT="no";					//trace generation export
 $SHOW_FILE_ACTION="yes";                    //trace file operation
 
 $SHOW_SQL_EDIT="yes";						//trace ou non les actions SQL edit

@@ -16,11 +16,29 @@ function applyGestionPrevisionnelProjetCegid() {
 	global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
 	$table = $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
 	
-	global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2;
-	$table2 = $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2;
-	
 	return applyGestionTablePointageProjetCegid ( $table );
 }
+
+/**
+ * applyGestionPrevisionnelUserCegid
+ * @return number|void|number
+ */
+function applyGestionPrevisionnelUserCegid() { 
+    global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
+    global $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER;
+    $table = $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
+    $firstCol = $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER;
+    
+    $exec = exportCSVTableGestionPointageProjetCegid($table, $firstCol);
+    if ($exec > 0) {
+        return 1;
+    }
+    else{
+        return applyGestionTablePointageProjetCegid ( $table );
+    }
+}
+
+
 
 /**
  * applySynchronizePrevisionnel

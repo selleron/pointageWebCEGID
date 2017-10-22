@@ -127,38 +127,7 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
         $SQL_SHOW_WHERE_CEGID_POINTAGE2,
         "sum(p.UO)"
         );
-    
-//     $cptP=7;
-//     echoTD("$SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER <br>");
-//     $columns = stringToArray($SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER);
-//     $index = findIndexPointage($tableauPrev, $tableauPointage, $columns, $cptP);
-//     $tableau = $tableauPointage;
-//     echoTD("found : ".$tableau[$columns[0]][$cptP].
-//         " - ".$tableau[$columns[1]][$cptP].
-//         " - ".$tableau["jan"][$cptP].
-//         " - ".$tableau["fev"][$cptP].
-//         " - ".$tableau["mars"][$cptP].
-//         " - ".$tableau["avril"][$cptP].
-//         " - ".$tableau["mai"][$cptP].
-//         " - ".$tableau["juin"][$cptP].
-//         " - ".$tableau["juil"][$cptP].
-//         " - ".$tableau["aout"][$cptP].
-//         " in pointage at index $index  for $cptP : $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER<br>");
-
-//     $cptP=$index;
-//     $tableau = $tableauPrev;
-//     echoTD("found : ".$tableau[$columns[0]][$cptP].
-//         " - ".$tableau[$columns[1]][$cptP].
-//         " - ".$tableau["jan"][$cptP].
-//         " - ".$tableau["fev"][$cptP].
-//         " - ".$tableau["mars"][$cptP].
-//         " - ".$tableau["avril"][$cptP].
-//         " - ".$tableau["mai"][$cptP].
-//         " - ".$tableau["juin"][$cptP].
-//         " - ".$tableau["juil"][$cptP].
-//         " - ".$tableau["aout"][$cptP].
-//         " in prev at index $index  for $cptP : $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER<br>");
-    
+  
     
     //printMatrice($tableauPrev);
     $columns = stringToArray($SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER);
@@ -172,7 +141,7 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
     //showError("TABLE_UPDATE $TABLE_UPDATE");
     $subparam [$TABLE_UPDATE] = "no";
     $subparam [$TABLE_INSERT] = "no";
-    $subparam [$TABLE_EXPORT_CSV] = "no";
+    $subparam [$TABLE_EXPORT_CSV] = "yes";
     
     showTablePointageOneProjetCegid ( $tableau, $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER, $subparam, "no" );
     }
