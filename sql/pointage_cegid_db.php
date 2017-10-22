@@ -429,9 +429,11 @@ function applyNextPreviousSelectPointage()
  */
 function applyExportCSVSelectPointage($table="")
 {
-    showAction("Test [".getActionGet()."] action demanded on [$table] action accepted : ".LabelAction::ActionExport);
+    global $TRACE_INFO_EXPORT;
+    showActionVariable("Test [".getActionGet()."] action demanded on [$table] action accepted : ".LabelAction::ActionExport, $TRACE_INFO_EXPORT);
+    
     if (getActionGet() == LabelAction::ActionExport) {
-        showAction("Export Pointage action demanded on [$table]");
+        showActionVariable("Export Pointage action demanded on [$table]", $TRACE_INFO_EXPORT);
         return exportCSVArrayGestionPointageProjetCegid($table);
     } else {
         return - 1;
@@ -729,7 +731,8 @@ function getURLYear($defaultValue = null)
  */
 function showTablePointageOneProjetCegid($tableau = "", $showColPointage = "", $subparam = "", $showVoulu = "yes")
 {
-    showAction("function showTablePointageOneProjetCegid()");
+    global $TRACE_INFO_POINTAGE;
+    showActionVariable("function showTablePointageOneProjetCegid()", $TRACE_INFO_POINTAGE);
     // condition project
     global $ITEM_COMBOBOX_SELECTION;
     global $PROJECT_SELECTION;
@@ -745,7 +748,7 @@ function showTablePointageOneProjetCegid($tableau = "", $showColPointage = "", $
     
     global $USER_SELECTION;
     $userName = getURLVariable($USER_SELECTION);
-    showSQLAction("user selected to transmit form  $USER_SELECTION : $userName");
+    showActionVariable("user selected to transmit form  $USER_SELECTION : $userName", $TRACE_INFO_POINTAGE);
     
     if (! $tableau) {
         // create tableau de pointage
@@ -1036,6 +1039,7 @@ function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes", $ta
 $showColPointage, $selectColPointage, // columns
 $formName, $conditionPointage, $select = "p.UO")
 {
+    global $TRACE_INFO_POINTAGE;
     if ($showAll==""){
         $showAll="yes";
     }
@@ -1090,7 +1094,7 @@ $formName, $conditionPointage, $select = "p.UO")
     $param = updateParamSqlWithDistinct($param);
     $param = updateParamSqlColumnFilter($param, $selectColPointage);
     $request = createRequeteTableData($param);
-    showSQLAction($request);
+    showActionVariable($request, $TRACE_INFO_POINTAGE);
     // showTableByParam ( $param );
     
     // condition year

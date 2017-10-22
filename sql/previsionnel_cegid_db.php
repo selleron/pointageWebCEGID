@@ -270,14 +270,15 @@ function findIndexPointage($tableauPrev, $tableauPointage, $columns, $cptP) {
  * - sommation automatique
  */
 function showTablePrevisionnelPointageCegid() {
-	showAction ( "function showTablePrevisionnelPointageCegid()" );
+    global $TRACE_INFO_POINTAGE;
+    showActionVariable( "function showTablePrevisionnelPointageCegid()", $TRACE_INFO_POINTAGE );
 	
 	// condition project
 	global $ITEM_COMBOBOX_SELECTION;
 	global $PROJECT_SELECTION;
 	$projectName = getURLVariable ( $PROJECT_SELECTION );
 	if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
-		showSQLAction ( "No project Selected..." );
+	    showActionVariable ( "No project Selected...", $TRACE_INFO_POINTAGE );
 		// $projectName = "no project";
 		$projectName = $ITEM_COMBOBOX_SELECTION;
 	}
@@ -298,7 +299,9 @@ function showTablePrevisionnelPointageCegid() {
 * - sommation automatique
 */
 function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="")  {
-    showAction ( "function showTablePrevisionnelPointageCegid2()" );
+    global $TRACE_INFO_POINTAGE;
+    
+    showActionVariable ( "function showTablePrevisionnelPointageCegid2()", $TRACE_INFO_POINTAGE );
     
 //     // condition project
 //     global $ITEM_COMBOBOX_SELECTION;
@@ -366,7 +369,7 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
 
     
     $cpt2 = $nbResPointage;
-    showAction ( "nb row previsionnel : $nbResPrevision" );
+    showActionVariable( "nb row previsionnel : $nbResPrevision", $TRACE_INFO_POINTAGE );
     //printMatrice($tableauPrev);
     // add previsionnel
     for($cpt = 0; $cpt < $nbResPrevision; $cpt ++) {

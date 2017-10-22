@@ -87,14 +87,15 @@ function applyNextPreviousSelectUser() {
  * showTablePrevisionnelByUserPointageCegid
  */
 function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
-    showAction ( "function showTablePrevisionnelPointageCegid()" );
+    global $TRACE_INFO_POINTAGE;
+    showActionVariable( "function showTablePrevisionnelByUserPointageCegid()", $TRACE_INFO_POINTAGE );
     
     // condition project
     global $ITEM_COMBOBOX_SELECTION;
     global $PROJECT_SELECTION;
     $projectName = getURLVariable ( $PROJECT_SELECTION );
     if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
-        showSQLAction ( "No project Selected..." );
+        showActionVariable ( "No project Selected...", $TRACE_INFO_POINTAGE );
         // $projectName = "no project";
         $projectName = $ITEM_COMBOBOX_SELECTION;
     }
