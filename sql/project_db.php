@@ -184,7 +184,7 @@ function showTableProject() {
 	//ajout export CSV
 	$param[$TABLE_EXPORT_CSV] = "yes";
 	
-	//ajout edit pointage
+	//ajout edit pointage et previsionnel
 	global $URL_ROOT_POINTAGE;
 	$urlPointage = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
 	$urlPrevision = "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php";
