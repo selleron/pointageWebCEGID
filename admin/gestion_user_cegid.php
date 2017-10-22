@@ -35,7 +35,14 @@
 	
     //gestion des actions sur les utilisateurs
 	applyGestionUserCEGID(); 
-
+	
+	//pour forcer l'affichage d'un insert
+	$idBalise="CreateUser";
+	createHeaderBaliseDiv($idBalise,"<h3>Création User.</h3>");
+	showOnlyInsertTableUserCEGID();
+	endHeaderBaliseDiv($idBalise);
+	echo"<br>";
+	
 	//short liste utilisateur
 	$idBalise="user_short";
 	createHeaderBaliseDiv($idBalise,"<h3>Liste des users.</h3>");

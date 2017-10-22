@@ -15,8 +15,9 @@ $SQL_COL_STATUS_CEGID_USER   = "STATUS";
 $SQL_COL_ARRIVEE_CEGID_USER  = "ARRIVEE";
 $SQL_COL_DEPART_CEGID_USER   = "DEPART";
 
-$SQL_SHOW_SHORT_COL_CEGID_USER = "$SQL_COL_ID_CEGID_USER, $SQL_COL_NAME_CEGID_USER, $SQL_COL_NOM_CEGID_USER, $SQL_COL_PRENOM_CEGID_USER, $SQL_COL_SOCIETE_CEGID_USER,  $SQL_COL_STATUS_CEGID_USER";
-$SQL_SHOW_COL_CEGID_USER = "$SQL_COL_ID_CEGID_USER, $SQL_COL_NAME_CEGID_USER, $SQL_COL_NOM_CEGID_USER, $SQL_COL_PRENOM_CEGID_USER, $SQL_COL_PROFIL_CEGID_USER, $SQL_COL_SOCIETE_CEGID_USER,  $SQL_COL_STATUS_CEGID_USER, $SQL_COL_ARRIVEE_CEGID_USER, $SQL_COL_DEPART_CEGID_USER";
+$SQL_SHOW_SHORT_COL_CEGID_USER   = "$SQL_COL_ID_CEGID_USER, $SQL_COL_NAME_CEGID_USER, $SQL_COL_NOM_CEGID_USER, $SQL_COL_PRENOM_CEGID_USER, $SQL_COL_SOCIETE_CEGID_USER,  $SQL_COL_STATUS_CEGID_USER";
+$SQL_SHOW_COL_CEGID_USER         = "$SQL_COL_ID_CEGID_USER, $SQL_COL_NAME_CEGID_USER, $SQL_COL_NOM_CEGID_USER, $SQL_COL_PRENOM_CEGID_USER, $SQL_COL_PROFIL_CEGID_USER, $SQL_COL_SOCIETE_CEGID_USER,  $SQL_COL_STATUS_CEGID_USER, $SQL_COL_ARRIVEE_CEGID_USER, $SQL_COL_DEPART_CEGID_USER";
+$SQL_SHOW_INSERT_COL_CEGID_USER  = "$SQL_COL_ID_CEGID_USER, $SQL_COL_NAME_CEGID_USER, $SQL_COL_NOM_CEGID_USER, $SQL_COL_PRENOM_CEGID_USER, $SQL_COL_PROFIL_CEGID_USER, $SQL_COL_SOCIETE_CEGID_USER,  $SQL_COL_STATUS_CEGID_USER";
 
 include_once 'table_db.php';
 
@@ -33,16 +34,17 @@ function applyGestionUserCEGID() {
 }
 
 
+
+
  /**
-  * affiche les versions des elements du projet
+  * affiche les versions des elements du user
   * (description)
   */
- function showTableUserCEGID() {
+ function showTableUserCEGID($condition="") {
  	global $SQL_SHOW_COL_CEGID_USER;
  	global $SQL_TABLE_CEGID_USER;
  	global $FORM_TABLE_CEGID_USER;
  	$form_name = $FORM_TABLE_CEGID_USER."_insert";
- 	$condition="";
  	
  	//showTable($SQL_TABLE_CEGID_USER, $SQL_SHOW_COL_CEGID_USER, $form_name);
 	$param = prepareshowTable($SQL_TABLE_CEGID_USER, $SQL_SHOW_COL_CEGID_USER, $form_name, $condition);
@@ -50,18 +52,33 @@ function applyGestionUserCEGID() {
 	
 	showTableByParam($param);
  }
-
+ 
+ /**
+  * table pour l'insert du user
+  * (description)
+  */
+ function showOnlyInsertTableUserCEGID($condition="") {
+     global $SQL_SHOW_INSERT_COL_CEGID_USER;
+     global $SQL_TABLE_CEGID_USER;
+     global $FORM_TABLE_CEGID_USER;
+     $form_name = $FORM_TABLE_CEGID_USER."_insert";
+     
+     //showTable($SQL_TABLE_CEGID_USER, $SQL_SHOW_COL_CEGID_USER, $form_name);
+     $param = prepareshowTable($SQL_TABLE_CEGID_USER, $SQL_SHOW_INSERT_COL_CEGID_USER, $form_name, $condition);
+     $param[PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "no";
+     showOnlyInsertTableByParam("","",$param);
+ }
+ 
  /**
   * affiche la table version courte des utilisateurs
   * - pas d'insertion
   * - edition possible
   */
- function showShortTableUserCEGID() {
+ function showShortTableUserCEGID($condition="") {
      global $SQL_SHOW_SHORT_COL_CEGID_USER;
      global $SQL_TABLE_CEGID_USER;
      global $FORM_TABLE_CEGID_USER;
      $form_name = $FORM_TABLE_CEGID_USER."_short";
-     $condition="";
      
      
      
