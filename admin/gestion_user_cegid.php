@@ -14,14 +14,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Project</h1>
+  <h1>Serveur Web Pointage : Users CEGID</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Gestion Project");
+	showBandeauHeaderPage("Gestion Users CEGID");
 	?>
   
 
@@ -31,13 +31,24 @@
 
 
 <?php
-	echo "<p>Gestion des projects CEGID.<br/></p>";
+	echo "<p>Gestion des users CEGID.<br/></p>";
 	
+    //gestion des actions sur les utilisateurs
 	applyGestionUserCEGID(); 
 
-	showLoadFile("","","","import");
+	//short liste utilisateur
+	$idBalise="user_short";
+	createHeaderBaliseDiv($idBalise,"<h3>Liste des users.</h3>");
+	showShortTableUserCEGID();
+	endHeaderBaliseDiv($idBalise);
 	
+	
+    //details users
+	$idBalise="user_detail";
+	createHeaderBaliseDiv($idBalise,"<h3>Detail des users.</h3>");
+	showLoadFile("","","","import");
 	showTableUserCEGID();
+	endHeaderBaliseDiv($idBalise)
 ?>
 <br/><br/><br/>
 
