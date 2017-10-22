@@ -32,10 +32,11 @@ ALTER TABLE `cegid_user` ADD `DEPART` DATE NULL AFTER `ARRIVEE`;
 ALTER TABLE `cegid_user` ADD FOREIGN KEY (`STATUS`) REFERENCES `cegid_status_cegid`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
-
+UPDATE `test`.`cegid_status_cegid` SET `ORDRE` = '5' WHERE `cegid_status_cegid`.`ID` = 'Annule';
+INSERT INTO `test`.`cegid_status_cegid` (`ID`, `NAME`, `ORDRE`) VALUES ('Clos', 'Clos', '4');
 
   
-UPDATE `version` SET `DATE` = '2017-10-322 00:00:00', `value` = '0.21.0' WHERE `version`.`id` = 'database';
+UPDATE `version` SET `DATE` = '2017-10-22 00:00:00', `value` = '0.21.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.20_vers_0.21', '101', '2017-10-22 00:00:00', 'udate user table', '0.21.0');
 
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.23.10_vers_0.1.24.0', '200', '2017-10-22 00:00:00', 'modification user', '0.1.24.0');
