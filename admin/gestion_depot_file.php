@@ -77,12 +77,13 @@
 </tr>
 
 <tr>
-  <td>voir les fichiers stock&eacute;s [../stockage]</td>
-  <td>
-          <?php
+ <?php
+      echoTD("voir les fichiers stock&eacute;s [../stockage]" ); 
+      beginTableCell();
       echo $beginForm;
       showFormAction("showStockage"); 
-      showFormIDElement(); ?>
+      showFormIDElement(); 
+ ?>
       <input type="submit" value="Voir" />
     </form>
   </td>

@@ -390,8 +390,11 @@ function showDirectory($dossier = "./", $showSubDir = "yes", $showActionDelete =
  * @param unknown_type $showActionDelete        	
  */
 function createParamShowDirectory($dossier = "./", $showSubDir = "yes", $showActionDelete = "no") {
-	$param ["dossier"] = "$dossier";
-	$param ["contenu"] = "$dossier";
+    global $PATH_ROOT_DIRECTORY;
+    global $PATH_WEB_DIRECTORY;
+    $param ["urlRoot"] = "$PATH_WEB_DIRECTORY";
+    $param ["dossier"] = "$dossier";
+    $param ["contenu"] = "$dossier";
 	$param ["showSubDir"] = "$showSubDir";
 	$param ["col_dir"] = 3;
 	$param ["col_file"] = 3;
@@ -427,9 +430,9 @@ function showDirectoryWithParam($param) {
 	$count = 0;
 	$cpt=0;
 	$col_file = $param ["col_file"];
-	echo '<table>';
+	echo '<table> <tr>';
 	foreach ( $contenu as $aFile ) {
-		echo $aFile;
+		//echo $aFile;
 		if (($cpt + 1) < $col_file) {
 			$cpt = $cpt + 1;
 		} else {
@@ -438,7 +441,7 @@ function showDirectoryWithParam($param) {
 		}
 		showFile ( $param, $aFile );
 	}
-	echo '</table>';
+	echo '</tr></table>';
 }
 function prepareShowDirectoryWithParam($param) {
 	$dossier = $param ["dossier"];
@@ -499,12 +502,14 @@ function showVignette($param, $code) {
  * @param
  *        	$param
  * @param $aFile :
- *        	filesans le path complet
+ *        	file sans le path complet
  *        	- dossier
  *        	- link
  */
 function showFile($param, $aFile) {
 	$dossier = $param ["dossier"];
+	$urlRoot = $param ["urlRoot"];
+	$dossier = str_replace($urlRoot,"",$dossier);
 	$link = $param ["link"];
 	
 	// On recupere les icons a afficher
@@ -513,10 +518,8 @@ function showFile($param, $aFile) {
 	$key = $aImage;
 	echo '
 			<td> <img src="' . $type . '"></td>
-					<td><a href="' . $aImage . '"  class="showTip ' . $link [$key] . '" >' . $aFile . '</a></td>';
-	showActionFile ( $param, $aImage );
-	
-	echo '	<td width=30>';
+			<td> <a href="' . $aImage . '"  class="showTip ' . $link [$key] . '" >' . $aFile . '</a></td>';
+	showActionFile ( $param, $aImage );	
 }
 
 /**
