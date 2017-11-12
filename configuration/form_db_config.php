@@ -5,6 +5,10 @@ $FORM_VALUE_DEFAULT  ["<formulaire>"]["<variable>"]="ma requete sql";    //reque
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["SQL"]="ma requete sql avec WHERE <variable2>=\"???\"";
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["VARIABLE"]="<variable3>";
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["DEFAULT"]="une string";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE"]="<size cellule>";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "enabled";
+//$FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]= "string" | "number"  | "url";
+//$FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]= "<le suffix>";
 
 
 //primary
