@@ -2930,7 +2930,7 @@ function showBandeauMenuPageMobile()
  * permet d'afficher le bandeau de la page HTML pour les PC
  *
  * @param string $txtAbout
- *            texte � afficher dans le about
+ *            texte a afficher dans le about
  */
 function showBandeauHeaderPageMobile($txtAbout)
 {

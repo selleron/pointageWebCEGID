@@ -9,7 +9,8 @@
 	include_once("../sql/ca_previsionel_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
 	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
-	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
+	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date
+	include_once("../js/form_db.js");   // affichage des forms et calculs
 	?>
 </head>
 

@@ -49,7 +49,8 @@ function showTableCAPrevisionel($idRequest="") {
 
     $request = getRequeteByID($idRequest);
     
-	//ajout export CSV
+	//ajout table id & export CSV
+    $subParam[PARAM_TABLE_TABLE::TABLE_ID]="table_ca_prev";
 	$subParam[$TABLE_EXPORT_CSV] = "yes";
 	
 // 	global $URL_ROOT_POINTAGE;
@@ -59,8 +60,23 @@ function showTableCAPrevisionel($idRequest="") {
 // 	$param = addParamActionCommand($param, $urlPointage   , "pointage!"   , LabelAction::ACTION_POINTAGE );
 // 	$param = addParamActionCommand($param, $urlPrevision  , "prevision!"  , LabelAction::ACTION_POINTAGE );
 	
+	$closeTable="false";
+	$param2 = actionRequeteSql($request,$html, $subParam, $closeTable);
+	$colsAll= arrayToString($param2[PARAM_TABLE_SQL::COLUMNS_SUMMARY]);
+	$colsFromSummation= $colsAll;
 	
-	actionRequeteSql($request,$html, $subParam);
+	// show sum row
+	showTablelineSummation($param2, $colsAll, $colsFromSummation);
+	
+	// close table
+ 	endTableRow();
+ 	endForm();
+ 	endTable();
+	
+ 	// lance les calcules de sommation
+	$table_id = $param2[PARAM_TABLE_TABLE::TABLE_ID];
+ 	showSommation($table_id, $colsFromSummation, "", "");
+	
 	
 }
 

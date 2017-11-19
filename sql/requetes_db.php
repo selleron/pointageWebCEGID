@@ -166,8 +166,11 @@ function actionExecuteRequeteParID($idRequete, $html=""){
  * @param string        $request	sql request
  * @param string URL	$html		page de lien
  * @param sql param     $subParam   sub param à utiliser
+ * @param string        $closeTable "yes|no" default yes
+ * @return String[]     sql param
  */
-function actionRequeteSql($request, $html="", $subParam=""){
+
+function actionRequeteSql($request, $html="", $subParam="", $closeTable=""){
 	//construction parameters
 	$param = createDefaultParamSql();
 	$param = updateParamSqlWithOrder($param);
@@ -188,7 +191,9 @@ function actionRequeteSql($request, $html="", $subParam=""){
 	//$param[$TABLE_SIZE]=1100;
 	showLimitBar($param);
 	showTableHeader($param);
-	showTableData($param, $html, $Resultat);
+	showTableData($param, $html, $Resultat, $closeTable);
+	
+	return $param;
  	}
 
 
