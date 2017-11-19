@@ -141,6 +141,7 @@ function actionExecuteRequeteParID($idRequete, $html=""){
 	global $SQL_TABLE_REQUETES;
 	global $SQL_COL_REQUETES_ID;
 	global $SQL_COL_REQUETES_SQL_REQUEST;
+	global $TABLE_EXPORT_CSV;
 	
 	
 	$request = "SELECT $SQL_COL_REQUETES_ID,  $SQL_COL_REQUETES_SQL_REQUEST
@@ -150,10 +151,11 @@ function actionExecuteRequeteParID($idRequete, $html=""){
 	//showSQLAction($request);
 	$Resultat = mysqlQuery($request);
 	showSQLError("", $request);
+	//$subParam[$TABLE_EXPORT_CSV] = "yes";
 	
 	for ($Compteur=0 ; $Compteur<mysqlNumrows($Resultat) ; $Compteur++){
 		$sql = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
-		actionRequeteSql($sql, $html);
+		actionRequeteSql($sql, $html, $subParam);
 	}
 }
 
@@ -161,14 +163,18 @@ function actionExecuteRequeteParID($idRequete, $html=""){
 
 /**
  * Execute la requete contenu dans une requete
- * @param String $request	sql request
- * @param URL	 $html		page de lien
+ * @param string        $request	sql request
+ * @param string URL	$html		page de lien
+ * @param sql param     $subParam   sub param à utiliser
  */
-function actionRequeteSql($request, $html=""){
+function actionRequeteSql($request, $html="", $subParam=""){
 	//construction parameters
 	$param = createDefaultParamSql();
 	$param = updateParamSqlWithOrder($param);
 	$param = updateParamSqlWithLimit($param);
+	
+	$param = updateParamSqlWithSubParam($param, $subParam);
+	
 	$request = createRequestOrderByWithParam($request, $param);
 	
 	//execute request

@@ -13,6 +13,24 @@ include_once (dirname ( __FILE__ ) . "/project_db.php");
 include_once (dirname ( __FILE__ ) . "/requetes_db.php");
 
 
+/**
+ * application des actions sur la page status project
+ */
+function applyGestionCAPrevisionel($idRequest="") {
+    global $ID_REQUETE_SQL_CA_PREVISIONEL;
+    
+    if ($idRequest==""){
+        $idRequest=$ID_REQUETE_SQL_CA_PREVISIONEL;
+    }
+    
+    $request = getRequeteByID($idRequest);
+    $col="";
+    $form_name="form_ca_previsionel";    
+    
+    applyGestionTable($request, $col, $form_name);
+}
+
+
 
 
 
@@ -22,6 +40,9 @@ include_once (dirname ( __FILE__ ) . "/requetes_db.php");
  */
 function showTableCAPrevisionel($idRequest="") {
     global $ID_REQUETE_SQL_CA_PREVISIONEL;
+    global $TABLE_EXPORT_CSV;
+    $html="";
+    
     if ($idRequest==""){
         $idRequest=$ID_REQUETE_SQL_CA_PREVISIONEL;
     }
@@ -29,7 +50,7 @@ function showTableCAPrevisionel($idRequest="") {
     $request = getRequeteByID($idRequest);
     
 	//ajout export CSV
-	$param[$TABLE_EXPORT_CSV] = "yes";
+	$subParam[$TABLE_EXPORT_CSV] = "yes";
 	
 // 	global $URL_ROOT_POINTAGE;
 // 	$urlPointage = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
@@ -39,7 +60,7 @@ function showTableCAPrevisionel($idRequest="") {
 // 	$param = addParamActionCommand($param, $urlPrevision  , "prevision!"  , LabelAction::ACTION_POINTAGE );
 	
 	
-	actionRequeteSql($request);
+	actionRequeteSql($request,$html, $subParam);
 	
 }
 

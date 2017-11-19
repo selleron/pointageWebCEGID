@@ -214,7 +214,16 @@ function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name) {
 		global $URL_IMAGES;
 		
 		$dir = getcwd ();
-		$fileName = $table . uniqid () . ".csv";
+		//ici on regarde si la table n'est pas plutôt une requete
+		$pos = strpos(strtolower($table), "select");
+		if ($pos === FALSE){
+		    $fileName = $table . uniqid () . ".csv";
+		}
+		else{
+		    $fileName = "request_" . uniqid () . ".csv";
+		}
+		
+		
 		$path = $PATH_UPLOAD_DIRECTORY . '/' . $fileName;
 		$url = $URL_UPLOAD_DIRECTORY . '/' . $fileName;
 		showActionVariable ( "table : $table <br>" . "colsSet : $colsSet<br>" . "use data from url : " . is_array ( $colID ) . "<br>" . "nb columns : $nbCol - nb row : $nbRow<br>" . "current directory : $dir<br>" . "directory upload : $PATH_UPLOAD_DIRECTORY<br>" . "url upload : $URL_UPLOAD_DIRECTORY<br>" . "file name : $fileName<br>" . "file path : $path<br>", $TRACE_INFO_EXPORT );
@@ -331,8 +340,14 @@ function getCSVTableInfo($matrice, $infoName, $default = "", $comment = "#") {
  * @param string $comment        	
  */
 function exportCSVKeyValue($handle, $key, $value, $comment = "#") {
-	$col [0] = "$comment" . $key;
+	//la cle est prefixée par #
+    $col [0] = "$comment" . $key;
+	
+	//la valeur est remise sur une seule ligne
+	$value = str_replace("\n", "#", $value);
 	$col [1] = $value;
+	
+	//enregistrement dans le fichier
 	myfputcsv ( $handle, $col );
 }
 
@@ -389,7 +404,16 @@ function getCSVIndexFromMatrice($matrice, $key, $comment = "#") {
  */
 function exportCSVDataURL($handle, $table) {
     //debug_print_backtrace();
-    $sql = "select * from $table";
+    
+    //ici on regarde si la table n'est pas plutôt une requete
+    $pos = strpos(strtolower($table), "select");
+    if ($pos === FALSE){
+        $sql = "select * from $table";
+    }
+    else{
+        $sql = $table;
+    }
+    
 	$Resultat = mysqlQuery ( $sql );
 	
 	$nbRow = mysqlNumrows ( $Resultat );

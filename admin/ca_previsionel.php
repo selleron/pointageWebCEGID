@@ -38,6 +38,8 @@
 	echo "<p>CA Previsionel<br/></p>";
 	showTracePOST();
 	
+	applyGestionCAPrevisionel();
+	
 // 	beginTable();
 // 	beginTableRow( getVAlign("top")  );
 //    	   beginTableCell();
