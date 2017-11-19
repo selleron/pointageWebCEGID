@@ -1655,7 +1655,7 @@ function showLimitBar($param, $html = "")
  * @param string $html
  *            url
  */
-function showTableHeader($param, $html = "")
+function showTableHeader($param, $html = "", $createTable="yes")
 {
     // creation du header
     global $SHOW_COL_COUNT;
@@ -1699,7 +1699,9 @@ function showTableHeader($param, $html = "")
         $tableOther = "";
     }
     
-    echo "<table $tableId $tableSize $tableOther >";
+    if ($createTable=="yes"){
+        echo "<table $tableId $tableSize $tableOther >";
+    }
     
     beginTableHeader();
     
@@ -1962,7 +1964,7 @@ function showTableData($param, $html = "", $Resultat = "", $closeTable = "yes")
  * @param string $sumCols
  *            listes des colonnesdes sommations
  */
-function showTablelineSummation($param2, $allCols = "", $sumCols = "")
+function showTablelineSummation($param2, $allCols = "", $sumCols = "", $colsize="3")
 {
     global $SHOW_COL_COUNT;
     
@@ -1995,7 +1997,7 @@ function showTablelineSummation($param2, $allCols = "", $sumCols = "")
     }
     foreach ($arrayAllCols as $col) {
         if (in_array($col, $arraySumCols)) {
-            showFormTextElementForVariable("maForm", "sum_col_" . $col, "no", "", "", "", "3", "disabled");
+            showFormTextElementForVariable("maForm", "sum_col_" . $col, "no", "", "", "", $colsize, "disabled");
         } else {
             // col info
             echoTD("");

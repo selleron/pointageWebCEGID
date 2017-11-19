@@ -11,6 +11,7 @@ include_once (dirname ( __FILE__ ) . "/table_db.php");
 include_once (dirname ( __FILE__ ) . "/tool_db.php");
 include_once (dirname ( __FILE__ ) . "/project_db.php");
 include_once (dirname ( __FILE__ ) . "/requetes_db.php");
+include_once (dirname ( __FILE__ ) . "/../js/form_db.js");   // affichage des forms et calculs
 
 
 /**
@@ -62,11 +63,15 @@ function showTableCAPrevisionel($idRequest="") {
 	
 	$closeTable="false";
 	$param2 = actionRequeteSql($request,$html, $subParam, $closeTable);
+	
+	
+	showTableHeader($param2, "", "no");
 	$colsAll= arrayToString($param2[PARAM_TABLE_SQL::COLUMNS_SUMMARY]);
 	$colsFromSummation= $colsAll;
 	
 	// show sum row
-	showTablelineSummation($param2, $colsAll, $colsFromSummation);
+	$colSumSize="10";
+	showTablelineSummation($param2, $colsAll, $colsFromSummation, $colSumSize);
 	
 	// close table
  	endTableRow();
