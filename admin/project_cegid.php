@@ -11,6 +11,7 @@
 	include_once("../sql/cout_project_db.php");// lien croisé avec tool_db.php
 	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
+	
 </head>
 
 <body>

@@ -122,14 +122,27 @@ else{
 	    $urlproject        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_project.php$argument");
 	    $urldevis          = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_devis.php$argument");
 	    $urlprofils        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_profils.php$argument");
-	    $urlstatusdevis    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_devis.php$argument");
-	    $urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
 	    $urluser           = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_user_cegid.php$argument");
+
+	    $urlstatusdevis    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_devis.php$argument");
+	    $urlstatuscegid    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_cegid.php$argument");
+	    $urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
+	    
+	    createHeaderBaliseDiv("id_div_etat","<h3>Gestion Etat</h3>");
+	    echo "
+		<ul>
+		<li><ul>
+        <li><a title=\"Gestion Status Generique\" href=\"$urlstatuscegid\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Generique</a></li>
+		<li><a title=\"Gestion Status Devis\"     href=\"$urlstatusdevis\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Devis</a></li>
+		<li><a title=\"Gestion Status Project\"    href=\"$urlstatusproject\">   <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Projet</a></li>
+        </ul></li>
+		</ul>";
+	    echo "</div>";
+	    
+	    
 	    echo"
 		<ul>
 		<li><a title=\"Gestion Profils\" href=\"$urlprofils\"> 	             <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Gestion Profils</a></li>
-		<li><a title=\"Gestion Status Devis\" href=\"$urlstatusdevis\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Gestion Etat Devis</a></li>
-		<li><a title=\"Gestion Status Project\" href=\"$urlstatusproject\">  <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Gestion Etat Projet</a></li>
 		<li><a title=\"Gestion Users\" href=\"$urluser\"> 	                 <img src=\"$URL_IMAGES/modify_user.png\"   $menuIconSize > Gestion Users</a></li>
 		<li><a title=\"Gestion Devis\" href=\"$urldevis\"> 	                 <img src=\"$URL_IMAGES/menu_projets.png\"  $menuIconSize > Gestion Devis</a></li>
 		<li><a title=\"Gestion Projet\" href=\"$urlproject\"> 	             <img src=\"$URL_IMAGES/menu_projets.png\"  $menuIconSize > Gestion Projets</a></li>

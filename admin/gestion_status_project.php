@@ -12,6 +12,8 @@
 	?>
 </head>
 
+<?PHP 		testMemberGroup(2); ?>
+
 <body>
 <div id="header">
   <h1>Serveur Web Pointage : Status Project</h1>

@@ -214,6 +214,24 @@ p, dl, .article li {
 }
 
 #menu h3  {
+	margin-left:5px;
+	margin-right:0px;
+	margin-top:0px;
+	margin-bottom: 3px;
+	padding-left:5px;
+	padding-right:0px;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	width:170px;
+	font-size:10pt;
+	text-align:left;
+	border-bottom:1px solid #C9D1DD;
+	background-color:#5C7490;
+	color: white;
+	font-variant: small-caps;
+}
+
+#menu h3origin  {
 	margin-left:0px;
 	margin-right:0px;
 	margin-top:0px;

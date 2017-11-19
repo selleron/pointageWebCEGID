@@ -7,6 +7,7 @@
 
   <?PHP include("../sql/member_db.php");  ?>
   <?PHP include("../sql/connection_db.php"); ?>
+
   <?PHP 		testMemberGroup(3); ?>
 
 
