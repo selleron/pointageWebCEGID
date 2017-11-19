@@ -144,12 +144,16 @@ beginTableHeader();
 echo "<td>Nom</td><td>Value</td><td>Define</td><td>Description</td>";
 endTableHeader();
 echo" <tr><td>Configuration file	</td>           <td>".$CONFIGURATION_FILE."</td>		<td>CONFIGURATION_FILE</td>	</tr>
-	  <tr><td>Root sur le serveur  </td>           <td>".$URL_ROOT_POINTAGE."</td>		    <td>URL_ROOT_POINTAGE</td>	</tr>
-	  <tr><td>url images           </td>           <td>".$URL_IMAGES."</td>	                <td>URL_IMAGES</td>	</tr>
-  	  <tr><td>repertoire upload    </td>           <td>".$PATH_UPLOAD_DIRECTORY."</td>		<td>PATH_UPLOAD_DIRECTORY</td>	</tr>
-  	  <tr><td>url upload           </td>           <td>".$URL_UPLOAD_DIRECTORY."</td>		<td>URL_UPLOAD_DIRECTORY</td>
+	  <tr><td>URL Root de CEGID     </td>           <td>".$URL_ROOT_POINTAGE."</td>		    <td>URL_ROOT_POINTAGE</td>	</tr>
+	  <tr><td>Local Path du serveur </td>           <td>".$PATH_WEB_DIRECTORY."</td>	    <td>PATH_WEB_DIRECTORY</td>	</tr>
+	  <tr><td>Path Root CEGID       </td>           <td>".$PATH_ROOT_DIRECTORY."</td>		<td>PATH_ROOT_DIRECTORY</td>	</tr>
+	  <tr><td>url images            </td>           <td>".$URL_IMAGES."</td>	            <td>URL_IMAGES</td>	</tr>
+  	  <tr><td>repertoire upload     </td>           <td>".$PATH_UPLOAD_DIRECTORY."</td>		<td>PATH_UPLOAD_DIRECTORY</td>	</tr>
+  	  <tr><td>url upload            </td>           <td>".$URL_UPLOAD_DIRECTORY."</td>		<td>URL_UPLOAD_DIRECTORY</td>
+  	  <tr><td>Path depot file (from)</td>           <td>".$DIR_DEPOT_FROM."</td>		    <td>$DIR_DEPOT_FROM</td>
+  	  <tr><td>Path stockage file    </td>           <td>".$DIR_DEPOT."</td>	         	    <td>$DIR_DEPOT</td>
+  	  <tr><td>size blob             </td>           <td>".$SQL_COL_SIZEMAX_BLOB."</td>		<td>SQL_COL_SIZEMAX_BLOB</td>
    </table>";
-
 
 
 //configuration export

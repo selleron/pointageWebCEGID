@@ -11,6 +11,7 @@
     require_once("../sql/files_db.php");
     include_once("../sql/requetes_db.php");
     include_once("../sql/table_db.php");
+    
     testMember();
 	?>
 </head>

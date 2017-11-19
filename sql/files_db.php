@@ -144,11 +144,15 @@ function actionWithHistoryLinkOneFile($aFile, $link, $table="", $sizeblobmax="")
 	//historisationTable($SQL_TABLE_FILE, $SQL_TABLE_FILE_HISTORY, $SQL_ALL_COL_FILE, $condition);
 }
 
-
+/**
+ * actionLinkOneFile
+ * @param string  $aFile file name (no path)
+ * @param string $link  (link for upload : path)
+ * @param string $table  (table for link ) peut etre vide
+ * @param number $sizeblobmax : taille max blob (en octets) : peut etre vide
+ * @return number : id in table
+ */
 function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
-	$txt="file on depot : [$aFile] -- link [$link]  <br>";
-	showSQLAction($txt);
-
 	global $SQL_TABLE_FILE;
 	global $SQL_COL_ID_FILE;
 	global $SQL_COL_TITLE_FILE;
@@ -160,6 +164,10 @@ function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
 	global $SQL_COL_VERSION_FILE;
 	global $SQL_COL_SIZEMAX_BLOB;
 	global $SQL_ERROR_SIZE_BLOB;
+	
+	$txt="file on depot : [$aFile] -- link [$link] -- blob size [$sizeblobmax / $SQL_COL_SIZEMAX_BLOB (octets) ] <br>";
+	showSQLAction($txt);
+	
 
 	if ($table==""){
 		$table=$SQL_TABLE_FILE;
@@ -177,7 +185,7 @@ function actionLinkOneFile($aFile, $link, $table="", $sizeblobmax=""){
 	echo "loading: wait... <br>";
 	$size=filesize($fichier);
 	if ($size > $sizeblobmax){
-		echo "detected : file too long for blob.<br>";
+		echo "detected : file too long for blob ($size / $sizeblobmax) .<br>";
 		$req= "INSERT INTO ".$table.
 			" ( $SQL_COL_TITLE_FILE, $SQL_COL_NAME_FILE, $SQL_COL_LINK_FILE,  $SQL_COL_MIME_FILE, $SQL_COL_SIZEBLOB_FILE )".
 			" VALUES ('$title','$name', '$link', '$mime', $size)";

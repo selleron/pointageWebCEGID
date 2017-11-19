@@ -534,7 +534,9 @@ function showHistoryConnectionElementAction($date, $id, $pseudo, $ip){
 }
 
 
-
+/**
+ * test si on est membre du site
+ */
 function testMember(){
 	global $URL_LOGIN;
 	global $URL_ROOT_POINTAGE;
