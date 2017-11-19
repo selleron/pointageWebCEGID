@@ -116,7 +116,8 @@ if ($id==""){
 else{
 	//end div Menu
 	echo "</div>";
-	//creation balise <id>
+	
+	//creation balise <edition>
 	createHeaderBaliseDiv("id_div_edition","<h2>Edition</h2>");
 	if (isMemberGroup(2)){
 	    $urlproject        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_project.php$argument");
@@ -149,6 +150,24 @@ else{
 		</ul>";
 	}
 	echo "</div>";
+	
+	//autre
+	if (isMemberGroup(3)){
+	    createHeaderBaliseDiv("id_div_CA","<h2>CA</h2>");
+	 
+	    $urlCAPrev   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/ca_previsionel.php$argument");
+	    $urlCAPrev2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/ca_previsionel2.php$argument");
+	    
+    	echo"
+    		<ul>
+    		<li><a title=\"CA Previsionnel\"   href=\"$urlCAPrev\">           <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA previsionnel</a></li>
+    		<li><a title=\"CA Previsionnel clos\"   href=\"$urlCAPrev2\">     <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA previsionnel clos</a></li>
+    		</ul>";
+	    echo "</div>";
+	}
+	
+	
+	//autre
 	createHeaderBaliseDiv("id_div_edition_brut","<h2>Autres</h2>");
 	if (isMemberGroup(2)){
 	    $urlproject2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/project_cegid.php$argument");
@@ -180,7 +199,7 @@ else{
 	<li><a title=\"Logout\" href=\"$URL_ROOT_POINTAGE/admin/logout.php$argument\"> <img src=\"$URL_IMAGES/connexion_user.png\" $menuIconSize > D&eacute;connexion</a></li>
 	</ul>";
 	
-	
+	//Admin
 	if (isMemberGroup(3) || isMemberGroup(2)){
 		//creation balise <id>
 		createHeaderBaliseDiv("id_div_admin","<h2>Adm. Site</h2>");
@@ -198,7 +217,9 @@ else{
 			<li><a title=\"Versions\"          		href=\"$URL_ROOT_POINTAGE/admin/version.php$argument&order=order\">  <img src=\"$URL_IMAGES/version.png\" $menuIconSize >Versions</a></li>
 			</ul>
 			</div>";
-		}
+	}
+	
+	//Developpement
 	if (isMemberGroup(2) || isMemberGroup(3)){
 		//creation balise <id>
 		createHeaderBaliseDiv("id_div_dev","<h2>Dev.</h2>");

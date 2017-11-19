@@ -55,7 +55,7 @@ function actionTestRequest($html=""){
 	global $SQL_COL_REQUETES_NAME;
 	global $SQL_COL_REQUETES_DESCRIPTION;
 	
-	//recuperation des paramètres
+	//recuperation des paramï¿½tres
 	$idRequete = getDocumentName();
 	$name = getURLVariable("$SQL_COL_REQUETES_NAME");
 	$description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
@@ -82,7 +82,7 @@ function actionSauverRequest($html=""){
 	global $SQL_COL_REQUETES_NAME;
 	global $SQL_COL_REQUETES_DESCRIPTION;
 
-	//recuperation des paramètres
+	//recuperation des paramï¿½tres
 	$idRequete = getDocumentName();
 	$name = getURLVariable("$SQL_COL_REQUETES_NAME");
 	$description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
@@ -102,6 +102,32 @@ function actionSauverRequest($html=""){
 
 	//reaffiche l'edition
 	showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html);
+}
+
+
+/**
+ * getRequeteByID
+ * @param string $idRequete
+ * @return string SQL Request
+ */
+function getRequeteByID($idRequete){
+    global $SQL_TABLE_REQUETES;
+    global $SQL_COL_REQUETES_ID;
+    global $SQL_COL_REQUETES_SQL_REQUEST;
+    
+    
+    $request = "SELECT $SQL_COL_REQUETES_ID,  $SQL_COL_REQUETES_SQL_REQUEST
+	FROM `$SQL_TABLE_REQUETES`
+	WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
+    
+    //showSQLAction($request);
+    $Resultat = mysqlQuery($request);
+    showSQLError("", $request);
+    
+    $Compteur=0;
+    $sql = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
+    
+    return $sql;
 }
 
 
@@ -164,9 +190,9 @@ function actionRequeteSql($request, $html=""){
 
 /**
  * showFormulaireRequete
- * Affiche un formulaire pour executer la requete designée par son id
- * une requete Sql est executée
- * @param String $idRequete  sql id de la table requetes : peut etre à ""
+ * Affiche un formulaire pour executer la requete designï¿½e par son id
+ * une requete Sql est executï¿½e
+ * @param String $idRequete  sql id de la table requetes : peut etre ï¿½ ""
  * @param URL $html : peut etre a "" 
  */
 function showFormulaireRequete($idRequete="", $html=""){
@@ -201,7 +227,7 @@ function showFormulaireRequete($idRequete="", $html=""){
 	
 /**
  * showFormulaireRequete
- * Affiche un formulaire pour executer la requete designée par son id et son id
+ * Affiche un formulaire pour executer la requete designï¿½e par son id et son id
  * <name> [execute]
  * @param unknown $idRequete
  * @param unknown $name
