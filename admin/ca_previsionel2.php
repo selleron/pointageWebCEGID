@@ -38,27 +38,10 @@
 	echo "<p>CA Previsionel Clos<br/></p>";
 	showTracePOST();
 	
-// 	beginTable();
-// 	beginTableRow( getVAlign("top")  );
-//    	   beginTableCell();
-//      	   applyGestionDevis();
-//      	   editGestionDevis();
-//     	endTableCell();
-    	
-//     	beginTableCell();
-//     	   applyGestionReference();
-//     	endTableCell();
-    	
-// 	endTableRow();
-// 	endTable();
-	
-	
-	
-// 	echo "<p>";
-// 	showLoadFile("","","","import");
-// 	echo "<br/></p>";
+
 	
 	global $ID_REQUETE_SQL_CA_PREVISIONEL_CLOS;
+	applyGestionCAPrevisionel( $ID_REQUETE_SQL_CA_PREVISIONEL_CLOS );
 	showTableCAPrevisionel( $ID_REQUETE_SQL_CA_PREVISIONEL_CLOS );
 ?>
 <br/><br/><br/>
