@@ -188,7 +188,7 @@ function getURLVariableArraySQLForm($variables, $form, $row=NULL)
     $result;
     $i = 0;
     foreach ($variables as $v) {
-        $result[$i] = getURLVariableSQLForm($v, $form, "", "verbose", $row);
+        $result[$i] = getURLVariableSQLForm($v, $form, "", "", $row);
         $i ++;
     }
     return $result;
@@ -204,17 +204,17 @@ function getURLVariableArraySQLForm($variables, $form, $row=NULL)
  * @param string $tableau
  *            tableau des valeurs (on utilisepas le post)
  * @param string $status
- *            quiet / verbose
+ *            quiet / verbose / ""
  * @param index $row : can be null
  * @return string|array
  */
-function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "verbose", $row=NULL)
+function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "", $row=NULL)
 {
     //showSQLAction("getURLVariableSQLForm( variable : $variable, form : $form, row : $row)");
     
     if ($status == "") {
-        global $SHOW_VARIBLE_SUBSTITUTE_SEARCH;
-        $status = getURLVariable($SHOW_VARIBLE_SUBSTITUTE_SEARCH);
+        global $SHOW_VARIABLE_SUBSTITUTE_SEARCH;
+        $status = getURLVariable($SHOW_VARIABLE_SUBSTITUTE_SEARCH);
     }
     if ($tableau == "") {
         global $FORM_VALUE_INSERT;
