@@ -80,7 +80,7 @@
  	echo"<br>";
 	
  	//show prevision
- 	showTablePrevisionnelByUserPointageCegid("yes");
+ 	showTablePrevisionnelByUserPointageCegid("no");
 	
 	
 	

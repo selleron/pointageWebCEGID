@@ -10,6 +10,12 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "ena
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]= "string" | "number"  | "url";
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]= "<le suffix>";
 
+$SELECT_NAME_FROM_CEGID_PROJECT = "select NAME from cegid_project";
+$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT = "select '[all]' as NAME union (select NAME from cegid_project)";
+
+//select project Tool Bar
+$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["NAME"]=$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT;
+
 
 //primary
 $PRIMARY_TABLE [ "cegid_pointage_voulu" ] = "PROJECT_ID,DATE,USER_ID,PROFIL";
@@ -72,7 +78,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_project"]["STATUS"]="select ID from cegid
 
 //table project cout
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
-$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT"]="select name from cegid_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROFIL_ID"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROFIL"]="select NAME from cegid_profil";
 //$FORM_VALUE_DEFAULT["form_table_cegid_project_cout_insert"]["PROJECT_ID"]="select P002";
@@ -91,7 +97,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["USER_ID"]="select ID f
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["PROFIL"]="select ID from cegid_profil";
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROJECT_ID"]="select CEGID from cegid_project";
-$FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROJECT"]="select NAME from cegid_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["USER_ID"]="select ID from cegid_user";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["NAME"]="select NAME from cegid_user";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROFIL"]="select ID from cegid_profil";
@@ -103,7 +109,7 @@ $FORM_VALUE_INSERT["form_table_cegid_pointage_update"]["USER_ID"]["VARIABLE"]="N
 
 //table cegid_pointage2
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
-$FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROJECT"]="select NAME from cegid_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["USER_ID"]="select ID from cegid_user";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROFIL"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["NAME"]="select NAME from cegid_user";
@@ -128,11 +134,11 @@ $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["PROJECT"]["VARIABLE"]=
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["NAME"]["SQL"]="select NAME from cegid_user  WHERE ID=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["NAME"]["VARIABLE"]="USER_ID";
 //form project cout
-$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"] ["PROJECT"]="select NAME from cegid_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"] ["PROJECT"]=$SELECT_NAM_FROME_CEGID_PROJECT;
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_update"]["PROFIL_ID"]="select ID from cegid_profil";
 //$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_update"] ["PROJECT_ID"]="select CEGID from cegid_project";
-$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_update"] ["PROJECT"]="select NAME from cegid_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_update"] ["PROJECT"]=$SELECT_NAM_FROME_CEGID_PROJECT;
 $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["VARIABLE"]="PROJECT";
 

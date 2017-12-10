@@ -67,6 +67,7 @@ function showGestionOneProject()
     $idBalise = "gestionon_project";
     createHeaderBaliseDiv($idBalise, "<h3>Infomation projet </h3>");
     {
+        global $TRACE_INFO_PROJECT;
         global $SQL_SHOW_ALL_COL_PROJECT;
         $colProject = $SQL_SHOW_ALL_COL_PROJECT;
         global $FORM_TABLE_CEGID_PROJECT;
@@ -80,11 +81,16 @@ function showGestionOneProject()
         
         // recuperation project name
         global $PROJECT_SELECTION;
-        global $ITEM_COMBOBOX_SELECTION;
+        //global $ITEM_COMBOBOX_SELECTION;
         global $SQL_COL_NAME_PROJECT;
         $projectName = getURLVariable($PROJECT_SELECTION);
-        if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
-            showSQLAction("No project Selected...");
+        if ($projectName == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION || $projectName == "") {
+            showActionVariable("No project Selected...",$TRACE_INFO_PROJECT);
+            $projectName = "no project";
+            $project_found = "no";
+        }
+        if ($projectName == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_ALL) {
+            showActionVariable("All projects Selected...",$TRACE_INFO_PROJECT);
             $projectName = "no project";
             $project_found = "no";
         }

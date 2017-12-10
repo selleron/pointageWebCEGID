@@ -127,6 +127,7 @@ function showTableCoutOneProject($tablePointage="", $showOnlyOneProject = "yes")
     $idBalise="tablePointage_$tablePointage";
     createHeaderBaliseDiv($idBalise,"<h3>Table des coûts</h3>");
     
+    global $TRACE_INFO_PROJECT;
 	//global $SQL_TABLE_PROJECT_COUT2;
 	global $FORM_TABLE_CEGID_PROJECT_COUT;
 	global $TABLE_FORM_NAME_INSERT;
@@ -137,10 +138,10 @@ function showTableCoutOneProject($tablePointage="", $showOnlyOneProject = "yes")
 	
 	//recuperation project name
 	global $PROJECT_SELECTION;
-	global $ITEM_COMBOBOX_SELECTION;
+	//global $ITEM_COMBOBOX_SELECTION;
 	$projectName = getURLVariable ( $PROJECT_SELECTION );
-	if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
-		showAction ( "No project Selected..." );
+	if ($projectName == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION || $projectName == "") {
+	    showActionVariable( "No project Selected...", $TRACE_INFO_PROJECT );
 		if ($showOnlyOneProject=="yes"){
 			$projectName = "no project";
 		}
@@ -149,11 +150,16 @@ function showTableCoutOneProject($tablePointage="", $showOnlyOneProject = "yes")
 		}
 		$project_found = "no";
 	}
+	if ($projectName == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_ALL) {
+	    showActionVariable("[all] project detected for table cout, use name=''", $TRACE_INFO_PROJECT);
+        $projectName = "";
+	    $project_found = "no";
+	}
 	
 	// info formulaire year et project name
 	$condition="";
 	global $YEAR_SELECTION;
-	$year = getURLYear($ITEM_COMBOBOX_SELECTION);
+	$year = getURLYear(FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION);
 	$infoForm = streamFormHidden ( $YEAR_SELECTION, $year );
 	$infoForm = $infoForm . streamFormHidden ( $PROJECT_SELECTION, $projectName );
 	$infoForm = $infoForm . streamFormHidden ( $TABLE_FORM_NAME_INSERT, $form_name );

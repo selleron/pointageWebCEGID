@@ -18,7 +18,8 @@ class FORM_VARIABLE {
 
 // valeur par defaut pour les combo box
 class FORM_COMBOX_BOX_VALUE {
-	const ITEM_COMBOBOX_SELECTION = "[selection]";
+    const ITEM_COMBOBOX_SELECTION = "[selection]";
+    const ITEM_COMBOBOX_ALL = "[all]";
 }
 	
 
@@ -754,7 +755,7 @@ function showFormComboBox($formName, $name, $sql_table, $sql_col, $useTD, $curre
  *        	current selection in combobox
  */
 function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $current_selection, $enabledStatus = "enabled") {
-	global $ITEM_COMBOBOX_SELECTION;
+	//global $ITEM_COMBOBOX_SELECTION;
 	
 	$enabledStatus = prepareFlagStatus ( $enabledStatus );
 	
@@ -766,7 +767,7 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 		echo "<td>";
 	}
 	echo "<SELECT $enabledStatus name=\"$name\"  onchange=\"this.submit()\" >";
-	echo "<OPTION> $ITEM_COMBOBOX_SELECTION";
+	echo "<OPTION> ".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
 	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
 		$res = mysqlResult ( $Resultat, $cpt, $sql_col );
 		if ($res == $current_selection) {

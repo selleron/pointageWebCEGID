@@ -384,7 +384,7 @@ function applyNextPreviousSelectPointage()
         // showSQLAction($request);
         
         global $PROJECT_SELECTION;
-        global $ITEM_COMBOBOX_SELECTION;
+        //global $ITEM_COMBOBOX_SELECTION;
         $nextProject="";
         $currentProject = getURLVariable($PROJECT_SELECTION);
         
@@ -392,7 +392,7 @@ function applyNextPreviousSelectPointage()
         $nbRes = mysqlNumrows($Resultat);
         // showSQLAction("nb project : $nbRes");
         
-        if ($nbRes > 0 && $currentProject == $ITEM_COMBOBOX_SELECTION) {
+        if ($nbRes > 0 && $currentProject == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION) {
             $nextProject = mysqlResult($Resultat, 0, $SQL_COL_NAME_PROJECT);
         }
         if ($nbRes > 0 && $currentProject == "") {
@@ -594,6 +594,7 @@ function replacePointage($table, $colsSet, $colsDelete, $form_name)
  */
 function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $export = "no", $userVisible = "no", $previousVisible = "no", $nextVisible = "no")
 {
+    global $FORM_VALUE_POSSIBLE;
     global $SQL_TABLE_PROJECT;
     global $SQL_TABLE_CEGID_POINTAGE;
     global $SQL_COL_NAME_PROJECT;
@@ -601,6 +602,7 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     if ($formName == "") {
         $formName = "form_select_project_pointage";
     }
+    //showSQLAction("form project selection : $formName");
     
     if (! $url) {
         $url = currentPageURL();
@@ -630,7 +632,14 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     echo "<tr>";
     // combo project
     createForm($url, $formName);
-    showFormComboBox($formName, $PROJECT_SELECTION, $SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+    
+    //si une requet existe, on l'utilise (certaines ajoute "[all]"
+    if (isset($FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT])){
+        showFormComboBoxSql($formName, $PROJECT_SELECTION, $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT], $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+    }
+    else{
+        showFormComboBox($formName, $PROJECT_SELECTION, $SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+    }
     
     // combo year
     if ($yearVisible == "yes") {
@@ -691,7 +700,7 @@ function getInfoFormProjectSelection($infoForm = "")
     global $PROJECT_SELECTION;
     global $YEAR_SELECTION;
     global $USER_SELECTION;
-    global $ITEM_COMBOBOX_SELECTION;
+    //global $ITEM_COMBOBOX_SELECTION;
     
     $projectName = getURLVariable($PROJECT_SELECTION);
     $year = getURLVariable($YEAR_SELECTION);
@@ -734,13 +743,12 @@ function showTablePointageOneProjetCegid($tableau = "", $showColPointage = "", $
     global $TRACE_INFO_POINTAGE;
     showActionVariable("function showTablePointageOneProjetCegid()", $TRACE_INFO_POINTAGE);
     // condition project
-    global $ITEM_COMBOBOX_SELECTION;
+    //global $ITEM_COMBOBOX_SELECTION;
     global $PROJECT_SELECTION;
     $projectName = getURLVariable($PROJECT_SELECTION);
-    if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
-        // showSQLAction ( "No project Selected..." );
-        // $projectName = "no project";
-        $projectName = $ITEM_COMBOBOX_SELECTION;
+    if ($projectName == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION || $projectName == "") {
+        showActionVariable( "No project Selected...", $TRACE_INFO_PROJECT );
+        $projectName = FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
     }
     
     // condition year
@@ -1040,6 +1048,7 @@ $showColPointage, $selectColPointage, // columns
 $formName, $conditionPointage, $select = "p.UO")
 {
     global $TRACE_INFO_POINTAGE;
+    global $TRACE_INFO_PROJECT;
     if ($showAll==""){
         $showAll="yes";
     }
@@ -1056,12 +1065,19 @@ $formName, $conditionPointage, $select = "p.UO")
     if ($projectName == "") {
         $projectName = getURLVariable($PROJECT_SELECTION);
     }
+    
+    showActionVariable("getTableauPointageProjetCegid3() pointage project used : $projectName", $TRACE_INFO_PROJECT);
+    
     if ($projectName) {
-        if ($projectName == "$ITEM_COMBOBOX_SELECTION") {
+        if ($projectName == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION) {
             // nothing to do
             // showSQLAction("no project selected");
+        }
+        else if ($projectName == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_ALL) {
+                // nothing to do
+                // showSQLAction("no project selected");
         } else {
-            $condition = $condition . " AND pj.$SQL_COL_NAME_PROJECT=\"$projectName\"";
+                $condition = $condition . " AND pj.$SQL_COL_NAME_PROJECT=\"$projectName\"";
         }
     }
     

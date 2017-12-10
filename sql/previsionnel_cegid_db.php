@@ -284,8 +284,8 @@ function showTablePrevisionnelPointageCegid() {
 	}
 	
 	// create tableau de pointage et previsionnel
-	$tableauPointage = getTableauPointageProjetCegid ( $projectName, "yes" );
-	$tableauPrev = getTableauPrevisionnelCegid ( $projectName, "yes" );
+	$tableauPointage = getTableauPointageProjetCegid ( $projectName, "no" );
+	$tableauPrev = getTableauPrevisionnelCegid ( $projectName, "no" );
 	
 	$tableau = fusionTableauPointage($tableauPointage, $tableauPrev);
 	//printMatrice($tableau[KEY_INFO::KEY_INFO]);
