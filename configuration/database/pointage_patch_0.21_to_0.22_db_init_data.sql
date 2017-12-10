@@ -79,8 +79,19 @@ INSERT INTO `requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`) VALUES
 UPDATE `version` SET `DATE` = '2017-11-18 00:00:00', `value` = '0.22.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.21_vers_0.22', '101', '2017-11-18 00:00:00', 'add data request', '0.22.0');
 
-SET FOREIGN_KEY_CHECKS=1;
 
+
+insert INTO `cegid_status_commande` (`ID`, `NAME`, `ORDRE`) VALUES
+('Recu Erreur', 'Reçu en Erreur', 4);
+
+UPDATE `cegid_status_commande` SET `ORDRE` = 5 WHERE `cegid_status_commande`.`ID` = 'Annule';
+
+
+UPDATE `version` SET `DATE` = '2017-12-09 00:00:00', `value` = '0.22.1' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.21_vers_0.22.1', '101', '2017-12-09 00:00:00', 'add data status request', '0.22.1');
+
+
+SET FOREIGN_KEY_CHECKS=1;
 
 COMMIT;
 

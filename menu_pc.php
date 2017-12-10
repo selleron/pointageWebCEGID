@@ -127,6 +127,7 @@ else{
 
 	    $urlstatusdevis    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_devis.php$argument");
 	    $urlstatuscegid    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_cegid.php$argument");
+	    $urlstatuscommande = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_commande.php$argument");
 	    $urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
 	    
 	    createHeaderBaliseDiv("id_div_etat","<h3>Gestion Etat</h3>");
@@ -136,6 +137,7 @@ else{
         <li><a title=\"Gestion Status Generique\" href=\"$urlstatuscegid\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Generique</a></li>
 		<li><a title=\"Gestion Status Devis\"     href=\"$urlstatusdevis\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Devis</a></li>
 		<li><a title=\"Gestion Status Project\"    href=\"$urlstatusproject\">   <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Projet</a></li>
+		<li><a title=\"Gestion Status Commande\"    href=\"$urlstatuscommande\">   <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Commande</a></li>
         </ul></li>
 		</ul>";
 	    echo "</div>";
