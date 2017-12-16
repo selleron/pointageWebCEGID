@@ -7,6 +7,7 @@ $ID_REQUETE_SQL_CA_PREVISIONEL      = "Previsionnel CA_projet";
 $ID_REQUETE_SQL_CA_PREVISIONEL_CLOS = "Previsionnel CA_projet_clos";
 $ID_REQUETE_SQL_CA_ACTUEL           = "Actuel CA_projet";
 $ID_REQUETE_SQL_CA_ACTUEL_CLOS      = "Actuel CA_projet_clos";
+$ID_REQUETE_SQL_CA_DIFF             = "diff CA";
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
@@ -69,12 +70,6 @@ function showTableCAPrevisionel($idRequest="") {
     $subParam[PARAM_TABLE_TABLE::TABLE_ID]="table_ca_prev";
 	$subParam[$TABLE_EXPORT_CSV] = "yes";
 	
-// 	global $URL_ROOT_POINTAGE;
-// 	$urlPointage = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
-// 	$urlPrevision = "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php";
-// 	//showSQLAction("showTableProject - addParamActionCommand()");
-// 	$param = addParamActionCommand($param, $urlPointage   , "pointage!"   , LabelAction::ACTION_POINTAGE );
-// 	$param = addParamActionCommand($param, $urlPrevision  , "prevision!"  , LabelAction::ACTION_POINTAGE );
 	
 	$closeTable="false";
 	$param2 = actionRequeteSql($request,$html, $subParam, $closeTable);
