@@ -110,14 +110,18 @@ function actionSauverRequest($html=""){
  * @param string $idRequete
  * @return string SQL Request
  */
-function getRequeteByID($idRequete){
-    global $SQL_TABLE_REQUETES;
+function getRequeteByID($idRequete, $table=""){
     global $SQL_COL_REQUETES_ID;
     global $SQL_COL_REQUETES_SQL_REQUEST;
     
     
+    if ($table == ""){
+        global $SQL_TABLE_REQUETES;
+        $table = $SQL_TABLE_REQUETES;
+    }
+    
     $request = "SELECT $SQL_COL_REQUETES_ID,  $SQL_COL_REQUETES_SQL_REQUEST
-	FROM `$SQL_TABLE_REQUETES`
+	FROM `$table`
 	WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
     
     //showSQLAction($request);

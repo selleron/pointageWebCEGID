@@ -2,14 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 
 <head>
-  <title> CA Previsionel </title>
+  <title> CA Actuel</title>
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/files.php");
 	include_once("../sql/ca_previsionel_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
 	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
-	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date
+	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
 </head>
 
@@ -18,14 +18,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : CA Previsionel</h1>
+  <h1>Serveur Web Pointage : CA Actuel</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("CA Previsionel");
+	showBandeauHeaderPage("CA Actuel");
 	?>
   
 
@@ -35,34 +35,14 @@
 
 
 <?php
-	echo "<p>CA Previsionel<br/></p>";
+	echo "<p>CA Actuel<br/></p>";
 	showTracePOST();
 	
-	//permet l'export
-	applyGestionCAPrevisionel();
+
 	
-// 	beginTable();
-// 	beginTableRow( getVAlign("top")  );
-//    	   beginTableCell();
-//      	   applyGestionDevis();
-//      	   editGestionDevis();
-//     	endTableCell();
-    	
-//     	beginTableCell();
-//     	   applyGestionReference();
-//     	endTableCell();
-    	
-// 	endTableRow();
-// 	endTable();
-	
-	
-	
-// 	echo "<p>";
-// 	showLoadFile("","","","import");
-// 	echo "<br/></p>";
-	
-	
-	showTableCAPrevisionel();
+	global $ID_REQUETE_SQL_CA_ACTUEL;
+	applyGestionCAPrevisionel( $ID_REQUETE_SQL_CA_ACTUEL );
+	showTableCAPrevisionel( $ID_REQUETE_SQL_CA_ACTUEL );
 ?>
 <br/><br/><br/>
 

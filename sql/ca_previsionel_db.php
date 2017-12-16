@@ -1,8 +1,12 @@
 <?PHP
 $DEVIS_DB_PHP = "loaded";
 
+$TABLE_CEGID_REQUETE      = "cegid_requetes";
+
 $ID_REQUETE_SQL_CA_PREVISIONEL      = "Previsionnel CA_projet";
 $ID_REQUETE_SQL_CA_PREVISIONEL_CLOS = "Previsionnel CA_projet_clos";
+$ID_REQUETE_SQL_CA_ACTUEL           = "Actuel CA_projet";
+$ID_REQUETE_SQL_CA_ACTUEL_CLOS      = "Actuel CA_projet_clos";
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
@@ -18,13 +22,14 @@ include_once (dirname ( __FILE__ ) . "/../js/form_db.js");   // affichage des fo
  * application des actions sur la page status project
  */
 function applyGestionCAPrevisionel($idRequest="") {
+    global $TABLE_CEGID_REQUETE;
     global $ID_REQUETE_SQL_CA_PREVISIONEL;
     
     if ($idRequest==""){
         $idRequest=$ID_REQUETE_SQL_CA_PREVISIONEL;
     }
     
-    $request = getRequeteByID($idRequest);
+    $request = getRequeteByID($idRequest, $TABLE_CEGID_REQUETE);
     $col="";
     $form_name="form_ca_previsionel";    
     
@@ -40,6 +45,7 @@ function applyGestionCAPrevisionel($idRequest="") {
  * (description)
  */
 function showTableCAPrevisionel($idRequest="") {
+    global $TABLE_CEGID_REQUETE;
     global $ID_REQUETE_SQL_CA_PREVISIONEL;
     global $TABLE_EXPORT_CSV;
     $html="";
@@ -48,7 +54,10 @@ function showTableCAPrevisionel($idRequest="") {
         $idRequest=$ID_REQUETE_SQL_CA_PREVISIONEL;
     }
 
-    $request = getRequeteByID($idRequest);
+    $request = getRequeteByID($idRequest, $TABLE_CEGID_REQUETE);
+    if ($request == ""){
+        showError("request id not found : $idRequest");
+    }
     
 	//ajout table id & export CSV
     $subParam[PARAM_TABLE_TABLE::TABLE_ID]="table_ca_prev";
