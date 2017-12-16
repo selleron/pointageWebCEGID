@@ -6,6 +6,7 @@
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/files.php");
+	include_once("../sql/pointage_cegid_db.php");
 	include_once("../sql/ca_previsionel_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
 	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
@@ -38,8 +39,11 @@
 	echo "<p>CA Previsionel Clos<br/></p>";
 	showTracePOST();
 	
-
+	echo"<p>";
+	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
+	echo"<br/></p>";
 	
+		
 	global $ID_REQUETE_SQL_CA_PREVISIONEL_CLOS;
 	applyGestionCAPrevisionel( $ID_REQUETE_SQL_CA_PREVISIONEL_CLOS );
 	showTableCAPrevisionel( $ID_REQUETE_SQL_CA_PREVISIONEL_CLOS );

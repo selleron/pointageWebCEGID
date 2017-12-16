@@ -402,6 +402,38 @@ function replacePageURL($variable, $newValue, $url = "", $oldValue = "")
 }
 
 /**
+ * replaceVariableURLByGet
+ * remplace les ${xxx} par les variables dans get et post
+ * @param String $txt
+ * @return $txt
+ */
+function replaceVariableURLByGet($txt){
+    
+    $txt = privateReplaceURLKeys($_GET, $txt);
+    $txt = privateReplaceURLKeys($_POST, $txt);
+
+    return $txt;
+}
+
+/**
+ * privateReplaceURLKeys
+ * @param array $values  array[$key=>value]
+ * @param string $txt
+ * @return $txt avec les remplacement de ${key} 
+ */
+function privateReplaceURLKeys($values, $txt){
+    $keys = array_keys($values);
+    foreach ($keys as $k){
+        $search = "\$"."{".$k."}";
+        $replace = $values[$k];
+        //showSQLAction("privateReplaceURLKeys() search :$search");
+        $txt = str_replace($search, $replace, $txt);
+    }
+    return $txt;
+}
+
+
+/**
  *
  * createDefaultParamSql
  * creation d'un tableau avec

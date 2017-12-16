@@ -40,6 +40,13 @@ function getURLYear($defaultValue = null)
     return $year;
 }
 
+/**
+ * setURLYear
+ * @param int $year
+ */
+function setURLYear($year){
+    setURLVariable(FORM_COMBOX_BOX_KEY::YEAR_SELECTION, $year);
+}
 
 
 

@@ -41,32 +41,12 @@
 	
 	
 	echo"<p>";
-	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV/*export*/,"yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
+	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
 	echo"<br/></p>";
 	
 	
 	//permet l'export
 	applyGestionCAPrevisionel();
-	
-// 	beginTable();
-// 	beginTableRow( getVAlign("top")  );
-//    	   beginTableCell();
-//      	   applyGestionDevis();
-//      	   editGestionDevis();
-//     	endTableCell();
-    	
-//     	beginTableCell();
-//     	   applyGestionReference();
-//     	endTableCell();
-    	
-// 	endTableRow();
-// 	endTable();
-	
-	
-	
-// 	echo "<p>";
-// 	showLoadFile("","","","import");
-// 	echo "<br/></p>";
 	
 	
 	showTableCAPrevisionel();

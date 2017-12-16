@@ -22,6 +22,19 @@ include_once (dirname ( __FILE__ ) . "/../js/form_db.js");   // affichage des fo
  * application des actions sur la page status project
  */
 function applyGestionCAPrevisionel($idRequest="") {
+    $request = getRequeteCAByID($idRequest);
+    $col="";
+    $form_name="form_ca_previsionel";    
+    
+    applyGestionTable($request, $col, $form_name);
+}
+
+/**
+ * 
+ * @param string $idRequest
+ * @return string request sql from $TABLE_CEGID_REQUETE
+ */
+function getRequeteCAByID($idRequest){
     global $TABLE_CEGID_REQUETE;
     global $ID_REQUETE_SQL_CA_PREVISIONEL;
     
@@ -29,15 +42,13 @@ function applyGestionCAPrevisionel($idRequest="") {
         $idRequest=$ID_REQUETE_SQL_CA_PREVISIONEL;
     }
     
-    $request = getRequeteByID($idRequest, $TABLE_CEGID_REQUETE);
-    $col="";
-    $form_name="form_ca_previsionel";    
+    //positionnement $year
+    $year = getURLYear();
+    setURLYear($year);
     
-    applyGestionTable($request, $col, $form_name);
+    $request = getRequeteByID($idRequest, $TABLE_CEGID_REQUETE);
+    return $request;
 }
-
-
-
 
 
 /**
@@ -45,16 +56,11 @@ function applyGestionCAPrevisionel($idRequest="") {
  * (description)
  */
 function showTableCAPrevisionel($idRequest="") {
-    global $TABLE_CEGID_REQUETE;
-    global $ID_REQUETE_SQL_CA_PREVISIONEL;
     global $TABLE_EXPORT_CSV;
     $html="";
     
-    if ($idRequest==""){
-        $idRequest=$ID_REQUETE_SQL_CA_PREVISIONEL;
-    }
-
-    $request = getRequeteByID($idRequest, $TABLE_CEGID_REQUETE);
+    //recuperation de la requete
+    $request = getRequeteCAByID($idRequest);
     if ($request == ""){
         showError("request id not found : $idRequest");
     }

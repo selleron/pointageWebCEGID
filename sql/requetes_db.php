@@ -131,6 +131,11 @@ function getRequeteByID($idRequete, $table=""){
     $Compteur=0;
     $sql = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
     
+
+    //fait les remplacement ${XXX} pr le getURL(XXX)
+    $sql = replaceVariableURLByGet($sql);
+    
+    //retourne la requete
     return $sql;
 }
 
