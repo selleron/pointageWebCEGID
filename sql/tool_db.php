@@ -2269,6 +2269,11 @@ function showCellAction($actionTxt, $param, $infoForm = "", $formAutonome = "no"
         
         echo "<td>";
         showFormIDElement();
+        
+        if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]) && $infoForm == ""){
+            showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]);
+        }
+        
         echo "$infoForm";
         showFormSubmit($actionTxt, $ACTION_GET);
         echo "</td>";

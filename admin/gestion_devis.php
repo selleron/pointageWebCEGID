@@ -58,7 +58,6 @@
 	showLoadFile("","","","import");
 	echo "<br/></p>";
 	
-	
 	showTableDevis();
 ?>
 <br/><br/><br/>

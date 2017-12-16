@@ -83,6 +83,7 @@ function applyGestionDevis() {
     $colDEVIS = $SQL_SHOW_ALL_COL_DEVIS;
     global $SQL_TABLE_DEVIS;
 	global $FORM_TABLE_CEGID_DEVIS;
+	global $TRACE_INFO_ACTION;
 	$form_name = $FORM_TABLE_CEGID_DEVIS."_update";
 
 	$condition="";
@@ -93,12 +94,12 @@ function applyGestionDevis() {
 	$res = -1;
 	
 	$formURL ="!".getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+	showActionVariable("cegid_devis form [$formURL]", $TRACE_INFO_ACTION);
 	$pos = strpos( $formURL, $FORM_TABLE_CEGID_DEVIS);
 	//showSQLAction("test $FORM_TABLE_CEGID_DEVIS for $formURL :[$pos]");
 	if  ($pos>=1){
 	    //nothing to do
-	    global $SHOW_FORM_TRACE;
-	    showActionVariable("action for cegid_devis accepted", $SHOW_FORM_TRACE);
+	    showActionVariable("action for cegid_devis form [$FORM_TABLE_CEGID_DEVIS] accepted", $TRACE_INFO_ACTION);
 	}
 	else{
 	    //on ne fait pas de traitement
@@ -117,12 +118,17 @@ function applyGestionDevis() {
 	    //sera traité par editGestionDevis()
 	}
 	else{
+	    
+    global $TRACE_INFO_EXPORT;
+    $action = getActionGet ();
+    showActionVariable("action : [$action]  on applyGestionDevis() status [$res] before applyGestionTable()", $TRACE_INFO_ACTION);
 	if ($res<=0){
 	    $res =  applyGestionTable($SQL_TABLE_DEVIS, $colDEVIS, $form_name);
 	}
 	}
 	return $res;
 }
+
 
 
 function editGestionDevis()
@@ -202,7 +208,6 @@ function showTableDEVIS() {
 	global $SQL_SHOW_COL_DEVIS;
 	global $SQL_TABLE_DEVIS;
 	global $FORM_TABLE_CEGID_DEVIS;
-	global $TABLE_EXPORT_CSV;
 	$form_name = $FORM_TABLE_CEGID_DEVIS."_insert";
 	$condition="";
 	
@@ -213,7 +218,7 @@ function showTableDEVIS() {
 	//par defaut on a edit & delete
 	
 	//ajout export CSV
-	$param[$TABLE_EXPORT_CSV] = "yes";
+	$param[PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "yes";
 	
 	//ajout edit pointage
 	//ajout edit pointage et previsionnel

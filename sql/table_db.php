@@ -17,9 +17,10 @@ include_once 'tool_db.php';
      }
      
      // trace
+    global $TRACE_INFO_ACTION;
 	$url = getCurrentURL ();
 	$action = getActionGet ();
-	showAction ( "action : [$action]  $url" );
+	showActionVariable( "action : [$action]  $url", $TRACE_INFO_ACTION );
 	// end trace
 
 	$res = insertInTableByGet ( $param );
