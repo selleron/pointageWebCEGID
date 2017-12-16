@@ -405,13 +405,15 @@ function replacePageURL($variable, $newValue, $url = "", $oldValue = "")
  * replaceVariableURLByGet
  * remplace les ${xxx} par les variables dans get et post
  * @param String $txt
+ * @param array $othersValues array[$key=>value] can be NULL
  * @return $txt
  */
-function replaceVariableURLByGet($txt){
+function replaceVariableURLByGet($txt, $othersValues=NULL){
     
     $txt = privateReplaceURLKeys($_GET, $txt);
     $txt = privateReplaceURLKeys($_POST, $txt);
-
+    if (isset($othersValues)) { $txt = privateReplaceURLKeys($othersValues, $txt);}
+    
     return $txt;
 }
 

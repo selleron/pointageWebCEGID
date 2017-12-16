@@ -54,15 +54,22 @@ function actionTestRequest($html=""){
 	global $SQL_COL_REQUETES_SQL_REQUEST;
 	global $SQL_COL_REQUETES_NAME;
 	global $SQL_COL_REQUETES_DESCRIPTION;
+	global $SQL_TABLE_REQUETES;
 	
-	//recuperation des param�tres
+	//recuperation des parametres
 	$idRequete = getDocumentName();
 	$name = getURLVariable("$SQL_COL_REQUETES_NAME");
 	$description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
 	$sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
+	
+	//fait les remplacement ${XXX} pr le getURL(XXX)
+	$othersKeyValue = getArrayRequete($SQL_TABLE_REQUETES);
+	$sqlTxt2 = replaceVariableURLByGet($sqlTxt, $othersKeyValue);
+	
 		
 	//execute la requete
-	actionRequeteSql($sqlTxt);
+	showSQLAction($sqlTxt2);
+	actionRequeteSql($sqlTxt2);
 	
 	echo"<br><br>";
 	
@@ -133,10 +140,41 @@ function getRequeteByID($idRequete, $table=""){
     
 
     //fait les remplacement ${XXX} pr le getURL(XXX)
-    $sql = replaceVariableURLByGet($sql);
+    $othersKeyValue = getArrayRequete($table);
+    $sql = replaceVariableURLByGet($sql, $othersKeyValue);
     
     //retourne la requete
     return $sql;
+}
+
+/**
+ * getArrayRequete
+ * cree un tableau (cle , valeur) de la table des requetes
+ * @param unknown $table request table (not NULL)
+ * @return data[SQL_COL_REQUETES_ID => SQL_COL_REQUETES_SQL_REQUEST ]
+ */
+function getArrayRequete($table){
+    global $SQL_COL_REQUETES_ID;
+    global $SQL_COL_REQUETES_SQL_REQUEST;
+    
+    $result = array();
+    
+    $request = "SELECT $SQL_COL_REQUETES_ID,  $SQL_COL_REQUETES_SQL_REQUEST
+	FROM `$table`";
+    
+    //showSQLAction($request);
+    $Resultat = mysqlQuery($request);
+    showSQLError("", $request);
+    
+    $nb = mysqlNumrows($Resultat);
+    for($Compteur=0; $Compteur<$nb ; $Compteur++){
+        $sql = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
+        $key = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_ID);
+        $result[$key]=$sql;
+    }
+    
+    //printArray($result,"getArrayRequete - $table  - ");
+    return $result;
 }
 
 
@@ -162,9 +200,17 @@ function actionExecuteRequeteParID($idRequete, $html=""){
 	showSQLError("", $request);
 	//$subParam[$TABLE_EXPORT_CSV] = "yes";
 	
+	//fait les remplacement ${XXX} pr le getURL(XXX)
+	$othersKeyValue = getArrayRequete($SQL_TABLE_REQUETES);
+	
+	
 	for ($Compteur=0 ; $Compteur<mysqlNumrows($Resultat) ; $Compteur++){
 		$sql = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
-		actionRequeteSql($sql, $html, $subParam);
+		//showSQLAction("actionExecuteRequeteParID -1- $sql");
+		$sql2 = replaceVariableURLByGet($sql, $othersKeyValue);
+		//showSQLAction("actionExecuteRequeteParID -2- $sql2");
+		
+		actionRequeteSql($sql2, $html, $subParam);
 	}
 }
 
