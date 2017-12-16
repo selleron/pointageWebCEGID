@@ -21,7 +21,7 @@ class FORM_COMBOX_BOX_VALUE {
     const ITEM_COMBOBOX_SELECTION = "[selection]";
     const ITEM_COMBOBOX_ALL = "[all]";
 }
-	
+
 
 // sql type
 // see $KEY_INFO

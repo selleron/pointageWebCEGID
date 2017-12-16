@@ -7,6 +7,7 @@ include_once 'project_db.php';
 include_once 'time.php';
 include_once (dirname(__FILE__) . "/../configuration/labelAction.php");
 include_once 'pointage_voulu_cegid_db.php';
+include_once 'form_project_db.php';
 
 $SQL_TABLE_CEGID_POINTAGE = "cegid_pointage";
 $FORM_TABLE_CEGID_POINTAGE = "form_table_cegid_pointage";
@@ -34,10 +35,14 @@ $SQL_SHOW_COL_CEGID_POINTAGE2 = "             $SQL_LABEL_PROJECT_NAME , DATE,   
 $SQL_SELECT_COL_CEGID_POINTAGE2 = "pj.NAME as $SQL_LABEL_PROJECT_NAME , DATE, u.NAME as NAME, p.PROFIL, UO";
 $SQL_SHOW_WHERE_CEGID_POINTAGE2 = "p.USER_ID = u.ID and pj.$SQL_COL_ID_PROJECT = p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE";
 
-$PROJECT_SELECTION = "project";
-$YEAR_SELECTION = "year";
-$USER_SELECTION = "user";
+// $PROJECT_SELECTION = "project";
+// $YEAR_SELECTION = "year";
+// $USER_SELECTION = "user";
 $LIST_COLS_MONTHS = "jan,fev,mars,avril,mai,juin,juil,aout,sept,oct,nov,dec";
+
+
+
+
 
 // SELECT P.PROJECT_ID, P.DATE, p.USER_ID as ID, u.name, p.UO FROM `cegid_pointage` as p , `cegid_user` as u WHERE p.USER_ID = u.ID
 
@@ -669,6 +674,15 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
         // showFormSubmit ( LabelAction::ActionExport, "exportCSVSelect" );
         showFormSubmit(LabelAction::ActionExport, "$ACTION_GET");
     }
+    else if ($export == "no" || $export == "" || $export == NULL) {
+        //no export
+    }
+    else{
+        echoSpace();
+        // echo " &nbsp;";
+        // showFormSubmit ( LabelAction::ActionExport, "exportCSVSelect" );
+        showFormSubmit($export, "$ACTION_GET");
+    }
     if ($previousVisible == "yes") {
         echoSpace();
         // echo " &nbsp;";
@@ -713,24 +727,6 @@ function getInfoFormProjectSelection($infoForm = "")
     return $infoForm;
 }
 
-/**
- * getURLYear
- *
- * @return int
- */
-function getURLYear($defaultValue = null)
-{
-    global $YEAR_SELECTION;
-    $year = getURLVariable($YEAR_SELECTION);
-    if (! is_numeric($year)) {
-        if (is_null($defaultValue)) {
-            $year = date("Y");
-        } else {
-            $year = $defaultValue;
-        }
-    }
-    return $year;
-}
 
 /**
  * showTablePointageOneProjetCegid

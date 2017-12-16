@@ -6,6 +6,7 @@ class LabelAction {
     const ActionSelect = "select";
     const ActionExport = "export!!!";
 	const ActionExport2 = "exportCSVSelect";
+	const ActionExportCSV = "exportCSV";
 	const ACTION_NEXT = "next >>";
 	const ACTION_PREVIOUS = "<< previous";
 	const ACTION_SYNCHRONIZE = "synchroniser";

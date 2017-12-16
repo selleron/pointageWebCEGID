@@ -86,6 +86,8 @@ ALTER TABLE `cegid_requetes`
 
 
  
+DELETE FROM `requetes` WHERE `requetes`.`ID` = 'Actuel CA_projet';
+DELETE FROM `requetes` WHERE `requetes`.`ID` = 'Actuel CA_projet_clos';
 DELETE FROM `requetes` WHERE `requetes`.`ID` = 'Previsionnel CA_projet';
 DELETE FROM `requetes` WHERE `requetes`.`ID` = 'Previsionnel CA_projet_clos';
 

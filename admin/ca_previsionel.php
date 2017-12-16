@@ -6,6 +6,7 @@
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/files.php");
+	include_once("../sql/pointage_cegid_db.php");
 	include_once("../sql/ca_previsionel_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
 	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
@@ -37,6 +38,12 @@
 <?php
 	echo "<p>CA Previsionel<br/></p>";
 	showTracePOST();
+	
+	
+	echo"<p>";
+	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV/*export*/,"yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
+	echo"<br/></p>";
+	
 	
 	//permet l'export
 	applyGestionCAPrevisionel();
