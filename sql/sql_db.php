@@ -444,7 +444,7 @@ function getFormStyleArray($Resultat, $param, $idx){
         if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
             $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
         }
-        $variable = mysqlFieldName($Resultat, $idx);;
+        $variable = mysqlFieldName($Resultat, $idx);
         //$variable = mysqli_field_name($Resultat, $idx);
         global $SHOW_FORM_VARIABLE_STYLE;
         if ($SHOW_FORM_VARIABLE_STYLE=="yes"){

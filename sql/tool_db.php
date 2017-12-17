@@ -2527,9 +2527,20 @@ function showTableOneData($html, $Resultat, $cpt, $param)
     
     // parcours des colonnes
     $r = 0;
+    $sizehtml="";
     foreach ($columns as $c) {
         $res = mysqlResult($Resultat, $cpt, $c);
-        echo "<td id='" . $c . "[" . $cpt . "]'>" . $res . "</td>";
+        
+        //determination taille cellule
+//         $sizehtml="";
+//         $size = getFormStyleSize($Resultat, $param, $r);
+//         if (isset($size)){
+//             $sizehtml="width='$size'";
+//         }
+        
+        //affichage de la cellule
+        echo "<td id='" . $c . "[" . $cpt . "]' $sizehtml  >" . $res . "</td>";
+        
         $resArray[$r] = $res;
         $r ++;
     }
