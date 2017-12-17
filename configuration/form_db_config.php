@@ -71,9 +71,12 @@ $FORM_STYLE         ["form_table_cegid_devis_update"]["NUXEO"]["SIZE"]=100;
 $FORM_STYLE         ["form_table_cegid_devis_update"]["MODIFICATION"]["SIZE"]=5;
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["STATUS"]="select ID from cegid_status_project";
-$FORM_STYLE         ["form_table_cegid_project_insert"]["PRIX_VENTE"]["SIZE"]=10;
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["STATUS"]="select ID from cegid_status_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project"]["STATUS"]="select ID from cegid_status_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["TYPE"]="select ID from cegid_type_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["TYPE"]="select ID from cegid_type_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project"]["TYPE"]="select ID from cegid_type_project";
+$FORM_STYLE         ["form_table_cegid_project_insert"]["PRIX_VENTE"]["SIZE"]=10;
 
 
 //table project cout
@@ -150,5 +153,6 @@ $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO"]["VARIABLE"]="UO_vou
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO_voulu"]["DEFAULT"]="NULL";
 
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["STATUS"]["DEFAULT"]="Prevision";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["TYPE"]["DEFAULT"]="Undefined";
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]="";
 ?>
