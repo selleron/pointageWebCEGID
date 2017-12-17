@@ -409,6 +409,23 @@ function replacePageURL($variable, $newValue, $url = "", $oldValue = "")
  * @return $txt
  */
 function replaceVariableURLByGet($txt, $othersValues=NULL){
+    $txt2 = replaceVariableURLByGetNonRecursif($txt, $othersValues);
+    while ($txt2 <> $txt){
+        $txt = $txt2;
+        $txt2 = replaceVariableURLByGetNonRecursif($txt, $othersValues);
+    }
+    //showSQLAction("replaceVariableURLByGet() $txt2");
+    return $txt2;
+}
+
+/**
+ * replaceVariableURLByGetNonRecursif
+ * remplace les ${xxx} par les variables dans get et post
+ * @param String $txt
+ * @param array $othersValues array[$key=>value] can be NULL
+ * @return $txt
+ */
+function replaceVariableURLByGetNonRecursif($txt, $othersValues=NULL){
     
     $txt = privateReplaceURLKeys($_GET, $txt);
     $txt = privateReplaceURLKeys($_POST, $txt);

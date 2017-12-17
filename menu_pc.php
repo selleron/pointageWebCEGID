@@ -157,18 +157,20 @@ else{
 	if (isMemberGroup(3)){
 	    createHeaderBaliseDiv("id_div_CA","<h2>CA</h2>");
 	 
-	    $urlCADiff     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/ca_diff_cegid.php$argument");
-	    $urlCAActuel   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/ca_actuel.php$argument");
-	    $urlCAActuel2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/ca_actuel2.php$argument");
-	    $urlCAPrev     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/ca_previsionel.php$argument");
-	    $urlCAPrev2    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/ca_previsionel2.php$argument");
+	    $urlRespAffaires   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/resp_affaires.php$argument");
+	    $urlCADiff     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_diff_cegid.php$argument");
+	    $urlCAActuel   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_actuel.php$argument");
+	    $urlCAActuel2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_actuel2.php$argument");
+	    $urlCAPrev     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel.php$argument");
+	    $urlCAPrev2    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel2.php$argument");
 	    
     	echo"
     		<ul>
+    		<li><a title=\"Responsable affaires\"   href=\"$urlRespAffaires\">  <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > Resp. affaires</a></li>
     		<li><a title=\"CA Actuel\"              href=\"$urlCAActuel\">      <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel...</a></li>
     		<li><a title=\"CA Actuel clos\"         href=\"$urlCAActuel2\">     <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel clos...</a></li>
     		<li><a title=\"CA Previsionnel\"        href=\"$urlCAPrev\">        <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA previsionnel</a></li>
-    		<li><a title=\"CA Previsionnel clos\"   href=\"$urlCAPrev2\">       <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA previsionnel clos</a></li>
+    		<li><a title=\"CA Previsionnel clos\"   href=\"$urlCAPrev2\">       <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA prev. clos</a></li>
     		<li><a title=\"CA Différentiel\"        href=\"$urlCADiff\">        <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA Differentiel</a></li>
     		</ul>";
 	    echo "</div>";

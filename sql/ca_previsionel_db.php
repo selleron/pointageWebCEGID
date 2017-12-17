@@ -3,11 +3,12 @@ $DEVIS_DB_PHP = "loaded";
 
 $TABLE_CEGID_REQUETE      = "cegid_requetes";
 
-$ID_REQUETE_SQL_CA_PREVISIONEL      = "Previsionnel CA_projet";
-$ID_REQUETE_SQL_CA_PREVISIONEL_CLOS = "Previsionnel CA_projet_clos";
-$ID_REQUETE_SQL_CA_ACTUEL           = "Actuel CA_projet";
-$ID_REQUETE_SQL_CA_ACTUEL_CLOS      = "Actuel CA_projet_clos";
-$ID_REQUETE_SQL_CA_DIFF             = "diff CA";
+$ID_REQUETE_SQL_CA_PREVISIONEL          = "Previsionnel CA_projet";
+$ID_REQUETE_SQL_CA_PREVISIONEL_CLOS     = "Previsionnel CA_projet_clos";
+$ID_REQUETE_SQL_CA_ACTUEL               = "Actuel CA_projet";
+$ID_REQUETE_SQL_CA_ACTUEL_CLOS          = "Actuel CA_projet_clos";
+$ID_REQUETE_SQL_CA_DIFF                 = "diff CA";
+$ID_REQUETE_SQL_CA_RESPONSABLE_AFFAIRES = "Responsable affaires";
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
