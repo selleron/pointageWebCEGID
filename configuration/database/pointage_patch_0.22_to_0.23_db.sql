@@ -85,12 +85,44 @@ INSERT INTO `requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`) VALUES
 
 
 
-  
-UPDATE `version` SET `DATE` = '2017-12-26 00:00:00', `value` = '0.23.0' WHERE `version`.`id` = 'database';
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.22_vers_0.23', '101', '2017-12-16 00:00:00', 'udate user table', '0.23.0');
 
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.25.00_vers_0.1.26.0', '200', '2017-12-16 00:00:00', 'modification user', '0.1.26.0');
-UPDATE `version` SET `DATE` = '2017-12-26 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.26.0' WHERE `version`.`id` = 'php';
+CREATE TABLE `cegid_type_project` (
+  `ID` varchar(15) NOT NULL,
+  `NAME` varchar(100) NOT NULL,
+  `ORDRE` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Contenu de la table `cegid_type_project`
+--
+
+INSERT INTO `cegid_type_project` (`ID`, `NAME`, `ORDRE`) VALUES
+('Undefined', 'A definir', 1),
+('Forfait', 'Forfait', 10),
+('AT', 'Assistance Technique', 11),
+('RegieDev', 'Regie Dev', 20),
+('RegieMaintenance', 'Regie Maintenance', 21);
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `cegid_type_project`
+--
+ALTER TABLE `cegid_type_project`
+  ADD PRIMARY KEY (`ID`);
+
+
+
+
+
+  
+UPDATE `version` SET `DATE` = '2017-12-17 00:00:00', `value` = '0.23.0' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.22_vers_0.23', '101', '2017-12-17 00:00:00', 'udate user table', '0.23.0');
+
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.25.00_vers_0.1.26.6', '200', '2017-12-17 00:00:00', 'modification user', '0.1.26.6');
+UPDATE `version` SET `DATE` = '2017-12-17 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.26.6' WHERE `version`.`id` = 'php';
 
 COMMIT;
 

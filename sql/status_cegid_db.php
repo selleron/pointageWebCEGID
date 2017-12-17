@@ -10,7 +10,10 @@ $SQL_SHOW_COL_STATUS_CEGID = "$SQL_COL_ID_STATUS_CEGID, $SQL_COL_NAME_STATUS_CEG
 
 $SQL_TABLE_STATUS_COMMANDE         = "cegid_status_commande";
 $FORM_TABLE_CEGID_STATUS_COMMANDE  = "form_table_status_commande";
-$SQL_SHOW_COL_STATUS_COMMANDE= "$SQL_COL_ID_STATUS_CEGID, $SQL_COL_NAME_STATUS_CEGID, $SQL_COL_ORDRE_STATUS_CEGID";
+#$SQL_SHOW_COL_STATUS_COMMANDE= "$SQL_COL_ID_STATUS_CEGID, $SQL_COL_NAME_STATUS_CEGID, $SQL_COL_ORDRE_STATUS_CEGID";
+
+$SQL_TABLE_TYPE_PROJECT         = "cegid_type_project";
+$FORM_TABLE_TYPE_PROJECT        = "form_table_type_project";
 
 
 include_once 'table_db.php';
@@ -37,6 +40,18 @@ function applyGestionStatusCommande() {
     $form_name = $FORM_TABLE_CEGID_STATUS_COMMANDE."_update";
     
     applyGestionTable($SQL_TABLE_STATUS_COMMANDE, $SQL_SHOW_COL_STATUS_CEGID, $form_name);
+}
+
+/**
+ * application des actions sur la page type project
+ */
+function applyGestionTypeProject() {
+    global $SQL_SHOW_COL_STATUS_CEGID;
+    global $SQL_TABLE_TYPE_PROJECT;
+    global $FORM_TABLE_TYPE_PROJECT;
+    $form_name = $FORM_TABLE_TYPE_PROJECT."_update";
+    
+    applyGestionTable($SQL_TABLE_TYPE_PROJECT, $SQL_SHOW_COL_STATUS_CEGID, $form_name);
 }
 
 
@@ -73,6 +88,21 @@ function applyGestionStatusCommande() {
      
      //showTable($SQL_TABLE_PROFILS, $SQL_SHOW_COL_PROFIL, $form_name);
      $param = prepareshowTable($SQL_TABLE_STATUS_COMMANDE, $SQL_SHOW_COL_STATUS_CEGID, $form_name, $condition);
+     $param[$TABLE_EXPORT_CSV] = "yes";
+     
+     showTableByParam($param);
+ }
+ 
+ function showTableTypeProject() {
+     global $SQL_SHOW_COL_STATUS_CEGID;
+     global $SQL_TABLE_TYPE_PROJECT;
+     global $FORM_TABLE_CEGID_STATUS_CEGID;
+     $form_name = $FORM_TABLE_CEGID_STATUS_CEGID."_insert";
+     $condition="";
+     global $TABLE_EXPORT_CSV;
+     
+     //showTable($SQL_TABLE_PROFILS, $SQL_SHOW_COL_PROFIL, $form_name);
+     $param = prepareshowTable($SQL_TABLE_TYPE_PROJECT, $SQL_SHOW_COL_STATUS_CEGID, $form_name, $condition);
      $param[$TABLE_EXPORT_CSV] = "yes";
      
      showTableByParam($param);
