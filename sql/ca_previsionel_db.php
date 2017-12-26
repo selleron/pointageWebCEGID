@@ -9,6 +9,8 @@ $ID_REQUETE_SQL_CA_ACTUEL               = "Actuel CA_projet";
 $ID_REQUETE_SQL_CA_ACTUEL_CLOS          = "Actuel CA_projet_clos";
 $ID_REQUETE_SQL_CA_DIFF                 = "diff CA";
 $ID_REQUETE_SQL_CA_RESPONSABLE_AFFAIRES = "Responsable affaires";
+$ID_REQUETE_SQL_PRIX_VENTE              = "PRIX_VENTE";
+$ID_REQUETE_SQL_CHECK_PRIX_VENTE        = "CHECK_PRIX_VENTE";
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
@@ -21,15 +23,34 @@ include_once (dirname ( __FILE__ ) . "/../js/form_db.js");   // affichage des fo
 
 
 /**
+ * application des actions sur la page cloture du CA
+ */
+function applyGestionCloture() {
+    global $ID_REQUETE_SQL_CA_ACTUEL;
+    $form_name="cloture";    
+    $col="";
+    $request = getRequeteCAByID($ID_REQUETE_SQL_CA_ACTUEL);
+    
+    if (getActionGet () == "cloture") {
+        showSQLAction("action [cloture ] detected");
+        //$res = editTable2 ( /*$table, $cols, $form_name,*/ $subParam );
+    } else {
+        $res =  applyGestionTable($request, $col, $form_name);
+    }
+    return $res;
+}
+
+/**
  * application des actions sur la page status project
  */
 function applyGestionCAPrevisionel($idRequest="") {
     $request = getRequeteCAByID($idRequest);
     $col="";
-    $form_name="form_ca_previsionel";    
+    $form_name="form_ca_previsionel";
     
     applyGestionTable($request, $col, $form_name);
 }
+
 
 /**
  * 

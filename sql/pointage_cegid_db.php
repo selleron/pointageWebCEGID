@@ -678,10 +678,13 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
         //no export
     }
     else{
+        $arrayAction = stringToArray($export);
+        foreach ($arrayAction as $item){
         echoSpace();
         // echo " &nbsp;";
-        // showFormSubmit ( LabelAction::ActionExport, "exportCSVSelect" );
-        showFormSubmit($export, "$ACTION_GET");
+        //showFormSubmit($export, "$ACTION_GET");
+            showFormSubmit($item, "$ACTION_GET");
+        }
     }
     if ($previousVisible == "yes") {
         echoSpace();

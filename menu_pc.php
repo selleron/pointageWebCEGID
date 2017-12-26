@@ -165,6 +165,7 @@ else{
 	    $urlCAActuel2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_actuel2.php$argument");
 	    $urlCAPrev     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel.php$argument");
 	    $urlCAPrev2    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel2.php$argument");
+	    $urlCloture    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/cloture.php$argument");
 	    
     	echo"
     		<ul>
@@ -173,7 +174,8 @@ else{
     		<li><a title=\"CA Actuel clos\"         href=\"$urlCAActuel2\">     <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel clos...</a></li>
     		<li><a title=\"CA Previsionnel\"        href=\"$urlCAPrev\">        <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA previsionnel</a></li>
     		<li><a title=\"CA Previsionnel clos\"   href=\"$urlCAPrev2\">       <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA prev. clos</a></li>
-    		<li><a title=\"CA Différentiel\"        href=\"$urlCADiff\">        <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA Differentiel</a></li>
+    		<li><a title=\"CA Différentiel\"       href=\"$urlCADiff\">        <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA Differentiel</a></li>
+    		<li><a title=\"Cloture\"                href=\"$urlCloture\">       <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Cloture</a></li>
     		</ul>";
 	    echo "</div>";
 	}
