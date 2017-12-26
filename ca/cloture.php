@@ -43,12 +43,35 @@
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV.",cloture"/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
 	echo"<br/></p>";
 	
-	
+	//action
 	applyGestionCloture();
+	
+	//boutons des actions
+	$url="";
+	$formname="cloture";
+	createForm ( $url, $formname );
+	showFormSubmit(LabelAction::ActionExportCSV, LabelAction::ACTION_GET);
+	showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
+	endForm();
+	
+	//UO reportable
+	echo "<br><br>";
+	UOReportable();
+	
+	//Check Prix de Vente
 	global $ID_REQUETE_SQL_CHECK_PRIX_VENTE;
-	global $ID_REQUETE_SQL_PRIX_VENTE;
+	echo "<br><br>";
+	createHeaderBaliseDiv("CheckPrixVente","<h3>Check Prix de Vente et Cout</h3>");
 	showTableCAPrevisionel( $ID_REQUETE_SQL_CHECK_PRIX_VENTE );
+	endHeaderBaliseDiv("CheckPrixVente");
+
+	
+	// PRIX de Vente
+	global $ID_REQUETE_SQL_PRIX_VENTE;
+	echo "<br><br>";
+	createHeaderBaliseDiv("PrixVente","<h3>Prix de Vente et Cout</h3>");
 	showTableCAPrevisionel( $ID_REQUETE_SQL_PRIX_VENTE );
+	endHeaderBaliseDiv("PrixVente");
 	?>
 <br/><br/><br/>
 

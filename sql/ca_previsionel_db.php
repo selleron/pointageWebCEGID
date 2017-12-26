@@ -11,12 +11,15 @@ $ID_REQUETE_SQL_CA_DIFF                 = "diff CA";
 $ID_REQUETE_SQL_CA_RESPONSABLE_AFFAIRES = "Responsable affaires";
 $ID_REQUETE_SQL_PRIX_VENTE              = "PRIX_VENTE";
 $ID_REQUETE_SQL_CHECK_PRIX_VENTE        = "CHECK_PRIX_VENTE";
+$ID_REQUETE_SQL_UO_RESTANT_CLOTURE      = "UO_RESTANT_CLOTURE";
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
 include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
 include_once (dirname ( __FILE__ ) . "/table_db.php");
 include_once (dirname ( __FILE__ ) . "/tool_db.php");
+include_once (dirname ( __FILE__ ) . "/historisation_db.php");
+include_once (dirname ( __FILE__ ) . "/cout_project_db.php");
 include_once (dirname ( __FILE__ ) . "/project_db.php");
 include_once (dirname ( __FILE__ ) . "/requetes_db.php");
 include_once (dirname ( __FILE__ ) . "/../js/form_db.js");   // affichage des forms et calculs
@@ -26,17 +29,75 @@ include_once (dirname ( __FILE__ ) . "/../js/form_db.js");   // affichage des fo
  * application des actions sur la page cloture du CA
  */
 function applyGestionCloture() {
-    global $ID_REQUETE_SQL_CA_ACTUEL;
+    global $ID_REQUETE_SQL_PRIX_VENTE;
     $form_name="cloture";    
     $col="";
-    $request = getRequeteCAByID($ID_REQUETE_SQL_CA_ACTUEL);
+    $request = getRequeteCAByID($ID_REQUETE_SQL_PRIX_VENTE);
     
-    if (getActionGet () == "cloture") {
-        showSQLAction("action [cloture ] detected");
+    showSQLAction("action [".getActionGet()." ] detected");
+    if (getActionGet () == "sauvegarde cout" ){
+        showSQLAction("action [ sauvegarde cout ] detected");
+        
+        $condition="";
+        $res = historisationCout($condition);        
+    }
+    else if (getActionGet () == "cloture") {
+        showSQLAction("action [ cloture ] detected");
+        //historisationCout("");
+        clotureYear();
+        $res=1;
         //$res = editTable2 ( /*$table, $cols, $form_name,*/ $subParam );
     } else {
         $res =  applyGestionTable($request, $col, $form_name);
     }
+    return $res;
+}
+
+/**
+ * clotureYear
+ * 
+ * @return number
+ */
+function clotureYear(){
+    $project = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION); 
+    $year    = getURLYear();
+    $year2   =$year+1;
+
+    global $ID_REQUETE_SQL_UO_RESTANT_CLOTURE;
+    $request = getRequeteCAByID($ID_REQUETE_SQL_UO_RESTANT_CLOTURE);
+    
+  $res = 1;
+  return $res;
+}
+
+/**
+ * clotureYear
+ *
+ * @return number
+ */
+function UOReportable(){
+    global $ID_REQUETE_SQL_UO_RESTANT_CLOTURE;
+    $request = getRequeteCAByID($ID_REQUETE_SQL_UO_RESTANT_CLOTURE);
+    createHeaderBaliseDiv("UO_restant","<h3>UO reportable</h3>");
+    
+    actionRequeteSql($request, /*$html*/"", /*$subParam*/"", /*$closeTable*/"yes");
+    endHeaderBaliseDiv("UO_restant");
+    $res = 1;
+    return $res;
+}
+
+
+/**
+ * historisationCout
+ * 
+ * @param string $condition
+ * @return request
+ */
+function historisationCout($condition=""){
+    global $SQL_SHOW_COL_PROJECT_COUT;
+    global $SQL_TABLE_PROJECT_COUT;
+    showSQLAction("Historisation table Cout...");
+    $res = historisationTable($SQL_TABLE_PROJECT_COUT, "", $SQL_SHOW_COL_PROJECT_COUT, $condition);
     return $res;
 }
 
