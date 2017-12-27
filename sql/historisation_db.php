@@ -5,6 +5,47 @@ $SQL_COL_HISTORY = "HISTORY";
 $SQL_COL_HISTORY_COMMENT = "HISTORY_COMMENT";
 
 /**
+ * retoreTable
+ * @param sting $table
+ * @param string $table_historique
+ * @param string $columns
+ * @param string $condition
+ * @return boolean|request
+ */
+function restoreTable($table, $table_historique = "", $columns, $condition="") {
+    global $SQL_COL_HISTORY; 
+    
+    if ($table_historique == "") {
+        $table_historique = $table . "_history";
+    }
+    
+    if ($condition==""){
+        $Resultat = mysqlQuery("SELECT $SQL_COL_HISTORY FROM $table_historique ORDER BY $SQL_COL_HISTORY DESC");
+        $nbRow = mysqlRowsCount($Resultat);
+        if ($nbRow<1){
+            showSQLError("no data to restore...");
+            return FALSE;
+        }
+        $date = mysqlResult($Resultat, 0, 0);
+        $condition = "$SQL_COL_HISTORY = '$date' ";
+    }
+    
+    mysqlBeginTransaction();
+    $truncate = "TRUNCATE table $table";
+    showSQLAction($truncate);
+    $res = mysqlQuery($truncate);
+    //showSQLAction("$truncate : $res");
+    $res = historisationTable($table_historique, $table, $columns, $condition);
+    if ($res == FALSE){
+      mysqlRollback();
+      return FALSE;
+    }
+    else{
+        return mysqlCommit();
+    }
+}
+
+/**
  * historisationTable
  *
  * @param $table able

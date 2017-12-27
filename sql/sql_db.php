@@ -70,6 +70,45 @@ function mysqlNumrows($Resultat) {
 }
 
 /**
+ * mysqlRowsCount
+ * @param Sql result $Resultat
+ * @return number
+ */
+function mysqlRowsCount($Resultat){
+    return mysqlNumrows($Resultat);
+}
+
+/**
+ * mysqlBeginTransaction
+ * @return request
+ */
+function mysqlBeginTransaction(){
+    $request = "START TRANSACTION";
+    showSQLAction($request);
+    return mysqlQuery($request);
+}
+
+/**
+ * mysqlCommit
+ * @return request
+ */
+function mysqlCommit(){
+    $request = "Commit";
+    showSQLAction($request);
+    return mysqlQuery($request);
+}
+
+/**
+ * mysqlRollback
+ * @return request
+ */
+function mysqlRollback(){
+    $request = "Rollback";
+    showSQLAction($request);
+    return mysqlQuery($request);
+}
+
+/**
  * mysqlResult
  * @param
  *        	array ou sql request result $Resultat
@@ -122,7 +161,10 @@ function mysqlResult($Resultat, $cpt, $c, $defaultValue = "") {
 	}
 }
 
-
+/**
+ * mysqlClose
+ * @return unknown
+ */
 function mysqlClose(){
     global $CONNECTION_ID;
     return mysqli_close($CONNECTION_ID);

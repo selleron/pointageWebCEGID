@@ -11,7 +11,11 @@ $ID_REQUETE_SQL_CA_DIFF                 = "diff CA";
 $ID_REQUETE_SQL_CA_RESPONSABLE_AFFAIRES = "Responsable affaires";
 $ID_REQUETE_SQL_PRIX_VENTE              = "PRIX_VENTE";
 $ID_REQUETE_SQL_CHECK_PRIX_VENTE        = "CHECK_PRIX_VENTE";
+$ID_REQUETE_SQL_UO_RESTANT              = "UO_RESTANT";
 $ID_REQUETE_SQL_UO_RESTANT_CLOTURE      = "UO_RESTANT_CLOTURE";
+$ID_REQUETE_SQL_ALL_CEGID_POINTAGE      = "ALL_CEGID_POINTAGE";
+
+
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
@@ -29,6 +33,7 @@ include_once (dirname ( __FILE__ ) . "/../js/form_db.js");   // affichage des fo
  * application des actions sur la page cloture du CA
  */
 function applyGestionCloture() {
+    global $TRACE_CLOTURE;
     global $ID_REQUETE_SQL_PRIX_VENTE;
     $form_name="cloture";    
     $col="";
@@ -36,17 +41,22 @@ function applyGestionCloture() {
     $request = getRequeteCAByID($idRequest);
     
     //showSQLAction("action [".getActionGet()." ] detected");
-    if (getActionGet () == "sauvegarde cout" ){
-        showSQLAction("action [ sauvegarde cout ] detected");
+    if (getActionGet () == "restore cout" ){
+        showActionVariable("action [ restore cout ] detected", $TRACE_CLOTURE);
         
         $condition="";
-        $res = historisationCout($condition);        
+        $res = restoreCout($condition);
+    }
+    else if (getActionGet () == "sauvegarde cout" ){
+        showActionVariable("action [ sauvegarde cout ] detected", $TRACE_CLOTURE );
+        
+        $condition="";
+        $res = historisationCout($condition);
     }
     else if (getActionGet () == "cloture") {
-        showSQLAction("action [ cloture ] detected");
+        showActionVariable("action [ cloture ] detected", $TRACE_CLOTURE);
         //historisationCout("");
-        clotureYear();
-        $res=1;
+        $res = clotureYear();
         //$res = editTable2 ( /*$table, $cols, $form_name,*/ $subParam );
     } else {
         $res =  applyGestionTable($request, $col, $form_name);
@@ -60,6 +70,8 @@ function applyGestionCloture() {
  * @return number
  */
 function clotureYear(){
+    global $TRACE_CLOTURE;
+    
     global $SQL_COL_ID_PROJECT_COUT;
     global $SQL_COL_DATE_PROJECT_COUT;
     global $SQL_COL_PROJECT_ID_COUT_PROJECT;
@@ -72,15 +84,28 @@ function clotureYear(){
     $year    = getURLYear();
     $year2   =$year+1;
 
+    //recherche requete
     global $ID_REQUETE_SQL_UO_RESTANT_CLOTURE;
     $request = getRequeteCAByID($ID_REQUETE_SQL_UO_RESTANT_CLOTURE);
     
+    //prise en compte project
+    if ( ($project != FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION) &&
+        ($project != FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_ALL) &&
+        ($project != "") ){
+        $request = "select * from ($request) cloture2 where NAME='$project'";
+    }
+    //execution recherche row cout pour cloture
+    showActionVariable("$request", $TRACE_CLOTURE);
     $Resultat = mysqlQuery($request);
     showSQLError("", $request);
     $nbRes = mysqlNumrows($Resultat);
+    showActionVariable("report cloture a faire : $nbRes", $TRACE_CLOTURE);
+    $res = 0;
     
-    mysqlQuery("START TRANSACTION");
+    //demarrage transaction
+    mysqlBeginTransaction();
     
+    //transfert des UO vers year + 1
     for($row=0;$row<$nbRes;$row++){
         $ID          = mysqlResult($Resultat, $row, $SQL_COL_ID_PROJECT_COUT );
         $DATE        = mysqlResult($Resultat, $row, $SQL_COL_DATE_PROJECT_COUT );
@@ -94,21 +119,25 @@ function clotureYear(){
         $requestInsert = "INSERT INTO `cegid_project_cout`";
         $requestInsert = "$requestInsert        (`DATE`, `PROJECT_ID`,   `PROFIL_ID`,  `UO`,   `COUT`)";
         $requestInsert = "$requestInsert VALUES ('$year2-01-01', '$PROJECT_ID', '$PROFIL_ID', '$UO_RESTANT', '$COUT')";    
-        //showSQLAction($requestInsert);
+        showActionVariable($requestInsert, $TRACE_CLOTURE);
         if (mysqlQuery($requestInsert)){     
             $requestUpdate = "UPDATE `cegid_project_cout` ";
             $requestUpdate = "$requestUpdate SET `UO` = '$UO_CONSOMME' ";
             $requestUpdate = "$requestUpdate WHERE `cegid_project_cout`.`ID` = $ID";
-            //showSQLAction($requestUpdate);
-            mysqlQuery($requestUpdate);
+            showActionVariable($requestUpdate, $TRACE_CLOTURE);
+            $res2 = mysqlQuery($requestUpdate);
+            $res = $res || $res2;
         }
     }
     //end for
-
-    mysqlQuery("ROLLBACK");
+    if ($res){
+      mysqlCommit();  
+    }
+    else{
+        mysqlRollback();
+    }
     
     
-  $res = 1;
   return $res;
 }
 
@@ -120,10 +149,10 @@ function clotureYear(){
 function UOReportable(){
     global $ID_REQUETE_SQL_UO_RESTANT_CLOTURE;
     $request = getRequeteCAByID($ID_REQUETE_SQL_UO_RESTANT_CLOTURE);
-    createHeaderBaliseDiv("UO_restant","<h3>UO reportable</h3>");
+    createHeaderBaliseDiv("UO_restant_cloture","<h3>UO reportable</h3>");
     
     actionRequeteSql($request, /*$html*/"", /*$subParam*/"", /*$closeTable*/"yes");
-    endHeaderBaliseDiv("UO_restant");
+    endHeaderBaliseDiv("UO_restant_cloture");
     $res = 1;
     return $res;
 }
@@ -136,10 +165,28 @@ function UOReportable(){
  * @return request
  */
 function historisationCout($condition=""){
+    global $TRACE_CLOTURE;
+    
     global $SQL_SHOW_COL_PROJECT_COUT;
     global $SQL_TABLE_PROJECT_COUT;
-    showSQLAction("Historisation table Cout...");
+    showActionVariable("Historisation table Cout...", $TRACE_CLOTURE);
     $res = historisationTable($SQL_TABLE_PROJECT_COUT, "", $SQL_SHOW_COL_PROJECT_COUT, $condition);
+    return $res;
+}
+
+/**
+ * restoreCout
+ * restoration à la derniere date ou suivant la condition
+ * @param string $condition
+ * @return request or boolean
+ */
+function restoreCout($condition=""){
+    global $TRACE_CLOTURE;
+    
+    global $SQL_SHOW_COL_PROJECT_COUT;
+    global $SQL_TABLE_PROJECT_COUT;
+    showActionVariable("Historisation table Cout...", $TRACE_CLOTURE);
+    $res = restoreTable($SQL_TABLE_PROJECT_COUT, "", $SQL_SHOW_COL_PROJECT_COUT, $condition);
     return $res;
 }
 

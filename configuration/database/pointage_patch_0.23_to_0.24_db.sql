@@ -33,11 +33,12 @@ SET time_zone = "+00:00";
 --
 
 INSERT INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`) VALUES
+('ALL_CEGID_POINTAGE', 'ALL_CEGID_POINTAGE', NULL, 'select * from cegid_pointage\r\nunion\r\n${DEFAULT_CEGID_POINTAGE}'),
 ('CHECK_PRIX_VENTE', 'CHECK_PRIX_VENTE', '', 'SELECT 	PROJECT_ID, NAME, STATUS, PRIX_VENTE,	CA, (PRIX_VENTE - CA) as DIFF\r\nFROM (${PRIX_VENTE}) pv\r\nWHERE (PRIX_VENTE - CA)>6\r\n  OR (PRIX_VENTE - CA)<-6'),
-('PRIX_VENTE', 'PRIX Vente et CA', 'Prix de vente et CA', 'SELECT cpc.PROJECT_ID, cp.NAME, cp.STATUS, cp.PRIX_VENTE, sum(cpc.uo*cpc.cout) as CA\r\nFROM cegid_project_cout cpc, cegid_project cp\r\nWHERE \r\n  cp.CEGID = cpc.PROJECT_ID\r\nGROUP BY cpc.PROJECT_ID'),
-('UO_RESTANT', 'UO_RESTANT', 'Calcul les UO à reporter', 'SELECT cpc.ID, cp.DATE, cp.PROJECT_ID, p.NAME, p.STATUS, cpc.PROFIL_ID, cpc.COUT, cpc.UO as UO_possible, \r\nsum(cp.UO) as UO_consomme, (cpc.UO - sum(cp.UO)) as UO_restant \r\nFROM cegid_pointage cp, cegid_project_cout cpc, cegid_project p \r\nWHERE \r\n  year(cp.DATE)=${year} \r\n  AND cp.PROJECT_ID = cpc.PROJECT_ID \r\n  AND cp.PROFIL = cpc.PROFIL_ID \r\n  AND year(cp.DATE) = year(cpc.DATE) \r\n  AND p.CEGID = cp.PROJECT_ID\r\nGROUP BY PROJECT_ID, PROFIL_ID'),
+('DEFAULT_CEGID_POINTAGE', 'DEFAULT_CEGID_POINTAGE', NULL, 'SELECT PROJECT_ID, DATE,  0 as USER_ID, PROFIL_ID as PROFIL, 0 as UO\r\nFROM cegid_project_cout'),
+('PRIX_VENTE', 'PRIX Vente et CA', 'Prix de vente et CA', 'SELECT cpc.PROJECT_ID, cp.NAME, cp.STATUS, sum(cpc.uo) UO_possible, cp.PRIX_VENTE, sum(cpc.uo*cpc.cout) as CA\r\nFROM cegid_project_cout cpc, cegid_project cp\r\nWHERE \r\n  cp.CEGID = cpc.PROJECT_ID\r\nGROUP BY cpc.PROJECT_ID'),
+('UO_RESTANT', 'UO_RESTANT', 'Calcul les UO à reporter', 'SELECT cpc.ID, cp.DATE, cp.PROJECT_ID, p.NAME, p.STATUS, cpc.PROFIL_ID, cpc.COUT, cpc.UO as UO_possible, \r\nsum(cp.UO) as UO_consomme, (cpc.UO - sum(cp.UO)) as UO_restant \r\nFROM (${ALL_CEGID_POINTAGE}) cp, cegid_project_cout cpc, cegid_project p \r\nWHERE \r\n  year(cp.DATE)=${year} \r\n  AND cp.PROJECT_ID = cpc.PROJECT_ID \r\n  AND cp.PROFIL = cpc.PROFIL_ID \r\n  AND year(cp.DATE) = year(cpc.DATE) \r\n  AND p.CEGID = cp.PROJECT_ID\r\nGROUP BY PROJECT_ID, PROFIL_ID'),
 ('UO_RESTANT_CLOTURE', 'UO_RESTANT_CLOTURE', 'UO RESTANT.\r\nNe prend pas en compte les projets cloturés', 'SELECT *\r\nFROM (${UO_RESTANT}) RESTANT\r\nWHERE\r\n      STATUS not like \"Clos\"\r\n  AND STATUS not like \"Clos AT\"\r\n  AND PROJECT_ID not in (SELECT PROJECT_ID FROM cegid_project_cout WHERE year(DATE)=(${year}+1) )');
-COMMIT;
 
 
 

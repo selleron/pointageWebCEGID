@@ -896,7 +896,7 @@ function printParam($param, $header = "")
 
 /**
  * traceConnectionID
- * trace la connection si $CONNECTION_ID est positionn�
+ * trace la connection si $CONNECTION_ID est positionne
  */
 function traceConnectionID()
 {
@@ -913,7 +913,7 @@ function traceConnectionID()
  * le message n'est pas affich� si $NO_MSG_CHANGE_HEADER_ACTIVE & $NO_MSG_CHANGE_HEADER sont a "yes"
  *
  * @param $txt le
- *            message � afficher
+ *            message aafficher
  */
 function showAction($txt)
 {

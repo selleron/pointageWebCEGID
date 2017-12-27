@@ -38,6 +38,7 @@ $TRACE_INFO_ACTION="no";					//trace suivi action get
 $TRACE_INFO_EXPORT="no";					//trace generation export
 $TRACE_INFO_POINTAGE="no";					//trace info pointage
 $TRACE_INFO_PROJECT="yes";                  //trace project usage
+$TRACE_CLOTURE="yes";                       //trace cloture operation
 $SHOW_FILE_ACTION="yes";                    //trace file operation
 
 $SHOW_SQL_EDIT="yes";						//trace ou non les actions SQL edit

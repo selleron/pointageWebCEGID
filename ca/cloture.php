@@ -53,6 +53,7 @@
 	showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $formname);
 	showFormSubmit(LabelAction::ActionExportCSV, LabelAction::ACTION_GET);
 	showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
+	showFormSubmit("restore cout",LabelAction::ACTION_GET);
 	endForm();
 	
 	//UO reportable
@@ -73,6 +74,7 @@
 	createHeaderBaliseDiv("PrixVente","<h3>Prix de Vente et Cout</h3>");
 	showTableCAPrevisionel( $ID_REQUETE_SQL_PRIX_VENTE );
 	endHeaderBaliseDiv("PrixVente");
+	
 	?>
 <br/><br/><br/>
 
