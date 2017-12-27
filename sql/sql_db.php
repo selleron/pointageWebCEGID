@@ -13,13 +13,16 @@ include_once (dirname ( __FILE__ ) . "/../configuration/form_db_config.php");
 // $param[$KEY_INFO][$KEY_INFO_TYPE, $KEY_INFO_TYPE_SIZE][Colonne]
 
 class KEY_INFO{
-	const KEY_INFO           = "array key info";
-	const KEY_INFO_FIELD     = "array key info flag";
-	const KEY_INFO_TYPE      = "array key info type";
-	//const KEY_INFO_TYPE_SIZE = "array key info type size";
-	const KEY_INFO_TYPE_SIZE = "SIZE";
-	const KEY_INFO_STATUS    = "STATUS";
-	const KEY_INFO_STYLE     = "array key info style";
+	const KEY_INFO              = "array key info";
+	const KEY_INFO_FIELD        = "array key info flag";
+	const KEY_INFO_TYPE         = "array key info type";
+	//const KEY_INFO_TYPE_SIZE  = "array key info type size";
+	const KEY_INFO_TYPE_SUFFIX  = "SUFFIX";
+	const KEY_INFO_TYPE_SIZE    = "SIZE";
+	const KEY_INFO_TYPE_TD      = "TD";
+	const KEY_INFO_TYPE_FORMAT  = "FORMAT";
+	const KEY_INFO_STATUS       = "STATUS";
+	const KEY_INFO_STYLE        = "array key info style";
 }
 
 $KEY_INFO           = KEY_INFO::KEY_INFO;
@@ -437,6 +440,32 @@ function getFormStyleSize($Resultat, $param, $idx){
     }
     return NULL;
 }
+
+function getFormStyleSuffix($Resultat, $param, $idx){
+    if (isset($param)){
+        return getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_SUFFIX);
+    }
+    return NULL;
+}
+
+function getFormStyleTD($Resultat, $param, $idx){
+    if (isset($param)){
+        return getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_TD);
+    }
+    return NULL;
+}
+
+function getFormStyleFormat($Resultat, $param, $idx, $res){
+     if (isset($param)){
+         $format =  getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_FORMAT);
+         if ($format != ""){
+             eval( $format );
+         }
+     }
+    return $res;
+}
+
+
 
 /**
  * getFormStyleStatus

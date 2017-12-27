@@ -2535,14 +2535,16 @@ function showTableOneData($html, $Resultat, $cpt, $param)
         $res = mysqlResult($Resultat, $cpt, $c);
         
         //determination taille cellule
-//         $sizehtml="";
-//         $size = getFormStyleSize($Resultat, $param, $r);
-//         if (isset($size)){
-//             $sizehtml="width='$size'";
-//         }
-        
+         $sizehtml="";
+         $size = getFormStyleSize($Resultat, $param, $r);
+         if (isset($size)){
+             $sizehtml="width='$size'";
+         }
+         $suffix = getFormStyleSuffix($Resultat, $param, $r);
+         $td     = getFormStyleTD($Resultat, $param, $r);
+         $res    = getFormStyleFormat($Resultat, $param, $r, $res);
         //affichage de la cellule
-        echo "<td id='" . $c . "[" . $cpt . "]' $sizehtml  >" . $res . "</td>";
+        echo "<td id='" . $c . "[" . $cpt . "]' $sizehtml $td >" . $res . "$suffix</td>";
         
         $resArray[$r] = $res;
         $r ++;

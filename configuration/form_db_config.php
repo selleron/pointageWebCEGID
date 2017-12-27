@@ -155,4 +155,39 @@ $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO_voulu"]["DEFAULT"]="N
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["STATUS"]["DEFAULT"]="Prevision";
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["TYPE"]["DEFAULT"]="Undefined";
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]="";
+
+
+
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["TD"] = " align='right' ";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_possible"]["TD"] = " align='right' ";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_possible"]["FORMAT"] = "\$res=number_format(\$res,1);";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["TD"] = " align='right' ";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["FORMAT"] = "\$res=number_format(\$res,1);";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["TD"] = " align='right' ";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["FORMAT"] = "\$res=number_format(\$res,1);";
+
+$FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["TD"] = " align='right' ";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["TD"] = " align='right' ";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["TD"] = " align='right' ";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
+
+
+$FORM_STYLE["PRIX_VENTE"]["CA"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["PRIX_VENTE"]["CA"]["TD"]     = " align='right' ";
+$FORM_STYLE["PRIX_VENTE"]["CA"]["FORMAT"] = "\$res=number_format(\$res,0,'.',' ');";
+$FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["TD"]     = " align='right' ";
+$FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = "\$res=number_format(\$res,0,'.',' ');";
+$FORM_STYLE["PRIX_VENTE"]["UO_possible"]["TD"]     = " align='right' ";
+$FORM_STYLE["PRIX_VENTE"]["UO_possible"]["FORMAT"] = "\$res=number_format(\$res,1);";
+
+
+
 ?>

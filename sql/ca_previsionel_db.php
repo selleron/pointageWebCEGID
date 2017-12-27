@@ -151,7 +151,9 @@ function UOReportable(){
     $request = getRequeteCAByID($ID_REQUETE_SQL_UO_RESTANT_CLOTURE);
     createHeaderBaliseDiv("UO_restant_cloture","<h3>UO reportable</h3>");
     
-    actionRequeteSql($request, /*$html*/"", /*$subParam*/"", /*$closeTable*/"yes");
+    $subParam[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT] = $ID_REQUETE_SQL_UO_RESTANT_CLOTURE;
+    
+    actionRequeteSql($request, /*$html*/"", $subParam, /*$closeTable*/"yes");
     endHeaderBaliseDiv("UO_restant_cloture");
     $res = 1;
     return $res;
@@ -250,6 +252,7 @@ function showTableCAPrevisionel($idRequest="", $formname="", $idTable = "") {
     $subParam[PARAM_TABLE_TABLE::TABLE_ID] = "$idTable";
 	$subParam[$TABLE_EXPORT_CSV] = "yes";
 	$subParam[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT] = $formname;
+	
 	
 	$closeTable="false";
 	$param2 = actionRequeteSql($request,$html, $subParam, $closeTable);
