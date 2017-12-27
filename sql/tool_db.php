@@ -2281,6 +2281,9 @@ function showCellAction($actionTxt, $param, $infoForm = "", $formAutonome = "no"
     global $TABLE_EXPORT_CSV;
     global $ACTION_GET;
     
+    //showSQLAction("showCellAction() $actionTxt - formname $formName - infoform is null : ". ($infoForm==""));
+    //showSQLAction("showCellAction() $actionTxt - param formname ".$param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]);
+    
     if (isset($param[$TABLE_EXPORT_CSV]) && ($param[$TABLE_EXPORT_CSV] == "yes")) {
         if ($formAutonome == "yes") {
             createForm($html, $formName);

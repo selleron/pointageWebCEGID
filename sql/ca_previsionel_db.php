@@ -34,7 +34,7 @@ function applyGestionCloture() {
     $col="";
     $request = getRequeteCAByID($ID_REQUETE_SQL_PRIX_VENTE);
     
-    showSQLAction("action [".getActionGet()." ] detected");
+    //showSQLAction("action [".getActionGet()." ] detected");
     if (getActionGet () == "sauvegarde cout" ){
         showSQLAction("action [ sauvegarde cout ] detected");
         
@@ -59,12 +59,53 @@ function applyGestionCloture() {
  * @return number
  */
 function clotureYear(){
+    global $SQL_COL_ID_PROJECT_COUT;
+    global $SQL_COL_DATE_PROJECT_COUT;
+    global $SQL_COL_PROJECT_ID_COUT_PROJECT;
+    global $SQL_COL_PROJECT_NAME_COUT_PROJECT;
+    global $SQL_COL_PROJECT_COUT_PROFIL;
+    global $SQL_COL_UO_PROJECT_COUT;
+    global $SQL_COL_COUT_PROJECT_COUT;
+    
     $project = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION); 
     $year    = getURLYear();
     $year2   =$year+1;
 
     global $ID_REQUETE_SQL_UO_RESTANT_CLOTURE;
     $request = getRequeteCAByID($ID_REQUETE_SQL_UO_RESTANT_CLOTURE);
+    
+    $Resultat = mysqlQuery($request);
+    showSQLError("", $request);
+    $nbRes = mysqlNumrows($Resultat);
+    
+    mysqlQuery("START TRANSACTION");
+    
+    for($row=0;$row<$nbRes;$row++){
+        $ID          = mysqlResult($Resultat, $row, $SQL_COL_ID_PROJECT_COUT );
+        $DATE        = mysqlResult($Resultat, $row, $SQL_COL_DATE_PROJECT_COUT );
+        $PROJECT_ID  = mysqlResult($Resultat, $row, $SQL_COL_PROJECT_ID_COUT_PROJECT);
+        $UO_RESTANT  = mysqlResult($Resultat, $row, "UO_restant");
+        $UO_CONSOMME = mysqlResult($Resultat, $row, "UO_consomme");
+        $COUT        = mysqlResult($Resultat, $row, $SQL_COL_COUT_PROJECT_COUT);
+        $PROFIL_ID   = mysqlResult($Resultat, $row, $SQL_COL_PROJECT_COUT_PROFIL);
+        
+      
+        $requestInsert = "INSERT INTO `cegid_project_cout`";
+        $requestInsert = "$requestInsert        (`DATE`, `PROJECT_ID`,   `PROFIL_ID`,  `UO`,   `COUT`)";
+        $requestInsert = "$requestInsert VALUES ('$year2-01-01', '$PROJECT_ID', '$PROFIL_ID', '$UO_RESTANT', '$COUT')";    
+        //showSQLAction($requestInsert);
+        if (mysqlQuery($requestInsert)){     
+            $requestUpdate = "UPDATE `cegid_project_cout` ";
+            $requestUpdate = "$requestUpdate SET `UO` = '$UO_CONSOMME' ";
+            $requestUpdate = "$requestUpdate WHERE `cegid_project_cout`.`ID` = $ID";
+            //showSQLAction($requestUpdate);
+            mysqlQuery($requestUpdate);
+        }
+    }
+    //end for
+
+    mysqlQuery("ROLLBACK");
+    
     
   $res = 1;
   return $res;
@@ -139,7 +180,7 @@ function getRequeteCAByID($idRequest){
  * affiche les versions des elements du projet
  * (description)
  */
-function showTableCAPrevisionel($idRequest="") {
+function showTableCAPrevisionel($idRequest="", $formname="", $idTable = "") {
     global $TABLE_EXPORT_CSV;
     $html="";
     
@@ -149,10 +190,18 @@ function showTableCAPrevisionel($idRequest="") {
         showError("request id not found : $idRequest");
     }
     
+    if ($formname == ""){
+        $formname = "CA previsionel";
+    }
+    
+    if ($idTable == ""){
+        $idTable = "table_ca_prev";
+    }
+    
 	//ajout table id & export CSV
-    $subParam[PARAM_TABLE_TABLE::TABLE_ID]="table_ca_prev";
+    $subParam[PARAM_TABLE_TABLE::TABLE_ID] = "$idTable";
 	$subParam[$TABLE_EXPORT_CSV] = "yes";
-	
+	$subParam[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT] = $formname;
 	
 	$closeTable="false";
 	$param2 = actionRequeteSql($request,$html, $subParam, $closeTable);

@@ -50,6 +50,7 @@
 	$url="";
 	$formname="cloture";
 	createForm ( $url, $formname );
+	showFormHidden($name, $formname);
 	showFormSubmit(LabelAction::ActionExportCSV, LabelAction::ACTION_GET);
 	showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
 	endForm();
@@ -62,7 +63,7 @@
 	global $ID_REQUETE_SQL_CHECK_PRIX_VENTE;
 	echo "<br><br>";
 	createHeaderBaliseDiv("CheckPrixVente","<h3>Check Prix de Vente et Cout</h3>");
-	showTableCAPrevisionel( $ID_REQUETE_SQL_CHECK_PRIX_VENTE );
+	showTableCAPrevisionel( $ID_REQUETE_SQL_CHECK_PRIX_VENTE, $ID_REQUETE_SQL_CHECK_PRIX_VENTE, "idCheckPrixVente" );
 	endHeaderBaliseDiv("CheckPrixVente");
 
 	
@@ -70,7 +71,7 @@
 	global $ID_REQUETE_SQL_PRIX_VENTE;
 	echo "<br><br>";
 	createHeaderBaliseDiv("PrixVente","<h3>Prix de Vente et Cout</h3>");
-	showTableCAPrevisionel( $ID_REQUETE_SQL_PRIX_VENTE );
+	showTableCAPrevisionel( $ID_REQUETE_SQL_PRIX_VENTE, "$ID_REQUETE_SQL_PRIX_VENTE", "idPrixVente" );
 	endHeaderBaliseDiv("PrixVente");
 	?>
 <br/><br/><br/>
