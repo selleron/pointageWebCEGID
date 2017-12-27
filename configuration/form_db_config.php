@@ -175,7 +175,7 @@ $FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["TD"] = " align='right' ";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["TD"] = " align='right' ";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["TD"] = " align='right' bgcolor='#FFAAAA' ";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
 
 
