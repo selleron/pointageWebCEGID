@@ -2542,9 +2542,10 @@ function showTableOneData($html, $Resultat, $cpt, $param)
          }
          $suffix = getFormStyleSuffix($Resultat, $param, $r);
          $td     = getFormStyleTD($Resultat, $param, $r);
+         $td2    = getFormStyleTDEval($Resultat, $param, $r, $res);
          $res    = getFormStyleFormat($Resultat, $param, $r, $res);
         //affichage de la cellule
-        echo "<td id='" . $c . "[" . $cpt . "]' $sizehtml $td >" . $res . "$suffix</td>";
+        echo "<td id='" . $c . "[" . $cpt . "]' $sizehtml $td $td2 >" . $res . "$suffix</td>";
         
         $resArray[$r] = $res;
         $r ++;

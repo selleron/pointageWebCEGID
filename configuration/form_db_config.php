@@ -12,6 +12,7 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "ena
 
 $SELECT_NAME_FROM_CEGID_PROJECT = "select NAME from cegid_project";
 $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT = "select '[all]' as NAME union (select NAME from cegid_project)";
+$NUMBER_NEGATIF_ROUGE="if (\$res<0){\$format =\"bgcolor='#FFAAAA'\";}else{\$format=\"\";} ";
 
 //select project Tool Bar
 $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["NAME"]=$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT;
@@ -157,7 +158,6 @@ $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["TYPE"]["DEFAULT"]="Undef
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]="";
 
 
-
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["TD"] = " align='right' ";
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
@@ -167,6 +167,7 @@ $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["TD"] = " align='right' ";
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["FORMAT"] = "\$res=number_format(\$res,1);";
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["TD"] = " align='right' ";
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["FORMAT"] = "\$res=number_format(\$res,1);";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["TD_EVAL"] = "$NUMBER_NEGATIF_ROUGE";
 
 $FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["TD"] = " align='right' ";

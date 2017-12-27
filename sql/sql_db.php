@@ -20,6 +20,7 @@ class KEY_INFO{
 	const KEY_INFO_TYPE_SUFFIX  = "SUFFIX";
 	const KEY_INFO_TYPE_SIZE    = "SIZE";
 	const KEY_INFO_TYPE_TD      = "TD";
+	const KEY_INFO_TYPE_TD_EVAL = "TD_EVAL";
 	const KEY_INFO_TYPE_FORMAT  = "FORMAT";
 	const KEY_INFO_STATUS       = "STATUS";
 	const KEY_INFO_STYLE        = "array key info style";
@@ -448,13 +449,51 @@ function getFormStyleSuffix($Resultat, $param, $idx){
     return NULL;
 }
 
+/**
+ * getFormStyleTD
+ * 
+ * @param unknown $Resultat
+ * @param unknown $param
+ * @param unknown $idx
+ * @return unknown|NULL
+ */
 function getFormStyleTD($Resultat, $param, $idx){
     if (isset($param)){
-        return getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_TD);
+        $format = getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_TD);
+        return $format; 
     }
     return NULL;
 }
 
+/**
+ * getFormStyleTDEval
+ * 
+ * @param unknown $Resultat
+ * @param unknown $param
+ * @param unknown $idx
+ * @param unknown $res
+ * @return NULL|unknown|NULL
+ */
+function getFormStyleTDEval($Resultat, $param, $idx, $res){
+    if (isset($param)){
+        $format = getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_TD_EVAL);
+        if ($format != ""){
+            eval( $format );
+        }
+        return $format;
+    }
+    return NULL;
+}
+
+/**
+ * getFormStyleFormat
+ * 
+ * @param unknown $Resultat
+ * @param unknown $param
+ * @param unknown $idx
+ * @param unknown $res
+ * @return unknown
+ */
 function getFormStyleFormat($Resultat, $param, $idx, $res){
      if (isset($param)){
          $format =  getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_FORMAT);
