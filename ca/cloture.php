@@ -50,7 +50,7 @@
 	$url="";
 	$formname="cloture";
 	createForm ( $url, $formname );
-	showFormHidden($name, $formname);
+	showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $formname);
 	showFormSubmit(LabelAction::ActionExportCSV, LabelAction::ACTION_GET);
 	showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
 	endForm();
