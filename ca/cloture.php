@@ -63,7 +63,7 @@
 	global $ID_REQUETE_SQL_CHECK_PRIX_VENTE;
 	echo "<br><br>";
 	createHeaderBaliseDiv("CheckPrixVente","<h3>Check Prix de Vente et Cout</h3>");
-	showTableCAPrevisionel( $ID_REQUETE_SQL_CHECK_PRIX_VENTE, $ID_REQUETE_SQL_CHECK_PRIX_VENTE, "idCheckPrixVente" );
+	showTableCAPrevisionel( $ID_REQUETE_SQL_CHECK_PRIX_VENTE );
 	endHeaderBaliseDiv("CheckPrixVente");
 
 	
@@ -71,7 +71,7 @@
 	global $ID_REQUETE_SQL_PRIX_VENTE;
 	echo "<br><br>";
 	createHeaderBaliseDiv("PrixVente","<h3>Prix de Vente et Cout</h3>");
-	showTableCAPrevisionel( $ID_REQUETE_SQL_PRIX_VENTE, "$ID_REQUETE_SQL_PRIX_VENTE", "idPrixVente" );
+	showTableCAPrevisionel( $ID_REQUETE_SQL_PRIX_VENTE );
 	endHeaderBaliseDiv("PrixVente");
 	?>
 <br/><br/><br/>

@@ -32,7 +32,8 @@ function applyGestionCloture() {
     global $ID_REQUETE_SQL_PRIX_VENTE;
     $form_name="cloture";    
     $col="";
-    $request = getRequeteCAByID($ID_REQUETE_SQL_PRIX_VENTE);
+    $idRequest = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $ID_REQUETE_SQL_PRIX_VENTE);    
+    $request = getRequeteCAByID($idRequest);
     
     //showSQLAction("action [".getActionGet()." ] detected");
     if (getActionGet () == "sauvegarde cout" ){
@@ -191,11 +192,11 @@ function showTableCAPrevisionel($idRequest="", $formname="", $idTable = "") {
     }
     
     if ($formname == ""){
-        $formname = "CA previsionel";
+        $formname = "$idRequest";
     }
     
     if ($idTable == ""){
-        $idTable = "table_ca_prev";
+        $idTable = "$formname";
     }
     
 	//ajout table id & export CSV
