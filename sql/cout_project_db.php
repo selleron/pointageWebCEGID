@@ -244,11 +244,11 @@ function showTableCoutProject($param="", $tablePointage = "") {
 	
 	//ajout colonne
 	$result = setSQLFlagType ( $result, $colTotal, SQL_TYPE::SQL_REAL );
-	$result = setSQLFlagTypeSize ( $result, $colTotal, 5 );
+	//$result = setSQLFlagTypeSize ( $result, $colTotal, 5 );
 	$result = setSQLFlagType ( $result, $colTotalReel, SQL_TYPE::SQL_REAL );
-	$result = setSQLFlagTypeSize ( $result, $colTotalReel, 5 );
+	//$result = setSQLFlagTypeSize ( $result, $colTotalReel, 5 );
 	$result = setSQLFlagType ( $result, $colpointage, SQL_TYPE::SQL_REQUEST );
-	$result = setSQLFlagTypeSize ( $result, $colpointage, 3 );
+	//$result = setSQLFlagTypeSize ( $result, $colpointage, 3 );
 	
  	if ($tablePointage == ""){
  		global $SQL_TABLE_CEGID_POINTAGE;
@@ -304,7 +304,7 @@ function showTableCoutProject($param="", $tablePointage = "") {
  	showSommation($param[$TABLE_ID],"$SQL_COL_UO_PROJECT_COUT,$SQL_COL_TOTAL_PROJECT_COUT,$colpointage,$SQL_COL_TOTAL_REEL_PROJECT_COUT", "","");
 	
 	
-	printParam($param2);
+	//printParam($param2);
 	return $param2;
 }
 

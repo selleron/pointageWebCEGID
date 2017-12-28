@@ -114,7 +114,7 @@ function sommeColonneHTMLTable( obj, name, operation="sum") {
 			if (cell!=null){
 				//alert("cell value :" + cell.value+" for : "+idCell);
 				if (cell.value){
-					value = parseFloat(cell.value);
+					value = parseFloat(cell.value.replace(" ",""));
 					if (!isNaN(value)){
 						countSum+=1;
 						if (operation=="sum"){
@@ -130,7 +130,7 @@ function sommeColonneHTMLTable( obj, name, operation="sum") {
 				}
 				else{
 					if (cell.textContent){
-						value = parseFloat(cell.textContent);
+						value = parseFloat(cell.textContent.replace(" ",""));
 						if (!isNaN(value)){
 							countSum+=1;
 							if (operation=="sum"){
@@ -150,7 +150,10 @@ function sommeColonneHTMLTable( obj, name, operation="sum") {
 				//alert("no cell found for id : "+idCell);
 			}
 		}
-		sommeElement.value = somme;
+		if (countSum==1 && operation=="mult"){
+			somme="";
+		}
+		sommeElement.value = somme.toLocaleString();
 	}
 }
 
@@ -190,10 +193,10 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 			cell = document.getElementById(idCell);
 			if (cell!=null){
 				if (cell.value){
-				  value = parseFloat(cell.value);
+				  value = parseFloat(cell.value.replace(" ",""));
 				}
 				else if (cell.textContent){
-					value = parseFloat(cell.textContent);
+					value = parseFloat(cell.textContent.replace(" ",""));
 				}
 				else{
 					value=NaN;
@@ -208,7 +211,7 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 						if (countSum==1){
 							somme=1;
 						}
-						somme *= value; 
+						somme *= value;
 					}
 				}
 			}
@@ -216,11 +219,23 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 				//alert("no cell found for id : "+idCell);
 			}
 		}
+		if (countSum==1 && operation=="mult"){
+			somme="";
+		}
+		suffix="";
 		if (sommeElement.value){
-			sommeElement.value = somme;
+			//alert("sommeRowHTMLTable sommeElement.value :" + sommeElement.value);
+			if (sommeElement.value.indexOf("€") !== -1){
+				suffix = " €";
+			}
+			sommeElement.value = somme+suffix;
 		}
 		else{
-			sommeElement.textContent = somme;			
+			//alert("sommeRowHTMLTable sommeElement.textCalue :" + sommeElement.textContent);
+			if (sommeElement.textContent.indexOf("€") !== -1){
+				suffix = " €";
+			}
+			sommeElement.textContent = somme.toLocaleString()+suffix;			
 		}
 		//alert("sommeRowHTMLTable name :"+name+"  "+sommeElement+" somme : "+somme);
 		
