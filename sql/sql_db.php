@@ -504,7 +504,14 @@ function getFormStyleFormat($Resultat, $param, $idx, $res){
     return $res;
 }
 
-
+function numberFormat( $number , $decimals = 0 ,  $dec_point = "." ,  $thousands_sep = "," ){
+    if (is_numeric($number)){
+        return number_format( $number ,  $decimals ,  $dec_point  , $thousands_sep  );
+    }
+    else{
+        return $number;
+    }
+}
 
 /**
  * getFormStyleStatus

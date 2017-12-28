@@ -888,14 +888,20 @@ function printParam($param, $header = "")
     $keys = array_keys($param);
     // var_dump($keys);
     foreach ($keys as $k) {
-        echo "$header printParam -- $k : $param[$k] <br>";
+        if (is_array($param[$k])){
+            $res = arrayToString($param[$k]); 
+            echo "$header printParam -- $k (array) : $res <br>";
+        }
+        else{
+           echo "$header printParam -- $k : $param[$k] <br>";
+        }
     }
 }
 
 // ///////show action /////////////////////////////////////////////////////////////
 
 /**
- * traceConnectionID
+ * traceConnectionID)
  * trace la connection si $CONNECTION_ID est positionne
  */
 function traceConnectionID()
@@ -1751,6 +1757,9 @@ function showTableHeader($param, $html = "", $createTable="yes")
     }
     
     if ($createTable=="yes"){
+        global $TRACE_FORM_TABLE_STYLE;
+        $formname = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+        showActionVariable("Table Style name \$FORM_STYLE[\"".$formname."\"][\"Colonne\"][\"SIZE|FORMAT|...\"]", $TRACE_FORM_TABLE_STYLE);
         echo "<table $tableId $tableSize $tableOther >";
     }
     
@@ -2545,6 +2554,7 @@ function showTableOneData($html, $Resultat, $cpt, $param)
          $td2    = getFormStyleTDEval($Resultat, $param, $r, $res);
          $res    = getFormStyleFormat($Resultat, $param, $r, $res);
         //affichage de la cellule
+        //echo "<td> $r $c</td>";
         echo "<td id='" . $c . "[" . $cpt . "]' $sizehtml $td $td2 >" . $res . "$suffix</td>";
         
         $resArray[$r] = $res;

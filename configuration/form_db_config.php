@@ -10,9 +10,18 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "ena
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]= "string" | "number"  | "url";
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]= "<le suffix>";
 
+//selection
 $SELECT_NAME_FROM_CEGID_PROJECT = "select NAME from cegid_project";
 $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT = "select '[all]' as NAME union (select NAME from cegid_project)";
-$NUMBER_NEGATIF_ROUGE="if (\$res<0){\$format =\"bgcolor='#FFAAAA'\";}else{\$format=\"\";} ";
+
+//formatage
+$NUMBER_NEGATIF_ROUGE = "if (\$res<0){\$format =\"bgcolor='#FFAAAA'\";}else{\$format=\"\";} ";
+$FORMAT_UO     = "\$res=numberFormat(\$res,1,'.','');";
+$FORMAT_CA     = "\$res=numberFormat(\$res,0,'.',' ');";
+$FORMAT_TARIF  = "\$res=numberFormat(\$res,2,'.',' ');";
+$SIZE_UO    =  5;
+$SIZE_COUT  =  7;
+$SIZE_CA    = 10;
 
 //select project Tool Bar
 $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["NAME"]=$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT;
@@ -94,6 +103,25 @@ $FORM_VALUE_DEFAULT ["form_table_cegid_project_cout_insert"]["PROJECT"]["VARIABL
 $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["VARIABLE"]="PROJECT";
 
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["ID"]["SIZE"] = 5;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["SIZE"] = $SIZE_UO;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["FORMAT"] = $FORMAT_UO;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["SIZE"] = $SIZE_COUT;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["FORMAT"] = $FORMAT_TARIF;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["SIZE"] = $SIZE_CA;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["FORMAT"] = $FORMAT_TARIF;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["SUFFIX"] = " &euro;"; //bug inversion
+//$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["SUFFIX"] = " &euro;"; //bug inversion
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SIZE"] = $SIZE_CA;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SUFFIX"] = " &euro;";
+
+
 
 //table cegid_pointage
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
@@ -160,34 +188,34 @@ $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]
 
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["TD"] = " align='right' ";
-$FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["FORMAT"] = $FORMAT_TARIF;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_possible"]["TD"] = " align='right' ";
-$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_possible"]["FORMAT"] = "\$res=number_format(\$res,1);";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_possible"]["FORMAT"] = $FORMAT_UO;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["TD"] = " align='right' ";
-$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["FORMAT"] = "\$res=number_format(\$res,1);";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["FORMAT"] = $FORMAT_UO;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["TD"] = " align='right' ";
-$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["FORMAT"] = "\$res=number_format(\$res,1);";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["FORMAT"] = $FORMAT_UO;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["TD_EVAL"] = "$NUMBER_NEGATIF_ROUGE";
 
 $FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["TD"] = " align='right' ";
-$FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["FORMAT"] = $FORMAT_CA;
 $FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["TD"] = " align='right' ";
-$FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = $FORMAT_CA;
 $FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["TD"] = " align='right' bgcolor='#FFAAAA' ";
-$FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["FORMAT"] = "\$res=number_format(\$res,2,'.',' ');";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["FORMAT"] = $FORMAT_TARIF;
 
 
 $FORM_STYLE["PRIX_VENTE"]["CA"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["PRIX_VENTE"]["CA"]["TD"]     = " align='right' ";
-$FORM_STYLE["PRIX_VENTE"]["CA"]["FORMAT"] = "\$res=number_format(\$res,0,'.',' ');";
+$FORM_STYLE["PRIX_VENTE"]["CA"]["FORMAT"] = $FORMAT_CA;
 $FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["TD"]     = " align='right' ";
-$FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = "\$res=number_format(\$res,0,'.',' ');";
+$FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = $FORMAT_CA;
 $FORM_STYLE["PRIX_VENTE"]["UO_possible"]["TD"]     = " align='right' ";
-$FORM_STYLE["PRIX_VENTE"]["UO_possible"]["FORMAT"] = "\$res=number_format(\$res,1);";
+$FORM_STYLE["PRIX_VENTE"]["UO_possible"]["FORMAT"] = $FORMAT_UO;
 
 
 

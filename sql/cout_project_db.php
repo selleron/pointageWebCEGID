@@ -299,9 +299,13 @@ function showTableCoutProject($param="", $tablePointage = "") {
 	global $TABLE_ID;
 	global $SQL_COL_COUT_PROJECT_COUT;
 	
-	showSommation($param[$TABLE_ID], "",    "$SQL_COL_TOTAL_PROJECT_COUT", "$SQL_COL_COUT_PROJECT_COUT,$SQL_COL_UO_PROJECT_COUT","mult");
-	showSommation($param[$TABLE_ID], "",    "$SQL_COL_TOTAL_REEL_PROJECT_COUT", "$SQL_COL_COUT_PROJECT_COUT,$colpointage","mult");
-	showSommation($param[$TABLE_ID],"$SQL_COL_UO_PROJECT_COUT,$SQL_COL_TOTAL_PROJECT_COUT,$colpointage,$SQL_COL_TOTAL_REEL_PROJECT_COUT", "","");
+ 	showSommation($param[$TABLE_ID], "",    "$SQL_COL_TOTAL_PROJECT_COUT", "$SQL_COL_COUT_PROJECT_COUT,$SQL_COL_UO_PROJECT_COUT","mult");
+ 	showSommation($param[$TABLE_ID], "",    "$SQL_COL_TOTAL_REEL_PROJECT_COUT", "$SQL_COL_COUT_PROJECT_COUT,$colpointage","mult");
+ 	showSommation($param[$TABLE_ID],"$SQL_COL_UO_PROJECT_COUT,$SQL_COL_TOTAL_PROJECT_COUT,$colpointage,$SQL_COL_TOTAL_REEL_PROJECT_COUT", "","");
+	
+	
+	printParam($param2);
+	return $param2;
 }
 
 /**
