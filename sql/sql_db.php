@@ -577,7 +577,15 @@ function getFormStyleArray($Resultat, $param, $idx){
     return NULL;
 }
 
-
+/**
+ * getFormStyleSize2
+ * 
+ * @param unknown $size
+ * @param unknown $form
+ * @param unknown $col
+ * @param string $ind
+ * @return unknown
+ */
 function getFormStyleSize2($size, $form, $col, $ind=""){
     global $TRACE_FORM_FIELD_STYLE;
     showActionVariable("Field : $form - $col", $TRACE_FORM_FIELD_STYLE);
@@ -588,6 +596,15 @@ function getFormStyleSize2($size, $form, $col, $ind=""){
     return $size;
 }
 
+/**
+ * getFormStyleTD2
+ * 
+ * @param unknown $td
+ * @param unknown $form
+ * @param unknown $col
+ * @param string $ind
+ * @return unknown
+ */
 function getFormStyleTD2($td, $form, $col, $ind=""){
     global $TRACE_FORM_FIELD_STYLE;
     //showActionVariable("Field : $form - $col", $TRACE_FORM_FIELD_STYLE);
@@ -596,6 +613,23 @@ function getFormStyleTD2($td, $form, $col, $ind=""){
         return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_TD];
     }
     return $td;
+}
+
+/**
+ * getFormStyleSuffix2
+ * @param unknown $suffix
+ * @param unknown $form
+ * @param unknown $col
+ * @param string $ind
+ * @return string
+ */
+function getFormStyleSuffix2($suffix, $form, $col, $ind=""){
+    global $TRACE_FORM_FIELD_STYLE;
+    global $FORM_STYLE;
+    if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX])){
+        return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX];
+    }
+    return $suffix;
 }
 
 /**

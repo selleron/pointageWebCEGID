@@ -639,6 +639,10 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
 	}
 	echo "	<input $enabledStatus $td id=\"$name\" type=\"text\" name=\"$name\" value=\"$value\" $sizeTxt  $otherCondition />";
 	
+	
+	$suffix = getFormStyleSuffix2("", $formName, $name);
+	echo "$suffix";
+	
 	if ($useTD == "yes") {
 		echo "</td>";
 	}

@@ -126,15 +126,17 @@ $FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SIZE"] = $SIZE
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SUFFIX"] = " &euro;";
 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_UO"]["SIZE"]           = 6;
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SIZE"]   = 6;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SIZE"]   = 5;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_U.O.Pointage"]["SIZE"] = 8;
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SIZE"]    = 6;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SIZE"]    = 5;
 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_UO"]["TD"]           = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["TD"]   = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_U.O.Pointage"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["TD"]    = $ALIGN_RIGHT;
 
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SUFFIX"] = " &euro;"; 
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SUFFIX"]  = " &euro;";
 
 //table cegid_pointage
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
