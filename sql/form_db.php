@@ -617,9 +617,12 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
 	// if ( $otherCondition == "" ) $otherCondition = "";
 	
 	$date = getURLVariable ( $name );
-	
+	$size2 = getFormStyleSizeField2("", $formName, $name);
+	if ($size2 != ""){
+	    $size2 = "width='$size2'";
+	}
 	if ($useTD == "yes") {
-		echo "<td>";
+		echo "<td $size2>";
 	}
 	if ($showType == "yes") {
 		if ($type) {
@@ -641,6 +644,7 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
 	
 	
 	$suffix = getFormStyleSuffix2("", $formName, $name);
+	$suffix = getFormStyleSuffixField2($suffix, $formName, $name);
 	echo "$suffix";
 	
 	if ($useTD == "yes") {

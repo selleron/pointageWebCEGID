@@ -13,17 +13,19 @@ include_once (dirname ( __FILE__ ) . "/../configuration/form_db_config.php");
 // $param[$KEY_INFO][$KEY_INFO_TYPE, $KEY_INFO_TYPE_SIZE][Colonne]
 
 class KEY_INFO{
-	const KEY_INFO              = "array key info";
-	const KEY_INFO_FIELD        = "array key info flag";
-	const KEY_INFO_TYPE         = "array key info type";
-	//const KEY_INFO_TYPE_SIZE  = "array key info type size";
-	const KEY_INFO_TYPE_SUFFIX  = "SUFFIX";
-	const KEY_INFO_TYPE_SIZE    = "SIZE";
-	const KEY_INFO_TYPE_TD      = "TD";
-	const KEY_INFO_TYPE_TD_EVAL = "TD_EVAL";
-	const KEY_INFO_TYPE_FORMAT  = "FORMAT";
-	const KEY_INFO_STATUS       = "STATUS";
-	const KEY_INFO_STYLE        = "array key info style";
+	const KEY_INFO                 = "array key info";
+	const KEY_INFO_FIELD           = "array key info flag";
+	const KEY_INFO_TYPE            = "array key info type";
+	//const KEY_INFO_TYPE_SIZE     = "array key info type size";
+	const KEY_INFO_TYPE_SUFFIX     = "SUFFIX";
+	const KEY_INFO_TYPE_SUFFIX_FIELD = "SUFFIX_FIELD";
+	const KEY_INFO_TYPE_SIZE       = "SIZE";
+	const KEY_INFO_TYPE_SIZE_FIELD = "SIZE_FIELD";
+	const KEY_INFO_TYPE_TD         = "TD";
+	const KEY_INFO_TYPE_TD_EVAL    = "TD_EVAL";
+	const KEY_INFO_TYPE_FORMAT     = "FORMAT";
+	const KEY_INFO_STATUS          = "STATUS";
+	const KEY_INFO_STYLE           = "array key info style";
 }
 
 $KEY_INFO           = KEY_INFO::KEY_INFO;
@@ -596,6 +598,14 @@ function getFormStyleSize2($size, $form, $col, $ind=""){
     return $size;
 }
 
+function getFormStyleSizeField2($size, $form, $col, $ind=""){
+    global $FORM_STYLE;
+    if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD])){
+        return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD];
+    }
+    return $size;
+}
+
 /**
  * getFormStyleTD2
  * 
@@ -628,6 +638,15 @@ function getFormStyleSuffix2($suffix, $form, $col, $ind=""){
     global $FORM_STYLE;
     if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX])){
         return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX];
+    }
+    return $suffix;
+}
+
+function getFormStyleSuffixField2($suffix, $form, $col, $ind=""){
+    global $TRACE_FORM_FIELD_STYLE;
+    global $FORM_STYLE;
+    if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX_FIELD])){
+        return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX_FIELD];
     }
     return $suffix;
 }
