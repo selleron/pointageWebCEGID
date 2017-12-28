@@ -2057,7 +2057,7 @@ function showTablelineSummation($param2, $allCols = "", $sumCols = "", $colsize=
     }
     foreach ($arrayAllCols as $col) {
         if (in_array($col, $arraySumCols)) {
-            showFormTextElementForVariable("maForm", "sum_col_" . $col, "no", "", "", "", $colsize, "disabled");
+            showFormTextElementForVariable($param2[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT], "sum_col_" . $col, "no", "", "", "", $colsize, "disabled");
         } else {
             // col info
             echoTD("");

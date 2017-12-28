@@ -15,6 +15,10 @@ $SELECT_NAME_FROM_CEGID_PROJECT = "select NAME from cegid_project";
 $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT = "select '[all]' as NAME union (select NAME from cegid_project)";
 
 //formatage
+//$ALIGN_RIGHT = " align='right' ";
+$ALIGN_LEFT  = " align='left' ";
+$ALIGN_RIGHT = "style=\"text-align:right;\"";
+
 $NUMBER_NEGATIF_ROUGE = "if (\$res<0){\$format =\"bgcolor='#FFAAAA'\";}else{\$format=\"\";} ";
 $FORMAT_UO     = "\$res=numberFormat(\$res,1,'.','');";
 $FORMAT_CA     = "\$res=numberFormat(\$res,0,'.',' ');";
@@ -105,22 +109,31 @@ $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["VARIA
 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["ID"]["SIZE"] = 5;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["SIZE"] = $SIZE_UO;
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["FORMAT"] = $FORMAT_UO;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["SIZE"] = $SIZE_COUT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["FORMAT"] = $FORMAT_TARIF;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["SIZE"] = $SIZE_CA;
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["TD"] = " align='right' ";
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["FORMAT"] = $FORMAT_TARIF;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["SUFFIX"] = " &euro;"; //bug inversion
 //$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["SUFFIX"] = " &euro;"; //bug inversion
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["TD"] = " align='right' ";
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SIZE"] = $SIZE_CA;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SUFFIX"] = " &euro;";
 
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_UO"]["SIZE"]           = 6;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SIZE"]   = 6;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_U.O.Pointage"]["SIZE"] = 8;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SIZE"]    = 6;
+
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_UO"]["TD"]           = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["TD"]   = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_U.O.Pointage"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["TD"]    = $ALIGN_RIGHT;
 
 
 //table cegid_pointage
@@ -187,21 +200,21 @@ $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]
 
 
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["TD"] = " align='right' ";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["FORMAT"] = $FORMAT_TARIF;
-$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_possible"]["TD"] = " align='right' ";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_possible"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_possible"]["FORMAT"] = $FORMAT_UO;
-$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["TD"] = " align='right' ";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_consomme"]["FORMAT"] = $FORMAT_UO;
-$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["TD"] = " align='right' ";
+$FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["FORMAT"] = $FORMAT_UO;
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["UO_restant"]["TD_EVAL"] = "$NUMBER_NEGATIF_ROUGE";
 
 $FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["TD"] = " align='right' ";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["CHECK_PRIX_VENTE"]["CA"]["FORMAT"] = $FORMAT_CA;
 $FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["TD"] = " align='right' ";
+$FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["CHECK_PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = $FORMAT_CA;
 $FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["TD"] = " align='right' bgcolor='#FFAAAA' ";
@@ -209,12 +222,12 @@ $FORM_STYLE["CHECK_PRIX_VENTE"]["DIFF"]["FORMAT"] = $FORMAT_TARIF;
 
 
 $FORM_STYLE["PRIX_VENTE"]["CA"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["PRIX_VENTE"]["CA"]["TD"]     = " align='right' ";
+$FORM_STYLE["PRIX_VENTE"]["CA"]["TD"]     = $ALIGN_RIGHT;
 $FORM_STYLE["PRIX_VENTE"]["CA"]["FORMAT"] = $FORMAT_CA;
 $FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["TD"]     = " align='right' ";
+$FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["TD"]     = $ALIGN_RIGHT;
 $FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = $FORMAT_CA;
-$FORM_STYLE["PRIX_VENTE"]["UO_possible"]["TD"]     = " align='right' ";
+$FORM_STYLE["PRIX_VENTE"]["UO_possible"]["TD"]     = $ALIGN_RIGHT;
 $FORM_STYLE["PRIX_VENTE"]["UO_possible"]["FORMAT"] = $FORMAT_UO;
 
 

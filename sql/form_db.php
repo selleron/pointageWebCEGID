@@ -617,6 +617,7 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
 	// if ( $otherCondition == "" ) $otherCondition = "";
 	
 	$date = getURLVariable ( $name );
+	
 	if ($useTD == "yes") {
 		echo "<td>";
 	}
@@ -627,12 +628,16 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
 			echo "string ";
 		}
 	}
+	
+	$td = getFormStyleTD2("", $formName, $name);
+	$size = getFormStyleSize2($size, $formName, $name);
+	
 	if ($size == "") {
 		$sizeTxt = "";
 	} else {
 		$sizeTxt = "size=\"$size\"";
 	}
-	echo "	<input $enabledStatus id=\"$name\" type=\"text\" name=\"$name\" value=\"$value\" $sizeTxt  $otherCondition />";
+	echo "	<input $enabledStatus $td id=\"$name\" type=\"text\" name=\"$name\" value=\"$value\" $sizeTxt  $otherCondition />";
 	
 	if ($useTD == "yes") {
 		echo "</td>";

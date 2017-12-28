@@ -153,8 +153,14 @@ function sommeColonneHTMLTable( obj, name, operation="sum") {
 		if (countSum==1 && operation=="mult"){
 			somme="";
 		}
-		sommeElement.value = somme.toLocaleString();
+		sommeElement.value = formatNumber(somme);
 	}
+}
+
+function formatNumber(num){
+	num = num.toLocaleString("en");
+	num = num.replace(","," ");
+	return num;
 }
 
 /**
@@ -228,14 +234,14 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 			if (sommeElement.value.indexOf("€") !== -1){
 				suffix = " €";
 			}
-			sommeElement.value = somme+suffix;
+			sommeElement.value = formatNumber(somme)+suffix;
 		}
 		else{
 			//alert("sommeRowHTMLTable sommeElement.textCalue :" + sommeElement.textContent);
 			if (sommeElement.textContent.indexOf("€") !== -1){
 				suffix = " €";
 			}
-			sommeElement.textContent = somme.toLocaleString()+suffix;			
+			sommeElement.textContent = formatNumber(somme)+suffix;			
 		}
 		//alert("sommeRowHTMLTable name :"+name+"  "+sommeElement+" somme : "+somme);
 		

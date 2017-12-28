@@ -39,6 +39,8 @@ $TRACE_INFO_EXPORT="no";					//trace generation export
 $TRACE_INFO_POINTAGE="no";					//trace info pointage
 $TRACE_INFO_PROJECT="yes";                  //trace project usage
 $TRACE_CLOTURE="yes";                       //trace cloture operation
+$TRACE_FORM_TABLE_STYLE="no";		        //trace le nom de la variable pour configurer les stypes yes | no
+$TRACE_FORM_FIELD_STYLE="no";		        //trace le nom de la variable (field) pour configurer les stypes yes | no
 $SHOW_FILE_ACTION="yes";                    //trace file operation
 
 $SHOW_SQL_EDIT="yes";						//trace ou non les actions SQL edit

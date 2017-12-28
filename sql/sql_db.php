@@ -578,6 +578,26 @@ function getFormStyleArray($Resultat, $param, $idx){
 }
 
 
+function getFormStyleSize2($size, $form, $col, $ind=""){
+    global $TRACE_FORM_FIELD_STYLE;
+    showActionVariable("Field : $form - $col", $TRACE_FORM_FIELD_STYLE);
+    global $FORM_STYLE;
+    if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE])){
+        return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE];
+    }
+    return $size;
+}
+
+function getFormStyleTD2($td, $form, $col, $ind=""){
+    global $TRACE_FORM_FIELD_STYLE;
+    //showActionVariable("Field : $form - $col", $TRACE_FORM_FIELD_STYLE);
+    global $FORM_STYLE;
+    if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_TD])){
+        return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_TD];
+    }
+    return $td;
+}
+
 /**
  * mysqlFieldStatus
  *

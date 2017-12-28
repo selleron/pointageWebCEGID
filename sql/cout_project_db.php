@@ -273,12 +273,12 @@ function showTableCoutProject($param="", $tablePointage = "") {
 	
 	
 	
-	//ajout row supplémentaire
+	//ajout row supplementaire
 	global $SQL_COL_UO_PROJECT_COUT;
 	beginTableRow ();
 	endTableRow ();
 	$colsFromSummation="";
-	showTablelineSummation($param2, "" /** liste des colonnes */, "$SQL_COL_UO_PROJECT_COUT, $colTotal, $colpointage, $colTotalReel");
+	showTablelineSummation($param2, "" /** liste des colonnes */, "$SQL_COL_UO_PROJECT_COUT, $colTotal, $colpointage, $colTotalReel",3);
 	
 	
 	
