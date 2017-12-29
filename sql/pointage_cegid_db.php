@@ -679,11 +679,15 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     }
     else{
         $arrayAction = stringToArray($export);
-        foreach ($arrayAction as $item){
-        echoSpace();
-        // echo " &nbsp;";
-        //showFormSubmit($export, "$ACTION_GET");
-            showFormSubmit($item, "$ACTION_GET");
+        foreach ($arrayAction as $itemAction){
+            echoSpace();
+            $item = stringToArray($itemAction,";");
+            if (isset($item[1])){
+                showFormSubmit($item[0], "$ACTION_GET", $item[1]);
+            }
+            else{
+                showFormSubmit($item[0], "$ACTION_GET");
+            }
         }
     }
     if ($previousVisible == "yes") {
@@ -740,6 +744,7 @@ function getInfoFormProjectSelection($infoForm = "")
 function showTablePointageOneProjetCegid($tableau = "", $showColPointage = "", $subparam = "", $showVoulu = "yes")
 {
     global $TRACE_INFO_POINTAGE;
+    global $TRACE_INFO_PROJECT;
     showActionVariable("function showTablePointageOneProjetCegid()", $TRACE_INFO_POINTAGE);
     // condition project
     //global $ITEM_COMBOBOX_SELECTION;

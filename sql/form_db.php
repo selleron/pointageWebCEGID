@@ -136,22 +136,22 @@ function showFormTxt($name, $value) {
 	echo "	$name <input type=\"text\" name=\"$name\" value=\"$value\"  \"/>";
 }
 
+
 /**
  * show submit button
- *
- * @param string $txt
- *        	texte du bouton
- * @param string $action
- *        	submit Key
+ * 
+ * @param string $txt button name
+ * @param string $action 
+ * @param string $inputParameters
  */
-function showFormSubmit($txt, $action = "") {
+function showFormSubmit($txt, $action = "", $inputParameters = "") {
 	echo "<input type=\"submit\" ";
 	if ($action == "") {
 		// nothing to do
 	} else {
 		echo " name=\"$action\" ";
 	}
-	echo " value=\"$txt\" >";
+	echo " value=\"$txt\" $inputParameters >";
 }
 
 /**

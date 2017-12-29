@@ -86,24 +86,31 @@ function indexToKeyArray1D( $tableau, $col="" ){
 	return $array;
 }
 
+
 /**
- * String to array, separator ","
- *
- * @param unknown $columnsTxt
- * @return string
+ *  * String to array, separator ","
+ *  
+ * @param string $columnsTxt
+ * @param string $separator ","
+ * @return array
  */
-function stringToArray($columnsTxt) {
+function stringToArray($columnsTxt,$separator=",") {
     
     if (is_array($columnsTxt)){
         debug_print_backtrace();
     }
     
 	//$columnsTxt = str_replace ( " ", "", $columnsTxt );
-	$column = explode ( ",", $columnsTxt );
+	$column = explode ( "$separator", $columnsTxt );
 	$column= trimArray($column);
 	return $column;
 }
 
+/**
+ * trimArray
+ * @param array of string $array
+ * @return array of string
+ */
 function trimArray($array){
     $keys = array_keys($array);
     foreach ($keys as $k){
@@ -113,8 +120,9 @@ function trimArray($array){
 }
 
 /***
- *
-* @param unknown $array
+ * arrayToString
+ * 
+* @param array of string $array
 * @return string|unknown
 */
 function arrayToString( $array, $separator=","){

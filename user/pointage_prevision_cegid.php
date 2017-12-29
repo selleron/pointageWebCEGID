@@ -42,7 +42,12 @@
 	
 	
 	echo"<p>";
- 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,"yes"/*export*/,"yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
+	global $URL_ROOT_POINTAGE;
+	$urlPointage = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
+	//$urlPrevision = "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php";
+ 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
+ 	LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
+ 	"yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
  	echo"<br/></p>";
 
  	
