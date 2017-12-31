@@ -796,4 +796,47 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 	}
 }
 
+/**
+ * showFormComboBoxSql2 combobox avec completion
+ * @param unknown $formName
+ * @param unknown $name
+ * @param unknown $Request
+ * @param unknown $sql_col
+ * @param unknown $useTD
+ * @param unknown $current_selection
+ * @param string $enabledStatus
+ */
+function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $useTD, $current_selection, $enabledStatus = "enabled") {
+    //global $ITEM_COMBOBOX_SELECTION;
+    
+    $enabledStatus = prepareFlagStatus ( $enabledStatus );
+    
+    // showSQLAction ( $Request );
+    $Resultat = mysqlQuery ( $Request );
+    $nbRes = mysqlNumrows ( $Resultat );
+    
+    if ($useTD == "yes") {
+        echo "<td>";
+    }
+    //input option :  placeholder="un texte"
+    if ($current_selection==""){
+        $current_selection=FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
+    }
+    echo "<input $enabledStatus type=\"text\" list=\"$name\" name=\"$name\" value=\"$current_selection\" >";
+    echo "<datalist $enabledStatus id=\"$name\"  >";
+    echo "<OPTION value='".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION."' > </OPTION>";
+    for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+        $res = mysqlResult ( $Resultat, $cpt, $sql_col );
+        echo "<OPTION value='$res'> </OPTION>";
+    }
+    echo "</datalist>";
+    echo "</input>";
+    if ($useTD == "yes") {
+        echo "</td>";
+    }
+    
+    
+}
+
+
 ?>

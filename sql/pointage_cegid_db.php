@@ -639,11 +639,22 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     createForm($url, $formName);
     
     //si une requet existe, on l'utilise (certaines ajoute "[all]"
+    global $PROJECT_AUTO_COMPLETION;
     if (isset($FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT])){
-        showFormComboBoxSql($formName, $PROJECT_SELECTION, $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT], $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+        if ($PROJECT_AUTO_COMPLETION=="yes"){
+            showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT], $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+        }
+        else{
+            showFormComboBoxSql($formName, $PROJECT_SELECTION, $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT], $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+        }
     }
     else{
-        showFormComboBox($formName, $PROJECT_SELECTION, $SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+        if ($PROJECT_AUTO_COMPLETION=="yes"){
+            showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+        }
+        else{
+            showFormComboBoxSql($formName, $PROJECT_SELECTION, $SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+        }
     }
     
     // combo year
