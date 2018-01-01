@@ -548,7 +548,7 @@ function deleteInTableByID($table, $colIdx, $idTable, $trace = "no") {
  * @return number 0 nothing 1 excuted
  */
 function editTableByGet(/*$table, $cols, $form_name,*/ $subParam = "") {
-	if (getActionGet () == "edit") {
+	if (getActionGet () == LabelAction::ActionEdit) {
 		$res = editTable2 ( /*$table, $cols, $form_name,*/ $subParam );
 	} else {
 		$res = 0;

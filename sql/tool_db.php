@@ -17,22 +17,31 @@ include_once (dirname(__FILE__) . "/sql_db.php");
 include_once (dirname(__FILE__) . "/param_table_db.php");
 
 // gestion des nom de parametres dans la commande html (post et get)
-$ANNEE_CALENDRIER_GET = "anneeCalendrier";
-$ID_GET = "id";
-$DOCUMENT_NAME_GET = "document";
-$DATE1_GET = "date1";
-$DATE2_GET = "date2";
+    
+$ANNEE_CALENDRIER_GET = URL_VARIABLE__KEY::ANNEE_CALENDRIER_GET;
+$ID_GET               = URL_VARIABLE__KEY::ID_GET;
+$DOCUMENT_NAME_GET    = URL_VARIABLE__KEY::DOCUMENT_NAME_GET;
+$DATE1_GET            = URL_VARIABLE__KEY::DATE1_GET;
+$DATE2_GET            = URL_VARIABLE__KEY::DATE2_GET;
 
 // see param_table_db.php
 // for param requete table
 include_once (dirname(__FILE__) . "/param_table_db.php");
 
 // Gestion de la plateforme
-$COOKIE_PLATEFORM_KEY = "plateform";
-$COOKIE_PLATEFORM_VALUE_CURRENT = "";
-$COOKIE_PLATEFORM_VALUE_PC = "pc";
-$COOKIE_PLATEFORM_VALUE_TABLETTE = "tablette";
-$COOKIE_PLATEFORM_VALUE_MOBILE = "mobile";
+class COOKIE__KEY {
+    const COOKIE_PLATEFORM_KEY = "plateform";
+    const COOKIE_PLATEFORM_VALUE_CURRENT = "";
+    const COOKIE_PLATEFORM_VALUE_PC = "pc";
+    const COOKIE_PLATEFORM_VALUE_TABLETTE = "tablette";
+    const COOKIE_PLATEFORM_VALUE_MOBILE = "mobile";
+}
+
+$COOKIE_PLATEFORM_KEY = COOKIE__KEY::COOKIE_PLATEFORM_KEY;
+$COOKIE_PLATEFORM_VALUE_CURRENT = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_CURRENT;
+$COOKIE_PLATEFORM_VALUE_PC = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_PC;
+$COOKIE_PLATEFORM_VALUE_TABLETTE = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_TABLETTE;
+$COOKIE_PLATEFORM_VALUE_MOBILE = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_MOBILE;
 
 // ///////////////////// html //////////////////////////////////////////
 function myHeader($string, $replace = null, $http_response_code = null)
@@ -998,6 +1007,7 @@ function showSQLError2($txt, $sqlError, $txtError = "")
             showSQLAction($txt);
         }
     } else {
+        //debug_print_backtrace();   
         echo getActionMessage($txt . "   $txtError <font color=\"red\">  $sqlError </font>");
     }
 }

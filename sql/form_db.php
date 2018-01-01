@@ -1,48 +1,60 @@
 <?php
 include_once (dirname ( __FILE__ ) . "/../configuration/form_db_config.php");
 
-$ACTION_GET = "action";
-$DATE_GET = "date";
-$ID_TABLE_GET = "idTable";
+class URL_VARIABLE__KEY {
+    const ACTION_GET           = "action";
+    const DATE_GET             = "date";
+    const ID_TABLE_GET         = "idTable";
+    const ANNEE_CALENDRIER_GET = "anneeCalendrier";
+    const ID_GET               = "id";
+    const DOCUMENT_NAME_GET    = "document";
+    const DATE1_GET            = "date1";
+    const DATE2_GET            = "date2";
+}
 
-$ITEM_COMBOBOX_SELECTION = "[selection]";
+
+$ACTION_GET   = URL_VARIABLE__KEY::ACTION_GET;
+$DATE_GET     = URL_VARIABLE__KEY::DATE_GET;
+$ID_TABLE_GET = URL_VARIABLE__KEY::ID_TABLE_GET;
+
 
 // variable par defaut d'une form
 class FORM_VARIABLE {
-	const ACTION_GET = "action";
-	const DATE_GET = "date";
+	const ACTION_GET     = "action";
+	const DATE_GET       = "date";
 	const DATE_DEBUT_GET = "date_debut";
-	const DATE_FIN_GET = "date_fin";
-	const ID_TABLE_GET = "idTable";
+	const DATE_FIN_GET   = "date_fin";
+	const ID_TABLE_GET   = "idTable";
 }
 
 // valeur par defaut pour les combo box
 class FORM_COMBOX_BOX_VALUE {
     const ITEM_COMBOBOX_SELECTION = "[selection]";
-    const ITEM_COMBOBOX_ALL = "[all]";
+    const ITEM_COMBOBOX_ALL       = "[all]";
 }
 
+$ITEM_COMBOBOX_SELECTION = FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
 
 // sql type
 // see $KEY_INFO
 class SQL_TYPE {
-    const  SQL_INT = "int";
-    const  SQL_BLOB = "blob";
-    const  SQL_DATE = "date";
-    const  SQL_STRING = "string";
-    const  SQL_TEXT = "text";
-    const  SQL_REAL = "real";
+    const  SQL_INT     = "int";
+    const  SQL_BLOB    = "blob";
+    const  SQL_DATE    = "date";
+    const  SQL_STRING  = "string";
+    const  SQL_TEXT    = "text";
+    const  SQL_REAL    = "real";
     const  SQL_REQUEST = "request";
 }
 
 class SQL_TYPE_CODE {
-    const  SQL_INT = "3";
-    const  SQL_BLOB = "blob";
-    const  SQL_DATE = "10";
-    const  SQL_STRING = "253";
-    const  SQL_TEXT = "252";
-    const  SQL_REAL = "4";
-    const  SQL_DOUBLE = "5";
+    const  SQL_INT     = "3";
+    const  SQL_BLOB    = "blob";
+    const  SQL_DATE    = "10";
+    const  SQL_STRING  = "253";
+    const  SQL_TEXT    = "252";
+    const  SQL_REAL    = "4";
+    const  SQL_DOUBLE  = "5";
     const  SQL_REQUEST = "request";
 }
 
@@ -822,7 +834,7 @@ function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $us
     if ($current_selection==""){
         $current_selection=FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
     }
-    echo "<input $enabledStatus type=\"text\" list=\"$name\" name=\"$name\" value=\"$current_selection\" >";
+    echo "<input $enabledStatus type=\"text\" list=\"$name\" name=\"$name\" value=\"$current_selection\"  >";
     echo "<datalist $enabledStatus id=\"$name\"  >";
     echo "<OPTION value='".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION."' > </OPTION>";
     for($cpt = 0; $cpt < $nbRes; $cpt ++) {

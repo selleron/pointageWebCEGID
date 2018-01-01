@@ -9,6 +9,11 @@ include_once (dirname(__FILE__) . "/../configuration/labelAction.php");
 include_once 'pointage_voulu_cegid_db.php';
 include_once 'form_project_db.php';
 
+//URL
+$urlPointage = "$URL_ROOT_POINTAGE/user/one_project_cegid.php";
+$urlPrevision = "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php";
+
+//SQL et TABLE
 $SQL_TABLE_CEGID_POINTAGE = "cegid_pointage";
 $FORM_TABLE_CEGID_POINTAGE = "form_table_cegid_pointage";
 

@@ -1,6 +1,7 @@
 <?php
 
 class LabelAction {
+    const ActionEdit = "edit";
     const ActionUpdate = "update";
     const ActionInsert = "insert";
     const ActionSelect = "select";

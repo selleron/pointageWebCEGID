@@ -7,6 +7,7 @@
     include_once("../header.php");
 	include_once("../sql/files.php");
 	include_once("../sql/project_db.php");
+	include_once("../sql/pointage_cegid_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
 	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
@@ -36,6 +37,24 @@
 <?php
 	echo "<p>Gestion des projects CEGID.<br/></p>";
 	showTracePOST();
+	
+	$exec = applyNextPreviousSelectPointage();
+	synchoTableIdProject();
+	
+	echo"<p>";
+    
+	//global $URL_ROOT_POINTAGE;
+	global $urlPointage;
+	global $urlPrevision;
+	global $FORM_TABLE_CEGID_PROJECT;
+	$form_name = ""; //$FORM_TABLE_CEGID_PROJECT . "_insert";
+	
+	showProjectSelection(""/*url*/,"$form_name"/*form*/,"no"/*year*/,
+	    "pointage;formaction='$urlPointage',previsionel;formaction='$urlPrevision'"/*export*/,
+	    "no"/*user*/, "yes"/*previous*/, "yes"/*next*/);
+	echo"<br/></p>";
+	
+	
 	
 	applyGestionProject();
 		
