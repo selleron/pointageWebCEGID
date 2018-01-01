@@ -127,6 +127,7 @@ else{
 
 	    $urlstatusdevis    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_devis.php$argument");
 	    $urlstatuscegid    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_cegid.php$argument");
+	    $urlstatusvisible  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_visible.php$argument");
 	    $urlstatuscommande = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_commande.php$argument");
 	    $urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
 	    $urltypeproject    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_type_project.php$argument");
@@ -137,9 +138,10 @@ else{
 		<li><ul>
         <li><a title=\"Gestion Status Generique\" href=\"$urlstatuscegid\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Generique</a></li>
 		<li><a title=\"Gestion Status Devis\"     href=\"$urlstatusdevis\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Devis</a></li>
-		<li><a title=\"Gestion Status Project\"    href=\"$urlstatusproject\">   <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Projet</a></li>
-		<li><a title=\"Gestion Type   Project\"    href=\"$urltypeproject\">     <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Type Projet</a></li>
-		<li><a title=\"Gestion Status Commande\"    href=\"$urlstatuscommande\">   <img src=\"$URL_IMAGES/menu_plan.png\"   $menuIconSize> Etat Commande</a></li>
+		<li><a title=\"Gestion Status Project\"   href=\"$urlstatusproject\">    <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Projet</a></li>
+		<li><a title=\"Gestion Type   Project\"   href=\"$urltypeproject\">      <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Type Projet</a></li>
+		<li><a title=\"Gestion Status Commande\"  href=\"$urlstatuscommande\">   <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Etat Commande</a></li>
+		<li><a title=\"Gestion Status Visible\"   href=\"$urlstatusvisible\">    <img src=\"$URL_IMAGES/jumelle.png\"       $menuIconSize> Etat Visible</a></li>
         </ul></li>
 		</ul>";
 	    echo "</div>";

@@ -15,6 +15,10 @@ $FORM_TABLE_CEGID_STATUS_COMMANDE  = "form_table_status_commande";
 $SQL_TABLE_TYPE_PROJECT         = "cegid_type_project";
 $FORM_TABLE_TYPE_PROJECT        = "form_table_type_project";
 
+$SQL_TABLE_STATUS_VISIBLE          = "cegid_status_visible";
+$FORM_TABLE_CEGID_STATUS_VISIBLE   = "form_table_status_visible";
+
+
 
 include_once 'table_db.php';
 
@@ -26,8 +30,17 @@ function applyGestionStatusCegid() {
     global $SQL_TABLE_STATUS_CEGID;
     global $FORM_TABLE_CEGID_STATUS_CEGID;
     $form_name = $FORM_TABLE_CEGID_STATUS_CEGID."_update";
-	
+    
     applyGestionTable($SQL_TABLE_STATUS_CEGID, $SQL_SHOW_COL_STATUS_CEGID, $form_name);
+}
+
+function applyGestionStatusVisible() {
+    global $SQL_SHOW_COL_STATUS_CEGID;
+    global $SQL_TABLE_STATUS_VISIBLE;
+    global $FORM_TABLE_CEGID_STATUS_VISIBLE;
+    $form_name = $FORM_TABLE_CEGID_STATUS_VISIBLE."_update";
+    
+    applyGestionTable($SQL_TABLE_STATUS_VISIBLE, $SQL_SHOW_COL_STATUS_CEGID, $form_name);
 }
 
 /**
@@ -55,26 +68,45 @@ function applyGestionTypeProject() {
 }
 
 
+/**
+ * affiche les versions des elements du STATUS_CEGID
+ * (description)
+ */
+function showTableStatusCegid() {
+    global $SQL_SHOW_COL_STATUS_CEGID;
+    global $SQL_TABLE_STATUS_CEGID;
+    global $FORM_TABLE_CEGID_STATUS_CEGID;
+    $form_name = $FORM_TABLE_CEGID_STATUS_CEGID."_insert";
+    $condition="";
+    global $TABLE_EXPORT_CSV;
+    
+    //showTable($SQL_TABLE_PROFILS, $SQL_SHOW_COL_PROFIL, $form_name);
+    $param = prepareshowTable($SQL_TABLE_STATUS_CEGID, $SQL_SHOW_COL_STATUS_CEGID, $form_name, $condition);
+    $param[$TABLE_EXPORT_CSV] = "yes";
+    
+    showTableByParam($param);
+}
+
  /**
   * affiche les versions des elements du STATUS_CEGID
   * (description)
   */
- function showTableStatusCegid() {
+ function showTableStatusVisible() {
      global $SQL_SHOW_COL_STATUS_CEGID;
-     global $SQL_TABLE_STATUS_CEGID;
-     global $FORM_TABLE_CEGID_STATUS_CEGID;
-     $form_name = $FORM_TABLE_CEGID_STATUS_CEGID."_insert";
+     global $SQL_TABLE_STATUS_VISIBLE;
+     global $FORM_TABLE_CEGID_STATUS_VISIBLE;
+     $form_name = $FORM_TABLE_CEGID_STATUS_VISIBLE."_insert";
  	$condition="";
  	global $TABLE_EXPORT_CSV;
  	
  	//showTable($SQL_TABLE_PROFILS, $SQL_SHOW_COL_PROFIL, $form_name);
- 	$param = prepareshowTable($SQL_TABLE_STATUS_CEGID, $SQL_SHOW_COL_STATUS_CEGID, $form_name, $condition);
+ 	$param = prepareshowTable($SQL_TABLE_STATUS_VISIBLE, $SQL_SHOW_COL_STATUS_CEGID, $form_name, $condition);
 	$param[$TABLE_EXPORT_CSV] = "yes";
 	
 	showTableByParam($param);
  }
  
- /**
+/**
   * affiche les versions des elements du STATUS_COMMANDE
   * (description)
   */

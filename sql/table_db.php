@@ -3,6 +3,7 @@ $TABLE_DB_PHP = "loaded";
 
 include_once 'connection_db.php';
 include_once 'tool_db.php';
+include_once '../configuration/labelAction.php';
 
 
 
