@@ -16,22 +16,31 @@
 </div>
 
 <div id="contenu">
-	<?PHP 
-	showBandeauHeaderPage("Site de Pointage");
-	?>
 
-  <div class="article">
- 	 <?PHP 
- 	 
- 	 showTracePOST();
+  	<?PHP 
+	showBandeauHeaderPage("Gestion Web CEGID");
+	?>
+  
+
+
+<div class="article">
+<div class="section">
+
+
+<?php
+	echo "<p>Gestion Web CEGID.<br/></p>";
+	showTracePOST();
  	 
      //echo getDocumentAccueil(); 
-     echo "to do";
-     ?>  
-  </div> <!-- article -->
-  
-</div> <!-- contenu -->
+     echo "<p>to do</p>";
+     ?>
+<br/><br/><br/>
 
+</div> <!-- section -->
+</div> <!-- article -->
+
+</div> <!-- contenu -->
+     
   <?PHP 
     include("./menu.php"); 
     include("sql/deconnection_db.php"); 
