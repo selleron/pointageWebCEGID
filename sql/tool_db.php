@@ -2878,7 +2878,7 @@ function createHeaderBaliseDivVisibility($idBalise, $visibility)
  * permet de fermer la balise ouverte avec createHeaderBaliseDiv
  *
  * @param string $idBalise
- *            basie � fermer
+ *            balise a fermer
  */
 function endHeaderBaliseDiv($idBalise)
 {
@@ -2965,7 +2965,7 @@ function selectCSS()
  * permet d'afficher le bandeau de la page HTML
  *
  * @param string $txtAbout
- *            texte � afficher dans le about
+ *            texte a afficher dans le about
  */
 function showBandeauHeaderPage($txtAbout = "CEGID")
 {
@@ -2984,7 +2984,7 @@ function showBandeauHeaderPage($txtAbout = "CEGID")
  * permet d'afficher le bandeau de la page HTML pour les PC
  *
  * @param string $txtAbout
- *            texte � afficher dans le about
+ *            texte a afficher dans le about
  */
 function showBandeauHeaderPagePC($txtAbout)
 {

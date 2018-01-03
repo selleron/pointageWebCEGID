@@ -239,7 +239,7 @@ function projectIDFromURL($project = "")
             setURLVariable($SQL_COL_NAME_PROJECT, $project);
             setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $project);
         } else {
-            // pas de nom trouvé
+            // pas de nom trouvï¿½
             // est ce un id de projet
             $condition = createSqlWhere($SQL_COL_ID_PROJECT, $project);
             $param = createDefaultParamSql($SQL_TABLE_PROJECT, $SQL_SHOW_ALL_COL_PROJECT, $condition);
@@ -248,7 +248,12 @@ function projectIDFromURL($project = "")
             $Resultat = requeteTableData($param);
             $projectName = mysqlResult($Resultat, 0, $SQL_COL_NAME_PROJECT);
             if ($projectName) {
-                setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
+                if (getURLVariable(LabelAction::ACTION_GET) == LabelAction::ActionUpdate){
+                   //on ne dot pas modifier le nom. C'est le nouveau nom 
+                }
+                else{
+                   setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
+                }
                 setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
                 $idProject = $project;
             }

@@ -44,6 +44,7 @@ $TRACE_FORM_TABLE_STYLE="no";		        //trace le nom de la variable pour config
 $TRACE_FORM_FIELD_STYLE="no";		        //trace le nom de la variable (field) pour configurer les stypes yes | no
 
 $SHOW_SQL_EDIT="yes";						//trace ou non les actions SQL edit
+$SHOW_SQL_UPDATE="no";						//trace ou non les actions SQL update
 $SHOW_SQL_TYPE_REQUEST_REQUEST="no";		//trace ou non la requete dans une cellule de type SQL_TYPE::SQL_REQUEST
 $SHOW_SQL_REPLACE="yes";					//trace ou non les actions SQL replace
 $SHOW_SQL_CB_SEARCH="no";					//trace ou non les recherches d'utilisation de cb pour les colonnes sql

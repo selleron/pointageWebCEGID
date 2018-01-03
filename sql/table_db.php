@@ -661,10 +661,12 @@ function updateTableByGet2(/*$table, $cols, $form_name,*/ $param, $reedit = "yes
     
         // on execute le update
         $sql = createSqlUpdateByIdAndCondition ( $table, $cols, $form_name, null );
-        //showSQLAction ( "update action : $sql" );
+        global $SHOW_SQL_UPDATE;
+        //showAction ( "\$SHOW_SQL_UPDATE : $SHOW_SQL_UPDATE" );
+        showActionVariable($sql, $SHOW_SQL_UPDATE);
         mysqlQuery ( $sql );
-        // $txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
-        // showAction ( $txt );
+        //$txt = "sql result : " . mysqlQuery ( $sql ) . " " . mySqlError ();
+        //showAction ( $txt );
         
         // on reaffiche les information de l'update
         if ($reedit == "yes") {

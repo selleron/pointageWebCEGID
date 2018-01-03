@@ -324,27 +324,39 @@ function indexOfValueInArray( $array, $value){
  * show get parameters
  */
 function showGet(){
-	echo "<p><table><tr><td>GET :</td></tr>";
-	foreach ($_GET as $key => $value){
-		echo "<tr><td>".$key.'</td><td>=</td><td>'.$value.'</td></tr>';
-	}
-	echo"</table></p>";
+    showGetOrPost("GET", $_GET);
+//     echo "<p><table><tr><td>GET :</td></tr>";
+// 	foreach ($_GET as $key => $value){
+// 		echo "<tr><td>".$key.'</td><td>=</td><td>'.$value.'</td></tr>';
+// 	}
+// 	echo"</table></p>";
 }
 
 /**
  * show post parameters
  */
 function showPost(){
-	echo "<p><table><tr><td>POST :</td></tr>";
+    showGetOrPost("POST", $_POST);
+}
+    
+/**
+ * show post parameters
+ */
+    function showGetOrPost($name, $GET_OR_POST){
+        echo "<p><table><tr><td>$name :</td></tr>";
 	
-	$size = strlen(serialize($_POST));
+        $size = strlen(serialize($GET_OR_POST));
 	echo '<tr><td>Post Size</td><td>=</td><td>'.$size.'</td></tr>';
 	 
 	
-	foreach ($_POST as $key => $value){
+	foreach ($GET_OR_POST as $key => $value){
 	    if (is_array($value)){
 	        $count = count($value);
-	        echo "<tr><td>".$key.'</td><td>=</td><td>array['.$count.']</td></tr>';
+	        $val="";
+	        if (($count == 1) && (isset($value[0])) ){
+	            $val=" : $value[0]";
+	        }
+	        echo "<tr><td>".$key.'</td><td>=</td><td>array['.$count.']'.$val.'</td></tr>';
 	    }
 	    else{
 		   echo "<tr><td>".$key.'</td><td>=</td><td>'.$value.'</td></tr>';
