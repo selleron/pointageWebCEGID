@@ -171,15 +171,23 @@ else{
 	    
     	echo"
     		<ul>
-    		<li><a title=\"Responsable affaires\"   href=\"$urlRespAffaires\">  <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > Resp. affaires</a></li>
-    		<li><a title=\"CA Actuel\"              href=\"$urlCAActuel\">      <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel...</a></li>
-    		<li><a title=\"CA Actuel clos\"         href=\"$urlCAActuel2\">     <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel clos...</a></li>
-    		<li><a title=\"CA Previsionnel\"        href=\"$urlCAPrev\">        <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA previsionnel</a></li>
-    		<li><a title=\"CA Previsionnel clos\"   href=\"$urlCAPrev2\">       <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA prev. clos</a></li>
-    		<li><a title=\"CA Différentiel\"       href=\"$urlCADiff\">        <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA Differentiel</a></li>
-    		<li><a title=\"Cloture\"                href=\"$urlCloture\">       <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Cloture</a></li>
+    		 <li><a title=\"Responsable affaires\"   href=\"$urlRespAffaires\">  <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > Resp. affaires</a></li>
+    		 <li><a title=\"CA Actuel clos\"         href=\"$urlCAActuel2\">     <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel clos...</a></li>
     		</ul>";
-	    echo "</div>";
+    	createHeaderBaliseDiv("id_div_CA_Suite","<h3>CA autres</h3>");
+    	echo"
+    		<ul>
+    		 <li><a title=\"CA Actuel\"              href=\"$urlCAActuel\">      <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel...</a></li>
+    		 <li><a title=\"CA Previsionnel\"        href=\"$urlCAPrev\">        <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA previsionnel</a></li>
+    		 <li><a title=\"CA Previsionnel clos\"   href=\"$urlCAPrev2\">       <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA prev. clos</a></li>
+    		 <li><a title=\"CA Différentiel\"        href=\"$urlCADiff\">        <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA Differentiel</a></li>
+    		</ul>";
+    	endHeaderBaliseDiv("id_div_CA_Suite");
+    	echo"
+    		<ul>
+    	     <li><a title=\"Cloture\"                href=\"$urlCloture\">       <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Cloture</a></li>
+    		</ul>";
+    	endHeaderBaliseDiv("id_div_CA");
 	}
 	
 	
