@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de donnÃees :  `test`
+-- Base de donnï¿½ees :  `test`
 --
 CREATE TABLE `cegid_status_visible` (
   `ID` varchar(15) NOT NULL,
@@ -29,14 +29,14 @@ CREATE TABLE `cegid_status_visible` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `cegid_status_visible`
+-- Dï¿½chargement des donnï¿½es de la table `cegid_status_visible`
 --
 
 INSERT INTO `cegid_status_visible` (`ID`, `NAME`, `ORDRE`) VALUES
 ('Visible', 'Visible', 1),
 ('Archive', 'Archive', 2);
 --
--- Index pour les tables déchargées
+-- Index pour les tables dï¿½chargï¿½es
 --
 
 --
@@ -52,8 +52,11 @@ ALTER TABLE `cegid_status_visible`
 
 
   
-UPDATE `version` SET `DATE` = '2018-1-01 00:00:00', `value` = '0.25.0' WHERE `version`.`id` = 'database';
+UPDATE `version` SET `DATE` = '2018-01-01 00:00:00', `value` = '0.25.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.24_vers_0.25', '101', '2018-01-01 00:00:00', 'visible/archive', '0.25.0');
+
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.26.6_vers_0.1.27.7', '200', '2018-01-03 00:00:00', 'preparation archives', '0.1.27.7');
+UPDATE `version` SET `DATE` = '2018-01-03 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.27.7' WHERE `version`.`id` = 'php';
 
 
 COMMIT;

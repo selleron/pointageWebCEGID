@@ -1,6 +1,7 @@
 <?php 
 //Configuration file for Web Server
 //echo "Serveur <type> [$SERVER_NAME] connu <br>";
+//echo "file config : __FILE__ <br>";
 
 
 //DataBase configuration
@@ -24,7 +25,6 @@ $SQL_DATABASE="ma_data_base";
 $CRYPT_PWD="yes";
 
 
-
 // LOG
 /////////////////////////////////////
 $SHOW_INCLUDE="yes";  						//pas encore utilise
@@ -38,16 +38,17 @@ $TRACE_INFO_ACTION="no";					//trace suivi action get
 $TRACE_INFO_EXPORT="no";					//trace generation export
 $TRACE_INFO_POINTAGE="no";					//trace info pointage
 $TRACE_INFO_PROJECT="yes";                  //trace project usage
+$SHOW_FILE_ACTION="yes";                    //trace file operation
 $TRACE_CLOTURE="yes";                       //trace cloture operation
 $TRACE_FORM_TABLE_STYLE="no";		        //trace le nom de la variable pour configurer les stypes yes | no
 $TRACE_FORM_FIELD_STYLE="no";		        //trace le nom de la variable (field) pour configurer les stypes yes | no
-$SHOW_FILE_ACTION="yes";                    //trace file operation
 
 $SHOW_SQL_EDIT="yes";						//trace ou non les actions SQL edit
 $SHOW_SQL_TYPE_REQUEST_REQUEST="no";		//trace ou non la requete dans une cellule de type SQL_TYPE::SQL_REQUEST
 $SHOW_SQL_REPLACE="yes";					//trace ou non les actions SQL replace
 $SHOW_SQL_CB_SEARCH="no";					//trace ou non les recherches d'utilisation de cb pour les colonnes sql
-$SHOW_FORM_VARIABLE_ATTRIBUT="no";		    //trace les attributs de variable dans form yes | no ex : form_table_cegid_project_update :: STATUS type: [string] flags: {16393}$SHOW_FORM_VARIABLE_STYLE="no";		    //trace les styles des variable dans form yes | no
+$SHOW_FORM_VARIABLE_ATTRIBUT="no";	        //trace les attributs de variable dans form yes | no ex : form_table_cegid_project_update :: STATUS type: [string] flags: {16393}$SHOW_FORM_VARIABLE_STYLE="no";		    //trace les styles des variable dans form yes | no
+$SHOW_FORM_VARIABLE_STYLE="no";		        //trace les styles des variable dans form yes | no. dans les cellule affiche le style, la taille,...
 $SHOW_VARIABLE_SUBSTITUTE_SEARCH="quiet";	//trace ou non les recherches de valeurs de variable dans post quiet | verbose | yes
 $SHOW_FORM_SUBSTITUTE_SEARCH="quiet";	    //trace ou non les recherches de valeurs de variable dans form quiet | verbose | yes
 $SHOW_FORM_TRACE="no";	    				//trace form name parameter yes | no
@@ -62,8 +63,7 @@ $SHOW_REQUEST_TABLE_DATA = "no" ;           //show request in requeteTableData()
 //yes or no
 //peut etre commente
 $NO_MSG_CHANGE_HEADER_ACTIVE="yes";
-$NO_MSG_CHANGE_HEADER="no";
-
+$NO_MSG_CHANGE_HEADER="no";  //remettre à no en mode dev
 
 //CHARSET d'affichage des pages
 //a positionner si les accent des textes venant de base de donn�es 
