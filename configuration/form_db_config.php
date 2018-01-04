@@ -62,10 +62,13 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from c
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["VISIBLE"]["DEFAULT"]="Visible";
+$FORM_VALUE_INSERT ["form_table_cegid_user_update"]["VISIBLE"]["DEFAULT"]="Visible";
 
 //table cegid_devis
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["CEGID"]="select CEGID from cegid_project";
-$FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["CEGID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS_DEVIS"]="select ID from cegid_status_devis order by ORDRE";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS_DEVIS"]="select \"A faire\"";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS_CEGID"]="select ID from cegid_status_cegid order by ORDRE";
@@ -73,19 +76,38 @@ $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS_CEGID"]="select \"
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS_COMMANDE"]="select ID from cegid_status_commande order by ORDRE";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS_COMMANDE"]="select \"Neant\"";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["VERSION"]="select \"1.0\"";
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_INSERT ["form_table_cegid_devis_insert"]["VISIBLE"]["DEFAULT"]="Visible";
+
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["NAME"]["SIZE"]=50;
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["COMMANDE"]["SIZE"]=35;
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["MODIFICATION"]["SIZE"]=5;
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["VERSION"]["SIZE"]=5;
+
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["CEGID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_DEVIS"]="select ID from cegid_status_devis order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_CEGID"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_COMMANDE"]="select ID from cegid_status_commande order by ORDRE";
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_INSERT ["form_table_cegid_devis_update"]["VISIBLE"]["DEFAULT"]="Visible";
 $FORM_STYLE         ["form_table_cegid_devis_update"]["NAME"]["SIZE"]=50;
 $FORM_STYLE         ["form_table_cegid_devis_update"]["NUXEO"]["SIZE"]=100;
 $FORM_STYLE         ["form_table_cegid_devis_update"]["MODIFICATION"]["SIZE"]=5;
 
+//table cegid project
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["STATUS"]["DEFAULT"]="Prevision";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["TYPE"]["DEFAULT"]="Undefined";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]="";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["VISIBLE"]["DEFAULT"]="Visible";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["STATUS"]["DEFAULT"]="Prevision";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["TYPE"]["DEFAULT"]="Undefined";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]="";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["VISIBLE"]["DEFAULT"]="Visible";
+
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["STATUS"]="select ID from cegid_status_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["STATUS"]="select ID from cegid_status_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["VISIBLE"]="select ID from cegid_status_visible";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project"]["STATUS"]="select ID from cegid_status_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["TYPE"]="select ID from cegid_type_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["TYPE"]="select ID from cegid_type_project";
@@ -164,9 +186,6 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROFIL"]="select ID f
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["NAME"]="select NAME from cegid_user";
 
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage2_insert"]["DATE"]="select now()";
-
-
-
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage2_insert"]["DATE"]="select now()";
 
 //form_select_project_pointage
@@ -198,9 +217,6 @@ $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO"]["SQL"]="select \"??
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO"]["VARIABLE"]="UO_voulu";
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_voulu"]["UO_voulu"]["DEFAULT"]="NULL";
 
-$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["STATUS"]["DEFAULT"]="Prevision";
-$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["TYPE"]["DEFAULT"]="Undefined";
-$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]="";
 
 
 $FORM_STYLE["UO_RESTANT_CLOTURE"]["COUT"]["SUFFIX"] = " &euro;";
