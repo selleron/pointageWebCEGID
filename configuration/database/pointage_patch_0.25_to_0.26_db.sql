@@ -29,7 +29,6 @@ ALTER TABLE `cegid_user` ADD `VISIBLE` VARCHAR(15) NOT NULL DEFAULT 'Visible' AF
 ALTER TABLE `cegid_user` ADD FOREIGN KEY (`VISIBLE`) REFERENCES `cegid_status_visible`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 
-
 UPDATE `version` SET `DATE` = '2018-01-04 00:00:00', `value` = '0.26.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.25_vers_0.26', '101', '2018-01-04 00:00:00', 'visible/archive', '0.26.0');
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 
 <head>
-  <title> Cloture</title>
+  <title> Archives</title>
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/files.php");
@@ -19,14 +19,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Cloture</h1>
+  <h1>Serveur Web Pointage : Archives</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Cloture");
+	showBandeauHeaderPage("Archives");
 	?>
   
 
@@ -36,44 +36,50 @@
 
 
 <?php
-	echo "<p>Cloture<br/></p>";
+	echo "<p>Archives<br/></p>";
 	showTracePOST();
 	
-	echo"<p>";
-	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV.",cloture"/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
-	echo"<br/></p>";
+// 	echo"<p>";
+// 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV.",cloture"/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
+// 	echo"<br/></p>";
 	
 	//action
-	applyGestionCloture();
+	applyGestionArchives();
 	
 	//boutons des actions
 	$url="";
-	$formname="cloture";
+	$formname="archives";
 	createForm ( $url, $formname );
 	showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $formname);
-	showFormSubmit(LabelAction::ActionExportCSV, LabelAction::ACTION_GET);
-	showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
-	showFormSubmit("restore cout",LabelAction::ACTION_GET);
+	beginTable();
+    	beginTableRow();
+        	beginTableCell();
+        	showFormSubmit("Archive Projects", LabelAction::ACTION_GET);
+        	endTableCell();
+            beginTableCell();
+        	showFormSubmit("Unarchive Projects", LabelAction::ACTION_GET);
+        	endTableCell();
+    	endTableRow();
+    	beginTableRow();
+    	   beginTableCell();
+       	   showFormSubmit("Archive Users",LabelAction::ACTION_GET);
+    	   endTableCell();
+    	endTableRow();
+    	beginTableRow();
+    	   beginTableCell();
+    	   showFormSubmit("Archive Devis",LabelAction::ACTION_GET);
+    	   endTableCell();
+    	endTableRow();
+    endTable();
 	endForm();
 	
-	//UO reportable
+	global $ID_REQUETE_SQL_PROJECTS;
 	echo "<br><br>";
-	UOReportable();
-	
-	//Check Prix de Vente
-	global $ID_REQUETE_SQL_CHECK_PRIX_VENTE;
-	echo "<br><br>";
-	createHeaderBaliseDiv("CheckPrixVente","<h3>Check Prix de Vente et Cout</h3>");
-	showTableRequeteCEGID( $ID_REQUETE_SQL_CHECK_PRIX_VENTE );
-	endHeaderBaliseDiv("CheckPrixVente");
+	createHeaderBaliseDiv("ArchiveProjects","<h3>Projets</h3>");
+	showTableCAPrevisionel( $ID_REQUETE_SQL_PROJECTS );
+	endHeaderBaliseDiv("ArchiveProjects");
 
 	
-	// PRIX de Vente
-	global $ID_REQUETE_SQL_PRIX_VENTE;
-	echo "<br><br>";
-	createHeaderBaliseDiv("PrixVente","<h3>Prix de Vente et Cout</h3>");
-	showTableRequeteCEGID( $ID_REQUETE_SQL_PRIX_VENTE );
-	endHeaderBaliseDiv("PrixVente");
 	
 	?>
 <br/><br/><br/>

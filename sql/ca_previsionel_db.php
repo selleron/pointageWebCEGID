@@ -14,6 +14,11 @@ $ID_REQUETE_SQL_CHECK_PRIX_VENTE        = "CHECK_PRIX_VENTE";
 $ID_REQUETE_SQL_UO_RESTANT              = "UO_RESTANT";
 $ID_REQUETE_SQL_UO_RESTANT_CLOTURE      = "UO_RESTANT_CLOTURE";
 $ID_REQUETE_SQL_ALL_CEGID_POINTAGE      = "ALL_CEGID_POINTAGE";
+$ID_REQUETE_SQL_PROJECTS                = "REQUETE_PROJECTS";
+$ID_REQUETE_SQL_ARCHIVE_PROJECTS        = "ARCHIVE_PROJECTS";
+$ID_REQUETE_SQL_UNARCHIVE_PROJECTS      = "UNARCHIVE_PROJECTS";
+$ID_REQUETE_SQL_ARCHIVE_DEVIS           = "ARCHIVE_DEVIS";
+$ID_REQUETE_SQL_ARCHIVE_USERS           = "ARCHIVE_USERS";
 
 
 
@@ -63,6 +68,44 @@ function applyGestionCloture() {
     }
     return $res;
 }
+
+function applyGestionArchives() {
+    global $TRACE_CLOTURE;
+    global $ID_REQUETE_SQL_PROJECTS;
+    global $ID_REQUETE_SQL_ARCHIVE_PROJECTS;
+    global $ID_REQUETE_SQL_UNARCHIVE_PROJECTS;
+    global $ID_REQUETE_SQL_ARCHIVE_DEVIS;
+    global $ID_REQUETE_SQL_ARCHIVE_USERS;
+    
+    $res=0;
+    $form_name="archives";
+    $col="";
+    $idRequest = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $ID_REQUETE_SQL_PROJECTS);
+    $request = getRequeteCAByID($idRequest);
+    
+    
+    //showSQLAction("action [".getActionGet()." ] detected");
+    if (getActionGet () == "Archive Projects" ){
+        showActionVariable("action [ Archive Projects ] detected", $TRACE_CLOTURE);
+        $res = executeRequeteCEGID($ID_REQUETE_SQL_ARCHIVE_PROJECTS);
+    }
+    else if (getActionGet () == "Unarchive Projects" ){
+        showActionVariable("action [ Unarchive Projects ] detected", $TRACE_CLOTURE);
+        $res = executeRequeteCEGID($ID_REQUETE_SQL_UNARCHIVE_PROJECTS);
+    }
+    else if (getActionGet () == "Archive Devis" ){
+        showActionVariable("action [ Archive Devis ] detected", $TRACE_CLOTURE );
+        $res = executeRequeteCEGID($ID_REQUETE_SQL_ARCHIVE_DEVIS);
+    }
+    else if (getActionGet () == "Archive Users") {
+        showActionVariable("action [ Archive Users ] detected", $TRACE_CLOTURE);
+        $res = executeRequeteCEGID($ID_REQUETE_SQL_ARCHIVE_USERS);
+    } else {
+        $res =  applyGestionTable($request, $col, $form_name);
+    }
+    return $res;
+}
+
 
 /**
  * clotureYear
@@ -231,6 +274,19 @@ function getRequeteCAByID($idRequest){
  * (description)
  */
 function showTableCAPrevisionel($idRequest="", $formname="", $idTable = "") {
+    return showTableRequeteCEGID($idRequest, $formname, $idTable);
+    
+}
+
+
+
+/**
+ * affiche une requete stockée dans la table des requetes CEGID
+ * @param string $idRequest
+ * @param string $formname
+ * @param string $idTable
+ */
+function showTableRequeteCEGID($idRequest="", $formname="", $idTable = "") {
     global $TABLE_EXPORT_CSV;
     $html="";
     
@@ -278,6 +334,36 @@ function showTableCAPrevisionel($idRequest="", $formname="", $idTable = "") {
 	
 }
 
+/**
+ * affiche une requete stockée dans la table des requetes CEGID
+ * @param string $idRequest
+ * @param string $formname
+ * @param string $idTable
+ */
+function executeRequeteCEGID($idRequest="", $formname="", $idTable = "") {
+    global $TABLE_EXPORT_CSV;
+    $html="";
+    
+    //recuperation de la requete
+    $request = getRequeteCAByID($idRequest);
+    if ($request == ""){
+        showError("request id not found : $idRequest");
+    }
+    
+    if ($formname == ""){
+        $formname = "$idRequest";
+    }
+    
+    if ($idTable == ""){
+        $idTable = "$formname";
+    }
+     
+    
+    $Resultat = mysqlQuery($request);
+    showSQLError("", $request);
+    
+    return  $Resultat;
+}
 
 
 ?>

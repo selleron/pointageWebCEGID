@@ -184,8 +184,9 @@ function showTableProject()
     global $SQL_TABLE_PROJECT;
     global $FORM_TABLE_CEGID_PROJECT;
     global $TABLE_EXPORT_CSV;
+    global $CONDITION_FROM_CEGID_PROJECT;
     $form_name = $FORM_TABLE_CEGID_PROJECT . "_insert";
-    $condition = "";
+    $condition = "$CONDITION_FROM_CEGID_PROJECT";
     
     // showSQLAction("showTableProject - ...");
     

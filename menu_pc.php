@@ -168,6 +168,7 @@ else{
 	    $urlCAPrev     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel.php$argument");
 	    $urlCAPrev2    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel2.php$argument");
 	    $urlCloture    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/cloture.php$argument");
+	    $urlArchives   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/archives.php$argument");
 	    
     	echo"
     		<ul>
@@ -186,6 +187,7 @@ else{
     	echo"
     		<ul>
     	     <li><a title=\"Cloture\"                href=\"$urlCloture\">       <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Cloture</a></li>
+    	     <li><a title=\"Archives\"               href=\"$urlArchives\">      <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Archives</a></li>
     		</ul>";
     	endHeaderBaliseDiv("id_div_CA");
 	}
