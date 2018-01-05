@@ -10,8 +10,12 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "ena
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]= "string" | "number"  | "url";
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]= "<le suffix>";
 
+//condition selection archivage
+$CONDITION_FROM_CEGID_NO_ARCHIVE = "VISIBLE LIKE 'Visible'";
+$CONDITION_FROM_CEGID_PROJECT = $CONDITION_FROM_CEGID_NO_ARCHIVE;
+$CONDITION_FROM_CEGID_DEVIS   = $CONDITION_FROM_CEGID_NO_ARCHIVE;
+
 //selection
-$CONDITION_FROM_CEGID_PROJECT = "VISIBLE LIKE 'Visible'";
 $SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED  = "select NAME from cegid_project";
 $SELECT_NAME_FROM_CEGID_PROJECT             = "select NAME from cegid_project WHERE $CONDITION_FROM_CEGID_PROJECT";
 $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT     = "select '[all]' as NAME union ($SELECT_NAME_FROM_CEGID_PROJECT)";

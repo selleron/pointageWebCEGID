@@ -208,9 +208,11 @@ function editGestionDevis()
 function showTableDEVIS() {
 	global $SQL_SHOW_COL_DEVIS;
 	global $SQL_TABLE_DEVIS;
+	global $CONDITION_FROM_CEGID_DEVIS;
 	global $FORM_TABLE_CEGID_DEVIS;
 	$form_name = $FORM_TABLE_CEGID_DEVIS."_insert";
 	$condition="";
+	$condition=$CONDITION_FROM_CEGID_DEVIS;
 	
 	//showSQLAction("showTableDEVIS - ...");
 	
