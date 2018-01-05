@@ -360,8 +360,12 @@ function convertURLVariablePROJECT_to_projectIfNeeded(){
  */
 function applyNextPreviousSelectPointage()
 {
+    global $SHOW_COMPLETION_REQUEST;
+    global $CONDITION_FROM_CEGID_PROJECT;
+    
     $col = "";
     $condition = "";
+    $condition = $CONDITION_FROM_CEGID_PROJECT; //pour supprimer les archives
     
     convertURLVariablePROJECT_to_projectIfNeeded();
     //verification i on vint pas de devis
@@ -398,6 +402,8 @@ function applyNextPreviousSelectPointage()
         $nextProject="";
         $currentProject = getURLVariable($PROJECT_SELECTION);
         
+        $sql = createRequeteTableData($param);
+        showActionVariable("next/previous : $sql", $SHOW_COMPLETION_REQUEST);
         $Resultat = requeteTableData($param);
         $nbRes = mysqlNumrows($Resultat);
         // showSQLAction("nb project : $nbRes");
@@ -612,8 +618,8 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     if ($formName == "") {
         $formName = "form_select_project_pointage";
     }
-    global $TRACE_FORM_NAME;
-    showActionVariable("form project selection : $formName", $TRACE_FORM_NAME);
+    global $TRACE_FORM_TABLE_STYLE;
+    showActionVariable("form project selection : $formName", $TRACE_FORM_TABLE_STYLE);
     
     if (! $url) {
         $url = currentPageURL();

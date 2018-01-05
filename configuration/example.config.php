@@ -42,9 +42,9 @@ $SHOW_FILE_ACTION="yes";                    //trace file operation
 $TRACE_CLOTURE="yes";                       //trace cloture operation
 $TRACE_FORM_TABLE_STYLE="no";		        //trace le nom de la variable pour configurer les stypes yes | no
 $TRACE_FORM_FIELD_STYLE="no";		        //trace le nom de la variable (field) pour configurer les stypes yes | no
-$TRACE_FORM_NAME="no";       		        //trace le nom de la form
 
 $SHOW_SQL_EDIT="yes";						//trace ou non les actions SQL edit
+$SHOW_COMPLETION_REQUEST="no";				//trace ou non les SQL de completion
 $SHOW_SQL_UPDATE="no";						//trace ou non les actions SQL update
 $SHOW_SQL_TYPE_REQUEST_REQUEST="no";		//trace ou non la requete dans une cellule de type SQL_TYPE::SQL_REQUEST
 $SHOW_SQL_REPLACE="yes";					//trace ou non les actions SQL replace

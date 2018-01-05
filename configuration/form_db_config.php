@@ -11,9 +11,11 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "ena
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]= "<le suffix>";
 
 //selection
-$SELECT_NAME_FROM_CEGID_PROJECT         = "select NAME from cegid_project";
-$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT = "select '[all]' as NAME union ($SELECT_NAME_FROM_CEGID_PROJECT)";
-$SELECT_ID_FROM_CEGID_STATUS_VISIBLE    = "select ID from cegid_status_visible";
+$CONDITION_FROM_CEGID_PROJECT = "VISIBLE LIKE 'Visible'";
+$SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED  = "select NAME from cegid_project";
+$SELECT_NAME_FROM_CEGID_PROJECT             = "select NAME from cegid_project WHERE $CONDITION_FROM_CEGID_PROJECT";
+$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT     = "select '[all]' as NAME union ($SELECT_NAME_FROM_CEGID_PROJECT)";
+$SELECT_ID_FROM_CEGID_STATUS_VISIBLE        = "select ID from cegid_status_visible";
 
 //formatage
 //$ALIGN_RIGHT = " align='right' ";
