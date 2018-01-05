@@ -61,24 +61,41 @@
         	endTableCell();
     	endTableRow();
     	beginTableRow();
-    	   beginTableCell();
-       	   showFormSubmit("Archive Users",LabelAction::ACTION_GET);
-    	   endTableCell();
+    	beginTableCell();
+    	   showFormSubmit("Archive Devis",LabelAction::ACTION_GET);
+        	endTableCell();
+     	    beginTableCell();
+          	showFormSubmit("Unarchive Devis", LabelAction::ACTION_GET);
+        	endTableCell();
     	endTableRow();
     	beginTableRow();
     	   beginTableCell();
-    	   showFormSubmit("Archive Devis",LabelAction::ACTION_GET);
+       	   showFormSubmit("Archive Users",LabelAction::ACTION_GET);
+    	   endTableCell();
+    	   beginTableCell();
+    	   showFormSubmit("Unarchive Users", LabelAction::ACTION_GET);
     	   endTableCell();
     	endTableRow();
     endTable();
 	endForm();
 	
-	global $ID_REQUETE_SQL_PROJECTS;
 	echo "<br><br>";
+	global $ID_REQUETE_SQL_PROJECTS;
 	createHeaderBaliseDiv("ArchiveProjects","<h3>Projets</h3>");
-	showTableCAPrevisionel( $ID_REQUETE_SQL_PROJECTS );
+	showTableRequeteCEGID( $ID_REQUETE_SQL_PROJECTS );
 	endHeaderBaliseDiv("ArchiveProjects");
 
+	echo "<br><br>";
+	global $ID_REQUETE_SQL_DEVIS;
+	createHeaderBaliseDiv("ArchiveDevis","<h3>Devis</h3>");
+	showTableRequeteCEGID( $ID_REQUETE_SQL_DEVIS );
+	endHeaderBaliseDiv("ArchiveDevis");
+	
+	echo "<br><br>";
+	global $ID_REQUETE_SQL_USERS;
+	createHeaderBaliseDiv("ArchiveUsers","<h3>Users</h3>");
+	showTableRequeteCEGID( $ID_REQUETE_SQL_USERS );
+	endHeaderBaliseDiv("ArchiveUsers");
 	
 	
 	?>

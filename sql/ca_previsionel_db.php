@@ -17,9 +17,12 @@ $ID_REQUETE_SQL_ALL_CEGID_POINTAGE      = "ALL_CEGID_POINTAGE";
 $ID_REQUETE_SQL_PROJECTS                = "REQUETE_PROJECTS";
 $ID_REQUETE_SQL_ARCHIVE_PROJECTS        = "ARCHIVE_PROJECTS";
 $ID_REQUETE_SQL_UNARCHIVE_PROJECTS      = "UNARCHIVE_PROJECTS";
+$ID_REQUETE_SQL_DEVIS                   = "REQUETE_DEVIS";
 $ID_REQUETE_SQL_ARCHIVE_DEVIS           = "ARCHIVE_DEVIS";
+$ID_REQUETE_SQL_UNARCHIVE_DEVIS         = "UNARCHIVE_DEVIS";
+$ID_REQUETE_SQL_USERS                   = "REQUETE_USERS";
 $ID_REQUETE_SQL_ARCHIVE_USERS           = "ARCHIVE_USERS";
-
+$ID_REQUETE_SQL_UNARCHIVE_USERS         = "UNARCHIVE_USERS";
 
 
 //include_once 'connection_db.php';
@@ -75,7 +78,9 @@ function applyGestionArchives() {
     global $ID_REQUETE_SQL_ARCHIVE_PROJECTS;
     global $ID_REQUETE_SQL_UNARCHIVE_PROJECTS;
     global $ID_REQUETE_SQL_ARCHIVE_DEVIS;
+    global $ID_REQUETE_SQL_UNARCHIVE_DEVIS;
     global $ID_REQUETE_SQL_ARCHIVE_USERS;
+    global $ID_REQUETE_SQL_UNARCHIVE_USERS;
     
     $res=0;
     $form_name="archives";
@@ -97,9 +102,17 @@ function applyGestionArchives() {
         showActionVariable("action [ Archive Devis ] detected", $TRACE_CLOTURE );
         $res = executeRequeteCEGID($ID_REQUETE_SQL_ARCHIVE_DEVIS);
     }
+    else if (getActionGet () == "Unarchive Devis" ){
+        showActionVariable("action [ Unarchive Devis ] detected", $TRACE_CLOTURE );
+        $res = executeRequeteCEGID($ID_REQUETE_SQL_UNARCHIVE_DEVIS);
+    }
     else if (getActionGet () == "Archive Users") {
         showActionVariable("action [ Archive Users ] detected", $TRACE_CLOTURE);
         $res = executeRequeteCEGID($ID_REQUETE_SQL_ARCHIVE_USERS);
+    }
+    else if (getActionGet () == "Unarchive Users") {
+        showActionVariable("action [ Unarchive Users ] detected", $TRACE_CLOTURE);
+        $res = executeRequeteCEGID($ID_REQUETE_SQL_UNARCHIVE_USERS);
     } else {
         $res =  applyGestionTable($request, $col, $form_name);
     }
