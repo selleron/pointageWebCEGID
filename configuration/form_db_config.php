@@ -11,8 +11,9 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "ena
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]= "<le suffix>";
 
 //selection
-$SELECT_NAME_FROM_CEGID_PROJECT = "select NAME from cegid_project";
-$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT = "select '[all]' as NAME union (select NAME from cegid_project)";
+$SELECT_NAME_FROM_CEGID_PROJECT         = "select NAME from cegid_project";
+$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT = "select '[all]' as NAME union ($SELECT_NAME_FROM_CEGID_PROJECT)";
+$SELECT_ID_FROM_CEGID_STATUS_VISIBLE    = "select ID from cegid_status_visible";
 
 //formatage
 //$ALIGN_RIGHT = " align='right' ";
@@ -28,7 +29,9 @@ $SIZE_COUT  =  7;
 $SIZE_CA    = 10;
 
 //select project Tool Bar
-$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["NAME"]=$SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT;
+$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["NAME"] = $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT;
+$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["year"] = "select distinct year(DATE) from cegid_pointage order by DATE";
+$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["user"] = "select NAME from cegid_user order by NAME";
 
 
 //primary
@@ -62,8 +65,8 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from c
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
-$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["VISIBLE"]="select ID from cegid_status_visible";
-$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["VISIBLE"]["DEFAULT"]="Visible";
 $FORM_VALUE_INSERT ["form_table_cegid_user_update"]["VISIBLE"]["DEFAULT"]="Visible";
 
@@ -76,7 +79,7 @@ $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS_CEGID"]="select \"
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS_COMMANDE"]="select ID from cegid_status_commande order by ORDRE";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS_COMMANDE"]="select \"Neant\"";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["VERSION"]="select \"1.0\"";
-$FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_INSERT ["form_table_cegid_devis_insert"]["VISIBLE"]["DEFAULT"]="Visible";
 
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["NAME"]["SIZE"]=50;
@@ -88,7 +91,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["CEGID"]="select CEGID fro
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_DEVIS"]="select ID from cegid_status_devis order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_CEGID"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_COMMANDE"]="select ID from cegid_status_commande order by ORDRE";
-$FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_INSERT ["form_table_cegid_devis_update"]["VISIBLE"]["DEFAULT"]="Visible";
 $FORM_STYLE         ["form_table_cegid_devis_update"]["NAME"]["SIZE"]=50;
 $FORM_STYLE         ["form_table_cegid_devis_update"]["NUXEO"]["SIZE"]=100;
@@ -106,8 +109,8 @@ $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["VISIBLE"]["DEFAULT"]="Vi
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["STATUS"]="select ID from cegid_status_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["STATUS"]="select ID from cegid_status_project";
-$FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["VISIBLE"]="select ID from cegid_status_visible";
-$FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["VISIBLE"]="select ID from cegid_status_visible";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_POSSIBLE["form_table_cegid_project"]["STATUS"]="select ID from cegid_status_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["TYPE"]="select ID from cegid_type_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["TYPE"]="select ID from cegid_type_project";
@@ -188,9 +191,6 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["NAME"]="select NAME f
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage2_insert"]["DATE"]="select now()";
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage2_insert"]["DATE"]="select now()";
 
-//form_select_project_pointage
-$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["year"]="select distinct year(DATE) from cegid_pointage order by DATE";
-$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["user"]="select NAME from cegid_user order by NAME";
 
 
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["USER_ID"]["SQL"]="select ID from cegid_user  WHERE NAME=\"???\"";

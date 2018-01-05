@@ -612,7 +612,8 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     if ($formName == "") {
         $formName = "form_select_project_pointage";
     }
-    //showSQLAction("form project selection : $formName");
+    global $TRACE_FORM_NAME;
+    showActionVariable("form project selection : $formName", $TRACE_FORM_NAME);
     
     if (! $url) {
         $url = currentPageURL();

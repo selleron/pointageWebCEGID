@@ -2671,7 +2671,7 @@ function editTableOneData($html, $Resultat, $cpt, $param, $idTable = "")
     global $SHOW_FORM_TRACE;
     if ($SHOW_FORM_TRACE == "yes") {
         $infoForm = checkInfoForm($param);
-        showActionVariable(">>> 2. editTableOneData() form name : $form - infoForm : $infoForm <br>", $SHOW_FORM_TRACE);
+        showActionVariable(">>> 2. editTableOneData() form name : $formName - infoForm : $infoForm <br>", $SHOW_FORM_TRACE);
     }
     
     // show others info form
