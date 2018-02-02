@@ -12,11 +12,11 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 
-set @ID_OLD="P17022";
-set @ID_NEW="P17050";
+set @ID_OLD="P18003";
+set @ID_NEW="P18015";
 
 -- DELETE FROM cegid_project WHERE CEGID=@ID_NEW;
--- UPDATE cegid_project                 	   SET CEGID=@ID_NEW WHERE CEGID=@ID_OLD;
+UPDATE cegid_project                 	   SET CEGID=@ID_NEW WHERE CEGID=@ID_OLD;
 
 UPDATE cegid_devis_project                 SET CEGID=@ID_NEW WHERE CEGID=@ID_OLD;
 UPDATE cegid_pointage                      SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
