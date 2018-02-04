@@ -1074,6 +1074,8 @@ function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes", $ta
 $showColPointage, $selectColPointage, // columns
 $formName, $conditionPointage, $select = "p.UO")
 {
+    global $SQL_COL_DATE_CEGID_POINTAGE;
+        
     global $TRACE_INFO_POINTAGE;
     global $TRACE_INFO_PROJECT;
     if ($showAll==""){
@@ -1121,6 +1123,16 @@ $formName, $conditionPointage, $select = "p.UO")
         }
     }
     
+    //condition year
+    //on ne s'en sert que si la date est vraiment defini
+    //on ne veut pas forcement filtrer pour projet sur plusieurs année 
+    global $YEAR_SELECTION;
+    $year = getURLVariable($YEAR_SELECTION);
+    if (is_numeric($year)){
+        $condition = $condition . " AND year(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$year\" ";
+    }
+    
+    
     // showSQLAction ( "show all : $showAll" );
     if ($showAll == "yes") {
         // nothing to do
@@ -1149,7 +1161,7 @@ $formName, $conditionPointage, $select = "p.UO")
     // }
     
     // showSQLAction("year = [$year]");
-    global $SQL_COL_DATE_CEGID_POINTAGE;
+    //global $SQL_COL_DATE_CEGID_POINTAGE;
     $conditionDateYear = "year(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$year\"";
     // showSQLAction("year = [$conditionDateYear]");
     
