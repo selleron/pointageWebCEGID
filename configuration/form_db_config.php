@@ -14,8 +14,11 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "ena
 $CONDITION_FROM_CEGID_NO_ARCHIVE = "VISIBLE LIKE 'Visible'";
 $CONDITION_FROM_CEGID_PROJECT = $CONDITION_FROM_CEGID_NO_ARCHIVE;
 $CONDITION_FROM_CEGID_DEVIS   = $CONDITION_FROM_CEGID_NO_ARCHIVE;
+$CONDITION_FROM_CEGID_USER    = $CONDITION_FROM_CEGID_NO_ARCHIVE;
 
-//selection
+//selection 
+$SELECT_NAME_FROM_CEGID_USER_NO_FILTRED     = "select NAME from cegid_user";
+$SELECT_NAME_FROM_CEGID_USER                = "$SELECT_NAME_FROM_CEGID_USER_NO_FILTRED WHERE $CONDITION_FROM_CEGID_USER";
 $SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED  = "select NAME from cegid_project";
 $SELECT_NAME_FROM_CEGID_PROJECT             = "select NAME from cegid_project WHERE $CONDITION_FROM_CEGID_PROJECT";
 $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT     = "select '[all]' as NAME union ($SELECT_NAME_FROM_CEGID_PROJECT)";
@@ -37,7 +40,7 @@ $SIZE_CA    = 10;
 //select project Tool Bar
 $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["NAME"] = $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["year"] = "select distinct year(DATE) from cegid_pointage order by DATE";
-$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["user"] = "select NAME from cegid_user order by NAME";
+$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["user"] = "$SELECT_NAME_FROM_CEGID_USER order by NAME";
 
 
 //primary
@@ -192,7 +195,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROJECT_ID"]="select 
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["USER_ID"]="select ID from cegid_user";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROFIL"]="select ID from cegid_profil";
-$FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["NAME"]="select NAME from cegid_user";
+$FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["NAME"]=$SELECT_NAME_FROM_CEGID_USER;
 
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage2_insert"]["DATE"]="select now()";
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage2_insert"]["DATE"]="select now()";

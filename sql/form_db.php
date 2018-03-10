@@ -783,6 +783,7 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 	//global $ITEM_COMBOBOX_SELECTION;
 	
 	$enabledStatus = prepareFlagStatus ( $enabledStatus );
+	$current_selection_found="no";
 	
 	// showSQLAction ( $Request );
 	$Resultat = mysqlQuery ( $Request );
@@ -793,15 +794,25 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 	}
 	echo "<SELECT $enabledStatus name=\"$name\"  onchange=\"this.submit()\" >";
 	echo "<OPTION> ".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
-	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+	if (FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION == $current_selection) {
+	    $current_selection_found="yes";
+	}
+	 for($cpt = 0; $cpt < $nbRes; $cpt ++) {
 		$res = mysqlResult ( $Resultat, $cpt, $sql_col );
 		if ($res == $current_selection) {
 			$selected = "selected";
+			$current_selection_found="yes";
 		} else {
 			$selected = "";
 		}
 		echo "<OPTION $selected>$res";
 	}
+	
+ 	if ($current_selection_found=="no" && $current_selection){
+ 	    //permet de traiter le cas des éléments non present dans la liste (archivés???)
+ 	    echo "<OPTION selected>$current_selection";
+ 	}
+	
 	echo "</SELECT>";
 	if ($useTD == "yes") {
 		echo "</td>";

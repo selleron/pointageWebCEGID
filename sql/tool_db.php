@@ -2772,6 +2772,7 @@ function insertTableOneData($html, $Resultat, /*$cpt,*/ $param, $value = "")
     global $TABLE_FORM_NAME_INSERT;
     
     $formName = $param[$TABLE_FORM_NAME_INSERT];
+    //echoTD("formName : $formName");
     createForm($html, $formName);
     
     // colonne index
