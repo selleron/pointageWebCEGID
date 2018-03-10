@@ -368,16 +368,19 @@ function applyNextPreviousSelectPointage()
     $condition = $CONDITION_FROM_CEGID_PROJECT; //pour supprimer les archives
     
     convertURLVariablePROJECT_to_projectIfNeeded();
-    //verification i on vint pas de devis
+    //verification si on vint pas de devis
     convertDevisToProjectIfNeeded();
     
     //showSQLAction("action ".getActionGet ()." test ".LabelAction::ACTION_PREVIOUS);
     if (getActionGet() == LabelAction::ACTION_POINTAGE) {
         global $SQL_COL_NAME_PROJECT;
-        global $PROJECT_SELECTION;
-        ;
-        // showSQLAction("traitement action : ".LabelAction::ACTION_POINTAGE." = $PROJECT_SELECTION - $SQL_COL_NAME_PROJECT");
-        setURLVariable("$PROJECT_SELECTION", getURLVariable("$SQL_COL_NAME_PROJECT"));
+        //global $PROJECT_SELECTION;
+        $project = getURLVariable("$SQL_COL_NAME_PROJECT");
+        if ($project != ""){
+            //le nom du projet peut provenir de la colonne_projet ou de la variable projet_selection
+            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $project);
+            // showSQLAction("traitement action : ".LabelAction::ACTION_POINTAGE." = $PROJECT_SELECTION - $SQL_COL_NAME_PROJECT");
+        }
         // showGet();
         // showPost();
     } else if ((getActionGet() == LabelAction::ACTION_PREVIOUS) || (getActionGet() == LabelAction::ACTION_NEXT)) {
@@ -397,10 +400,10 @@ function applyNextPreviousSelectPointage()
         // $request = createRequeteTableData ( $param );
         // showSQLAction($request);
         
-        global $PROJECT_SELECTION;
+        //global $PROJECT_SELECTION;
         //global $ITEM_COMBOBOX_SELECTION;
         $nextProject="";
-        $currentProject = getURLVariable($PROJECT_SELECTION);
+        $currentProject = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION);
         
         $sql = createRequeteTableData($param);
         showActionVariable("next/previous : $sql", $SHOW_COMPLETION_REQUEST);
@@ -427,7 +430,7 @@ function applyNextPreviousSelectPointage()
         if ($nextProject == "") {
             // nothing to do
         } else {
-            setURLVariable($PROJECT_SELECTION, $nextProject);
+            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $nextProject);
             // showSQLAction("Project Selection : $nextProject");
         }
         
