@@ -223,8 +223,10 @@ function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "", $r
     
     if ($status == "") {
         global $SHOW_VARIABLE_SUBSTITUTE_SEARCH;
-        $status = getURLVariable($SHOW_VARIABLE_SUBSTITUTE_SEARCH);
+        $status = $SHOW_VARIABLE_SUBSTITUTE_SEARCH;
+        //$status = getURLVariable($SHOW_VARIABLE_SUBSTITUTE_SEARCH);
     }
+    //showSQLAction("getURLVariableSQLForm -- $ SHOW_VARIABLE_SUBSTITUTE_SEARCH : $status");
     if ($tableau == "") {
         global $FORM_VALUE_INSERT;
         $tableau = $FORM_VALUE_INSERT;
@@ -234,7 +236,13 @@ function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "", $r
     if (is_array($result)) {
         $result = $result[0];
     }
-    if ($result == "") {
+    if ($status == "verbose") {
+        echo ("value for $variable [ $row ] : $result <br>");    
+    }
+    if (($result == "") || ($result == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION) ) {
+        if ($status == "verbose") {
+            echo "search tableau [ $form ] [ $variable ] [ VARIABLE ] <br>";    
+        }
         //echo "search variable : [$variable] <br>";
         // search variable
         if (isset($tableau[$form][$variable]["VARIABLE"])) {
