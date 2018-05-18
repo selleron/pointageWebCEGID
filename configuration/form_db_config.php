@@ -118,9 +118,10 @@ $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["VISIBLE"]["DEFAULT"]="Vi
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["STATUS"]="select ID from cegid_status_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["STATUS"]="select ID from cegid_status_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project"]["STATUS"]="select ID from cegid_status_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
-$FORM_VALUE_POSSIBLE["form_table_cegid_project"]["STATUS"]="select ID from cegid_status_project";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["TYPE"]="select ID from cegid_type_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["TYPE"]="select ID from cegid_type_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project"]["TYPE"]="select ID from cegid_type_project";
