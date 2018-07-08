@@ -2001,6 +2001,7 @@ function showTableData($param, $html = "", $Resultat = "", $closeTable = "yes")
     }
     
     $nbRes = mysqlNumrows($Resultat);
+    //showSQLAction("sql num res : $nbRes");
     
     if (! $html) {
         $html = currentPageURL();
@@ -2560,6 +2561,7 @@ function showTableOneData($html, $Resultat, $cpt, $param)
     $sizehtml="";
     foreach ($columns as $c) {
         $res = mysqlResult($Resultat, $cpt, $c);
+        //echo "<td>$c"."[$cpt]  - $res</td>";
         
         //determination taille cellule
          $sizehtml="";

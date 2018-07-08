@@ -30,7 +30,7 @@
 
 
 <?php
-	echo "<p>Historique acc&egrave;s du site Web.<br/></p>";
+	echo "<p>Historique acc&egrave;s du site Web CEGID.<br/></p>";
 	showTableAccess();
 ?>
 <br/><br/><br/>

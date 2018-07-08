@@ -273,7 +273,7 @@ function updateCounterAccess($ip=""){
 }
 
 /**
- * affiche la table des acc�s (access_history)
+ * affiche la table des acces (access_history)
  * 
  */
 function showTableAccess(){
@@ -281,22 +281,24 @@ function showTableAccess(){
 	global $SQL_TABLE_ACCESS_HISTORY;
 	global $TABLE_SIZE;
 	global $TABLE_NAME;
-	$param = createDefaultParamSql($SQL_TABLE_ACCESS_HISTORY, $SQL_SHOW_COL_ACCESS_HISTORY);
-	//showSQLAction("table (1) : $param[$TABLE_NAME]");
-	$param = updateParamSpqlWithLimit($param);
-	//showSQLAction("table (2) : $param[$TABLE_NAME]");
 	
+	//creation requete
+	$param = createDefaultParamSql($SQL_TABLE_ACCESS_HISTORY, $SQL_SHOW_COL_ACCESS_HISTORY);
+	$param = updateParamSpqlWithLimit($param);
 	$param[$TABLE_SIZE]=1100;
 	showLimitBar($param);
-	//showSQLAction("table (3) : $param[$TABLE_NAME]");
+
+	//debug
+	$sql = createRequeteTableData($param);
+	showSQLAction("$sql");
+	//end debug
+	
 	showTableHeader($param);
-	//showSQLAction("table (4) : $param[$TABLE_NAME]");
 	showTableData($param);
-	//showSQLAction("table (5) : $param[$TABLE_NAME]");
 }
 
 /**
- * affiche la table counter d'acc�s
+ * affiche la table counter d'acces
  *
  */
 function showTableCounterAcces(){

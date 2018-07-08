@@ -169,32 +169,96 @@ function mysqlResult($Resultat, $cpt, $c, $defaultValue = "") {
 
 /**
  * mysqlClose
- * @return unknown
+ * @return void
  */
 function mysqlClose(){
     global $CONNECTION_ID;
     return mysqli_close($CONNECTION_ID);
 }
 
+/**
+ * mysqli_result2
+ * @param Sql result oject $result
+ * @param number $row
+ * @param number | String | array{table name->field name }    $field
+ * @return boolean | object 
+ */
 function mysqli_result2($result,$row,$field=0) {
     if ($result===false) return false;
     if ($row>=mysqli_num_rows($result)) return false;
-    if (is_string($field) && !(strpos($field,".")===false)) {
-        $t_field=explode(".",$field);
-        $field=-1;
-        $t_fields=mysqli_fetch_fields($result);
-        for ($id=0;$id<mysqli_num_fields($result);$id++) {
-            if ($t_fields[$id]->table==$t_field[0] && $t_fields[$id]->name==$t_field[1]) {
-                $field=$id;
-                break;
-            }
-        }
-        if ($field==-1) return false;
+    
+
+    if (is_string($field) ) {
+        $field = mysqli_field_index($result, $field);
     }
+    if ($field==-1) return false;
+    
+//     //detection type field
+//     //et transformation en index de champ
+//     if (is_string($field) && !(strpos($field,".")===false)) {
+//         $t_field=explode(".",$field);
+//         $field=-1;
+//         $t_fields=mysqli_fetch_fields($result);
+//         for ($id=0;$id<mysqli_num_fields($result);$id++) {
+//             if ($t_fields[$id]->table==$t_field[0] && $t_fields[$id]->name==$t_field[1]) {
+//                 $field=$id;
+//                 break;
+//             }
+//         }
+//         if ($field==-1) return false;
+//     }
+
+    //recuperation de la data
+    //echoTD("fetch row $row field $field", "no");
     mysqli_data_seek($result,$row);
     $line=mysqli_fetch_array($result);
-    return isset($line[$field])?$line[$field]:false;
+    return isset($line[$field]) ? $line[$field] : false;
 }
+
+/**
+ * mysqli_field_index
+ * @param result sql $result
+ * @param field name $field  "name" or "table.name"
+ * @return -1 | number
+ */
+function mysqli_field_index($result, $field)
+{
+    if ($result === false)   return false;
+    
+    $t_fields = mysqli_fetch_fields($result);
+    $nbField= mysqli_num_fields($result);
+    $fieldIndex = - 1;
+    
+    // detection type field
+    // et transformation en index de champ
+    if (is_string($field)) {
+        
+        //detection si nom type table.champ
+        if (! (strpos($field, ".") === false)) {
+            $t_field = explode(".", $field);
+            for ($id = 0; $id < $nbField; $id ++) {
+                if ($t_fields[$id]->table == $t_field[0] && $t_fields[$id]->name == $t_field[1]) {
+                    $fieldIndex = $id;
+                    break;
+                }
+            }
+        } else {
+            $fieldIndex = - 2;
+            for ($id = 0; $id < $nbField; $id ++) {
+                //$aname = $t_fields[$id]->name;
+                //echoTD("mysqli_field_index check  : $aname and $field ");
+                if ( strtoupper($t_fields[$id]->name) == strtoupper($field)) {
+                    $fieldIndex = $id;
+                    break;
+                }
+            }
+        }
+    }
+    //echoTD("mysqli_field_index ( $field ) : $fieldIndex ");
+    return $fieldIndex;
+}
+
+
 
 
 /**
@@ -256,13 +320,9 @@ function mysqlNumFields($resultat) {
 }
 
 /**
- * mysqlFieldName
- * retourne le nom de la colonne du resultat SQL
- *
- * @param
- *        	array sql or request sql result $resultat
- * @param
- *        	interger or String $cpt column index or colonne name
+ * 
+ * @param array sql or request sql result $resultat
+ * @param interger or String $cpt column index or colonne name
  * @return String column name
  */
 function mysqlFieldName($resultat, $cpt) {
@@ -280,11 +340,18 @@ function mysqlFieldName($resultat, $cpt) {
     return $name;
 }
 
-
+/**
+ * 
+ * @param sql result $result
+ * @param sql field index $field_nr
+ * @return String
+ */
 function mysqli_field_name($result, $field_nr){
     //debug_print_backtrace();
     return mysqli_fetch_field_direct($result, $field_nr)->name;
 }
+
+
 
 function mysqli_tablename($sqlResult){
     $field = mysqli_fetch_fields($sqlResult);
