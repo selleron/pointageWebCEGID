@@ -47,8 +47,12 @@ $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["user"] = "$SELECT_NAME_FRO
 $PRIMARY_TABLE [ "cegid_pointage_voulu" ] = "PROJECT_ID,DATE,USER_ID,PROFIL";
 
 //table cegid_file
-$FORM_STYLE["form_table_cegid_file_insert"]["REFERENCE"]["SIZE"]=50;
-$FORM_STYLE["form_table_cegid_file_update"]["REFERENCE"]["SIZE"]=50;
+$FORM_STYLE["form_table_cegid_file_insert"]["REFERENCE"]["SIZE"]=30;
+$FORM_STYLE["form_table_cegid_file_update"]["REFERENCE"]["SIZE"]=30;
+$FORM_STYLE["form_table_cegid_file_insert"]["CODE"]["SIZE"]=15;
+$FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["CODE"]="select ID from cegid_file_code order by ORDRE";
+$FORM_STYLE["form_table_cegid_file_update"]["CODE"]["SIZE"]=15;
+$FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["CODE"]="select ID from cegid_file_code order by ORDRE";
 $FORM_STYLE["form_table_cegid_file_insert"]["title"]["SIZE"]=120;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["title"]="select TITLE from files";
 $FORM_STYLE["form_table_cegid_file_update"]["title"]["SIZE"]=120;
@@ -259,6 +263,10 @@ $FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["TD"]     = $ALIGN_RIGHT;
 $FORM_STYLE["PRIX_VENTE"]["PRIX_VENTE"]["FORMAT"] = $FORMAT_CA;
 $FORM_STYLE["PRIX_VENTE"]["UO_possible"]["TD"]     = $ALIGN_RIGHT;
 $FORM_STYLE["PRIX_VENTE"]["UO_possible"]["FORMAT"] = $FORMAT_UO;
+
+
+$FORM_STYLE ["form_table_file_code_insert"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_file_code_insert"]["NAME"]["SIZE"]=50;
 
 
 

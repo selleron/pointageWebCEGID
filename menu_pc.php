@@ -198,6 +198,7 @@ else{
 	if (isMemberGroup(2)){
 	    $urlproject2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/project_cegid.php$argument");
 	    $urlstatusproject  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_project.php$argument");
+	    $urlfilecode  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_file_code.php$argument");
 	    $urlcout     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_cout_project_cegid.php$argument");
 	    $urlpointage  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_pointage_cegid.php$argument");
 	    $urlpointagebrut  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/pointage_simple_cegid.php$argument");
@@ -207,6 +208,7 @@ else{
 	    echo"
 		<ul>
 		<li><a title=\"Gestion File CEGID\"   href=\"$urlcegidfile\">     <img src=\"$URL_IMAGES/menu_historique.png\"    $menuIconSize > Gestion Ref Files</a></li>
+		<li><a title=\"Gestion File Code\"    href=\"$urlfilecode\">      <img src=\"$URL_IMAGES/menu_historique.png\"    $menuIconSize > Gestion File Code</a></li>
 		<li><a title=\"Depot de fichiers\"    href=\"$urldepot\">         <img src=\"$URL_IMAGES/menu_courrier.png\"      $menuIconSize > Depot de fichiers</a></li>
 		<li><a title=\"Gestion Projet\"       href=\"$urlcout\"> 	 	  <img src=\"$URL_IMAGES/menu_cout.png\"          $menuIconSize > Gestion Cout</a></li>
 		<li><a title=\"Projet\"               href=\"$urlproject2\">      <img src=\"$URL_IMAGES/menu_projets.png\"       $menuIconSize > Projet</a></li>
