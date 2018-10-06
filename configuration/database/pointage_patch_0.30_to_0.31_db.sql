@@ -39,17 +39,19 @@ drop table `cegid_file_code`;
 
 INSERT INTO `cegid_file_code` (`ID`, `NAME`, `ORDRE`) VALUES
 ('UNDEF', 'indefini', 1),
-('AR_CMD', 'AR Commande', 10),
-('CDC', 'Cahier Des Charges', 11),
+('AR_CMD', 'AR Commande'     , 10),
+('CDC', 'Cahier Des Charges' , 11),
 ('CHIFF', 'Chiffrage', 20),
 ('CMD', 'Commande', 30),
-('PT', 'Proposition tecnique', 40),
-('PF', 'Proposition financière', 41),
+('PT', 'Proposition tecnique'             , 40),
+('PF', 'Proposition financière'           , 41),
 ('PTF', 'Prposition tecnique & financière', 42),
-('DRAFT', 'DRAFT', 43),
+('DRAFT', 'DRAFT'                         , 43),
 ('FACT', 'Facture', 50),
-('FACT_CLIE', 'Facture client', 51),
-('FACT_FOUR', 'Facture fournisseur', 52),
+('FACT_CLIE', 'Facture client'                 , 51),
+('FACT_FRAIS_CLIE', 'Facture frais client'     , 52),
+('FACT_FOUR', 'Facture fournisseur'            , 53),
+('FACT_FRAIS_FOUR', 'Facture frais fournisseur', 54),
 ('TIME_SHEET', 'Temps passé', 60);
 
 --
@@ -71,6 +73,8 @@ ALTER TABLE `cegid_file` ADD FOREIGN KEY (`CODE`) REFERENCES `cegid_file_code`(`
 UPDATE `version` SET `DATE` = '2018-10-06 00:00:00', `value` = '0.31.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.30_vers_0.31', '101', '2018-10-06 00:00:00', 'ajout code reference file cegid', '0.31.0');
 
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.27.19 vers_0.1.28.00', '200', '2018-10-06 00:00:00', 'page archives', '0.1.28.00');
+UPDATE `version` SET `DATE` = '2018-10-0 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.00' WHERE `version`.`id` = 'php';
 
 
 COMMIT;
