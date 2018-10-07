@@ -273,9 +273,7 @@ function showTableFraisMission($param="", $tablePointage = "") {
 	//activation sommation
 	global $TABLE_ID;
 	global $SQL_COL_COUT_FRAIS_MISSION;
- 	//showSommation($param[$TABLE_ID], "",    "$SQL_COL_TOTAL_FRAIS_MISSION", "$SQL_COL_COUT_FRAIS_MISSION,$SQL_COL_STATUS_FRAIS_MISSION","mult");
- 	//showSommation($param[$TABLE_ID], "",    "$SQL_COL_TOTAL_REEL_FRAIS_MISSION", "$SQL_COL_COUT_FRAIS_MISSION,$colpointage","mult");
-	//showSommation($param[$TABLE_ID],"$SQL_COL_STATUS_FRAIS_MISSION,$SQL_COL_TOTAL_FRAIS_MISSION,$colpointage,$SQL_COL_TOTAL_REEL_FRAIS_MISSION", "","");
+	//showSQLAction("showTableFraisMission() table id : $param[$TABLE_ID]");
 	showSommation($param[$TABLE_ID],"$SQL_COL_COUT_FRAIS_MISSION", "","");
 	
 	
