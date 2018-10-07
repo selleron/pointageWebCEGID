@@ -7,6 +7,7 @@
     include_once("../header.php");
 	include_once("../sql/files.php");
 	include_once("../sql/project_db.php");
+	include_once("../sql/frais_mission_db.php");
 	include_once("../sql/cout_project_db.php");
 	include_once("../sql/pointage_cegid_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
@@ -50,12 +51,18 @@
 
  	
  	//application des actions
+ 	//info du projet
  	$res = applyGestionOneProject();
  	if ($res<=0){
- 		//applyGestionCoutProjectForm();
- 		$res = applyGestionCoutOneProjectForm();
+ 	    //gestion cout projet
+ 	    $res = applyGestionCoutOneProjectForm();
+ 	}
+ 	if ($res<=0){
+ 	    //gestion frais mission
+ 	    $res = applyGestionFraisMissionOneProjectForm();
  	}
  	if ($res <=0){
+ 	    //gestion pointage
  		applyGestionPointageProjetCegid();
  	}
  	
@@ -67,6 +74,7 @@
 	  	endTableCell();
 	  	beginTableCell();
 			showTableCoutOneProject();
+			showTableFraisMissionOneProject();
 	  	endTableCell();
   	endTableRow();
    	endTable();

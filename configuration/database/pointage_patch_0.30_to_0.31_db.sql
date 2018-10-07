@@ -69,6 +69,54 @@ ALTER TABLE `cegid_file_code`
 ALTER TABLE `cegid_file` ADD `CODE` VARCHAR(15) NOT NULL DEFAULT 'UNDEF' AFTER `REFERENCE`; 
 ALTER TABLE `cegid_file` ADD FOREIGN KEY (`CODE`) REFERENCES `cegid_file_code`(`ID`) ON DELETE RESTRICT ON UPDATE RESTRICT;  
   
+
+--
+-- table de frais de mission
+--
+
+
+
+CREATE TABLE `cegid_frais_mission` (
+  `ID` varchar(15) NOT NULL,
+  `DATE` date DEFAULT NULL,
+  `PROJECT_ID` varchar(10) NOT NULL,
+  `COUT` double NOT NULL,
+  `COMMENTAIRE` varchar(150),
+  `STATUS_ID` varchar(10) NOT NULL DEFAULT 'UNDEF'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `cegid_project_cout`
+--
+ALTER TABLE `cegid_frais_mission`
+  ADD PRIMARY KEY (`ID`),
+  ADD KEY `cegid_frais_mission_ibfk_1` (`PROJECT_ID`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `cegid_frais_mission`
+--
+-- ALTER TABLE `cegid_frais_mission`
+--    MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour la table `cegid_frais_mission`
+--
+ALTER TABLE `cegid_frais_mission`
+  ADD CONSTRAINT `cegid_frais_mission_ibfk_1` FOREIGN KEY (`PROJECT_ID`) REFERENCES `cegid_project` (`CEGID`) ON DELETE CASCADE;
+
+
+
+--
+-- Declaration Modification
+--
   
 UPDATE `version` SET `DATE` = '2018-10-06 00:00:00', `value` = '0.31.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.30_vers_0.31', '101', '2018-10-06 00:00:00', 'ajout code reference file cegid', '0.31.0');

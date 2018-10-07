@@ -4,26 +4,26 @@ $COUT_PROJECT_DB_PHP = "loaded";
 include_once 'project_db.php';
 include_once 'pointage_cegid_db.php';
 
-$SQL_TABLE_PROJECT_COUT = "cegid_project_cout";
-$SQL_TABLE_PROJECT_COUT2 = "cegid_project_cout as pc,  cegid_project as pj";
+$SQL_TABLE_PROJECT_COUT        = "cegid_project_cout";
+$SQL_TABLE_PROJECT_COUT2       = "cegid_project_cout as pc,  cegid_project as pj";
 $FORM_TABLE_CEGID_PROJECT_COUT = "form_table_cegid_project_cout";
 
-$SQL_COL_ID_PROJECT_COUT = "ID";
-$SQL_COL_DATE_PROJECT_COUT = "DATE";
-$SQL_COL_PROJECT_ID_COUT_PROJECT = "PROJECT_ID";
+$SQL_COL_ID_PROJECT_COUT           = "ID";
+$SQL_COL_DATE_PROJECT_COUT         = "DATE";
+$SQL_COL_PROJECT_ID_COUT_PROJECT   = "PROJECT_ID";
 $SQL_COL_PROJECT_NAME_COUT_PROJECT = "PROJECT";
-$SQL_COL_PROJECT_COUT_PROFIL = "PROFIL_ID";
-$SQL_COL_UO_PROJECT_COUT = "UO";
-$SQL_COL_COUT_PROJECT_COUT = "COUT";
+$SQL_COL_PROJECT_COUT_PROFIL       = "PROFIL_ID";
+$SQL_COL_UO_PROJECT_COUT           = "UO";
+$SQL_COL_COUT_PROJECT_COUT         = "COUT";
 
-$SQL_SHOW_COL_PROJECT_COUT  = " $SQL_COL_ID_PROJECT_COUT, $SQL_COL_DATE_PROJECT_COUT, $SQL_COL_PROJECT_ID_COUT_PROJECT, $SQL_COL_PROJECT_COUT_PROFIL, $SQL_COL_COUT_PROJECT_COUT, $SQL_COL_UO_PROJECT_COUT";
-$SQL_SHOW_COL_PROJECT_COUT2 = " $SQL_COL_ID_PROJECT_COUT, $SQL_COL_DATE_PROJECT_COUT, $SQL_COL_PROJECT_NAME_COUT_PROJECT,             $SQL_COL_PROJECT_COUT_PROFIL, $SQL_COL_COUT_PROJECT_COUT, $SQL_COL_UO_PROJECT_COUT";
+$SQL_SHOW_COL_PROJECT_COUT   = "   $SQL_COL_ID_PROJECT_COUT,                                $SQL_COL_DATE_PROJECT_COUT,                                  $SQL_COL_PROJECT_ID_COUT_PROJECT,                                $SQL_COL_PROJECT_COUT_PROFIL,                                    $SQL_COL_COUT_PROJECT_COUT,                                  $SQL_COL_UO_PROJECT_COUT";
+$SQL_SHOW_COL_PROJECT_COUT2  = "   $SQL_COL_ID_PROJECT_COUT,                                $SQL_COL_DATE_PROJECT_COUT,                                  $SQL_COL_PROJECT_NAME_COUT_PROJECT,                              $SQL_COL_PROJECT_COUT_PROFIL,                                    $SQL_COL_COUT_PROJECT_COUT,                                  $SQL_COL_UO_PROJECT_COUT";
 $SQL_SELECT_COL_COUT_PROJECT = "pc.$SQL_COL_ID_PROJECT_COUT as $SQL_COL_ID_PROJECT_COUT, pc.$SQL_COL_DATE_PROJECT_COUT as $SQL_COL_DATE_PROJECT_COUT, pj.$SQL_COL_NAME_PROJECT as $SQL_COL_PROJECT_NAME_COUT_PROJECT,  pc.$SQL_COL_PROJECT_COUT_PROFIL as $SQL_COL_PROJECT_COUT_PROFIL, pc.$SQL_COL_COUT_PROJECT_COUT as $SQL_COL_COUT_PROJECT_COUT, pc.$SQL_COL_UO_PROJECT_COUT as $SQL_COL_UO_PROJECT_COUT";
 $SQL_SHOW_WHERE_COUT_PROJECT = "`$SQL_COL_ID_PROJECT` = `$SQL_COL_PROJECT_ID_COUT_PROJECT`	";
 
-$SQL_COL_TOTAL_PROJECT_COUT = "Total.COUT";
+$SQL_COL_TOTAL_PROJECT_COUT      = "Total.COUT";
 $SQL_COL_TOTAL_REEL_PROJECT_COUT = "Reel.COUT";
-$SQL_COL_POINTAGE_PROJECT_COUT = "U.O.Pointage";
+$SQL_COL_POINTAGE_PROJECT_COUT   = "U.O.Pointage";
 
 // include_once 'connection_db.php';
 // include_once 'tool_db.php';
@@ -93,7 +93,7 @@ function applyGestionCoutProjectForm($subParam="") {
 	$formU = $FORM_TABLE_CEGID_PROJECT_COUT . "_update";
 	
 	$formName = getURLVariable($TABLE_FORM_NAME_INSERT);
-	showAction("form name found : $formName");
+	showAction("applyGestionCoutProjectForm - form name found : $formName");
 	if (($formName == $FORM_TABLE_CEGID_PROJECT_COUT) || ($formName == $formI)  || ($formName == $formU)){
 		return applyGestionCoutProject($subParam);
 	}

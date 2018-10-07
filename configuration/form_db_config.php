@@ -137,7 +137,6 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT_ID"]="sele
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROFIL_ID"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROFIL"]="select NAME from cegid_profil";
-//$FORM_VALUE_DEFAULT["form_table_cegid_project_cout_insert"]["PROJECT_ID"]="select P002";
 $FORM_VALUE_DEFAULT ["form_table_cegid_project_cout_insert"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";
 $FORM_VALUE_DEFAULT ["form_table_cegid_project_cout_insert"]["PROJECT_ID"]["VARIABLE"]="project";
 $FORM_VALUE_DEFAULT ["form_table_cegid_project_cout_insert"]["PROJECT"]["SQL"]="select NAME from cegid_project WHERE NAME=\"???\"";
@@ -178,6 +177,32 @@ $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["TD"]  
 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SUFFIX"] = " &euro;"; 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SUFFIX"]  = " &euro;";
+
+//table frais mission
+$FORM_VALUE_POSSIBLE["form_table_cegid_frais_mission_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
+$FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";
+$FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT_ID"]["VARIABLE"]="project";
+
+$FORM_VALUE_POSSIBLE["form_table_cegid_frais_mission_insert"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
+$FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT"]["SQL"]="select NAME from cegid_project WHERE NAME=\"???\"";
+$FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT"]["VARIABLE"]="project";
+$FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["DATE"]="select now()";
+
+$FORM_VALUE_INSERT ["form_table_cegid_frais_mission_update"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";
+$FORM_VALUE_INSERT ["form_table_cegid_frais_mission_update"]["PROJECT_ID"]["VARIABLE"]="PROJECT";
+$FORM_VALUE_INSERT ["form_table_cegid_frais_mission_update"]["ID"]["SQL"]="select concat(\"FM_\", p.CEGID, \"_\", fm.c) from (select CEGID from cegid_project where NAME=\"???\") p, (select count(ID) as c from cegid_frais_mission) fm";
+$FORM_VALUE_INSERT ["form_table_cegid_frais_mission_update"]["ID"]["VARIABLE"]="PROJECT";
+
+
+
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["ID"]["SIZE"] = 5;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SIZE"] = $SIZE_COUT;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SUFFIX_FIELD"] = "";
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["FORMAT"] = $FORMAT_TARIF;
+
+
 
 //table cegid_pointage
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
