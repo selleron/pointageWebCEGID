@@ -184,6 +184,7 @@ $FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT_ID"]["SQL
 $FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT_ID"]["VARIABLE"]="project";
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_frais_mission_insert"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
+$FORM_VALUE_POSSIBLE["form_table_cegid_frais_mission_update"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT"]["SQL"]="select NAME from cegid_project WHERE NAME=\"???\"";
 $FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT"]["VARIABLE"]="project";
 $FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["DATE"]="select now()";
@@ -195,12 +196,21 @@ $FORM_VALUE_INSERT ["form_table_cegid_frais_mission_update"]["ID"]["VARIABLE"]="
 
 
 
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["ID"]["SIZE"] = 5;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["ID"]["SIZE"] = 15;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SIZE"] = $SIZE_COUT;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SUFFIX_FIELD"] = "";
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["FORMAT"] = $FORMAT_TARIF;
+
+
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["ID"]["SIZE"] = 15;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["PROJECT"]["SIZE"] = 50;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["COMMENTAIRE"]["SIZE"] = 100;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["COUT"]["SIZE"] = $SIZE_COUT;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["COUT"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["COUT"]["SUFFIX_FIELD"] = "";
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["COUT"]["TD"] = $ALIGN_RIGHT;
 
 
 
