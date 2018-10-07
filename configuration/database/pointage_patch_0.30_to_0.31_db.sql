@@ -112,8 +112,21 @@ ALTER TABLE `cegid_frais_mission`
 ALTER TABLE `cegid_frais_mission`
   ADD CONSTRAINT `cegid_frais_mission_ibfk_1` FOREIGN KEY (`PROJECT_ID`) REFERENCES `cegid_project` (`CEGID`) ON DELETE CASCADE;
 
+  
+  --
+-- update description des requetes CEGID 
+--
 
+UPDATE `cegid_requetes` 
+  SET `DESCRIPTION` = 'UO Reportable : \r\nPermet de connaitre les U.O restant.\r\nNe prend pas en compte : <br>\r\n- les projets cloturés <br>\r\n- les projets ayant des UO definis l\'année suivante.' WHERE `cegid_requetes`.`ID` = 'UO_RESTANT_CLOTURE';
 
+UPDATE `cegid_requetes` 
+  SET `DESCRIPTION` = 'Vérifie que le prix de vente indiqué dans le projet correspond a la somme des couts d\'un projet (toutes années confondues).<br>\r\n\r\nN\'affiche que les projets ayant une différence => incoherence.' WHERE `cegid_requetes`.`ID` = 'CHECK_PRIX_VENTE';
+  
+UPDATE `cegid_requetes` 
+  SET `NAME` = 'PRIX Vente et CA prévisionnel', 
+      `DESCRIPTION` = 'Prix de vente et CA prévisionnel.<br>\r\nPermet de comparer pour l\'ensemble des projets, le prix de vente et le CA prévisionnel.', 
+      `SQL_REQUEST` = 'SELECT cpc.PROJECT_ID, cp.NAME, cp.STATUS, sum(cpc.uo) UO_possible, cp.PRIX_VENTE, sum(cpc.uo*cpc.cout) as CA\r\nFROM cegid_project_cout cpc, cegid_project cp\r\nWHERE \r\n cp.CEGID = cpc.PROJECT_ID\r\nGROUP BY cpc.PROJECT_ID' WHERE `cegid_requetes`.`ID` = 'PRIX_VENTE';
 --
 -- Declaration Modification
 --

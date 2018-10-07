@@ -113,6 +113,41 @@ function actionSauverRequest($html=""){
 
 
 /**
+ * getDescriptionRequeteByID
+ * @param string $idRequete
+ * @return string SQL Request
+ */
+function getDescriptionRequeteByID($idRequete, $table=""){
+    global $SQL_COL_REQUETES_ID;
+    global $SQL_COL_REQUETES_DESCRIPTION;
+    
+    
+    if ($table == ""){
+        global $SQL_TABLE_REQUETES;
+        $table = $SQL_TABLE_REQUETES;
+    }
+    
+    $request = "SELECT $SQL_COL_REQUETES_ID,  $SQL_COL_REQUETES_DESCRIPTION
+	FROM `$table`
+	WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
+    
+    //showSQLAction($request);
+    $Resultat = mysqlQuery($request);
+    showSQLError("", $request);
+    
+    $Compteur=0;
+    $sql = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_DESCRIPTION);
+    
+
+    //fait les remplacement ${XXX} pr le getURL(XXX)
+    $othersKeyValue = getArrayRequete($table);
+    $sql = replaceVariableURLByGet($sql, $othersKeyValue);
+    
+    //retourne la description de la  requete
+    return $sql;
+}
+
+/**
  * getRequeteByID
  * @param string $idRequete
  * @return string SQL Request
@@ -138,7 +173,7 @@ function getRequeteByID($idRequete, $table=""){
     $Compteur=0;
     $sql = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
     
-
+    
     //fait les remplacement ${XXX} pr le getURL(XXX)
     $othersKeyValue = getArrayRequete($table);
     $sql = replaceVariableURLByGet($sql, $othersKeyValue);
@@ -147,10 +182,11 @@ function getRequeteByID($idRequete, $table=""){
     return $sql;
 }
 
+
 /**
  * getArrayRequete
  * cree un tableau (cle , valeur) de la table des requetes
- * @param unknown $table request table (not NULL)
+ * @param String $table request table (not NULL)
  * @return data[SQL_COL_REQUETES_ID => SQL_COL_REQUETES_SQL_REQUEST ]
  */
 function getArrayRequete($table){

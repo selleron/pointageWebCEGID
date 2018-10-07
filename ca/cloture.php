@@ -64,6 +64,7 @@
 	global $ID_REQUETE_SQL_CHECK_PRIX_VENTE;
 	echo "<br><br>";
 	createHeaderBaliseDiv("CheckPrixVente","<h3>Check Prix de Vente et Cout</h3>");
+	showDescriptionRequeteCEGID($ID_REQUETE_SQL_CHECK_PRIX_VENTE);
 	showTableRequeteCEGID( $ID_REQUETE_SQL_CHECK_PRIX_VENTE );
 	endHeaderBaliseDiv("CheckPrixVente");
 
@@ -71,7 +72,8 @@
 	// PRIX de Vente
 	global $ID_REQUETE_SQL_PRIX_VENTE;
 	echo "<br><br>";
-	createHeaderBaliseDiv("PrixVente","<h3>Prix de Vente et Cout</h3>");
+	createHeaderBaliseDiv("PrixVente","<h3>Prix de Vente et CA prévisionnel</h3>");
+	showDescriptionRequeteCEGID($ID_REQUETE_SQL_PRIX_VENTE);
 	showTableRequeteCEGID( $ID_REQUETE_SQL_PRIX_VENTE );
 	endHeaderBaliseDiv("PrixVente");
 	

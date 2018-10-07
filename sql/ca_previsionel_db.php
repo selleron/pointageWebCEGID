@@ -207,6 +207,8 @@ function UOReportable(){
     $request = getRequeteCAByID($ID_REQUETE_SQL_UO_RESTANT_CLOTURE);
     createHeaderBaliseDiv("UO_restant_cloture","<h3>UO reportable</h3>");
     
+    showDescriptionRequeteCEGID($ID_REQUETE_SQL_UO_RESTANT_CLOTURE);
+    
     $subParam[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT] = $ID_REQUETE_SQL_UO_RESTANT_CLOTURE;
     
     actionRequeteSql($request, /*$html*/"", $subParam, /*$closeTable*/"yes");
@@ -234,7 +236,7 @@ function historisationCout($condition=""){
 
 /**
  * restoreCout
- * restoration à la derniere date ou suivant la condition
+ * restoration ï¿½ la derniere date ou suivant la condition
  * @param string $condition
  * @return request or boolean
  */
@@ -294,7 +296,29 @@ function showTableCAPrevisionel($idRequest="", $formname="", $idTable = "") {
 
 
 /**
- * affiche une requete stockée dans la table des requetes CEGID
+ * affiche une requete stockee dans la table des requetes CEGID
+ * @param string $idRequest
+ * @param string $formname
+ * @param string $idTable
+ */
+function showDescriptionRequeteCEGID($idRequest="", $formname="", $idTable = "") {
+    global $TABLE_CEGID_REQUETE;
+    
+    $html="";
+    
+    if ($idTable == ""){
+        $idTable = $TABLE_CEGID_REQUETE;
+    }
+    
+    //recuperation de la requete
+    $description = getDescriptionRequeteByID($idRequest, $idTable);
+    echo "<p>$description</p>";
+    
+}
+
+
+/**
+ * affiche une requete stockee dans la table des requetes CEGID
  * @param string $idRequest
  * @param string $formname
  * @param string $idTable
@@ -348,7 +372,7 @@ function showTableRequeteCEGID($idRequest="", $formname="", $idTable = "") {
 }
 
 /**
- * affiche une requete stockée dans la table des requetes CEGID
+ * affiche une requete stockï¿½e dans la table des requetes CEGID
  * @param string $idRequest
  * @param string $formname
  * @param string $idTable
