@@ -14,7 +14,7 @@ $SQL_COL_PROJECT_ID_COUT_PROJECT   = "PROJECT_ID";
 $SQL_COL_PROJECT_NAME_COUT_PROJECT = "PROJECT";
 $SQL_COL_FRAIS_MISSION_COMMENT     = "COMMENTAIRE";
 $SQL_COL_STATUS_FRAIS_MISSION      = "STATUS_ID";
-$SQL_COL_COUT_FRAIS_MISSION        = "COUT";
+$SQL_COL_COUT_FRAIS_MISSION        = "FRAIS";
 
 $SQL_SHOW_COL_FRAIS_MISSION   = "   $SQL_COL_ID_FRAIS_MISSION,                                $SQL_COL_DATE_FRAIS_MISSION,                                   $SQL_COL_PROJECT_ID_COUT_PROJECT,                                $SQL_COL_FRAIS_MISSION_COMMENT,                                    $SQL_COL_COUT_FRAIS_MISSION,                                  $SQL_COL_STATUS_FRAIS_MISSION";
 $SQL_SHOW_COL_FRAIS_MISSION2  = "   $SQL_COL_ID_FRAIS_MISSION,                                $SQL_COL_DATE_FRAIS_MISSION,                                   $SQL_COL_PROJECT_NAME_COUT_PROJECT,                              $SQL_COL_FRAIS_MISSION_COMMENT,                                    $SQL_COL_COUT_FRAIS_MISSION,                                  $SQL_COL_STATUS_FRAIS_MISSION";

@@ -611,9 +611,16 @@ function getFormStyleStatus($Resultat, $param, $idxField){
 
  function getFormStyleKey ($Resultat, $param, $idx, $key) {
      global $SHOW_FORM_VARIABLE_STYLE;
+     global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
+     global $FORM_STYLE;
+     
     $style = getFormStyleArray($Resultat, $param, $idx);
     if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
         echoTD("[\"$key\"]");
+    }
+    if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE=="yes"){
+        $form = getFormStyleArrayName($Resultat, $param, $idx);
+        echoComment("$"."FORM_STYLE"."["."$form"."]"."[\"$key\"]");
     }
     if (isset($style)){
         if(isset($style[$key])){
@@ -634,10 +641,11 @@ function getFormStyleStatus($Resultat, $param, $idxField){
  */
 function getFormStyleArray($Resultat, $param, $idx){
     if (isset($param)){
-        $form="";
-        if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
-            $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
-        }
+        $form = getFormStyleArrayName($Resultat, $param, $idx);
+//         $form="";
+//         if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
+//             $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+//         }
         $variable = mysqlFieldName($Resultat, $idx);
         //$variable = mysqli_field_name($Resultat, $idx);
         global $SHOW_FORM_VARIABLE_STYLE;
@@ -653,6 +661,27 @@ function getFormStyleArray($Resultat, $param, $idx){
     }
     return NULL;
 }
+
+/**
+ * getFormStyleArrayName
+ * @param sql array $Resultat
+ * @param sql paramzters $param
+ * @param int|String $idx column index or column name
+ * @return string
+ */
+function getFormStyleArrayName($Resultat, $param, $idx){
+    if (isset($param)){
+        $form="";
+        if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT])){
+            $form = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+        }
+        return $form;
+    }
+    return "undefine array";
+}
+        
+
+
 
 /**
  * getFormStyleSize2

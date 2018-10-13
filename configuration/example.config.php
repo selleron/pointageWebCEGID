@@ -51,6 +51,7 @@ $SHOW_SQL_REPLACE="yes";					//trace ou non les actions SQL replace
 $SHOW_SQL_CB_SEARCH="no";					//trace ou non les recherches d'utilisation de cb pour les colonnes sql
 $SHOW_FORM_VARIABLE_ATTRIBUT="no";	        //trace les attributs de variable dans form yes | no ex : form_table_cegid_project_update :: STATUS type: [string] flags: {16393}$SHOW_FORM_VARIABLE_STYLE="no";		    //trace les styles des variable dans form yes | no
 $SHOW_FORM_VARIABLE_STYLE="no";		        //trace les styles des variable dans form yes | no. dans les cellule affiche le style, la taille,...
+$SHOW_AS_COMMENT_FORM_VARIABLE_STYLE="no";	//trace sous forme d'un commentaire les styles des variable dans form yes | no. dans les cellule affiche le style, la taille,...
 $SHOW_VARIABLE_SUBSTITUTE_SEARCH="quiet";	//trace ou non les recherches de valeurs de variable dans post quiet | verbose | yes
 $SHOW_FORM_SUBSTITUTE_SEARCH="quiet";	    //trace ou non les recherches de valeurs de variable dans form quiet | verbose | yes
 $SHOW_FORM_TRACE="no";	    				//trace form name parameter yes | no

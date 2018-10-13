@@ -203,15 +203,16 @@ $FORM_VALUE_INSERT ["form_table_cegid_frais_mission_update"]["ID"]["VARIABLE"]="
 
 
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["ID"]["SIZE"] = 15;
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SIZE"] = $SIZE_COUT;
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["SUFFIX_FIELD"] = "";
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["TD"] = $ALIGN_RIGHT;
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COUT"]["FORMAT"] = $FORMAT_TARIF;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["SIZE"] = $SIZE_COUT;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["WITDH"] = $WIDTH_CA_EURO;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["SUFFIX_FIELD"] = "";
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["FORMAT"] = $FORMAT_TARIF;
 
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_COUT"]["SIZE"] = $SIZE_COUT;
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_COUT"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_COUT"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_FRAIS"]["SIZE"] = $SIZE_COUT_SUM;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_FRAIS"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_FRAIS"]["TD"] = $ALIGN_RIGHT;
 
 
 

@@ -288,15 +288,25 @@ function echoSpace($count=1){
  *        	use balise <td> yes/no
  */
 function echoTD($txt, $useTD="yes") {
-	if ($useTD == "yes") {
-		echo "<td>";
-	}
+    if ($useTD == "yes") {
+        echo "<td>";
+    }
+    
+    echo "$txt";
+    
+    if ($useTD == "yes") {
+        echo "</td>";
+    }
+}
 
-	echo "$txt";
-
-	if ($useTD == "yes") {
-		echo "</td>";
-	}
+/**
+ * echo comment html
+ * @param String $txt
+ */
+function echoComment($txt) {   
+    echo "<!-- ";
+    echo "$txt";
+    echo " -->";
 }
 
 
