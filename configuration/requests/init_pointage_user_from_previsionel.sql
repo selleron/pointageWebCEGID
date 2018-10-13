@@ -1,9 +1,7 @@
--- changer le CEGID d'un projet
--- bascule les pointages d'un projet a un autre
--- avant d'executer positionner :
--- @ID_OLD  -- sera positionné sur Annule
--- @ID_NEW  -- sera créé
--- parfois, il faut reediter le nom du projet pour que les changements soit pris en compte
+-- Preparation pointage a partir de previsionnel pour une date
+-- positionne à 0 les UO par User/Project
+-- => preparation des users (on ne sera pas obligé de creer les lignes user par projet dabs le pointage
+-- @ID_DATE  -- date ou inserer des UO à 0 s'il existe dans previsonnel
 
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -12,28 +10,17 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 
-set @ID_OLD="P18003";
-set @ID_NEW="P18015";
+set @ID_DATE="2018-01-01";  -- date yyyy-mm-dd
 
 -- creation nouveau projet par copie
-INSERT INTO `cegid_project` (`CEGID`, `NAME`, `PRIX_VENTE`, `DEBUT`, `FIN`, `FIN_GARANTIE`, `STATUS`, `TYPE`, `GROUPE`, `COMMENTAIRE`, `VISIBLE`) 
-SELECT @ID_NEW, concat(`NAME`,"_"), `PRIX_VENTE`, `DEBUT`, `FIN`, `FIN_GARANTIE`, `STATUS`, `TYPE`, `GROUPE`, `COMMENTAIRE`, `VISIBLE` FROM `cegid_project`
-WHERE CEGID=@ID_OLD;
 
--- deplacement des références
-UPDATE cegid_devis_project                 SET CEGID=@ID_NEW WHERE CEGID=@ID_OLD;
-UPDATE cegid_pointage                      SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
-UPDATE cegid_pointage_previsionnel         SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
-UPDATE cegid_pointage_previsionnel_history SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
-UPDATE cegid_pointage_voulu                SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
-UPDATE cegid_project_cout                  SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
-
---dzsactivation de l'ancien projet
-UPDATE `cegid_project` SET `STATUS` = 'Annule' WHERE `cegid_project`.`CEGID` = @ID_OLD;
-
--- suppression de l'ancien projet
--- dangereux à cause des delete cascade
--- DELETE FROM cegid_project WHERE CEGID=@ID_OLD;
+INSERT INTO `test`.`cegid_pointage` (`PROJECT_ID`, `DATE`, `USER_ID`, `PROFIL`, `UO`)
+SELECT `PROJECT_ID`, `DATE`, `USER_ID`, `PROFIL`, 0 FROM `cegid_pointage_previsionnel`
+  WHERE `DATE` = @ID_DATE 
+ 	AND concat(PROJECT_ID, month(DATE), USER_ID, PROFIL) not in (       
+             select concat(PROJECT_ID, month(DATE), USER_ID, PROFIL) from cegid_pointage WHERE year(`DATE`)=year(@ID_DATE) and month(`DATE`)=month(@ID_DATE)
+        );
+        
 
 
 SET FOREIGN_KEY_CHECKS=1;
