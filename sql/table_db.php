@@ -113,10 +113,10 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 /**
  * exportCSVArray
  *
- * @param unknown $table        	
- * @param unknown $colsSet        	
- * @param unknown $colsSetExport        	
- * @param matrice $matrice
+ * @param string $table        	
+ * @param string $colsSet (separator ,)       	
+ * @param string $colsSetExport    (separator ,)    	
+ * @param array $matrice
  *        	[col][row]
  * @return number 1 si ok 0 si nothing
  */
@@ -186,9 +186,9 @@ function exportCSVArray($table, $colsSet, $colsSetExport, $matrice) {
 /**
  * exportCSVTableByGet
  *
- * @param unknown $table        	
- * @param unknown $colsSet        	
- * @param unknown $form_name        	
+ * @param string $table  table name      	
+ * @param string $colsSet  (separator ,)      	
+ * @param string $form_name        	
  * @return number 1 si ok 0 si nothing
  */
 function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name) {
@@ -303,7 +303,7 @@ function exportCSVTableColumn($handle, $col, $comment = "#") {
 /**
  * getCSVTableColumn
  *
- * @param array[row][col] $matrice        	
+ * @param array[$row][$col] $matrice        	
  * @param string $default        	
  * @param string $comment        	
  * @return array[] colmuns names
@@ -315,11 +315,11 @@ function getCSVTableColumn($matrice, $default = "", $comment = "#") {
 /**
  * getCSVTableInfo
  *
- * @param unknown $matrice        	
- * @param unknown $infoName        	
+ * @param array[$row][$col] $matrice        	
+ * @param string $infoName        	
  * @param string $default        	
  * @param string $comment        	
- * @return unknown
+ * @return array
  */
 function getCSVTableInfo($matrice, $infoName, $default = "", $comment = "#") {
 	$idx = getCSVIndexFromMatrice ( $matrice, $infoName );
@@ -336,9 +336,9 @@ function getCSVTableInfo($matrice, $infoName, $default = "", $comment = "#") {
 /**
  * exportCSVKeyValue
  *
- * @param unknown $handle        	
- * @param unknown $key        	
- * @param unknown $value        	
+ * @param file handler $handle  file handler      	
+ * @param string $key        	
+ * @param string $value        	
  * @param string $comment        	
  */
 function exportCSVKeyValue($handle, $key, $value, $comment = "#") {
@@ -380,6 +380,14 @@ function getCSVValueFromMatrice($matrice, $key, $default = "", $comment = "#") {
 	
 	return $default;
 }
+
+/**
+ * getCSVIndexFromMatrice
+ * @param array $matrice
+ * @param string $key
+ * @param string $comment
+ * @return number
+ */
 function getCSVIndexFromMatrice($matrice, $key, $comment = "#") {
 	$key2 = "" . $comment . "$key";
 	$idx = 0;
@@ -441,8 +449,8 @@ function exportCSVDataURL($handle, $table) {
 /**
  * applyDeleteTableByGet
  *
- * @param unknown $table        	
- * @param unknown $cols        	
+ * @param string $table        	
+ * @param string $cols  (separator ,)        	
  */
 function applyDeleteTableByGet(/*$table, $cols, $form_name,*/ $param="") {
 	if (getActionGet () == "delete") {
@@ -456,8 +464,8 @@ function applyDeleteTableByGet(/*$table, $cols, $form_name,*/ $param="") {
  * deleteTableByGet
  * si idTable=="", on delete avec toutes les colonnes
  *
- * @param unknown $table        	
- * @param unknown $cols        	
+ * @param string $table        	
+ * @param string $cols  (separator ,)        	
  */
 function deleteTableByGet(/*$table, $cols, $form_name,*/  $param, $row=NULL, $trace = "no") {
     if (isset($param[PARAM_TABLE_SQL::TABLE_NAME_INSERT])){
