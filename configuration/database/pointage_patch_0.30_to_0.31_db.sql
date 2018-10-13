@@ -14,8 +14,6 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-
 --
 -- Base de données :  `test`
 --
@@ -35,7 +33,7 @@ CREATE TABLE `cegid_file_code` (
 --
 -- Contenu de la table `cegid_status_devis`
 --
-drop table `cegid_file_code`;
+
 
 INSERT INTO `cegid_file_code` (`ID`, `NAME`, `ORDRE`) VALUES
 ('UNDEF', 'indefini', 1),
@@ -131,16 +129,13 @@ UPDATE `cegid_requetes`
 -- Declaration Modification
 --
   
-UPDATE `version` SET `DATE` = '2018-10-06 00:00:00', `value` = '0.31.0' WHERE `version`.`id` = 'database';
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.30_vers_0.31', '101', '2018-10-06 00:00:00', 'ajout code reference file cegid', '0.31.0');
+UPDATE `version` SET `DATE` = '2018-10-13 00:00:00', `value` = '0.31.0' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.30_vers_0.31', '101', '2018-10-06 00:00:00', 'ajout fiche de frais', '0.31.0');
 
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.27.19 vers_0.1.28.00', '200', '2018-10-06 00:00:00', 'page archives', '0.1.28.00');
-UPDATE `version` SET `DATE` = '2018-10-0 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.00' WHERE `version`.`id` = 'php';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.27.19 vers_0.1.28.00', '200', '2018-10-06 00:00:00', 'ajout fiche de frais dans les pages projets', '0.1.28.00');
+UPDATE `version` SET `DATE` = '2018-10-06 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.00' WHERE `version`.`id` = 'php';
 
 
 COMMIT;
 
 
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
