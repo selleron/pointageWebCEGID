@@ -230,13 +230,53 @@ function uploadFile($uploaddir) {
 	    showError("no upload dir defined");
 	}
 	$tmpFile = getTemporaryFile ();
-	$uploadfile = $uploaddir . basename ( $_FILES ['userfile'] ['name'] );
 	
+	correctionFileName();
+	
+	//$uploadfile = $uploaddir . basename ( $_FILES ['userfile'] ['name'] );
+	$uploadfile = $uploaddir . getLoadFileName();
+	
+
 	global $SHOW_FILE_ACTION;
 	showActionVariable ( "upload temporary file : $tmpFile -> $uploadfile ", $SHOW_FILE_ACTION );
 	
 	return moveFile ( $tmpFile, $uploadfile );
 }
+
+/**
+ * correctionFileName
+ * suppression des caractere speciaux
+ */
+function correctionFileName(){
+    $uploadfile =  $_FILES ['userfile'] ['name'] ;
+    $uploadfile = str_replace("'", "",  $uploadfile);
+    $uploadfile = str_replace('"', '',  $uploadfile);
+    $uploadfile = str_replace(" ", "_", $uploadfile);
+    $_FILES ['userfile'] ['name'] = $uploadfile;
+}
+
+
+/**
+ * getLoadFileName
+ * Retourne le nom du fichier loadé (sans le path)
+ */
+function getLoadFileName() {
+    //$uploadfile = $uploaddir . basename ( $_FILES ['userfile'] ['name'] );
+    $uploadfile = basename ( getCompletLoadFileName() );
+    return $uploadfile;
+}
+
+
+/**
+ * getCompletLoadFileName
+ * retourne le nom du fichier avec le path complet
+ * @return string
+ */
+function getCompletLoadFileName() {
+    $uploadfile =  $_FILES ['userfile'] ['name'] ;
+    return $uploadfile;
+}
+
 
 /**
  * put in csv file
@@ -329,15 +369,6 @@ function importCSV($rowFirst = "yes", $firstline = 0) {
 	// return moveFile($tmpFile, $uploadfile);
 }
 
-/**
- * getLoadFileName
- * Retourne le nom du fichier load� (sans le path)
- */
-function getLoadFileName() {
-    //$uploadfile = $uploaddir . basename ( $_FILES ['userfile'] ['name'] );
-    $uploadfile = basename ( $_FILES ['userfile'] ['name'] );
-    return $uploadfile;
-}
 
 /**
  * moveFile
