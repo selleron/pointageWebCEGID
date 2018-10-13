@@ -220,10 +220,12 @@ $FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_FRAIS"]["TD"] = $A
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["ID"]["SIZE"] = 15;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["PROJECT"]["SIZE"] = 50;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["COMMENTAIRE"]["SIZE"] = 100;
-$FORM_STYLE["form_table_cegid_frais_mission_update"]["COUT"]["SIZE"] = $SIZE_COUT;
-$FORM_STYLE["form_table_cegid_frais_mission_update"]["COUT"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["form_table_cegid_frais_mission_update"]["COUT"]["SUFFIX_FIELD"] = "";
-$FORM_STYLE["form_table_cegid_frais_mission_update"]["COUT"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["SIZE"] = $SIZE_COUT;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["SUFFIX_FIELD"] = " &euro;";
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["FORMAT"] = $FORMAT_TARIF;
+
 
 
 //table cegid_pointage

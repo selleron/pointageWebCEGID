@@ -561,6 +561,7 @@ function editTableByGet(/*$table, $cols, $form_name,*/ $subParam = "") {
 
 /**
  * editTable2
+ *Affiche les champs de la table pour pouvoir les editer dans des textfields
  *
 * @param string $table
  *        	table name
@@ -768,6 +769,7 @@ function insertInTableByGet($param) {
 
 /**
  * editTable
+ *Affiche les champs de la table pour pouvoir les editer dans des textfields
  *
  * @param string $table
  *        	nom de la table
@@ -821,10 +823,11 @@ function editTable($table, $cols, $idTable, $form_name, $subParam = "") {
 	// affichage
 	$Resultat = requeteTableData ( $param );
 	echo "<table>";
-	editTableOneData ( $html, $Resultat, 0, $param, $idTable );
+	// -1 car on a qu'une valeur : equi. a 0
+	editTableOneData ( $html, $Resultat, -1, $param, $idTable );
+	//editTableOneData ( $html, $Resultat, 0, $param, $idTable );
 	echo "</table>";
 	
-	// showTableOneData($html, $Resultat, 0, $param);
 }
 
 /**

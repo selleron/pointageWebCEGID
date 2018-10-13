@@ -740,6 +740,14 @@ function getFormStyleTD2($td, $form, $col, $ind=""){
 function getFormStyleSuffix2($suffix, $form, $col, $ind=""){
     global $TRACE_FORM_FIELD_STYLE;
     global $FORM_STYLE;
+    
+    //tracabilité
+    global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
+    if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
+        echoComment("$"."FORM_STYLE"."["."$form"."]["."$col"."][".KEY_INFO::KEY_INFO_TYPE_SUFFIX."]");
+    }
+    
+    //search value
     if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX])){
         return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX];
     }
@@ -749,6 +757,14 @@ function getFormStyleSuffix2($suffix, $form, $col, $ind=""){
 function getFormStyleSuffixField2($suffix, $form, $col, $ind=""){
     global $TRACE_FORM_FIELD_STYLE;
     global $FORM_STYLE;
+    
+    //tracabilité
+    global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
+    if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
+        echoComment("$"."FORM_STYLE"."["."$form"."]["."$col"."][".KEY_INFO::KEY_INFO_TYPE_SUFFIX_FIELD."]");
+    }
+    
+    //search value
     if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX_FIELD])){
         return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SUFFIX_FIELD];
     }
@@ -791,7 +807,8 @@ function mysqlFieldStatus($Resultat, $idx, $param = "") {
 /**
  * 
  * @param array[][] ou sql result $Resultat
- * @param numeric or string $idx : index column or column name * @param string $param
+ * @param numeric or string $idx : index column or column name 
+ * * @param string $param
  * @param request array param $param
  * @return string|unknown
  */

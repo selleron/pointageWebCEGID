@@ -2615,7 +2615,7 @@ function showTableOneData($html, $Resultat, $cpt, $param)
 }
 
 /**
- * insertTableOneData
+ * editTableOneData
  *
  * @param URL $html
  *            la page
@@ -2697,7 +2697,7 @@ function editTableOneData($html, $Resultat, $cpt, $param, $idTable = "")
 
 /**
  * editSqlRow
- *
+ * edit un champ de la table
  * @param
  *            array or Sql request $Resultat
  * @param
@@ -2705,14 +2705,16 @@ function editTableOneData($html, $Resultat, $cpt, $param, $idTable = "")
  * @param integer $cpt
  *            row line
  * @param string $formName
- * @param unknown $idxField
  */
 function editSqlRow($Resultat, $c, $cpt, $formName, $idxField, $param = "")
 {
     if ($idxField < 0) {
         return;
     } else {
-        $value = mysqlResult($Resultat, $cpt, $c);
+        $cpt2 = $cpt;
+        //on traite -1 comme zero, -1 signifie qu'il n'y a qu'un resultat possible
+        if ($cpt2==-1) $cpt2=0;
+        $value = mysqlResult($Resultat, $cpt2, $c);
         //echoTD( "$c($idxField)/$cpt : $value <br>");
         editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, $param);
     }
@@ -2747,6 +2749,7 @@ function editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, 
         $flags = mysqlFieldFlags($Resultat, $idxField);
         $name = mysqlFieldName($Resultat, $idxField);
         $size = getFormStyleSize($Resultat, $param, $idxField);
+        //$suffix = getFormStyleSuffix($Resultat, $param, $r);
         if (!isset($size)) { $size = mysqlFieldTypeSize($Resultat, $idxField);}
         $statusEdit = getFormStyleStatus($Resultat, $param, $idxField);
         //$statusEdit = mysqlFieldStatus($Resultat, $idxField, $param);

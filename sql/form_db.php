@@ -656,8 +656,11 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
 	
 	
 	$suffix = getFormStyleSuffix2("", $formName, $name);
-	$suffix = getFormStyleSuffixField2($suffix, $formName, $name);
-	echo "$suffix";
+	echoComment("showFormTextElementForVariable - found suffix : $suffix" );
+	$suffix2 = getFormStyleSuffixField2($suffix, $formName, $name);
+	echoComment("showFormTextElementForVariable - found suffix : $suffix2" );
+	
+	echo "$suffix2";
 	
 	if ($useTD == "yes") {
 		echo "</td>";
