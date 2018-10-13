@@ -337,20 +337,33 @@ function exportCSVTableGestionPointageProjetCegid($table, $firstColExport="")
 /**
  * convert URL Variable PROJECT to project If Needed
  */
-function convertURLVariablePROJECT_to_projectIfNeeded(){
-    global $PROJECT_SELECTION;
+function convertURLVariablePROJECT_to_projectIfNeeded($checkProjectId = "yes"){
+    //global $PROJECT_SELECTION;
     global $SQL_COL_NAME_PROJECT;
     
-    //verifie que si on a pas "project, on peut etre PROJECT
-    $projectName = getURLVariable($PROJECT_SELECTION);
+    //verifie que si on a pas "project", on a peut etre "PROJECT"
+    $projectName = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION);
     if ($projectName == NULL){
-        $projectName = getURLVariableForRow(strtoupper($PROJECT_SELECTION),0);
+        $projectName = getURLVariableForRow(strtoupper(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION),0);
         if ($projectName != NULL){
             setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
-            setURLVariable($PROJECT_SELECTION, $projectName);
+            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
             //showGet();
         }
     }
+    
+    
+    //conversion idProject to project name si besoin
+    if ($checkProjectId == "yes"){
+        $projectName2 = getProjectNameFromID($projectName);
+        if ($projectName2){
+            $projectName = $projectName2;
+            setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
+            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
+        }
+    }
+    
+    
 }
 
 /**

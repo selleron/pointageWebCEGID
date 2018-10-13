@@ -30,12 +30,15 @@ include_once (dirname ( __FILE__ ) . "/table_db.php");
 include_once (dirname ( __FILE__ ) . "/tool_db.php");
 include_once (dirname ( __FILE__ ) . "/project_db.php");
 
-
+/**
+ * convertDevisToProjectIfNeeded
+ * transforme un devis en projet si necessaire
+ */
 function convertDevisToProjectIfNeeded(){
-    global $PROJECT_SELECTION;
+    //global $PROJECT_SELECTION;
     global $SQL_COL_NAME_PROJECT;
     
-     //verification i on vint pas de devis
+     //verification si on vient pas de devis
      global $FORM_TABLE_CEGID_DEVIS;
     
     $form = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
@@ -60,10 +63,10 @@ function convertDevisToProjectIfNeeded(){
         //showSQLAction("id project found $idProject from devis $idDevis");
         if ($idProject){
             $projectName = getProjectNameFromID($idProject);
-            //showSQLAction("project name found $projectName for $idProject => $PROJECT_SELECTION || $SQL_COL_NAME_PROJECT");
+            //showSQLAction("project name found $projectName for $idProject => FORM_COMBOX_BOX_KEY::PROJECT_SELECTION || $SQL_COL_NAME_PROJECT");
             if ($projectName){
                 setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
-                setURLVariable($PROJECT_SELECTION, $projectName);
+                setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
                 //showGet();
             }
         }
