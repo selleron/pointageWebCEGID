@@ -35,6 +35,9 @@ $FORMAT_CA     = "\$res=numberFormat(\$res,0,'.',' ');";
 $FORMAT_TARIF  = "\$res=numberFormat(\$res,2,'.',' ');";
 $SIZE_UO    =  5;
 $SIZE_COUT  =  7;
+$SIZE_COUT_EURO  =  10;
+$WIDTH_CA_EURO = 50; //size du td ca + €
+$SIZE_COUT_SUM = 8; //plus petit que $SIZE_COUT pour pouvoir ajouter €
 $SIZE_CA    = 10;
 
 //select project Tool Bar
@@ -158,17 +161,20 @@ $FORM_STYLE["form_table_cegid_project_cout_insert"]["COUT"]["FORMAT"] = $FORMAT_
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["SIZE"] = $SIZE_CA;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["SIZE"] = $SIZE_COUT;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["WITDH"] = $WIDTH_CA_EURO;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["FORMAT"] = $FORMAT_TARIF;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["U.O.Pointage"]["SUFFIX"] = " &euro;"; //bug inversion
 //$FORM_STYLE["form_table_cegid_project_cout_insert"]["Total.COUT"]["SUFFIX"] = " &euro;"; //bug inversion
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["TD"] = $ALIGN_RIGHT;
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SIZE"] = $SIZE_CA;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SIZE"] = $SIZE_COUT;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["WITDH"] = $WIDTH_CA_EURO;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["Reel.COUT"]["SUFFIX"] = " &euro;";
 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_UO"]["SIZE"]           = 6;
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SIZE"]   = 5;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SIZE"]   = $SIZE_COUT_SUM;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_U.O.Pointage"]["SIZE"] = 8;
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SIZE"]    = 5;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SIZE"]    = $SIZE_COUT_SUM  ;
 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_UO"]["TD"]           = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["TD"]   = $ALIGN_RIGHT;

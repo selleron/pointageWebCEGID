@@ -20,6 +20,7 @@ class KEY_INFO{
 	const KEY_INFO_TYPE_SUFFIX     = "SUFFIX";
 	const KEY_INFO_TYPE_SUFFIX_FIELD = "SUFFIX_FIELD";
 	const KEY_INFO_TYPE_SIZE       = "SIZE";
+	const KEY_INFO_TYPE_WIDTH      = "WIDTH";
 	const KEY_INFO_TYPE_SIZE_FIELD = "SIZE_FIELD";
 	const KEY_INFO_TYPE_TD         = "TD";
 	const KEY_INFO_TYPE_TD_EVAL    = "TD_EVAL";
@@ -507,6 +508,13 @@ function mysqlFieldTypeSize($Resultat, $idx, $param=NULL) {
 function getFormStyleSize($Resultat, $param, $idx){
     if (isset($param)){
         return getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_SIZE);
+    }
+    return NULL;
+}
+
+function getFormStyleWidth($Resultat, $param, $idx){
+    if (isset($param)){
+        return getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_WIDTH);
     }
     return NULL;
 }

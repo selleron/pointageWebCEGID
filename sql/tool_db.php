@@ -2565,7 +2565,7 @@ function showTableOneData($html, $Resultat, $cpt, $param)
         
         //determination taille cellule
          $sizehtml="";
-         $size = getFormStyleSize($Resultat, $param, $r);
+         $size = getFormStyleWidth($Resultat, $param, $r);
          if (isset($size)){
              $sizehtml="width='$size'";
          }
