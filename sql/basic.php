@@ -300,6 +300,18 @@ function echoTD($txt, $useTD="yes") {
 }
 
 /**
+ * getHtmlUrl
+ * @param url $url
+ * @param string $titre
+ * @return string html link
+ */
+function getHtmlUrl($url, $titre , $suffix){
+  $link="<a href=\"$url\" > $titre $suffix </a>";
+  
+  return $link;
+}
+
+/**
  * echo comment html
  * @param String $txt
  */

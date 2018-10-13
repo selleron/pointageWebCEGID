@@ -95,6 +95,33 @@ function actionStockTemporaryFile( $oldpath="", $newpath=""){
 	return -1;
 }
 
+/**
+ * pathToURL
+ * @param String $path
+ * @return string URL
+ */
+function pathToURL($path){
+    global $PATH_ROOT_DIRECTORY;
+    global $URL_ROOT_POINTAGE;
+    $url = str_replace($PATH_ROOT_DIRECTORY, $URL_ROOT_POINTAGE, $path);
+    
+    return $url;
+}
+
+/**
+ * getUrlTelechargement
+ * @param String path $link
+ * @param String $titre
+ * @return HTML
+ */
+function getUrlTelechargement($link, $titre){
+    global $URL_IMAGES;
+    $img = "<img src=\"$URL_IMAGES/menu_telechargement.png\"";
+    $url = pathToURL($link);
+    $result = getHtmlUrl($url,$titre, $img);
+
+    return $result;
+}
 
 /**
  * actionStockFiles

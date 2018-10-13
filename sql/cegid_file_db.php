@@ -18,11 +18,12 @@ $SQL_COL_COMMENTAIRE_CEGID_FILE    = "COMMENTAIRE";
 global $SQL_COL_ID_FILE;
 global $SQL_COL_TITLE_FILE;
 global $SQL_COL_VERSION_FILE;
+global $SQL_COL_LINK_FILE;
 
 
 $SQL_SHOW_COL_CEGID_FILE      = "   $SQL_COL_ID_CEGID_FILE,    $SQL_COL_REFERENCE_CEGID_FILE, $SQL_COL_CODE_CEGID_FILE,                           $SQL_COL_FILE_CEGID_FILE, $SQL_COL_VERSION_CEGID_FILE, $SQL_COL_COMMENTAIRE_CEGID_FILE";
-$SQL_SHOW_COL_CEGID_FILE2     = "   $SQL_COL_ID_CEGID_FILE,    $SQL_COL_REFERENCE_CEGID_FILE, $SQL_COL_CODE_CEGID_FILE,   $SQL_COL_TITLE_FILE,    $SQL_COL_FILE_CEGID_FILE,    $SQL_COL_VERSION_CEGID_FILE,    $SQL_COL_COMMENTAIRE_CEGID_FILE";
-$SQL_SELECT_COL_CEGID_FILE2   = "cf.$SQL_COL_ID_CEGID_FILE, cf.$SQL_COL_REFERENCE_CEGID_FILE, $SQL_COL_CODE_CEGID_FILE, f.$SQL_COL_TITLE_FILE, cf.$SQL_COL_FILE_CEGID_FILE, cf.$SQL_COL_VERSION_CEGID_FILE, cf.$SQL_COL_COMMENTAIRE_CEGID_FILE";
+$SQL_SHOW_COL_CEGID_FILE2     = "   $SQL_COL_ID_CEGID_FILE,    $SQL_COL_REFERENCE_CEGID_FILE, $SQL_COL_CODE_CEGID_FILE,   $SQL_COL_TITLE_FILE,    $SQL_COL_FILE_CEGID_FILE,    $SQL_COL_VERSION_CEGID_FILE,    $SQL_COL_COMMENTAIRE_CEGID_FILE ,   $SQL_COL_LINK_FILE";
+$SQL_SELECT_COL_CEGID_FILE2   = "cf.$SQL_COL_ID_CEGID_FILE, cf.$SQL_COL_REFERENCE_CEGID_FILE, $SQL_COL_CODE_CEGID_FILE, f.$SQL_COL_TITLE_FILE, cf.$SQL_COL_FILE_CEGID_FILE, cf.$SQL_COL_VERSION_CEGID_FILE, cf.$SQL_COL_COMMENTAIRE_CEGID_FILE , f.$SQL_COL_LINK_FILE";
 
 $SQL_CONDITION_CEGID_FILE2 = "cf.$SQL_COL_FILE_CEGID_FILE=f.$SQL_COL_ID_FILE AND (cf.$SQL_COL_VERSION_CEGID_FILE=0 OR cf.$SQL_COL_VERSION_CEGID_FILE=f.$SQL_COL_VERSION_FILE)";
 
@@ -211,8 +212,41 @@ function showTableCEGID_FILE($condition2="") {
 	$request=createRequeteTableData($param);
 	showSQLAction($request);
 	
+	
+	/////////////////////////////////////////////////////////////////////////////////
+	
+	
+	$result = sqlParamToArrayResult($param);
+	$nbRes = mysqlNumrows ( $result );
+
+	
+	//ajout colonne
+	$colUpload = "Télécharger";
+	$param2 = addParamSqlColumn($param, $colUpload);
+	$result = setSQLFlagType ( $result, $colUpload, SQL_TYPE::SQL_STRING );
+	
+	global $SQL_COL_TITLE_FILE;
+	global $SQL_COL_LINK_FILE;
+	
+	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+	    $titre = $result[$SQL_COL_TITLE_FILE][$cpt];
+	    $link = $result[$SQL_COL_LINK_FILE][$cpt];
+	    //$result[$colUpload] [$cpt] = getUrlTelechargement($link,$titre);
+	    $result[$colUpload] [$cpt] = getUrlTelechargement($link,"");
+	}
+	
+	$param2 = removeParamColumn($param2, $SQL_COL_LINK_FILE );
+	showTableHeader ( $param2 );
+	showTableData($param2,"",$result,"yes");
+	
+	/////////////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	
 	//showSQLAction("showTableProject - showTableByParam()");
-	showTableByParam($param);
+	//showTableByParam($param);
 	
 }
 

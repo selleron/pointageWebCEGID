@@ -332,7 +332,7 @@ function mysqlFieldName($resultat, $cpt) {
         if (isset ( $keys [$cpt] )) {
             $name = $keys [$cpt];
         } else {
-            echo "not found index $cpt in keys " . arrayToString ( $keys ) . " <br> ";
+            echo "mysqlFieldName() - not found index $cpt in keys " . arrayToString ( $keys ) . " <br> ";
             return "!!!";
         }
     } else {

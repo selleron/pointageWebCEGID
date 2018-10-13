@@ -593,7 +593,18 @@ function addParamSqlColumn($param, $columnsTxt)
     return $param;
 }
 
+function removeParamColumn($param, $columnsTxt){
+    global $COLUMNS_SUMMARY;
+    
+    $col = arrayToString($param[$COLUMNS_SUMMARY]);
+    $col = str_replace($columnsTxt, "", $col);
+    $col = str_replace(",,", ",", $col);
+    $param[$COLUMNS_SUMMARY] = stringToArray($col);
 
+    //var_dump($param[$COLUMNS_SUMMARY]);
+    
+    return $param;
+}
 
 
 /**
