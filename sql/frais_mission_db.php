@@ -124,7 +124,7 @@ function applyGestionFraisMissionOneProjectForm($subParam=""){
  * prend en compte la selection du projet et de la date
  */
 function showTableFraisMissionOneProject($tablePointage="", $showOnlyOneProject = "yes") {
-    $idBalise="tablePointage_$tablePointage";
+    $idBalise="fraisMission_$tablePointage";
     createHeaderBaliseDiv($idBalise,"<h3>Table frais mission</h3>");
     
     global $TRACE_INFO_PROJECT;
@@ -198,7 +198,7 @@ function showTableFraisMissionOneProject($tablePointage="", $showOnlyOneProject 
 	showSQLAction ( $req );
 	//end trace
 	
-	showTableFraisMission($param, $tablePointage);
+	showTableFraisMission($param);
 	endHeaderBaliseDiv($idBalise);
 }
 
@@ -210,7 +210,7 @@ function showTableFraisMissionOneProject($tablePointage="", $showOnlyOneProject 
  * 
  * @param request param $param can be ""
  */
-function showTableFraisMission($param="", $tablePointage = "") {
+function showTableFraisMission($param="" ) {
 	if ($param == ""){
 		$param = prepareParamShowTableFraisMission ();
 		$req = createRequeteTableData ( $param );
