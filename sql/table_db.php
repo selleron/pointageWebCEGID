@@ -493,11 +493,11 @@ function deleteTableByGet(/*$table, $cols, $form_name,*/  $param, $row=NULL, $tr
 }
 
 /**
- * deleteInTable
+ * deleteInTableByWhere
  *
- * @param unknown $table        	
- * @param unknown $cols        	
- * @param unknown $idTable        	
+ * @param string $table        	
+ * @param string $cols  (separator ,)        	
+ * @param string key of table  $idTable        	
  */
 function deleteInTableByWhere($table, $cols, $values, $trace = "no") {
 	$sql = createSqlDelete ( $table, $cols, $values );
@@ -514,11 +514,11 @@ function deleteInTableByWhere($table, $cols, $values, $trace = "no") {
 }
 
 /**
- * deleteInTable
+ * deleteInTableByID
  *
- * @param unknown $table        	
- * @param unknown $cols        	
- * @param unknown $idTable        	
+ * @param string $table        	
+ * @param string $cols  (separator ,)        	
+ * @param string key of table  $idTable        	
  */
 function deleteInTableByID($table, $colIdx, $idTable, $trace = "no") {
 	$sql = createSqlDelete ( $table, $colIdx, $idTable );
@@ -636,7 +636,7 @@ function updateTableByGet(/*$table, $cols, $form_name,*/ $param, $reedit = "yes"
  * @param string $cols        	
  * @param string $form_name        	
  * @param string $reedit   	yes|no
- * @return 1
+ * @return integer 1
  */
 function updateTableByGet2(/*$table, $cols, $form_name,*/ $param, $reedit = "yes") {
     //if (isset($param) && $param!=""){
@@ -724,11 +724,11 @@ function multiReplaceTableByGet2($table, $cols, $form_name) {
 /**
  * replaceTableByGet
  *
- * @param unknown $table        	
- * @param unknown $columnsString        	
- * @param unknown $form_name        	
+ * @param string $table        	
+ * @param string $columnsString  (separator ,)        	
+ * @param string $form_name        	
  * @param string $cpt        	
- * @param unknown $trace        	
+ * @param string $trace ("yes"/"no")        	
  * @return number
  */
 function replaceTableByGet($table, $columnsString, $form_name, $cpt = "", $trace = "yes") {
@@ -874,11 +874,11 @@ function insertInTable($param) {
 /**
  * prepareshowTable
  *
- * @param unknown $table        	
- * @param unknown $cols        	
- * @param unknown $form_name        	
+ * @param string $table        	
+ * @param string $cols  (separator ,)        	
+ * @param string $form_name        	
  * @param string $condition        	
- * @return structure
+ * @return array multi dimension structure
  */
 function prepareshowTable($table, $cols, $form_name, $condition = "") {
 	$param = createDefaultParamSql ( $table, $cols, $condition );
@@ -900,9 +900,9 @@ function prepareshowTable($table, $cols, $form_name, $condition = "") {
  * prepareshowTable
  * showTableByParam
  *
- * @param unknown $table        	
- * @param unknown $cols        	
- * @param unknown $form_name        	
+ * @param String $table        	
+ * @param string $cols  (separator ,)        	
+ * @param string $form_name        	
  * @param string $condition        	
  */
 function showTable($table, $cols, $form_name, $condition = "") {
@@ -929,7 +929,7 @@ function showTableByParam($param) {
 /**
  * showOnlyInsertTableByParam
  * 
- * @param url $html
+ * @param string url $html
  * @param array result or sql result $Resultat
  * @param sql parameter $param
  * @param array[col name] $value default value

@@ -1269,9 +1269,9 @@ $formName, $conditionPointage, $select = "p.UO")
 /**
  * prepareParam for ShowArrayPointageProjetCegid
  *
- * @param unknown $tableau
- * @param unknown $projectName
- * @param unknown $year
+ * @param array $tableau
+ * @param string $projectName
+ * @param integer $year
  */
 function prepareParamShowArrayPointageProjetCegid($tableau, $projectName, $year, $columnsComplet = "", $userName = "")
 {
@@ -1309,9 +1309,9 @@ function prepareParamShowArrayPointageProjetCegid($tableau, $projectName, $year,
 /**
  * showArrayPointageProjetCegid
  *
- * @param unknown $tableau
- * @param unknown $projectName
- * @param unknown $year
+ * @param array $tableau
+ * @param string $projectName
+ * @param integer $year
  */
 function showArrayPointageProjetCegid($tableau, $projectName, $year, $columnsComplet = "", $userName = "")
 {

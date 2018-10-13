@@ -70,14 +70,11 @@ function getMyCookie($name, $defaultValue = "")
 /**
  * setMyCookie
  * ecrit un cookie sur le disque
- * doit etre appel� avant tout ecriture de la page
+ * doit etre appelé avant tout ecriture de la page
  *
- * @param unknown $name
- *            cookie name
- * @param string $value
- *            value of cookie
- * @param int $days
- *            number of validity days
+ * @param String $name   cookie name
+ * @param string $value  value of cookie
+ * @param int $days      number of validity days
  */
 function setMyCookie($name, $value = "", $days = 10)
 {

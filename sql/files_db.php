@@ -32,7 +32,8 @@ global $DIR_DEPOT;
 /**
  * actionStockFiles
  * stockes les fichiers sous la table files
- * @param $path ou se trouveles fichiers de depart
+ * @param String $path ou se trouve les fichiers de depart (FROM) souvent repertoire tmp
+ * @param String $newpath ou on veut mettre les fichiers  (Depot
  * l'arrive est dans ../stockage
  */
 function actionStockFiles($path="", $newpath=""){
@@ -112,7 +113,7 @@ function pathToURL($path){
  * getUrlTelechargement
  * @param String path $link
  * @param String $titre
- * @return HTML
+ * @return String HTML
  */
 function getUrlTelechargement($link, $titre){
     global $URL_IMAGES;
