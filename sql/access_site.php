@@ -78,7 +78,7 @@ function trace_access_history(){
 
 /**
  * getCounterAcess
- * @param  $ip ip a rechercher. si ip="" alors utilise l'ip du client
+ * @param  string $ip ip a rechercher. si ip="" alors utilise l'ip du client
  */
 function getCounterAcessRequest($ip=""){
 	if ($ip==""){
@@ -103,7 +103,7 @@ function getCounterAcessRequest($ip=""){
 
 /**
  * getCounterAccess
- * @param unknown $Resultat resultat de request
+ * @param array or sql result $Resultat resultat de request
  * @return number 
  */
 function getCounterAccess($Resultat){
@@ -121,8 +121,8 @@ function getCounterAccess($Resultat){
 
 /**
  * getLastDateCountAccess
- * @param unknown $Resultat
- * @return date
+ * @param array or sql result $Resultat
+ * @return String date
  */
 function getLastDateCountAccess($Resultat){
 	global $SQL_COL_DATE_LAST_ACCESS_COUNTER;

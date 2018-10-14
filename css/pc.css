@@ -350,7 +350,7 @@ p, dl, .article li {
 	margin-left:15px;
 }
 .section h3 {
-	background-color:#BBBBFF;
+	background-color:#6c93b7; /*ancienne valeur : #BBBBFF  */
 	color: black;
 	margin:2px;
 	text-align:left;

@@ -2023,9 +2023,9 @@ function showTableData($param, $html = "", $Resultat = "", $closeTable = "yes")
     } else {
         // affiche les rows
         for ($cpt = 0; $cpt < $nbRes; $cpt ++) {
-            echo "<tr>";
+            beginTableRow("",$cpt);
             showTableOneData($html, $Resultat, $cpt, $param);
-            echo "</tr>";
+            endTableRow();
         }
         showTableLineExportCSV($param, $html);
     }

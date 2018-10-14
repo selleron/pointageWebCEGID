@@ -2,7 +2,7 @@
 
 /**
  * suppressCommentMatrice
- * @param unknown $tableau[row][col]
+ * @param array $tableau[row][col]
  */
 function suppressCommentMatrice($tableau,$comment="#"){
 	$nbRow = count( $tableau );
@@ -33,8 +33,8 @@ function suppressCommentMatrice($tableau,$comment="#"){
 
 	/**
 	 * transform array[x][y] to array[y][x]
-	 * @param unknown $tableau
-	 * @return unknown
+	 * @param array $tableau[x][y]
+	 * @return array $array[y][x]
 	 */
 function inverseArray2D( $tableau ){
 	$nb1 = count( $tableau );
@@ -123,7 +123,7 @@ function trimArray($array){
  * arrayToString
  * 
 * @param array of string $array
-* @return string|unknown
+* @return string or NULL (unset)
 */
 function arrayToString( $array, $separator=","){
 	foreach ($array as $a){
@@ -154,7 +154,7 @@ function printArray($array, $prefix=""){
 /**
  * printMatrice
  * use printArray()
- * @param matrice[x][y] $array
+ * @param array $array[x][y]
  */
 function printMatrice($array){
 	$keys = array_keys($array);
@@ -167,8 +167,17 @@ function printMatrice($array){
 /**
  * show begin table header
  * @param string $colorBG color Background "RRGGBB"
+ * par defaut on va cherche global $COLOR_TABLE_HEADER;
  */
-function beginTableHeader($colorBG="#AAAAAA"){
+function beginTableHeader($colorBG=""){
+    global $COLOR_TABLE_HEADER;
+    
+    if ($colorBG == ""){
+        $colorBG= "#AAAAAA";
+        if (isset($COLOR_TABLE_HEADER)){
+            $colorBG=$COLOR_TABLE_HEADER;
+        }
+    }
 	//echo "<thead><tr bgcolor=$colorBG>";// a mettre avec les croll
 	echo "<tr bgcolor=$colorBG>";// a mettre avec les croll
 }
@@ -181,11 +190,29 @@ function endTableHeader(){
 	echo "</tr>";
 }
 
+
 /**
- * show end table row
+ * show begin table row
+ * @param string $rowParam (html)
+ * @param integer $rownum permet dalterner les couleurs de ligne
  */
-function beginTableRow($rowParam=""){
-	echo "<tr $rowParam>";
+function beginTableRow($rowParam="", $rownum=""){
+    global $COLOR_TABLE_ROW_0;
+    global $COLOR_TABLE_ROW_1;
+    $bgColor = "";
+    
+     //gestion des couleur de la ligne
+     if (is_numeric($rownum)){
+         $reste = $rownum % 2;
+         if (($reste == 1) && isset($COLOR_TABLE_ROW_1)){
+             $bgColor = "bgcolor=$COLOR_TABLE_ROW_1";
+         }
+         if (($reste == 0) && isset($COLOR_TABLE_ROW_0)){
+             $bgColor = "bgcolor=$COLOR_TABLE_ROW_0";
+         }
+     }
+ 
+    echo "<tr $bgColor $rowParam>";
 }
 
 /**
@@ -284,7 +311,7 @@ function echoSpace($count=1){
  *
  * @param string $txt
  *        	texte to show
- * @param unknown $useTD
+ * @param string for boolean $useTD
  *        	use balise <td> yes/no
  */
 function echoTD($txt, $useTD="yes") {
@@ -301,7 +328,7 @@ function echoTD($txt, $useTD="yes") {
 
 /**
  * getHtmlUrl
- * @param url $url
+ * @param string url $url
  * @param string $titre
  * @return string html link
  */
