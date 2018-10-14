@@ -618,17 +618,21 @@ function getFormStyleStatus($Resultat, $param, $idxField){
     if ($SHOW_FORM_VARIABLE_STYLE=="yes"){
         echoTD("[\"$key\"]");
     }
-    if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE=="yes"){
+    if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
         $form = getFormStyleArrayName($Resultat, $param, $idx);
     }
     if (isset($style)){
         if(isset($style[$key])){
             $value = $style[$key];
-            echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx"."]"."[\"$key\"] : $value");
+            if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
+                echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx"."]"."[\"$key\"] : $value");
+            }
             return $value;
         }
     }
-    echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx"."]"."[\"$key\"] : not found");
+    if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
+        echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx"."]"."[\"$key\"] : not found");
+    }
     return NULL;
  }
     
@@ -980,7 +984,7 @@ function mysqlFieldFlags($Resultat, $idx) {
  * generer une requete Sql a partir d'une String SQL
  *
  * @param
- *        	txt sql $request
+ *        	string sql $request
  * @return request result
  */
 function mysqlQuery($request) {

@@ -656,10 +656,14 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
 	
 	
 	$suffix = getFormStyleSuffix2("", $formName, $name);
-	echoComment("showFormTextElementForVariable - found suffix : $suffix" );
 	$suffix2 = getFormStyleSuffixField2($suffix, $formName, $name);
-	echoComment("showFormTextElementForVariable - found suffix : $suffix2" );
 	
+	global  $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
+	    
+	if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE=="yes"){
+	   echoComment("showFormTextElementForVariable - found suffix : $suffix" );
+	   echoComment("showFormTextElementForVariable - found suffix : $suffix2" );
+	}
 	echo "$suffix2";
 	
 	if ($useTD == "yes") {
