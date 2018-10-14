@@ -103,5 +103,12 @@ $EXPORT_DECIMAL=",";
 //selection
 $PROJECT_AUTO_COMPLETION="no";
 
+#Couleurs
+//les couleurs des titres H3 sont gérés dans le CSS
+$COLOR_TABLE_HEADER   = "#BDBDBD";            //ouleur des tables header ex "#AAAAAA" ou "#BDBDBD"
+$COLOR_TABLE_ROW_0    = "#FDFDFD";            //couleur des row paire dans les tableaux ex : "#FDFDFD";
+$COLOR_TABLE_ROW_1    = "#E0ECF8";            //couleur des row impaire dans les tableaux ex : "#CEE3F6" ou "#E0ECF8";
+
+
 
 ?>
