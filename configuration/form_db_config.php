@@ -185,6 +185,7 @@ $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["TD"]  
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SUFFIX"] = " &euro;"; 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SUFFIX"]  = " &euro;";
 
+
 //table frais mission
 $FORM_VALUE_POSSIBLE["form_table_cegid_frais_mission_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
 $FORM_VALUE_DEFAULT ["form_table_cegid_frais_mission_insert"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";
@@ -203,11 +204,14 @@ $FORM_VALUE_INSERT ["form_table_cegid_frais_mission_update"]["ID"]["VARIABLE"]="
 
 
 
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["TITRE"]["SIZE"] = 40;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS_EN_LOCAL"]["SIZE"] = 10;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["COMMENTAIRE"]["SIZE"] = 60;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["ID"]["SIZE"] = 15;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["SIZE"] = $SIZE_COUT;
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["WITDH"] = $WIDTH_CA_EURO;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["WIDTH"] = $WIDTH_CA_EURO;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["SUFFIX"] = " &euro;";
-$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["SUFFIX_FIELD"] = "";
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["SUFFIX_FIELD"] = " &euro;";
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["FORMAT"] = $FORMAT_TARIF;
 
@@ -218,9 +222,11 @@ $FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_FRAIS"]["TD"] = $A
 
 
 
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["TITRE"]["SIZE"] = 40;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS_EN_LOCAL"]["SIZE"] = 10;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["ID"]["SIZE"] = 15;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["PROJECT"]["SIZE"] = 50;
-$FORM_STYLE["form_table_cegid_frais_mission_update"]["COMMENTAIRE"]["SIZE"] = 100;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["COMMENTAIRE"]["SIZE"] = 60;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["SIZE"] = $SIZE_COUT;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["SUFFIX_FIELD"] = " &euro;";

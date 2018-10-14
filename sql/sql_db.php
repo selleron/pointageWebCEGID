@@ -620,15 +620,16 @@ function getFormStyleStatus($Resultat, $param, $idxField){
     }
     if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE=="yes"){
         $form = getFormStyleArrayName($Resultat, $param, $idx);
-        echoComment("$"."FORM_STYLE"."["."$form"."]"."[\"$key\"]");
     }
     if (isset($style)){
         if(isset($style[$key])){
             $value = $style[$key];
+            echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx"."]"."[\"$key\"] : $value");
             return $value;
         }
     }
-     return NULL;
+    echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx"."]"."[\"$key\"] : not found");
+    return NULL;
  }
     
 

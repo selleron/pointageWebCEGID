@@ -46,7 +46,6 @@
 	echo"<br/></p>";
 	
 	
-	//applyGestionCoutProject();
 	applyGestionFraisMssionForm();
 	
 	echo "<p>";
@@ -54,7 +53,6 @@
 	echo "<br/></p>";
 	
 	showTableFraisMissionOneProject("", "no"/*showOnlyOneProject*/);
-	//showTableCoutProject();
 ?>
 <br/><br/><br/>
 
