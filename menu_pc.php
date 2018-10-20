@@ -259,7 +259,8 @@ else{
 		echo"
 		<ul>
 		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graphiques</a></li>
-		<li><a title=\"Requetes\"          href=\"$URL_ROOT_POINTAGE/test/testRequetes.php$argument&order=order\">  <img src=\"$URL_IMAGES/version.png\" $menuIconSize >Requetes</a></li>
+		<li><a title=\"Table Requetes\"          href=\"$URL_ROOT_POINTAGE/test/testRequetes.php$argument&order=order\">       <img src=\"$URL_IMAGES/version.png\" $menuIconSize >Requetes Generique</a></li>
+		<li><a title=\"Requetes CEGID\"          href=\"$URL_ROOT_POINTAGE/test/testRequetesCEGID.php$argument&order=order\">  <img src=\"$URL_IMAGES/version.png\" $menuIconSize >Requetes CEGID</a></li>
 		<li><a title=\"Tableaux\"          href=\"$URL_ROOT_POINTAGE/test/testTableaux.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tableaux</a></li>
 		</ul>
 		";

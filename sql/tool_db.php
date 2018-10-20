@@ -2777,11 +2777,11 @@ function editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, 
 /**
  * insertTableOneData
  *
- * @param URL $html
+ * @param String URL $html
  *            la page
  * @param
  *            SQL result $Resultat le resultat de la requete
- * @param structure $param
+ * @param array $param [key][valeur]
  *            structure affichage du row
  * @param
  *            array[column name] $value selected value
@@ -2829,8 +2829,8 @@ function insertTableOneData($html, $Resultat, /*$cpt,*/ $param, $value = "")
 
 /**
  *
- * @param unknown $resultat
- * @param unknown $colName
+ * @param array or object sql result $resultat
+ * @param string $colName
  * @return number
  */
 function getSQLIndexFromName($resultat, $colName)
@@ -2904,7 +2904,7 @@ function createHeaderBaliseDivVisibility($idBalise, $visibility)
  */
 function endHeaderBaliseDiv($idBalise)
 {
-    echo "</div> <!-- close div $idBalise -->";
+    echo "</div id=\"$idBalise\" > <!-- close div $idBalise -->";
 }
 
 // ///////////////////////////////////// tablette PC /////////////////////////////////////////////////

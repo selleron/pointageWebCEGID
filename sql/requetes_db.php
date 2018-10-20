@@ -20,6 +20,8 @@ function actionRequete( $html=""){
 	//echo "action : $action ...................<br>";
 	if ($action=="executeRequest"){
 		$idRequete = getDocumentName();
+		$description = getDescriptionRequeteByID($idRequete);
+		echo "<p>Description : $description</p>";
 		actionExecuteRequeteParID($idRequete, $html);
 	}
 	else if ($action=="testRequest"){
@@ -32,6 +34,8 @@ function actionRequete( $html=""){
 	}
 	else if ($action=="editRequest"){
 		$idRequete = getDocumentName();
+		$description = getDescriptionRequeteByID($idRequete);
+		echo "<p>Description : $description</p>";
 		actionEditRequeteParID($idRequete, $html);
 	}
 	else if ($action=="deleteRequest"){
@@ -187,7 +191,7 @@ function getRequeteByID($idRequete, $table=""){
  * getArrayRequete
  * cree un tableau (cle , valeur) de la table des requetes
  * @param String $table request table (not NULL)
- * @return data[SQL_COL_REQUETES_ID => SQL_COL_REQUETES_SQL_REQUEST ]
+ * @return array data[SQL_COL_REQUETES_ID => SQL_COL_REQUETES_SQL_REQUEST ]
  */
 function getArrayRequete($table){
     global $SQL_COL_REQUETES_ID;
@@ -292,10 +296,10 @@ function actionRequeteSql($request, $html="", $subParam="", $closeTable=""){
 
 /**
  * showFormulaireRequete
- * Affiche un formulaire pour executer la requete design�e par son id
- * une requete Sql est execut�e
- * @param String $idRequete  sql id de la table requetes : peut etre � ""
- * @param URL $html : peut etre a "" 
+ * Affiche un formulaire pour executer la requete designée par son id
+ * une requete Sql est executée
+ * @param String $idRequete  sql id de la table requetes : peut etre à ""
+ * @param String URL $html : peut etre a "" 
  */
 function showFormulaireRequete($idRequete="", $html=""){
 	global $SQL_TABLE_REQUETES;
@@ -329,11 +333,11 @@ function showFormulaireRequete($idRequete="", $html=""){
 	
 /**
  * showFormulaireRequete
- * Affiche un formulaire pour executer la requete design�e par son id et son id
+ * Affiche un formulaire pour executer la requete designée par son id et son id
  * <name> [execute]
- * @param unknown $idRequete
- * @param unknown $name
- * @param unknown $html   peut etre ""
+ * @param string $idRequete
+ * @param string $name
+ * @param string url $html   peut etre ""
  */
 function showFormulaireRequeteByName($idRequete, $name, $html=""){
 	if (!isset($html) || $html==""){

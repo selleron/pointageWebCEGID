@@ -6,11 +6,11 @@ $SQL_COL_HISTORY_COMMENT = "HISTORY_COMMENT";
 
 /**
  * retoreTable
- * @param sting $table
+ * @param string $table
  * @param string $table_historique
  * @param string $columns
  * @param string $condition
- * @return boolean|request
+ * @return boolean| object sql result
  */
 function restoreTable($table, $table_historique = "", $columns, $condition="") {
     global $SQL_COL_HISTORY; 
@@ -48,14 +48,14 @@ function restoreTable($table, $table_historique = "", $columns, $condition="") {
 /**
  * historisationTable
  *
- * @param $table able
+ * @param $table table
  *        	de depart
  * @param $table_historique table
  *        	a modifier
  * @param $columns colonne
  *        	a copier "cc1, cc2, cc3"
- * @param $condition condition
- *        	derriere le WHERE
+ * @param $condition 
+ *  condition  	derriere le WHERE
  */
 function historisationTable($table, $table_historique = "", $columns, $condition) {
 	//showAction("historisationTable() historisation table  ");	
@@ -84,7 +84,7 @@ function historisationTable($table, $table_historique = "", $columns, $condition
 /**
  * createTableHistorique
  * 
- * @param unknown $table        	
+ * @param string $table        	
  * @param string $historique        	
  */
 function createTableHistorique($table, $historique = "") {

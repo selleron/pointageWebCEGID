@@ -2,26 +2,28 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 
 <head>
-  <title> Table Requests </title>
+  <title> CEGID Requests </title>
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/member_db.php");// lien croise avec tool_db.php
     include_once("../sql/connection_db.php"); 
-	include_once("../sql/requetes_db.php");
+    include_once("../sql/tool_db.php");
+    include_once("../sql/requetes_db.php");
+    include_once("../sql/pointage_cegid_db.php");
 	testMember();
 	?>
 </head>
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Table Requests</h1>
+  <h1>Serveur Web Pointage : CEGID Requests</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Tests Table Requests");
+	showBandeauHeaderPage("Tests Requests CEGID");
 	?>
   
 
@@ -32,9 +34,26 @@
 
 <?php
 	echo "<br/>";
+
+	echo "<p>CA Actuel Clos<br/></p>";
+	showTracePOST();
+	
+	echo"<p>";
+	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
+	echo"<br/></p>";
+	
+	
+	
+	//ici on change la table par defaut requetes => requetes_cegid
+	global $SQL_TABLE_REQUETES;
+	$SQL_TABLE_REQUETES="cegid_requetes";
+	
+	//traitement des actions
+	//createHeaderBaliseDiv("ActionRequeteCEGID","<h3>Resultat requete</h3>");
 	actionRequete();
+	//endHeaderBaliseDiv("ActionRequeteCEGID");
 	echo "<br/><br/><br/>";
-	echo "<p>Requetes enregistr&eacute;es : <br/></p>";
+	//echo "<p>Requetes enregistr&eacute;es : <br/></p>";
 	showFormulaireRequete();
 	?>
 <br/><br/><br/>

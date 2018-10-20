@@ -222,7 +222,7 @@ function UOReportable(){
  * historisationCout
  * 
  * @param string $condition
- * @return request
+ * @return boolean| object sql result
  */
 function historisationCout($condition=""){
     global $TRACE_CLOTURE;
@@ -236,9 +236,9 @@ function historisationCout($condition=""){
 
 /**
  * restoreCout
- * restoration � la derniere date ou suivant la condition
+ * restoration à la derniere date ou suivant la condition
  * @param string $condition
- * @return request or boolean
+ * @return object sql result or boolean
  */
 function restoreCout($condition=""){
     global $TRACE_CLOTURE;

@@ -87,7 +87,7 @@ function mysqlRowsCount($Resultat){
 
 /**
  * mysqlBeginTransaction
- * @return request
+ * @return boolean| object sql result
  */
 function mysqlBeginTransaction(){
     $request = "START TRANSACTION";
@@ -97,7 +97,7 @@ function mysqlBeginTransaction(){
 
 /**
  * mysqlCommit
- * @return request
+ * @return object sql result
  */
 function mysqlCommit(){
     $request = "Commit";
@@ -107,7 +107,7 @@ function mysqlCommit(){
 
 /**
  * mysqlRollback
- * @return request
+ * @return boolean| object sql result
  */
 function mysqlRollback(){
     $request = "Rollback";
@@ -123,7 +123,7 @@ function mysqlRollback(){
  *        	row line
  * @param
  *        	integer index position or name $c colum index
- * @return data : result
+ * @return boolean| object sql result
  */
 function mysqlResult($Resultat, $cpt, $c, $defaultValue = "") {
 	if (is_array ( $Resultat )) {
@@ -304,9 +304,9 @@ function arrayKeys($resultat) {
 }
 
 /**
- *
- * @param unknown $resultat        	
- * @param unknown $row        	
+ * mysqlNumFields
+ * retourne le nmbre de champs
+ * @param $resultat  array ou sql result      	
  * @return number
  */
 function mysqlNumFields($resultat) {
@@ -985,7 +985,7 @@ function mysqlFieldFlags($Resultat, $idx) {
  *
  * @param
  *        	string sql $request
- * @return request result
+ * @return object sql result
  */
 function mysqlQuery($request) {
     global $CONNECTION_ID;
