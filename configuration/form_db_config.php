@@ -42,7 +42,7 @@ $SIZE_CA    = 10;
 
 //select project Tool Bar
 $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["NAME"] = $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT;
-$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["year"] = "select distinct year(DATE) from cegid_pointage order by DATE";
+$FORM_VALUE_POSSIBLE["form_select_project_pointage"]["year"] = "select distinct year(DATE) from cegid_pointage_previsionnel order by DATE";
 $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["user"] = "$SELECT_NAME_FROM_CEGID_USER order by NAME";
 
 
