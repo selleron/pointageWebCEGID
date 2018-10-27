@@ -28,6 +28,10 @@ ALTER TABLE `cegid_user`
   ADD `GROUPE` VARCHAR(30) NULL AFTER `TEL2`;
 
 
+ALTER TABLE `cegid_devis_project` 
+  ADD `CLIENT` VARCHAR(30) NULL AFTER `MODIFICATION`,
+  ADD `SOCIETE` VARCHAR(30) NULL AFTER `CLIENT`;
+  
 --
 -- Declaration Modification
 --
@@ -35,8 +39,8 @@ ALTER TABLE `cegid_user`
 UPDATE `version` SET `DATE` = '2018-10-27 00:00:00', `value` = '0.34.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.33_vers_0.34', '101', '2018-10-27 00:00:00', 'modification table user et devis', '0.34.0');
 
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.28.15 vers_0.1.28.16', '200', '2018-10-27 00:00:00', 'pris en compte evolution user et devis', '0.1.28.16');
-UPDATE `version` SET `DATE` = '2018-10-27 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.16' WHERE `version`.`id` = 'php';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.28.15 vers_0.1.28.17', '200', '2018-10-27 00:00:00', 'pris en compte evolution user et devis', '0.1.28.16');
+UPDATE `version` SET `DATE` = '2018-10-27 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.17' WHERE `version`.`id` = 'php';
 
 
 COMMIT;
