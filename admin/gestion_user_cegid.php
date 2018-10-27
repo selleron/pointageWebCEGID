@@ -35,6 +35,7 @@
 
 <?php
 	echo "<p>Gestion des users CEGID.<br/></p>";
+	showTracePOST();
 	
     //gestion des actions sur les utilisateurs
 	applyGestionUserCEGID(); 

@@ -73,7 +73,8 @@ INSERT INTO `cegid_societe_client` (`ID`, `NAME`, `ORDRE`) VALUES('TOTAL Learnin
 INSERT INTO `cegid_societe_client` (`ID`, `NAME`, `ORDRE`) VALUES('TOTAL S.A.', 'TOTAL S.A.', 0);
 INSERT INTO `cegid_societe_client` (`ID`, `NAME`, `ORDRE`) VALUES('VAREL', 'VAREL Europe', 0);
  
-  
+
+
   
 --
 -- Declaration Modification

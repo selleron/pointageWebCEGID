@@ -34,6 +34,7 @@
 
 <?php
 	echo "<p>Gestion des Clients.<br/></p>";
+	showTracePOST();
 	
 	applyGestionSocieteClient(); 
 

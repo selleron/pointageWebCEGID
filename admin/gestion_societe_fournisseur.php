@@ -34,6 +34,7 @@
 
 <?php
 	echo "<p>Gestion des Fournisseurs.<br/></p>";
+	showTracePOST();
 	
 	applyGestionSocieteFournisseur(); 
 
