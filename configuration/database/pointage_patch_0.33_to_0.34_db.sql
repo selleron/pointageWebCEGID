@@ -30,7 +30,50 @@ ALTER TABLE `cegid_user`
 
 ALTER TABLE `cegid_devis_project` 
   ADD `CLIENT` VARCHAR(30) NULL AFTER `MODIFICATION`,
-  ADD `SOCIETE` VARCHAR(30) NULL AFTER `CLIENT`;
+  ADD `SOCIETE` VARCHAR(15) NULL AFTER `CLIENT`;
+  
+  
+  
+  
+ --
+ -- societe fournisseur
+ --
+ 
+
+CREATE TABLE `cegid_societe_fournisseur` (
+  `ID` varchar(15) NOT NULL,
+  `NAME` varchar(100) NOT NULL,
+  `ORDRE` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `cegid_societe_fournisseur`
+  ADD PRIMARY KEY (`ID`);
+  
+INSERT INTO `cegid_societe_fournisseur`(`ID`, `NAME`, `ORDRE`) select SOCIETE, SOCIETE, NULL from cegid_user group by SOCIETE;
+
+ --
+ -- societe client
+ --
+  
+CREATE TABLE `cegid_societe_client` (
+  `ID` varchar(15) NOT NULL,
+  `NAME` varchar(100) NOT NULL,
+  `ORDRE` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+ALTER TABLE `cegid_societe_client`
+  ADD PRIMARY KEY (`ID`);
+
+  
+INSERT INTO `cegid_societe_client` (`ID`, `NAME`, `ORDRE`) VALUES('CAPGEMINI', 'Capgemini', 0);
+INSERT INTO `cegid_societe_client` (`ID`, `NAME`, `ORDRE`) VALUES('TOTAL AMERICA', 'TOTAL AMERICA', 0);
+INSERT INTO `cegid_societe_client` (`ID`, `NAME`, `ORDRE`) VALUES('TOTAL Learning ', 'TOTAL Learning Service', 0);
+INSERT INTO `cegid_societe_client` (`ID`, `NAME`, `ORDRE`) VALUES('TOTAL S.A.', 'TOTAL S.A.', 0);
+INSERT INTO `cegid_societe_client` (`ID`, `NAME`, `ORDRE`) VALUES('VAREL', 'VAREL Europe', 0);
+ 
+  
   
 --
 -- Declaration Modification
@@ -39,8 +82,8 @@ ALTER TABLE `cegid_devis_project`
 UPDATE `version` SET `DATE` = '2018-10-27 00:00:00', `value` = '0.34.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.33_vers_0.34', '101', '2018-10-27 00:00:00', 'modification table user et devis', '0.34.0');
 
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.28.15 vers_0.1.28.17', '200', '2018-10-27 00:00:00', 'pris en compte evolution user et devis', '0.1.28.16');
-UPDATE `version` SET `DATE` = '2018-10-27 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.17' WHERE `version`.`id` = 'php';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.28.15 vers_0.1.28.18', '200', '2018-10-27 00:00:00', 'pris en compte evolution user et devis', '0.1.28.16');
+UPDATE `version` SET `DATE` = '2018-10-27 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.18' WHERE `version`.`id` = 'php';
 
 
 COMMIT;

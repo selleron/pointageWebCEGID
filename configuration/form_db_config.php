@@ -92,6 +92,7 @@ $FORM_STYLE[form_table_cegid_user_update]["EMAIL2"]["SIZE"] = "100";
 $FORM_STYLE[form_table_cegid_user_update]["TEL1"]["SIZE"] = "20";
 $FORM_STYLE[form_table_cegid_user_update]["TEL2"]["SIZE"] = "20";
 
+
 //table cegid_devis
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["CEGID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS_DEVIS"]="select ID from cegid_status_devis order by ORDRE";
@@ -276,6 +277,8 @@ $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["PROJECT"]["SQL"]="sele
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["PROJECT"]["VARIABLE"]="PROJECT_ID";
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["NAME"]["SQL"]="select NAME from cegid_user  WHERE ID=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["NAME"]["VARIABLE"]="USER_ID";
+
+
 //form project cout
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"] ["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 
@@ -330,6 +333,24 @@ $FORM_STYLE ["form_table_file_code_insert"]["ID"]["SIZE"]=15;
 $FORM_STYLE ["form_table_file_code_insert"]["NAME"]["SIZE"]=50;
 
 
+//societe client
+$FORM_STYLE["form_cegid_societe_client_insert"]["ID"]["WIDTH"]   = "30";
+$FORM_STYLE["form_cegid_societe_client_insert"]["NAME"]["WIDTH"] = "70";
+$FORM_STYLE["form_cegid_societe_client_insert"]["ID"]["SIZE"]   = "30";
+$FORM_STYLE["form_cegid_societe_client_insert"]["NAME"]["SIZE"] = "70";
+
+$FORM_STYLE["form_cegid_societe_client_update"]["ID"]["SIZE"]   = "30";
+$FORM_STYLE["form_cegid_societe_client_update"]["NAME"]["SIZE"] = "70";
+
+
+//societe fournisseur
+$FORM_STYLE["form_cegid_societe_fournisseur_insert"]["ID"]["WIDTH"]   = "30";
+$FORM_STYLE["form_cegid_societe_fournisseur_insert"]["NAME"]["WIDTH"] = "70";
+$FORM_STYLE["form_cegid_societe_fournisseur_insert"]["ID"]["SIZE"]   = "30";
+$FORM_STYLE["form_cegid_societe_fournisseur_insert"]["NAME"]["SIZE"] = "70";
+
+$FORM_STYLE["form_cegid_societe_fournisseur_update"]["ID"]["SIZE"]   = "30";
+$FORM_STYLE["form_cegid_societe_fournisseur_update"]["NAME"]["SIZE"] = "70";
 
 
 

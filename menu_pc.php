@@ -147,6 +147,19 @@ else{
 	    echo "</div>";
 	    
 	    
+	    $urlclient        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_societe_client.php$argument");
+	    $urlfournisseur   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_societe_fournisseur.php$argument");
+	    createHeaderBaliseDiv("id_div_societe","<h3>Gestion Societes</h3>");
+	    echo "
+		<ul>
+		<li><ul>
+        <li><a title=\"Gestion Fournisseurs\" href=\"$urlfournisseur\"> 	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Fournisseurs</a></li>
+		<li><a title=\"Gestion Clients\"      href=\"$urlclient\">       	 <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Clients</a></li>
+		</ul></li>
+		</ul>";
+	    echo "</div>";
+	    
+	    
 	    echo"
 		<ul>
 		<li><a title=\"Gestion Profils\" href=\"$urlprofils\"> 	             <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Gestion Profils</a></li>
