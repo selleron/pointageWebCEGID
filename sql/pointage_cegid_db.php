@@ -373,7 +373,7 @@ function convertURLVariablePROJECT_to_projectIfNeeded($checkProjectId = "yes"){
  */
 function applyNextPreviousSelectPointage()
 {
-    global $SHOW_COMPLETION_REQUEST;
+    global $TRACE_NEXT_PREVIOUS;
     global $CONDITION_FROM_CEGID_PROJECT;
     
     $col = "";
@@ -419,7 +419,7 @@ function applyNextPreviousSelectPointage()
         $currentProject = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION);
         
         $sql = createRequeteTableData($param);
-        showActionVariable("next/previous : $sql", $SHOW_COMPLETION_REQUEST);
+        showActionVariable("next/previous : $sql", $TRACE_NEXT_PREVIOUS);
         $Resultat = requeteTableData($param);
         $nbRes = mysqlNumrows($Resultat);
         // showSQLAction("nb project : $nbRes");

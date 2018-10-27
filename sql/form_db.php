@@ -61,8 +61,8 @@ class SQL_TYPE_CODE {
 /**
  * createForm
  *
- * @param url $url        	
- * @param id $form_name        	
+ * @param string  $url url        	
+ * @param string $form_name id        	
  */
 function createForm($url, $form_name = "") {
 	echo "<form ";
@@ -85,7 +85,7 @@ function endForm() {
 /**
  * showMiniForm
  *
- * @param url $url        	
+ * @param string $url        	
  * @param string $formname        	
  * @param string $action        	
  * @param string $txt        	
@@ -114,12 +114,12 @@ function showMiniForm($url, $formname, $action, $txt, $id, $useTD = "yes", $info
 /**
  * showMiniFormArray
  *
- * @param unknown $url        	
- * @param unknown $formname        	
- * @param unknown $action        	
- * @param unknown $txt        	
- * @param unknown $arrayKeys        	
- * @param unknown $arrayValues        	
+ * @param string $url        	
+ * @param string $formname        	
+ * @param string $action        	
+ * @param string $txt        	
+ * @param array $arrayKeys        	
+ * @param array $arrayValues        	
  * @param string $useTD        	
  */
 function showMiniFormArray($url, $formname, $action, $txt, $arrayKeys, $arrayValues, $useTD = "yes", $infoForm) {
@@ -828,12 +828,12 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 
 /**
  * showFormComboBoxSql2 combobox avec completion
- * @param unknown $formName
- * @param unknown $name
- * @param unknown $Request
- * @param unknown $sql_col
- * @param unknown $useTD
- * @param unknown $current_selection
+ * @param string $formName
+ * @param string $name
+ * @param string $Request
+ * @param string $sql_col
+ * @param string $useTD  "yes"/"no"
+ * @param string $current_selection
  * @param string $enabledStatus
  */
 function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $useTD, $current_selection, $enabledStatus = "enabled") {
