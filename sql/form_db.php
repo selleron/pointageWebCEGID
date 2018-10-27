@@ -181,8 +181,8 @@ function showFormAction($action) {
 /**
  * showFormHidden
  *
- * @param unknown $name        	
- * @param unknown $value        	
+ * @param string $name        	
+ * @param string $value        	
  */
 function showFormHidden($name, $value) {
 	$txt = streamFormHidden ( $name, $value );
@@ -194,9 +194,9 @@ function showFormHidden($name, $value) {
 /**
  * streamFormHidden
  *
- * @param unknown $name        	
- * @param unknown $value        	
- * @return string
+ * @param string $name        	
+ * @param string $value        	
+ * @return string html input
  */
 function streamFormHidden($name, $value) {
 	$txt = "<INPUT TYPE=\"hidden\"   NAME=\"$name\" VALUE=\"$value\">";
@@ -294,8 +294,8 @@ function hasSqlDefaultValueFormColumn($form, $name) {
 /**
  * hasSqlDefaultValueFormVariable
  *
- * @param unknown $form        	
- * @param unknown $name        	
+ * @param string $form        	
+ * @param string $name        	
  */
 function hasSqlDefaultValueFormVariable($form, $name) {
 	global $FORM_VALUE_DEFAULT;
@@ -322,9 +322,9 @@ function getSqlDefaultValueFormColumn($form, $name) {
 
 /**
  *
- * @param unknown $form        	
- * @param unknown $name        	
- * @return unknown
+ * @param string $form        	
+ * @param string $name        	
+ * @return boolean | object result
  */
 function getResultSqlDefaultValueFormColumn($form, $name) {
 	$request = getSqlDefaultValueFormColumn ( $form, $name );
@@ -344,13 +344,10 @@ function getResultSqlDefaultValueFormColumn($form, $name) {
 /**
  * showFieldForm1
  *
- * @param unknown $form
- *        	nom de la forme
- * @param unknown $name
- *        	nom du champs
- * @param unknown $type
- *        	type du champs (entier,reel,string, date, ...)
- * @param unknown $flags        	
+ * @param string $form     	nom de la forme
+ * @param string $name     	nom du champs
+ * @param string $type    	type du champs (entier,reel,string, date, ...)
+ * @param string $flags        	
  * @param string $showLabel        	
  * @param string $useTD        	
  * @param string $value        	
@@ -449,7 +446,7 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
  * showFormPrimary
  *
  * @param string $formName        	
- * @param unknown $name        	
+ * @param string $name        	
  * @param string $showType        	
  * @param string $useTD        	
  * @param string $value        	
@@ -468,8 +465,7 @@ function showFormPrimary($formName = "form", $name, $showType = "yes", $useTD = 
 /**
  * isAutoIncrementFlag
  *
- * @param unknown $flag
- *        	flag SQL
+ * @param string $flag      	flag SQL
  * @return boolean
  */
 function isAutoIncrementFlag($flags) {
@@ -482,7 +478,7 @@ function isForeignerKeyFlag($flags) {
 /**
  * le chane est il obligatoire
  *
- * @param unknown $flags        	
+ * @param string $flags        	
  * @return boolean
  */
 function isNotNUllFlag($flags) {
@@ -507,10 +503,8 @@ function isPrimaryKeyFlag($flags) {
  * - texte field
  * - bouton calendrier
  *
- * @param $formName nom
- *        	de la form
- * @param $showLabel yes/no
- *        	default yes
+ * @param string $formName nom	de la form
+ * @param $showLabel yes/no     	default yes
  */
 function showFormDateElement($formName = "form", $showLabel = "yes") {
 	global $DATE_GET;
@@ -524,15 +518,11 @@ function showFormDateElement($formName = "form", $showLabel = "yes") {
  * - texte field
  * - bouton calendrier
  *
- * @param $formName nom
- *        	de la form
- * @param $DATE_GET la
- *        	variable de stockage
- * @param $showLabel yes/no        	
- * @param $useTD yes/no
- *        	default yes
- * @param string $date
- *        	date par defaut
+ * @param string$formName nom    	de la form
+ * @param string $DATE_GET la	variable de stockage
+ * @param string $showLabel yes/no        	
+ * @param string $useTD yes/no       	default yes
+ * @param string $date      	date par defaut
  */
 function showFormDateElementForVariable($formName = "form", $DATE_GET, 
 		$showLabel = "yes", $useTD = "yes", $date = "", $size = "", $statusEdit = "enabled", $label="date") {
@@ -563,15 +553,12 @@ function showFormDateElementForVariable($formName = "form", $DATE_GET,
 /**
  * show element get float / double
  *
- * @param $formName nom
+ * @param string $formName nom
  *        	de la form
- * @param $name la
- *        	variable de stockage
- * @param $showLabel yes/no        	
- * @param $useTD yes/no
- *        	default yes
- * @param $value default
- *        	value
+ * @param string $name la	variable de stockage
+ * @param string $showLabel yes/no        	
+ * @param string $useTD yes/no        	default yes
+ * @param string$value default     	value
  */
 function showFormRealElementForVariable($formName = "form", $name, $showLabel = "yes", $useTD = "yes", $value = "", $size = "", $statusEdit, $other) {
 	showFormTextElementForVariable ( $formName, $name, $showLabel, $useTD, $value, "", $size, $statusEdit , $other);
@@ -581,7 +568,7 @@ function showFormRealElementForVariable($formName = "form", $name, $showLabel = 
  * showFormINTElementForVariable
  *
  * @param string $formName        	
- * @param unknown $name        	
+ * @param string $name        	
  * @param string $showLabel        	
  * @param string $useTD        	
  * @param string $value        	
@@ -675,7 +662,7 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
  * showFormAreaElementForVariable
  * use test area
  * @param string $formName
- * @param unknown $name
+ * @param string $name
  * @param string $showType
  * @param string $useTD
  * @param string $value
@@ -760,8 +747,7 @@ function prepareFlagStatus($enabledStatus = "enabled") {
  *        	sql table name
  * @param string $sql_col
  *        	sql column name
- * @param $useTD use
- *        	<td> "yes/no"
+ * @param string $useTD use     	<td> "yes/no"
  * @param string $current_selection
  *        	current selection in combobox
  */
