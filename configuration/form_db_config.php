@@ -22,6 +22,8 @@ $SELECT_NAME_FROM_CEGID_USER                = "$SELECT_NAME_FROM_CEGID_USER_NO_F
 $SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED  = "select NAME from cegid_project";
 $SELECT_NAME_FROM_CEGID_PROJECT             = "select NAME from cegid_project WHERE $CONDITION_FROM_CEGID_PROJECT";
 $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT     = "select '[all]' as NAME union ($SELECT_NAME_FROM_CEGID_PROJECT)";
+$SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT      = "select NAME from cegid_societe_client order by NAME";
+$SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR = "select NAME from cegid_societe_fournisseur order by NAME";
 $SELECT_ID_FROM_CEGID_STATUS_VISIBLE        = "select ID from cegid_status_visible";
 
 //formatage
@@ -82,8 +84,8 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from c
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
-$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["SOCIETE"]="select NAME from cegid_societe_fournisseur order by NAME";
-$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["SOCIETE"]="select NAME from cegid_societe_fournisseur order by NAME";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR;
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR;
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["VISIBLE"]["DEFAULT"]="Visible";
@@ -106,7 +108,7 @@ $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS_COMMANDE"]="select
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["VERSION"]="select \"1.0\"";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_INSERT ["form_table_cegid_devis_insert"]["VISIBLE"]["DEFAULT"]="Visible";
-$FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["SOCIETE"]="select NAME from cegid_societe_client order by NAME";
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT;
 
 
 $FORM_STYLE         ["form_table_cegid_devis_insert"]["NAME"]["SIZE"]=50;
@@ -119,7 +121,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_DEVIS"]="select ID
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_CEGID"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["STATUS_COMMANDE"]="select ID from cegid_status_commande order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
-$FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["SOCIETE"]="select NAME from cegid_societe_client order by NAME";
+$FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT;
 
 $FORM_VALUE_INSERT ["form_table_cegid_devis_update"]["VISIBLE"]["DEFAULT"]="Visible";
 $FORM_STYLE         ["form_table_cegid_devis_update"]["NAME"]["SIZE"]=50;
