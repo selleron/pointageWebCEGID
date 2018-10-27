@@ -87,6 +87,11 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["VISIBLE"]=$SELECT_ID_FROM_
 $FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["VISIBLE"]["DEFAULT"]="Visible";
 $FORM_VALUE_INSERT ["form_table_cegid_user_update"]["VISIBLE"]["DEFAULT"]="Visible";
 
+$FORM_STYLE[form_table_cegid_user_update]["EMAIL1"]["SIZE"] = "100";
+$FORM_STYLE[form_table_cegid_user_update]["EMAIL2"]["SIZE"] = "100";
+$FORM_STYLE[form_table_cegid_user_update]["TEL1"]["SIZE"] = "20";
+$FORM_STYLE[form_table_cegid_user_update]["TEL2"]["SIZE"] = "20";
+
 //table cegid_devis
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["CEGID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS_DEVIS"]="select ID from cegid_status_devis order by ORDRE";

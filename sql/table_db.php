@@ -7,9 +7,16 @@ include_once '../configuration/labelAction.php';
 
 
 
-  /**
-   * application des actions sur la page projet
-   */
+/**
+ * application des actions sur la page projet
+ * 
+ * @param string $table
+ * @param string $cols
+ * @param string $form_name
+ * @param string $colFilter
+ * @param array $param
+ * @return number
+ */
  function applyGestionTable($table, $cols, $form_name, $colFilter = "", $param=NULL) {
      if (!isset($param)){
         $condition="";
@@ -595,7 +602,7 @@ function editTable2(/*$table, $cols, $form_name,*/ $subParam = null) {
 	global $ID_TABLE_GET;
 	$idTable = getURLVariable ( $ID_TABLE_GET );
 	if ($idTable == "") {
-	    //ici par de cle primaire pour la selection de la donn�e � editer
+	    //ici par de cle primaire pour la selection de la donnee a editer
 		//$columns = stringToArray ( $cols );
 	    $columns = $subParam[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
 	    $columnsWhere = $columns;
