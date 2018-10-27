@@ -114,7 +114,7 @@ function getURLVariable($variable)
  * return variable $variable[$row]
  * 
  * @param string $variable
- * @param index $row
+ * @param int $row index
  * @return string|array
  */
 function getURLVariableForRow($variable, $row){
@@ -132,8 +132,8 @@ function getURLVariableForRow($variable, $row){
 /**
  * setURLVariable
  *
- * @param unknown $variable
- * @param unknown $value
+ * @param string $variable
+ * @param string $value
  */
 function setURLVariable($variable, $value)
 {
@@ -186,7 +186,7 @@ function getURLVariableArray($variables, $idx=NULL)
  *
  * @param string array $variables
  * @param string $form
- * @param index $row : can be null
+ * @param int $row index : can be null
  * @return string array of variables values
  */
 function getURLVariableArraySQLForm($variables, $form, $row=NULL)
@@ -205,13 +205,13 @@ function getURLVariableArraySQLForm($variables, $form, $row=NULL)
  *
  * @param string $variable
  *            variable name
- * @param unknown $form
+ * @param string $form
  *            form d'attache de la variable
  * @param string $tableau
  *            tableau des valeurs (on utilisepas le post)
  * @param string $status
  *            quiet / verbose / ""
- * @param index $row : can be null
+ * @param int $row  index: can be null
  * @return string|array
  */
 function getURLVariableSQLForm($variable, $form, $tableau = "", $status = "", $row=NULL)
@@ -374,12 +374,10 @@ function getCurrentPageName()
  *
  * suppressPageURL
  *
- * @param $url url
+ * @param string $url url
  *            peut etre ""
- * @param $variable ne
- *            peut pas etre ""
- * @param $value peut
- *            etre ""
+ * @param string $variable ne  peut pas etre ""
+ * @param string $value peut  etre ""
  */
 function suppressPageURL($url, $variable, $value = "")
 {
@@ -399,12 +397,9 @@ function suppressPageURL($url, $variable, $value = "")
 /**
  * replace dans la Page URL
  *
- * @param $variable la
- *            variable
- * @param $newValue la
- *            nouvelle valeur
- * @param $url url
- *            peut etre ""
+ * @param string $variable la  variable
+ * @param string $newValue lanouvelle valeur
+ * @param string $url url  peut etre ""
  * @param $oldValue l'ancienne
  *            valeur de la variable peut etre ""
  */
@@ -538,8 +533,8 @@ function updateTableParamSqlInsert($param, $table, $cols){
 /**
  * addParamActionCommand
  * 
- * @param unknown $param
- * @param unknown $url
+ * @param array $param
+ * @param string $url url
  * @param string $cmdName
  * @param string $cmdAction
  * @param string $reference
@@ -569,7 +564,7 @@ function addParamActionCommand($param, $url, $cmdName = "action name!", $cmdActi
  *            param array $param
  * @param string $columnsTxt
  *            column name
- * @return param array modified
+ * @return array param array modified
  */
 function addParamSqlColumn($param, $columnsTxt)
 {
@@ -608,14 +603,14 @@ function removeParamColumn($param, $columnsTxt){
  *
  * modifierTableParamSql
  *
- * @param unknown $param
+ * @param array $param
  * @param string $form
  *            form name
  * @param string $insert
  *            button update default "yes"
  * @param string $edit
  *            button edit default "yes"
- * @return structure $param
+ * @return array object $param
  */
 function modifierTableParamSql($param, $form = "form_insert_table", $insert = "yes", $edit = "yes", $delete = "yes", $exportCSV = "no")
 {
@@ -670,9 +665,9 @@ function updateParamSqlCondition($param = "", $condition)
  * updateParamSqlConditionForUpdate
  * si le parametre est positionné, le update utilisecette condition et pas celle de $TABLE_WHERE_CONDITION
  *
- * @param unknown $param
- * @param unknown $condition
- * @return unknown
+ * @param array $param
+ * @param string $condition
+ * @return array $param updated
  */
 function updateParamSqlConditionForUpdate($param, $condition)
 {
@@ -685,8 +680,8 @@ function updateParamSqlConditionForUpdate($param, $condition)
 /**
  * permet d'ajouter distinct au select
  *
- * @param unknown $param
- * @return unknown
+ * @param array $param
+ * @return array $param updated
  */
 function updateParamSqlWithDistinct($param)
 {
@@ -699,8 +694,8 @@ function updateParamSqlWithDistinct($param)
 /**
  * permet editer en utilisant tous les paramètres
  *
- * @param unknown $param
- * @return unknown
+ * @param array $param
+ * @return array $param updated
  */
 function updateParamSqlWithEditByRow($param)
 {
@@ -715,8 +710,8 @@ function updateParamSqlWithEditByRow($param)
 /**
  * permet d'ajouter le bouton delete by row
  *
- * @param unknown $param
- * @return unknown
+ * @param array $param
+ * @return array $param updated
  */
 function updateParamSqlWithDeleteByRow($param)
 {
@@ -731,9 +726,9 @@ function updateParamSqlWithDeleteByRow($param)
 /**
  * updateParamSqlColumnFilter
  *
- * @param unknown $param
- * @param unknown $columns
- * @return unknown
+ * @param array $param
+ * @param string $columns  separator ","
+ * @return array $param updated
  */
 function updateParamSqlColumnFilter($param, $columns)
 {
@@ -748,10 +743,10 @@ function updateParamSqlColumnFilter($param, $columns)
 /**
  * updateParamSqlWhereId
  *
- * @param unknown $param
- * @param unknown $id
- * @param unknown $value
- * @return unknown
+ * @param array $param
+ * @param string $id
+ * @param string $value
+ * @return array  $param updated
  */
 function updateParamSqlWhereId($param, $id, $value)
 {
@@ -943,8 +938,7 @@ function traceConnectionID()
  *
  * le message n'est pas affich� si $NO_MSG_CHANGE_HEADER_ACTIVE & $NO_MSG_CHANGE_HEADER sont a "yes"
  *
- * @param $txt le
- *            message aafficher
+ * @param string $txt le   message aafficher
  */
 function showAction($txt)
 {
@@ -962,12 +956,12 @@ function showAction($txt)
  * showSQLAction
  * affiche $txt si $SHOW_SQL_ACTION est positionne
  *
- * @param unknown_type $txt
+ * @param string $txt
  */
 function showSQLAction($txt)
 {
     global $SHOW_SQL_ACTION;
-    showActionVariable($txt, $SHOW_SQL_ACTION);
+    showActionVariable("[SHOW_SQL_ACTION] $txt", $SHOW_SQL_ACTION);
 }
 
 /**
@@ -993,10 +987,10 @@ function showTracePOST()
  * message a afficher $txt
  * si il y a une erreur alors affiche aussi l'erreur sql
  *
- * @param Msg $txt
- * @param Msg $txtError
+ * @param string $txt
+ * @param string $txtError
  *            (visible seulement si il y a une erreur)
- * @return sql error
+ * @return string sql error
  */
 function showSQLError($txt, $txtError = "")
 {
@@ -1063,6 +1057,9 @@ function showActionVariable($txt, $debugVariable)
         return;
     if ($debugVariable == "false")
         return;
+    
+    //$array = debug_backtrace();
+    //var_dump($array);
     
     echo getActionMessage($txt);
 }
@@ -1136,10 +1133,8 @@ function sqlRequestToArray($request, $col)
  * sqlRequestToArray2
  * creer un tableau array[$col=0..n][value] a partie d'une requete sql
  *
- * @param $request :
- *            la requete
- * @param $col tableau
- *            de colonnes
+ * @param string $request : la requete sql
+ * @param array $col tableau  de colonnes
  * @deprecated : use : sqlParamToArrayResult
  */
 function sqlRequestToArray2($request, $col)
@@ -1172,8 +1167,8 @@ function sqlRequestToArray2($request, $col)
 /**
  * sqlRowFromSqlArrayResult
  * 
- * @param unknown $array
- * @param unknown $rowNum
+ * @param array $array
+ * @param int $rowNum
  *            return array row[$col key]
  */
 function sqlRowFromSqlArrayResult($array, $rowNum)
@@ -1195,7 +1190,7 @@ function sqlRowFromSqlArrayResult($array, $rowNum)
 /**
  * sqlParamToArrayResult
  * 
- * @param param $param
+ * @param array $param
  * @return array Result
  */
 function sqlParamToArrayResult($param)
@@ -1292,8 +1287,8 @@ function separateWith($columns, $separator)
 /**
  * createSqlUpdateByID
  *
- * @param unknown $table
- * @param unknown $columnsString
+ * @param string $table
+ * @param string $columnsString separator ","
  * @return string SQL
  */
 function createSqlUpdateByID($table, $columnsString)
@@ -1387,7 +1382,7 @@ function createMultiSqlUpdateByIdAndCondition($table, $columnsString, $formName 
  * createMultiSqlReplace
  * 
  * @param string $table
- * @param stringœ $columnsString
+ * @param string $columnsString
  * @param string $formName
  * @return string[] request replace
  */
@@ -1424,14 +1419,10 @@ function createMultiSqlReplace($table, $columnsString, $formName = ""){
  * createSqlUpdate
  * creation requete sql update
  *
- * @param $table la
- *            table
- * @param $arrayCol le
- *            tableau des colonnes
- * @param $arrayValue le
- *            tableau des valeurs
- * @param $condition la
- *            condition du update (apres le WHERE)
+ * @param string $table la     table
+ * @param array $arrayCol le  tableau des colonnes
+ * @param array $arrayValue le     tableau des valeurs
+ * @param string $condition la     condition du update (apres le WHERE)
  * @param $quoteValue "true"
  *            si on doit quoter dans la requete les values
  *            return sql request

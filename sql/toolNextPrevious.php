@@ -157,11 +157,12 @@ function showTableSelection($url = "", $table, $colName="NAME", $formName = "", 
 
 
 function getNameFromID_Table($SQL_TABLE, $SQL_COL_ID, $id, $SQL_COL_NAME ){
-    // search project name
+    global $TRACE_NEXT_PREVIOUS;
+    // search  name
     $condition = createSqlWhere($SQL_COL_ID, $id);
     $param = createDefaultParamSql($SQL_TABLE, $SQL_COL_NAME, $condition);
     $requete = $request = createRequeteTableData($param);
-    showSQLAction($requete);
+    showActionVariable($requete, $TRACE_NEXT_PREVIOUS );
     $Resultat = requeteTableData($param);
     $name = mysqlResult($Resultat, 0, $SQL_COL_NAME);
     
@@ -169,11 +170,12 @@ function getNameFromID_Table($SQL_TABLE, $SQL_COL_ID, $id, $SQL_COL_NAME ){
 }
 
 function getIDFromName_Table($SQL_TABLE, $SQL_COL_NAME, $name, $SQL_COL_ID ){
-    // search project name
+    global $TRACE_NEXT_PREVIOUS;
+    // search id
     $condition = createSqlWhere($SQL_COL_NAME, $name);
     $param = createDefaultParamSql($SQL_TABLE, $SQL_COL_ID, $condition);
     $requete = $request = createRequeteTableData($param);
-    showSQLAction($requete);
+    showActionVariable($requete, $TRACE_NEXT_PREVIOUS );
     $Resultat = requeteTableData($param);
     $id = mysqlResult($Resultat, 0, $SQL_COL_ID);
     

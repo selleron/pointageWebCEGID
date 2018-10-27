@@ -832,7 +832,7 @@ function editTable($table, $cols, $idTable, $form_name, $subParam = "") {
 	global $SHOW_SQL_EDIT;
 	if ($SHOW_SQL_EDIT == "yes") {
 		$request = createRequeteTableData ( $param );
-		showSQLAction ( "editTable() : $request" );
+		showSQLAction ( "[SHOW_SQL_EDIT] editTable() : $request" );
 	}
 	
 	// affichage

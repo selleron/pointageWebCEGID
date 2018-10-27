@@ -828,7 +828,7 @@ function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $us
     $enabledStatus = prepareFlagStatus ( $enabledStatus );
     
     global $SHOW_COMPLETION_REQUEST;
-    showActionVariable( $Request, $SHOW_COMPLETION_REQUEST);
+    showActionVariable( "showFormComboBoxCompletionSql() $Request", $SHOW_COMPLETION_REQUEST);
     $Resultat = mysqlQuery ( $Request );
     $nbRes = mysqlNumrows ( $Resultat );
     

@@ -32,12 +32,14 @@ function getProjectNameFromID($idProject)
     global $SQL_COL_ID_PROJECT;
     global $SQL_COL_NAME_PROJECT;
     global $SQL_TABLE_PROJECT;
+    global $TRACE_NEXT_PREVIOUS;
+    
     
     // search project name
     $condition = createSqlWhere($SQL_COL_ID_PROJECT, $idProject);
     $param = createDefaultParamSql($SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, $condition);
     $requete = $request = createRequeteTableData($param);
-    showSQLAction($requete);
+    showActionVariable("getProjectNameFromID() $requete", $TRACE_NEXT_PREVIOUS);
     $Resultat = requeteTableData($param);
     $name = mysqlResult($Resultat, 0, $SQL_COL_NAME_PROJECT);
     
@@ -214,7 +216,7 @@ function showTableProject()
  * project => projectId
  * update project url if needed
  * @param string $project
- * @return string|data idProject
+ * @return string idProject
  */
 function projectIDFromURL($project = "")
 {

@@ -264,9 +264,9 @@ function mysqli_field_index($result, $field)
 
 /**
  * mysqlResultExist
- * @param sql result $Resultat
- * @param column $c
- * @return boolean|unknown
+ * @param object sql result $Resultat
+ * @param string or int $c column name or column index
+ * @return boolean| object
  */
 function mysqlResultExist($Resultat, $c) {
 	if (is_array ( $Resultat )) {
@@ -286,7 +286,7 @@ function mysqlResultExist($Resultat, $c) {
 
 /**
  *
- * @param unknown $resultat        	
+ * @param array | object $resultat sql result        	
  */
 function arrayKeys($resultat) {
 	global $KEY_INFO;
@@ -470,7 +470,7 @@ function mysqlFieldValueByKeyAndRow($Resultat, $idx, $key1, $row, $default = "??
  * @param
  *        	array sql $Resultat
  * @param string $idx        	
- * @return string SQL_XXX
+ * @return string SQL_<XXX>
  */
 function mysqlFieldType($Resultat, $idx) {
 	if (is_array ( $Resultat )) {
@@ -529,10 +529,10 @@ function getFormStyleSuffix($Resultat, $param, $idx){
 /**
  * getFormStyleTD
  * 
- * @param unknown $Resultat
- * @param unknown $param
- * @param unknown $idx
- * @return unknown|NULL
+ * @param array or object $Resultat sql 
+ * @param array $param
+ * @param int $idx index
+ * @return string|NULL
  */
 function getFormStyleTD($Resultat, $param, $idx){
     if (isset($param)){
@@ -545,11 +545,11 @@ function getFormStyleTD($Resultat, $param, $idx){
 /**
  * getFormStyleTDEval
  * 
- * @param unknown $Resultat
- * @param unknown $param
- * @param unknown $idx
- * @param unknown $res
- * @return NULL|unknown|NULL
+ * @param array or object $Resultat
+ * @param array $param
+ * @param string $idx
+ * @param object $res sql result row : string, int, date
+ * @return String | NULL
  */
 function getFormStyleTDEval($Resultat, $param, $idx, $res){
     if (isset($param)){
@@ -608,7 +608,14 @@ function getFormStyleStatus($Resultat, $param, $idxField){
     return $status;
 }
 
-
+/**
+ * 
+ * @param array or object $Resultat
+ * @param array $param
+ * @param string $idx name
+ * @param string $key key name
+ * @return string|NULL
+ */
  function getFormStyleKey ($Resultat, $param, $idx, $key) {
      global $SHOW_FORM_VARIABLE_STYLE;
      global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
