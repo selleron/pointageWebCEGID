@@ -135,7 +135,7 @@ function applyGestionDevis() {
 	}
 	else{
 	    
-    global $TRACE_INFO_EXPORT;
+	    global $TRACE_INFO_ACTION;
     $action = getActionGet ();
     showActionVariable("action : [$action]  on applyGestionDevis() status [$res] before applyGestionTable()", $TRACE_INFO_ACTION);
 	if ($res<=0){
@@ -332,6 +332,8 @@ function showSuiviPropositions() {
      
      $param2 = $param;
      $param2[PARAM_TABLE_TABLE::TABLE_SIZE]="1400px";
+     
+     //ajout colonne
      $param2 = removeParamColumn($param2, $SQL_COL_NUXEO_DEVIS);
      $param2 = removeParamColumn($param2, $SQL_COL_COMMANDE_DEVIS);
      $param2 = addParamSqlColumn($param2, $COL_VALIDE);
@@ -342,8 +344,10 @@ function showSuiviPropositions() {
      $param2 = addParamSqlColumn($param2, $SQL_COL_FIN_GARANTIE);
      $param2 = addParamSqlColumn($param2, $SQL_COL_COMMANDE_DEVIS);
      
+     //echoTD("<<<>>>".arrayToString($param2[PARAM_TABLE::COLUMNS_SUMMARY]));
+     $param2[PARAM_TABLE_COMMAND::EXPORT_COLUMNS]=getParamColumns($param2);
      
-     //ajout colonne
+     
      $result = setSQLFlagType ( $result, $COL_VALIDE, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $COL_ENVOYE, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $COL_ACCEPTE, SQL_TYPE::SQL_REQUEST );
