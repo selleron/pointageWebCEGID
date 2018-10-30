@@ -888,6 +888,8 @@ function setSQLFlagType($Resultat, $key, $type) {
 	return $Resultat;
 }
 
+
+
 /**
  * 
  * @param array $Resultat[key][$field]  sql result   	

@@ -93,6 +93,7 @@ class PARAM_TABLE_COMMAND {
     const NAME="NAME";
     const ACTION="ACTION";
     const REFERENCE="REFERENCE";
+    const EXPORT_COLUMNS="EXPORT_COLUMNS";
 }
 
 ?>

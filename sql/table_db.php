@@ -205,6 +205,13 @@ function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name) {
 		// trace
 		$url = getCurrentURL ();
 		$action = getActionGet ();
+		$colExport = getURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS);
+		if ($colExport != ""){
+		      showActionVariable( "exportCSVTableByGet() : [$action]  export column detected : [ $colExport ] ", $TRACE_INFO_EXPORT );
+		      $colsSet = $colExport;
+		      $colsSetExport = $colExport;
+		}
+		
 		showActionVariable( "exportCSVTableByGet() : [$action]  $url -- CSV : $table - [$colsSet] => [$colsSetExport]", $TRACE_INFO_EXPORT );
 		// end trace
 		

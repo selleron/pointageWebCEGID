@@ -568,9 +568,8 @@ function addParamActionCommand($param, $url, $cmdName = "action name!", $cmdActi
  */
 function addParamSqlColumn($param, $columnsTxt)
 {
-    global $COLUMNS_SUMMARY;
     
-    $col = arrayToString($param[$COLUMNS_SUMMARY]);
+    $col = arrayToString($param[PARAM_TABLE::COLUMNS_SUMMARY]);
     // showSQLAction("col avant add : $col");
     if ($col) {
         $col = $col . ", ";
@@ -578,22 +577,26 @@ function addParamSqlColumn($param, $columnsTxt)
     
     if ($columnsTxt) {
         $col = $col . "$columnsTxt";
-        $param[$COLUMNS_SUMMARY] = stringToArray($col);
+        $param[PARAM_TABLE::COLUMNS_SUMMARY] = stringToArray($col);
     }
     
     // showSQLAction("col apres add : $col");
     return $param;
 }
 
+function getParamColumns($param){
+    $col = arrayToString($param[PARAM_TABLE::COLUMNS_SUMMARY]);
+    return $col;
+}
+
 function removeParamColumn($param, $columnsTxt){
-    global $COLUMNS_SUMMARY;
     
-    $col = arrayToString($param[$COLUMNS_SUMMARY]);
+    $col = arrayToString($param[PARAM_TABLE::COLUMNS_SUMMARY]);
     $col = str_replace(",$columnsTxt", "", $col);
     $col = str_replace("$columnsTxt,", "", $col);
     $col = str_replace("$columnsTxt", "", $col);
     $col = str_replace(",,", ",", $col);
-    $param[$COLUMNS_SUMMARY] = stringToArray($col);
+    $param[PARAM_TABLE::COLUMNS_SUMMARY] = stringToArray($col);
     
     //var_dump($param[$COLUMNS_SUMMARY]);   
     
@@ -601,7 +604,6 @@ function removeParamColumn($param, $columnsTxt){
 }
 
 function removeParamFilter($param, $columnsTxt){
-    global $COLUMNS_SUMMARY;
     
     if (isset($param[PARAM_TABLE_SQL::COLUMNS_FILTER])){
     $col = arrayToString($param[PARAM_TABLE_SQL::COLUMNS_FILTER]);
@@ -2273,7 +2275,7 @@ function showTableRowAction($param, $html = "", $Resultat = "", $closeRow = "yes
     echo "</td>";
     
     //showLineExportCSV($param, $infoForm);
-    showLineExportCSV($param, $infoForm, $html,  $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]);
+      showLineExportCSV($param, $infoForm, $html,  $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]);
     if ($closeRow) {
         echo "</tr>";
     }
@@ -2341,6 +2343,12 @@ function showCellAction($actionTxt, $param, $infoForm = "", $formAutonome = "no"
         if (isset($param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]) && $infoForm == ""){
             showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]);
         }
+        
+        
+        if (isset($param[PARAM_TABLE_COMMAND::EXPORT_COLUMNS])){
+            showFormHidden(PARAM_TABLE_COMMAND::EXPORT_COLUMNS, $param[PARAM_TABLE_COMMAND::EXPORT_COLUMNS]);
+        }
+        
         
         echo "$infoForm";
         showFormSubmit($actionTxt, $ACTION_GET);
