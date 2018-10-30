@@ -112,7 +112,7 @@ function applyGestionDevis() {
 	$formURL ="!".getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
 	showActionVariable("cegid_devis form [$formURL]", $TRACE_INFO_ACTION);
 	$pos = strpos( $formURL, $FORM_TABLE_CEGID_DEVIS);
-	//showSQLAction("test $FORM_TABLE_CEGID_DEVIS for $formURL :[$pos]");
+	showSQLAction("test $FORM_TABLE_CEGID_DEVIS for $formURL : [$pos]");
 	if  ($pos>=1){
 	    //nothing to do
 	    showActionVariable("action for cegid_devis form [$FORM_TABLE_CEGID_DEVIS] accepted", $TRACE_INFO_ACTION);
@@ -280,6 +280,8 @@ function prepareParamShowTableDevis($columns=""){
 
 
 function showSuiviPropositions() {
+    global $FORM_TABLE_CEGID_DEVIS;
+    
     global $SQL_COL_ID_DEVIS        ;
     global $SQL_COL_NAME_DEVIS      ;
     global $SQL_COL_VERSION_DEVIS   ;
@@ -316,9 +318,9 @@ function showSuiviPropositions() {
     $columns1 = " $SQL_COL_ID_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_SOCIETE_DEVIS, $SQL_COL_STATUS_DEVIS,$SQL_COL_CEGID_DEVIS,  $SQL_COL_COMMANDE_DEVIS,$SQL_COL_NUXEO_DEVIS, $SQL_COL_COMMANDE_DEVIS "; 
     
     $param = prepareParamShowTableDevis ($columns1);
-    $param = modifierTableParamSql($param, "form_insert_table", /*$insert*/"no", /*$edit*/"no", /*$delete*/"no", /*$exportCSV*/"yes");
+    $param = modifierTableParamSql($param, $FORM_TABLE_CEGID_DEVIS, /*$insert*/"no", /*$edit*/"no", /*$delete*/"no", /*$exportCSV*/"yes");
     $req = createRequeteTableData ( $param );
-    showSQLAction ( $req );
+    //showSQLAction ( $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]." : $req" );
 
      $result = sqlParamToArrayResult($param);
      $nbRes = mysqlNumrows ( $result );
@@ -376,7 +378,8 @@ function showSuiviPropositions() {
      //data
      
      beginTableBody();
-     $res = showTableData($param2,"",$result,"no");
+     //$res = showTableData($param2,"",$result,"no");
+     showEditTableData($param2,"",$result);
      endTableBody();
      endTable();
      

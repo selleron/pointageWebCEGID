@@ -39,8 +39,10 @@
 	echo "<p>Suivi propositions.<br/></p>";
 	showTracePOST();
 
+	applyGestionDevis();
 	
-	//showTableDevis();
+	//showLoadFile("","","","import");
+	
 	showSuiviPropositions();
 	?>
 <br/><br/><br/>

@@ -2272,7 +2272,8 @@ function showTableRowAction($param, $html = "", $Resultat = "", $closeRow = "yes
     }
     echo "</td>";
     
-    showLineExportCSV($param, $infoForm);
+    //showLineExportCSV($param, $infoForm);
+    showLineExportCSV($param, $infoForm, $html,  $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]);
     if ($closeRow) {
         echo "</tr>";
     }
