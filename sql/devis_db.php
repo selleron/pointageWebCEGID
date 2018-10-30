@@ -4,6 +4,7 @@ $DEVIS_DB_PHP = "loaded";
 $SQL_TABLE_DEVIS         = "cegid_devis_project";
 $FORM_TABLE_CEGID_DEVIS  = "form_table_cegid_devis";
 
+
 $SQL_COL_ID_DEVIS             = "ID";
 $SQL_COL_NAME_DEVIS           = "NAME";
 $SQL_COL_VERSION_DEVIS        = "VERSION";
@@ -24,6 +25,15 @@ $SQL_LABEL_DEVIS_NAME = "DEVIS";
 
 $SQL_SHOW_COL_DEVIS     = "$SQL_COL_ID_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_VERSION_DEVIS, $SQL_COL_STATUS_DEVIS, $SQL_COL_COMMANDE_DEVIS, $SQL_COL_MODIFICATION_DEVIS, $SQL_COL_STATUS_COMMANDE_DEVIS, $SQL_COL_CEGID_DEVIS, $SQL_COL_STATUS_CEGID_DEVIS";
 $SQL_SHOW_ALL_COL_DEVIS = "$SQL_COL_ID_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_VERSION_DEVIS, $SQL_COL_CLIENT_DEVIS, $SQL_COL_SOCIETE_DEVIS, $SQL_COL_STATUS_DEVIS, $SQL_COL_COMMANDE_DEVIS, $SQL_COL_MODIFICATION_DEVIS, $SQL_COL_STATUS_COMMANDE_DEVIS, $SQL_COL_CEGID_DEVIS, $SQL_COL_STATUS_CEGID_DEVIS, $SQL_COL_NUXEO_DEVIS, $SQL_COL_COMMENTAIRE_DEVIS, $SQL_COL_VISIBLE_DEVIS";
+
+
+$SQL_TABLE_STATUS_EVOLUTION  = "cegid_status_evolution";
+$SQL_COL_REFERENCE_STATUS_EVOLUTION = "REFERENCE";
+$SQL_COL_DATE_STATUS_EVOLUTION = "DATE";
+$SQL_COL_STATUS_STATUS_EVOLUTION = "STATUS";
+$SQL_COL_ORIGIN_STATUS_EVOLUTION = "ORIGIN";
+
+
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
@@ -212,18 +222,19 @@ function editGestionDevis()
  * (description)
  */
 function showTableDEVIS() {
-	global $SQL_SHOW_COL_DEVIS;
-	global $SQL_TABLE_DEVIS;
-	global $CONDITION_FROM_CEGID_DEVIS;
-	global $FORM_TABLE_CEGID_DEVIS;
-	$form_name = $FORM_TABLE_CEGID_DEVIS."_insert";
-	$condition="";
-	$condition=$CONDITION_FROM_CEGID_DEVIS;
+// 	global $SQL_SHOW_COL_DEVIS;
+// 	global $SQL_TABLE_DEVIS;
+// 	global $CONDITION_FROM_CEGID_DEVIS;
+// 	global $FORM_TABLE_CEGID_DEVIS;
+// 	$form_name = $FORM_TABLE_CEGID_DEVIS."_insert";
+// 	$condition="";
+// 	$condition=$CONDITION_FROM_CEGID_DEVIS;
 	
-	//showSQLAction("showTableDEVIS - ...");
 	
-	//showTable($SQL_TABLE_DEVIS, $SQL_SHOW_COL_DEVIS, $form_name);
-	$param = prepareshowTable($SQL_TABLE_DEVIS, $SQL_SHOW_COL_DEVIS, $form_name, $condition);
+// 	$param = prepareshowTable($SQL_TABLE_DEVIS, $SQL_SHOW_COL_DEVIS, $form_name, $condition);
+// 	//par defaut on a edit & delete
+	
+	$param = prepareParamShowTableDevis();
 	//par defaut on a edit & delete
 	
 	//ajout export CSV
@@ -244,8 +255,134 @@ function showTableDEVIS() {
 	
 }
 
+function prepareParamShowTableDevis($columns=""){
+        global $SQL_SHOW_COL_DEVIS;
+        global $SQL_TABLE_DEVIS;
+        global $CONDITION_FROM_CEGID_DEVIS;
+        global $FORM_TABLE_CEGID_DEVIS;
+        $form_name = $FORM_TABLE_CEGID_DEVIS."_insert";
+        $condition="";
+        $condition=$CONDITION_FROM_CEGID_DEVIS;
+        
+        //showSQLAction("showTableDEVIS - ...");
+        if ($columns == ""){
+            $columns = $SQL_SHOW_COL_DEVIS;
+        }
+        
+        //showTable($SQL_TABLE_DEVIS, $SQL_SHOW_COL_DEVIS, $form_name);
+        $param = prepareshowTable($SQL_TABLE_DEVIS, $columns, $form_name, $condition);
+        $param = updateParamSqlColumnFilter($param, $columns);
+        //par defaut on a edit & delete
+
+        
+        return $param;
+}
 
 
+function showSuiviPropositions() {
+    global $SQL_COL_ID_DEVIS        ;
+    global $SQL_COL_NAME_DEVIS      ;
+    global $SQL_COL_VERSION_DEVIS   ;
+    global $SQL_COL_CLIENT_DEVIS    ;
+    global $SQL_COL_SOCIETE_DEVIS   ;
+    global $SQL_COL_STATUS_DEVIS     ;
+    global $SQL_COL_STATUS_CEGID_DEVIS ;
+    global $SQL_COL_STATUS_COMMANDE_DEVIS;
+    global $SQL_COL_COMMANDE_DEVIS       ;
+    global $SQL_COL_MODIFICATION_DEVIS   ;
+    global $SQL_COL_COMMANDE_DEVIS          ;
+    global $SQL_COL_NUXEO_DEVIS          ;
+    global $SQL_COL_COMMENTAIRE_DEVIS    ;
+    global $SQL_COL_VISIBLE_DEVIS        ;
+    global $SQL_COL_CEGID_DEVIS;
+    
+    
+    global $SQL_TABLE_STATUS_EVOLUTION;
+    
+    global $SQL_COL_REFERENCE_STATUS_EVOLUTION;
+    global $SQL_COL_DATE_STATUS_EVOLUTION;
+    global $SQL_COL_STATUS_STATUS_EVOLUTION;
+    global $SQL_COL_ORIGIN_STATUS_EVOLUTION;
+    
+    
+    global $SQL_TABLE_PROJECT;
+    global $SQL_COL_DEBUT_PROJECT;
+    global $SQL_COL_FIN_PROJECT;
+    global $SQL_COL_FIN_GARANTIE;
+    global $SQL_COL_ID_PROJECT;
+    
+    
+    
+    $columns1 = " $SQL_COL_ID_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_SOCIETE_DEVIS, $SQL_COL_STATUS_DEVIS,$SQL_COL_CEGID_DEVIS,  $SQL_COL_COMMANDE_DEVIS,$SQL_COL_NUXEO_DEVIS, $SQL_COL_COMMANDE_DEVIS "; 
+    
+    $param = prepareParamShowTableDevis ($columns1);
+    $param = modifierTableParamSql($param, "form_insert_table", /*$insert*/"no", /*$edit*/"no", /*$delete*/"no", /*$exportCSV*/"yes");
+    $req = createRequeteTableData ( $param );
+    showSQLAction ( $req );
+
+     $result = sqlParamToArrayResult($param);
+     $nbRes = mysqlNumrows ( $result );
+     
+     $COL_VALIDE = "Valide";
+     $COL_ENVOYE = "Envoye";
+     $COL_ACCEPTE = "Accepte";
+     $COL_DEBUT = "Accepte";
+     
+     $param2 = $param;
+     $param2[PARAM_TABLE_TABLE::TABLE_SIZE]="1400px";
+     $param2 = removeParamColumn($param2, $SQL_COL_NUXEO_DEVIS);
+     $param2 = removeParamColumn($param2, $SQL_COL_COMMANDE_DEVIS);
+     $param2 = addParamSqlColumn($param2, $COL_VALIDE);
+     $param2 = addParamSqlColumn($param2, $COL_ENVOYE);
+     $param2 = addParamSqlColumn($param2, $COL_ACCEPTE);
+     $param2 = addParamSqlColumn($param2, $SQL_COL_DEBUT_PROJECT);
+     $param2 = addParamSqlColumn($param2, $SQL_COL_FIN_PROJECT);
+     $param2 = addParamSqlColumn($param2, $SQL_COL_FIN_GARANTIE);
+     $param2 = addParamSqlColumn($param2, $SQL_COL_COMMANDE_DEVIS);
+     
+     
+     //ajout colonne
+     $result = setSQLFlagType ( $result, $COL_VALIDE, SQL_TYPE::SQL_REQUEST );
+     $result = setSQLFlagType ( $result, $COL_ENVOYE, SQL_TYPE::SQL_REQUEST );
+     $result = setSQLFlagType ( $result, $COL_ACCEPTE, SQL_TYPE::SQL_REQUEST );
+     $result = setSQLFlagType ( $result, $SQL_COL_DEBUT_PROJECT, SQL_TYPE::SQL_REQUEST );
+     $result = setSQLFlagType ( $result, $SQL_COL_FIN_PROJECT, SQL_TYPE::SQL_REQUEST );
+     $result = setSQLFlagType ( $result, $SQL_COL_FIN_GARANTIE, SQL_TYPE::SQL_REQUEST );
+     //$result = setSQLFlagTypeSize ( $result, $colpointage, 3 );
+     
+
+     for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+         $result[$COL_ENVOYE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
+             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='envoye'";
+         $result[$COL_ACCEPTE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
+             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='Accepte'";
+         $result[$COL_VALIDE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
+             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='Valide'";
+         $result[$SQL_COL_DEBUT_PROJECT] [$cpt] = "select date($SQL_COL_DEBUT_PROJECT) from $SQL_TABLE_PROJECT ".
+             " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
+         $result[$SQL_COL_FIN_PROJECT] [$cpt] = "select date($SQL_COL_FIN_PROJECT) from $SQL_TABLE_PROJECT ".
+             " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
+         $result[$SQL_COL_FIN_GARANTIE] [$cpt] = "select date($SQL_COL_FIN_GARANTIE) from $SQL_TABLE_PROJECT ".
+             " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
+     }
+     
+     
+     
+     //header
+     showTableHeader ( $param2 );
+     //data
+     
+     beginTableBody();
+     $res = showTableData($param2,"",$result,"no");
+     endTableBody();
+     endTable();
+     
+     
+     
+}
 
 
 
