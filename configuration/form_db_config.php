@@ -72,7 +72,7 @@ $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["SQL"]="select ID fr
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["VARIABLE"]="title";
 $FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
 $FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
-$FORM_STYLE["form_table_cegid_file_update"][link]["SIZE"]=100;
+$FORM_STYLE["form_table_cegid_file_update"]["link"]["SIZE"]=100;
 
 $FORM_STYLE["files_insert"]["id"]["SIZE"]=4;
 $FORM_STYLE["files_insert"]["title"]["SIZE"]=70;
@@ -93,10 +93,10 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["VISIBLE"]=$SELECT_ID_FROM_
 $FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["VISIBLE"]["DEFAULT"]="Visible";
 $FORM_VALUE_INSERT ["form_table_cegid_user_update"]["VISIBLE"]["DEFAULT"]="Visible";
 
-$FORM_STYLE[form_table_cegid_user_update]["EMAIL1"]["SIZE"] = "100";
-$FORM_STYLE[form_table_cegid_user_update]["EMAIL2"]["SIZE"] = "100";
-$FORM_STYLE[form_table_cegid_user_update]["TEL1"]["SIZE"] = "20";
-$FORM_STYLE[form_table_cegid_user_update]["TEL2"]["SIZE"] = "20";
+$FORM_STYLE["form_table_cegid_user_update"]["EMAIL1"]["SIZE"] = "100";
+$FORM_STYLE["form_table_cegid_user_update"]["EMAIL2"]["SIZE"] = "100";
+$FORM_STYLE["form_table_cegid_user_update"]["TEL1"]["SIZE"] = "20";
+$FORM_STYLE["form_table_cegid_user_update"]["TEL2"]["SIZE"] = "20";
 
 
 //table cegid_devis
