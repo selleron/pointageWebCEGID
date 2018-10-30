@@ -19,7 +19,7 @@ function numberToByte($num){
  * showLoadFile
  * affiche le champ de selection d'un fichier a uploader
  * 
- * @param $url url
+ * @param string $url url
  *        	lorsque l'on appuie sur load
  *        	voir http://phpcodeur.net/articles/php/upload
  */
@@ -220,7 +220,7 @@ function hasTemporaryFile() {
  * uploadFile
  * copy file from $FILE to $uploaddir
  * 
- * @param $uploaddir repertoire
+ * @param string $uploaddir repertoire
  *        	d'arrivee
  * @return TRUE or FALSE
  */
@@ -320,7 +320,7 @@ function myfputcsv($handle, $aRow, $delimiter = "") {
  * 
  * @param
  *        	file handler $handle
- * @param unknown $length
+ * @param int $length
  *        	(can be null)
  */
 function myfgetcsv($handle, $length = null) {
@@ -373,8 +373,8 @@ function importCSV($rowFirst = "yes", $firstline = 0) {
 /**
  * moveFile
  *
- * @param unknown_type $tmpFile        	
- * @param unknown_type $uploadfile        	
+ * @param string $tmpFile        	
+ * @param string $uploadfile        	
  * @return TRUE or FALSE
  */
 function moveFile($tmpFile, $uploadfile) {
@@ -401,7 +401,7 @@ function moveFile($tmpFile, $uploadfile) {
  *
  * Enter description here ...
  * 
- * @param $dossier dossier
+ * @param string $dossier dossier
  *        	a afficher
  * @param $showSubDir "yes"
  *        	pour voir les repertoires
@@ -416,9 +416,9 @@ function showDirectory($dossier = "./", $showSubDir = "yes", $showActionDelete =
 /**
  * createParamShowDirectory
  * 
- * @param unknown_type $dossier        	
- * @param unknown_type $showSubDir        	
- * @param unknown_type $showActionDelete        	
+ * @param string $dossier        	
+ * @param string $showSubDir "yes" "no"        	
+ * @param string $showActionDelete        	
  */
 function createParamShowDirectory($dossier = "./", $showSubDir = "yes", $showActionDelete = "no") {
     global $PATH_ROOT_DIRECTORY;
@@ -636,7 +636,7 @@ function getRealPath($aPath){
  * getIFileExtension
  * retourne l'extension d'un fichier (toujours en minuscule)
  * 
- * @param path $aFile        	
+ * @param string $aFile path        	
  */
 function getIFileExtension($aFile) {
 	$extension = getFileExtension ( $aFile );
@@ -660,7 +660,7 @@ function getMimeForFile($aFile) {
  * retourne l'image a afficher pour un fichier
  * Se base sur l'extension
  * 
- * @param path $aFile        	
+ * @param string $aFile path        	
  */
 function getImageForType($aFile) {
 	// On recupere les icons a afficher

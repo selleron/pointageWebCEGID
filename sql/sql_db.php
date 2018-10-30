@@ -565,11 +565,11 @@ function getFormStyleTDEval($Resultat, $param, $idx, $res){
 /**
  * getFormStyleFormat
  * 
- * @param unknown $Resultat
- * @param unknown $param
- * @param unknown $idx
- * @param unknown $res
- * @return unknown
+ * @param array or object $Resultat
+ * @param array $param
+ * @param string $idx name
+ * @param string int $res sql result
+ * @return string or int $res
  */
 function getFormStyleFormat($Resultat, $param, $idx, $res){
      if (isset($param)){
@@ -698,11 +698,11 @@ function getFormStyleArrayName($Resultat, $param, $idx){
 /**
  * getFormStyleSize2
  * 
- * @param unknown $size
- * @param unknown $form
- * @param unknown $col
+ * @param string $size
+ * @param string $form
+ * @param string $col column name
  * @param string $ind
- * @return unknown
+ * @return string html size by default $size
  */
 function getFormStyleSize2($size, $form, $col, $ind=""){
     global $TRACE_FORM_FIELD_STYLE;
@@ -725,11 +725,11 @@ function getFormStyleSizeField2($size, $form, $col, $ind=""){
 /**
  * getFormStyleTD2
  * 
- * @param unknown $td
- * @param unknown $form
- * @param unknown $col
- * @param string $ind
- * @return unknown
+ * @param string $td  html td with style
+ * @param string $form  formulaire name
+ * @param string $col column name
+ * @param string $ind not used
+ * @return string html format style $td or new value
  */
 function getFormStyleTD2($td, $form, $col, $ind=""){
     global $TRACE_FORM_FIELD_STYLE;
@@ -743,10 +743,10 @@ function getFormStyleTD2($td, $form, $col, $ind=""){
 
 /**
  * getFormStyleSuffix2
- * @param unknown $suffix
- * @param unknown $form
- * @param unknown $col
- * @param string $ind
+ * @param string $suffix
+ * @param string $form  formulaire name
+ * @param string $col column name
+ * @param string $ind not used
  * @return string
  */
 function getFormStyleSuffix2($suffix, $form, $col, $ind=""){
@@ -822,7 +822,7 @@ function mysqlFieldStatus($Resultat, $idx, $param = "") {
  * @param numeric or string $idx : index column or column name 
  * * @param string $param
  * @param request array param $param
- * @return string|unknown
+ * @return string
  */
 function mysqlFieldStyle($Resultat, $idxCol, $idxRow , $param = "") {
 	if (is_array ( $Resultat )) {
@@ -846,16 +846,23 @@ function mysqlFieldStyle($Resultat, $idxCol, $idxRow , $param = "") {
 /**
  * set value
  *
- * @param unknown $Resultat        	
- * @param unknown $col        	
- * @param unknown $row        	
- * @param unknown $value        	
- * @return unknown
+ * @param array $Resultat[col][row]  sql result   	
+ * @param string $col        	
+ * @param int $row        	
+ * @param string or int $value        	
+ * @return array $Resultat[col][row] modified 
  */
 function setSQLValue($Resultat, $col, $row, $value) {
 	$Resultat [$col] [$row] = $value;
 	return $Resultat;
 }
+
+/**
+ * 
+ * @param array $Resultat[col][row]  sql result   	
+ * @param int $row row number
+ * @return array $Resultat[col][row] modified 
+ */
 function unsetSQLRow($Resultat, $row) {
 	$column = array_keys ( $Resultat );
 	foreach ( $column as $col ) {
@@ -869,10 +876,9 @@ function unsetSQLRow($Resultat, $row) {
 
 /**
  *
- * @param unknown $Resultat        	
- * @param unknown $key
- *        	: column name
- * @param unknown $type        	
+ * @param array $Resultat[col][row]  sql result   	
+ * @param string $key	: column name
+ * @param string $type        	
  */
 function setSQLFlagType($Resultat, $key, $type) {
 	global $KEY_INFO;
@@ -884,8 +890,8 @@ function setSQLFlagType($Resultat, $key, $type) {
 
 /**
  * 
- * @param array result $Resultat
- * @param unknown $key : column name
+ * @param array $Resultat[key][$field]  sql result   	
+ * @param string $key : column name
  * @param String $field equivalent sql flag result
  * @return $Resultat
  */
@@ -901,12 +907,9 @@ function setSQLFlagField($Resultat, $key, $field) {
  * setSQLFlagTypeSize
  * specifie la taille d'un camp sql pour l'affichage
  *
- * @param
- *        	array or SQl Result $Resultat
- * @param String $key
- *        	colonne key
- * @param integer $size
- *        	taille en caractere du champ pour l'affichage
+ * @param array $Resultat[key][$field]  sql result   	
+ * @param string $key : column name
+ * @param integer $size	taille en caractere du champ pour l'affichage
  * @return $Resultat modifié
  */
 function setSQLFlagTypeSize($Resultat, $key, $size) {
@@ -921,13 +924,10 @@ function setSQLFlagTypeSize($Resultat, $key, $size) {
  * setSQLFlagStatus
  * specifie le status (enabled| disable) pour une colonne SQL
  *
- * @param
- *        	array sql $Resultat
- * @param
- *        	string or array $key
- * @param string $status
- *        	enabled | disabled
- * @return array
+ * @param array $Resultat[$KEY_INFO][$KEY_INFO_STATUS][$key]  sql result   	
+ * @param string or array $key
+ * @param string $status 	enabled | disabled
+ * @return $Resultat modifié
  */
 function setSQLFlagStatus($Resultat, $key, $status = "enabled") {
 	global $KEY_INFO;
@@ -946,11 +946,11 @@ function setSQLFlagStatus($Resultat, $key, $status = "enabled") {
 
 /**
  * setSQLFlagStyle
- * @param unknown $Resultat
- * @param unknown $key
- * @param unknown $row
+ * @param array $Resultat[KEY_INFO][KEY_INFO_STYLE][$key][$row]  sql result   	
+ * @param string or array $key name
+ * @param int $row
  * @param string $status
- * @return unknown
+ * @return $Resultat modifié
  */
 function setSQLFlagStyle($Resultat, $key, $row, $style = "") {
 	if (is_array ( $key )) {
@@ -1017,7 +1017,7 @@ function mysqlInsertId(){
  * mysqlQueries
  * 
  * @param array $requests
- * @return request result or null
+ * @return object request result or null
  */
 function mysqlQueries($requests){
     if (is_array($requests)){

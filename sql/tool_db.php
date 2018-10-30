@@ -2150,7 +2150,7 @@ function showTableLineInsert($param, $html = "", $Resultat = "", $value = "")
  * @param string $html
  * @param
  *            resultat de requete $Resultat
- * @param structure $infoForm
+ * @param object $infoForm
  */
 function showEditTableData($param, $html = "", $Resultat = "")
 {
@@ -2163,7 +2163,7 @@ function showEditTableData($param, $html = "", $Resultat = "")
 /**
  * beginFormTable
  *
- * @param unknown $param
+ * @param array $param
  * @param string $html
  * @param string $Resultat
  */
@@ -2182,7 +2182,7 @@ function beginFormTable($param, $html = "", $Resultat = "")
 /**
  * showEditRowsTableData
  *
- * @param unknown $param
+ * @param array $param
  * @param string $html
  * @param string $Resultat
  * @return string
@@ -2231,7 +2231,7 @@ function showEditRowsTableData($param, $html = "", $Resultat = "")
  * showTableRowAction
  * ajoute la ligne d'action [update][export csv]
  *
- * @param unknown $param
+ * @param array $param
  * @param string $html
  * @param string $Resultat
  * @param string $infoForm
@@ -2263,7 +2263,7 @@ function showTableRowAction($param, $html = "", $Resultat = "", $closeRow = "yes
 /**
  * showLineExportCSV
  *
- * @param unknown $param
+ * @param array $param
  * @param string $infoForm
  * @param string $formAutonome
  * @param string $html
@@ -2296,8 +2296,8 @@ function showLineExportCSV($param, $infoForm = "", $formAutonome = "no", $html =
 /**
  * showCellAction
  * 
- * @param unknown $actionTxt
- * @param unknown $param
+ * @param string $actionTxt
+ * @param array $param
  * @param string $infoForm
  * @param string $formAutonome
  * @param string $html
@@ -2336,7 +2336,7 @@ function showCellAction($actionTxt, $param, $infoForm = "", $formAutonome = "no"
 /**
  * isFormTable : doit on utiliser une table
  *
- * @param unknown $param
+ * @param array $param
  * @return number
  */
 function isFormTable($param)
@@ -2373,7 +2373,7 @@ function createRequestOrderByWithParam($request, $param)
  * @param
  *            string ORDER_ENUM::ORDER_GET
  *            colonne du order by
- * @param unknown $order_direction
+ * @param ORDER_ENUM $order_direction
  *            asc ou desc ou vide
  * @return string requete modifiee
  */
@@ -2400,9 +2400,9 @@ function createRequestOrderBy($request, $order_get, $order_direction)
  *            debut de la requete
  * @param string $first
  *            first row
- * @param unknown $limit
+ * @param string $limit
  *            nb row
- * @return string requete modifi�e
+ * @return string requete modifiee
  */
 function createRequestLimit($request, $first, $limit)
 {
@@ -2421,8 +2421,8 @@ function createRequestLimit($request, $first, $limit)
 /**
  * createSqlWhereID
  *
- * @param unknown $key
- * @param unknown $value
+ * @param string $key
+ * @param string $value
  * @return string
  */
 function createSqlWhereID($key, $value, $condition = "")
@@ -2437,12 +2437,9 @@ function createSqlWhereID($key, $value, $condition = "")
 /**
  * createSqlWhereArray
  *
- * @param unknown $keyA
- *            variable for condition
- * @param unknown $valueA
- *            value searched
- * @param unknown $condition
- *            condition to add
+ * @param string $keyA   variable for condition
+ * @param string $valueA value searched
+ * @param string $condition    condition to add
  * @return string where request without WHERE
  */
 function createSqlWhereArray($keyA, $valueA, $condition="")
@@ -2526,13 +2523,13 @@ function getSqlWhere($condition = "")
 /**
  * showTableOneData
  *
- * @param URL $html
+ * @param string $html url
  *            la page
  * @param
  *            SQL result $Resultat le resultat de la requete
  * @param int $cpt
  *            le row a lire
- * @param structure $param
+ * @param array $param
  *            structure affichage du row
  */
 function showTableOneData($html, $Resultat, $cpt, $param)
@@ -2616,13 +2613,13 @@ function showTableOneData($html, $Resultat, $cpt, $param)
 /**
  * editTableOneData
  *
- * @param URL $html
+ * @param string $html url
  *            la page
  * @param
  *            SQL result $Resultat le resultat de la requete
  * @param int $cpt
  *            le row a lire
- * @param structure $param
+ * @param array $param
  *            structure affichage du row
  * @param string $idTable
  *            id de l'element a afficher
