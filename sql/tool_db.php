@@ -589,14 +589,32 @@ function removeParamColumn($param, $columnsTxt){
     global $COLUMNS_SUMMARY;
     
     $col = arrayToString($param[$COLUMNS_SUMMARY]);
-    $col = str_replace($columnsTxt, "", $col);
+    $col = str_replace(",$columnsTxt", "", $col);
+    $col = str_replace("$columnsTxt,", "", $col);
+    $col = str_replace("$columnsTxt", "", $col);
     $col = str_replace(",,", ",", $col);
     $param[$COLUMNS_SUMMARY] = stringToArray($col);
-
-    //var_dump($param[$COLUMNS_SUMMARY]);
+    
+    //var_dump($param[$COLUMNS_SUMMARY]);   
     
     return $param;
 }
+
+function removeParamFilter($param, $columnsTxt){
+    global $COLUMNS_SUMMARY;
+    
+    if (isset($param[PARAM_TABLE_SQL::COLUMNS_FILTER])){
+    $col = arrayToString($param[PARAM_TABLE_SQL::COLUMNS_FILTER]);
+    $col = str_replace($columnsTxt, "", $col);
+    $col = str_replace(",,", ",", $col);
+    $param[PARAM_TABLE_SQL::COLUMNS_FILTER] = stringToArray($col);
+    //var_dump($param[$COLUMNS_SUMMARY]);
+    }
+    
+    return $param;
+}
+
+
 
 
 /**
@@ -2254,7 +2272,8 @@ function showTableRowAction($param, $html = "", $Resultat = "", $closeRow = "yes
     }
     echo "</td>";
     
-    showLineExportCSV($param, $infoForm);
+    //showLineExportCSV($param, $infoForm);
+    showLineExportCSV($param, $infoForm, $html,  $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]);
     if ($closeRow) {
         echo "</tr>";
     }

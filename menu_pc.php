@@ -182,10 +182,12 @@ else{
 	    $urlCAPrev2    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel2.php$argument");
 	    $urlCloture    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/cloture.php$argument");
 	    $urlArchives   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/archives.php$argument");
+	    $urlSuiviDevis = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/suivi_propositions.php$argument");
 	    
     	echo"
     		<ul>
     		 <li><a title=\"Responsable affaires\"   href=\"$urlRespAffaires\">  <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > Resp. affaires</a></li>
+    		 <li><a title=\"Suivi Devis\"            href=\"$urlSuiviDevis\">    <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > Suivi propositions</a></li>
     		 <li><a title=\"CA Actuel clos\"         href=\"$urlCAActuel2\">     <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel clos...</a></li>
     		</ul>";
     	createHeaderBaliseDiv("id_div_CA_Suite","<h3>CA autres</h3>");

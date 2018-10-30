@@ -414,10 +414,9 @@ function getCSVIndexFromMatrice($matrice, $key, $comment = "#") {
 /**
  * exportCVSDataURL
  *
- * @param
- *        	file handler $handle
- * @param string $table
- *        	: table name
+ * @param 	file handler $handle
+ * @param string $table : table name
+ * @param array or object : sql result
  */
 function exportCSVDataURL($handle, $table) {
     //debug_print_backtrace();
@@ -431,7 +430,7 @@ function exportCSVDataURL($handle, $table) {
         $sql = $table;
     }
     
-	$Resultat = mysqlQuery ( $sql );
+   $Resultat = mysqlQuery ( $sql );
 	
 	$nbRow = mysqlNumrows ( $Resultat );
 	$nbCol = mysqlNumFields ( $Resultat );
