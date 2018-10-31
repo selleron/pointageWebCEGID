@@ -48,13 +48,13 @@ function restoreTable($table, $table_historique = "", $columns, $condition="") {
 /**
  * historisationTable
  *
- * @param $table table
+ * @param string $table table
  *        	de depart
- * @param $table_historique table
+ * @param string $table_historique table
  *        	a modifier
- * @param $columns colonne
+ * @param string $columns colonne
  *        	a copier "cc1, cc2, cc3"
- * @param $condition 
+ * @param string $condition 
  *  condition  	derriere le WHERE
  */
 function historisationTable($table, $table_historique = "", $columns, $condition) {
