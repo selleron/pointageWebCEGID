@@ -28,10 +28,13 @@ $SQL_SHOW_ALL_COL_DEVIS = "$SQL_COL_ID_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_VERS
 
 
 $SQL_TABLE_STATUS_EVOLUTION  = "cegid_status_evolution";
+
 $SQL_COL_REFERENCE_STATUS_EVOLUTION = "REFERENCE";
 $SQL_COL_DATE_STATUS_EVOLUTION = "DATE";
 $SQL_COL_STATUS_STATUS_EVOLUTION = "STATUS";
 $SQL_COL_ORIGIN_STATUS_EVOLUTION = "ORIGIN";
+
+$SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION = "'cegid_devis_project.status_devis'";
 
 
 
@@ -305,6 +308,7 @@ function showSuiviPropositions() {
     global $SQL_COL_DATE_STATUS_EVOLUTION;
     global $SQL_COL_STATUS_STATUS_EVOLUTION;
     global $SQL_COL_ORIGIN_STATUS_EVOLUTION;
+    global $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION;
     
     
     global $SQL_TABLE_PROJECT;
@@ -325,6 +329,7 @@ function showSuiviPropositions() {
      $result = sqlParamToArrayResult($param);
      $nbRes = mysqlNumrows ( $result );
      
+     $COL_DDE = "Demande";
      $COL_VALIDE = "Valide";
      $COL_ENVOYE = "Envoye";
      $COL_ACCEPTE = "Accepte";
@@ -336,6 +341,7 @@ function showSuiviPropositions() {
      //ajout colonne
      $param2 = removeParamColumn($param2, $SQL_COL_NUXEO_DEVIS);
      $param2 = removeParamColumn($param2, $SQL_COL_COMMANDE_DEVIS);
+     $param2 = addParamSqlColumn($param2, $COL_DDE);
      $param2 = addParamSqlColumn($param2, $COL_VALIDE);
      $param2 = addParamSqlColumn($param2, $COL_ENVOYE);
      $param2 = addParamSqlColumn($param2, $COL_ACCEPTE);
@@ -348,6 +354,7 @@ function showSuiviPropositions() {
      $param2[PARAM_TABLE_COMMAND::EXPORT_COLUMNS]=getParamColumns($param2);
      
      
+     $result = setSQLFlagType ( $result, $COL_DDE, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $COL_VALIDE, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $COL_ENVOYE, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $COL_ACCEPTE, SQL_TYPE::SQL_REQUEST );
@@ -359,15 +366,21 @@ function showSuiviPropositions() {
      
 
      for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+         $result[$COL_DDE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
+             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='new'";
          $result[$COL_ENVOYE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
              " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
-             " and $SQL_COL_STATUS_STATUS_EVOLUTION='envoye'";
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='envoye'".
+             "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
          $result[$COL_ACCEPTE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
              " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
-             " and $SQL_COL_STATUS_STATUS_EVOLUTION='Accepte'";
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='Accepte'".
+         "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
          $result[$COL_VALIDE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
              " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
-             " and $SQL_COL_STATUS_STATUS_EVOLUTION='Valide'";
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='Valide'".
+         "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
          $result[$SQL_COL_DEBUT_PROJECT] [$cpt] = "select date($SQL_COL_DEBUT_PROJECT) from $SQL_TABLE_PROJECT ".
              " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
          $result[$SQL_COL_FIN_PROJECT] [$cpt] = "select date($SQL_COL_FIN_PROJECT) from $SQL_TABLE_PROJECT ".
