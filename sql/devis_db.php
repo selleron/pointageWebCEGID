@@ -366,25 +366,35 @@ function showSuiviPropositions() {
      
 
      for($cpt = 0; $cpt < $nbRes; $cpt ++) {
-         $result[$COL_DDE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
-             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
-             " and $SQL_COL_STATUS_STATUS_EVOLUTION='new'";
-         $result[$COL_ENVOYE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
-             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
-             " and $SQL_COL_STATUS_STATUS_EVOLUTION='envoye'".
-             "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
+         //accepte
          $result[$COL_ACCEPTE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
              " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
              " and $SQL_COL_STATUS_STATUS_EVOLUTION='Accepte'".
          "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
+         //envoyé
+         $result[$COL_ENVOYE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
+             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='envoye'".
+             "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
+         //valide
          $result[$COL_VALIDE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
              " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
              " and $SQL_COL_STATUS_STATUS_EVOLUTION='Valide'".
          "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
+         
+         $result[$COL_VALIDE][$cpt] = $result[$COL_VALIDE][$cpt]." union ".$result[$COL_ENVOYE][$cpt];
+         
+         //demande
+         $result[$COL_DDE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
+             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
+             " and $SQL_COL_STATUS_STATUS_EVOLUTION='new'";
+         //debut
          $result[$SQL_COL_DEBUT_PROJECT] [$cpt] = "select date($SQL_COL_DEBUT_PROJECT) from $SQL_TABLE_PROJECT ".
              " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
+         //fin
          $result[$SQL_COL_FIN_PROJECT] [$cpt] = "select date($SQL_COL_FIN_PROJECT) from $SQL_TABLE_PROJECT ".
              " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
+         //garantie
          $result[$SQL_COL_FIN_GARANTIE] [$cpt] = "select date($SQL_COL_FIN_GARANTIE) from $SQL_TABLE_PROJECT ".
              " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
      }
