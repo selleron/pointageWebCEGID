@@ -221,7 +221,7 @@ function showTableCEGID_FILE($condition2="") {
 
 	
 	//ajout colonne
-	$colUpload = "Télécharger";
+	$colUpload = "Telecharger";
 	$param2 = addParamSqlColumn($param, $colUpload);
 	$result = setSQLFlagType ( $result, $colUpload, SQL_TYPE::SQL_STRING );
 	
