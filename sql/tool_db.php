@@ -1478,13 +1478,10 @@ function createSqlUpdate($table, $arrayCol, $arrayValue, $condition, $quoteValue
  * createSqlUpdate
  * creation requete sql insert
  *
- * @param $table la
- *            table
- * @param $arrayCol le
- *            tableau des colonnes
- * @param $arrayValue le
- *            tableau des valeurs
- * @param $quoteValue "true"
+ * @param string $table la  table
+ * @param array $arrayCol le tableau des colonnes
+ * @param array $arrayValue le tableau des valeurs
+ * @param string $quoteValue "true"
  *            si on doit quoter dans la requete les values
  */
 function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true")
@@ -1594,8 +1591,8 @@ function createSqlDelete($table, $key, $value)
 /**
  * createSqlDeleteWithcondition
  * 
- * @param unknown $table
- * @param unknown $condition
+ * @param string $table
+ * @param string $condition
  * @return string
  */
 function createSqlDeleteWithcondition($table, $condition)
@@ -1613,9 +1610,8 @@ function createSqlDeleteWithcondition($table, $condition)
 /**
  * getPrimaryKeyValue
  *
- * @param
- *            sql result or array $resultat
- * @param interger $row
+ * @param  sql result or array $resultat
+ * @param integer $row
  *            row number
  * @return string value for Primary Key
  */
@@ -1661,9 +1657,9 @@ function getPrimaryKeyPosition($resultat, $row)
 /**
  * isFiltred
  *
- * @param unknown $data
+ * @param object $data
  *            donnée à tester
- * @param unknown $filtre
+ * @param array $filtre
  *            tableau de filtre
  * @return number FALSE si pas filtré
  */
@@ -1683,7 +1679,7 @@ function isFiltred($data, $filtre)
  * showLimitBar
  * show navigation bar with [next] / [previous]
  *
- * @param structure $param
+ * @param array $param
  *            : sql table parameters
  * @param string $html
  *            : page url
@@ -1744,7 +1740,7 @@ function showLimitBar($param, $html = "")
  *
  * showTableHeader
  *
- * @param unknown_type $param
+ * @param array $param
  *            voir createDefaultParamSql();
  * @param string $html
  *            url
@@ -1923,11 +1919,11 @@ function createRequeteTableData($param)
  *
  * requeteTableData d'une table
  *
- * @param $param parametre
+ * @param array $param parametre
  *            d'affichage (voir createDefaultParamSql() )
- * @param $html fichier
+ * @param string $html fichier
  *            a appeler si on fait un sorte
- * @param $Resultat resultat
+ * @param object $Resultat resultat
  *            sql a afficher
  */
 function requeteTableData($param)
@@ -1948,10 +1944,9 @@ function requeteTableData($param)
 /**
  * setInfoForm
  *
- * @param
- *            request parametre $param
+ * @param array request parametre $param
  * @param string $infoForm
- * @return request modified
+ * @return array $param request modified
  */
 function setInfoForm($param, $infoForm)
 {
@@ -1984,10 +1979,10 @@ function getInfoForm($param, $default = "")
 /**
  * checkInfoForm
  *
- * @param parameters $param
+ * @param array parameters $param
  * @param string $infoForm
  *
- * @return infoForm (form $param or string)
+ * @return array string infoForm (form $param or string)
  */
 function checkInfoForm($param, $infoForm = "")
 {
@@ -2006,11 +2001,11 @@ function checkInfoForm($param, $infoForm = "")
  *
  * Affiche les donnees d'une table
  *
- * @param $param parametre
+ * @param array $param parametre
  *            d'affichage (voir createDefaultParamSql() )
- * @param $html fichier
+ * @param string $html fichier
  *            a appeler si on fait un sorte
- * @param $Resultat resultat
+ * @param object $Resultat resultat
  *            sql a afficher
  */
 function showTableData($param, $html = "", $Resultat = "", $closeTable = "yes")
@@ -2679,13 +2674,23 @@ function editTableOneData($html, $Resultat, $cpt, $param, $idTable = "")
     
     // parcours des colonnes
     $idx = 0;
+//     $idxGroupCol = 0;
+//     $sizeGroupCol = 2;
+//     beginTableRow();
     foreach ($columns as $c) {
-        echo "<tr> ";
+        beginTableRow();
         echo "<td align=\"right\">$c :</td>";
         editSqlRow($Resultat, $c, $cpt, $formName, $idx, $param);
-        echo "</tr>";
-        $idx ++;
+//          $idxGroupCol = $idxGroupCol+1;
+//          $idxGroupCol = $idxGroupCol % $sizeGroupCol;
+//          if ($idxGroupCol==0){
+//              endTableRow();
+//              beginTableRow();
+//          }
+         endTableRow();
+         $idx ++;
     }
+//    endTableRow();
     
     echo "<tr>";
     echo "<td></td>";
@@ -2921,6 +2926,30 @@ function endHeaderBaliseDiv($idBalise)
 {
     echo "</div id=\"$idBalise\" > <!-- close div $idBalise -->";
 }
+
+/**
+ * blockCondition
+ * utilise un cookie pour connaitre une valeur et pouvoir la changer
+ * @param string $idBalise
+ * @param string $txt
+ * @return true | false
+ */
+function blockCondition($idBalise, $txt = "")
+{
+    //echo "$idBalise : $_COOKIE[$idBalise]";
+    if (isset($_COOKIE[$idBalise])) {
+        $visibility = $_COOKIE[$idBalise];
+    } else {
+        $visibility = true;
+    }
+    $newVisibility=!$visibility;
+    $txt = str_replace("<value>", "$visibility", $txt);
+    if ($txt) {
+        echo "<a href=\"\" onclick=\"javascript:createCookie('" . $idBalise . "','".$newVisibility."'); return true;\">$txt</a>";
+    }
+    return $visibility;
+}
+
 
 // ///////////////////////////////////// tablette PC /////////////////////////////////////////////////
 

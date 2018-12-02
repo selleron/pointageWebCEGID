@@ -58,7 +58,12 @@
 	$idBalise="user_detail";
 	createHeaderBaliseDiv($idBalise,"<h3>Detail des users.</h3>");
 	showLoadFile("","","","import");
-	showTableUserCEGID();
+	if (blockCondition("user_expert_insert", "<h4>user mode expert[<value>]</h4>")){
+	  showTableUserCEGID();
+	}
+	else{
+	  showTableMediumUserCEGID();
+	}
 	endHeaderBaliseDiv($idBalise)
 ?>
 <br/><br/><br/>

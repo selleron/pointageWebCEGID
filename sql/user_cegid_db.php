@@ -21,8 +21,9 @@ $SQL_COL_EMAIL2_CEGID_USER  = "EMAIL2";
 $SQL_COL_TEL1_CEGID_USER    = "TEL1";
 $SQL_COL_TEL2_CEGID_USER    = "TEL2";
 $SQL_COL_GROUPE_CEGID_USER  = "GROUPE";
+$SQL_COL_CEGID_ID_CEGID_USER   = "CEGID_ID";
 
-$SQL_SHOW_COL_INFO_CEGID_USER = "$SQL_COL_EMAIL1_CEGID_USER, $SQL_COL_EMAIL2_CEGID_USER, $SQL_COL_TEL1_CEGID_USER, $SQL_COL_TEL2_CEGID_USER, $SQL_COL_GROUPE_CEGID_USER";
+$SQL_SHOW_COL_INFO_CEGID_USER = "$SQL_COL_EMAIL1_CEGID_USER, $SQL_COL_EMAIL2_CEGID_USER, $SQL_COL_TEL1_CEGID_USER, $SQL_COL_TEL2_CEGID_USER, $SQL_COL_GROUPE_CEGID_USER, $SQL_COL_CEGID_ID_CEGID_USER";
 
 
 $SQL_SHOW_SHORT_COL_CEGID_USER   = "$SQL_COL_ID_CEGID_USER, $SQL_COL_NAME_CEGID_USER, $SQL_COL_NOM_CEGID_USER, $SQL_COL_PRENOM_CEGID_USER, $SQL_COL_SOCIETE_CEGID_USER, $SQL_COL_GROUPE_CEGID_USER,  $SQL_COL_STATUS_CEGID_USER";
@@ -63,6 +64,24 @@ function applyGestionUserCEGID() {
 	
 	showTableByParam($param);
  }
+
+ /**
+  * affiche les versions des elements du user
+  * (description)
+  */
+ function showTableMediumUserCEGID($condition="") {
+     global $SQL_SHOW_MEDIUM_COL_CEGID_USER;
+     global $SQL_TABLE_CEGID_USER;
+     global $FORM_TABLE_CEGID_USER;
+     $form_name = $FORM_TABLE_CEGID_USER."_insert";
+     
+     //showTable($SQL_TABLE_CEGID_USER, $SQL_SHOW_COL_CEGID_USER, $form_name);
+     $param = prepareshowTable($SQL_TABLE_CEGID_USER, $SQL_SHOW_MEDIUM_COL_CEGID_USER, $form_name, $condition);
+     $param[PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "yes";
+     
+     showTableByParam($param);
+ }
+ 
  
  /**
   * table pour l'insert du user
