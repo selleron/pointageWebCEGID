@@ -61,8 +61,8 @@ WHERE `ORIGIN` like "cegid_devis_project.status_dev";
 UPDATE `version` SET `DATE` = '2018-10-31 00:00:00', `value` = '0.35.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.34_vers_0.35', '101', '2018-10-31 00:00:00', 'modification trigger trace status', '0.35.0');
 
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.28.20 vers_0.1.28.24', '200', '2018-10-31 00:00:00', 'page suvi propositions', '0.1.28.24');
-UPDATE `version` SET `DATE` = '2018-10-31 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.24' WHERE `version`.`id` = 'php';
+-- INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.28.20 vers_0.1.28.24', '200', '2018-10-31 00:00:00', 'page suvi propositions', '0.1.28.24');
+-- UPDATE `version` SET `DATE` = '2018-10-31 00:00:00', `description` = 'version fichier php minimal', `value` = '0.1.28.24' WHERE `version`.`id` = 'php';
 
 
 COMMIT;
