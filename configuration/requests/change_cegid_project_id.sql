@@ -12,8 +12,10 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 
-set @ID_OLD="P18XXX";
-set @ID_NEW="P18YYY";
+set @ID_OLD="P18xxx";
+set @ID_NEW="P18yyy";
+-- set @ID_OLD="P18028";
+-- set @ID_NEW="P18040";
 
 -- creation nouveau projet par copie
 INSERT INTO `cegid_project` (`CEGID`, `NAME`, `PRIX_VENTE`, `DEBUT`, `FIN`, `FIN_GARANTIE`, `STATUS`, `TYPE`, `GROUPE`, `COMMENTAIRE`, `VISIBLE`) 
@@ -27,8 +29,11 @@ UPDATE cegid_pointage_previsionnel         SET PROJECT_ID=@ID_NEW WHERE PROJECT_
 UPDATE cegid_pointage_previsionnel_history SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_pointage_voulu                SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_project_cout                  SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
+UPDATE cegid_project_cout_history          SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
+UPDATE cegid_file                          SET REFERENCE=@ID_NEW  WHERE REFERENCE=@ID_OLD;
+UPDATE cegid_frais_mission                 SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 
---desactivation de l'ancien projet
+-- desactivation de l'ancien projet
 UPDATE `cegid_project` SET `STATUS` = 'Annule' WHERE `cegid_project`.`CEGID` = @ID_OLD;
 
 -- suppression de l'ancien projet
@@ -39,3 +44,4 @@ UPDATE `cegid_project` SET `STATUS` = 'Annule' WHERE `cegid_project`.`CEGID` = @
 SET FOREIGN_KEY_CHECKS=1;
 ROLLBACK;
 -- COMMIT;
+
