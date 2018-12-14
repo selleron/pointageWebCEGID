@@ -282,6 +282,19 @@ function prepareParamShowTableDevis($columns=""){
 }
 
 
+ /**
+  * application des actions sur la page de suivi des propositions
+  */
+ function applySuiviPropositions() {
+//     $request = getRequeteCAByID($idRequest);
+    $request ="suivi_proposition";
+    $col= getURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS);
+     $form_name="form_suivi_proposition";
+     applyGestionTable($request, $col, $form_name);
+     //applyGestionDevis();
+ }
+
+
 function showSuiviPropositions() {
     global $FORM_TABLE_CEGID_DEVIS;
     
@@ -316,6 +329,7 @@ function showSuiviPropositions() {
     global $SQL_COL_FIN_PROJECT;
     global $SQL_COL_FIN_GARANTIE;
     global $SQL_COL_ID_PROJECT;
+    global $SQL_COL_PRIX_VENTE_PROJECT;
     
     
     
@@ -345,6 +359,7 @@ function showSuiviPropositions() {
      $param2 = addParamSqlColumn($param2, $COL_VALIDE);
      $param2 = addParamSqlColumn($param2, $COL_ENVOYE);
      $param2 = addParamSqlColumn($param2, $COL_ACCEPTE);
+     $param2 = addParamSqlColumn($param2, $SQL_COL_PRIX_VENTE_PROJECT);
      $param2 = addParamSqlColumn($param2, $SQL_COL_DEBUT_PROJECT);
      $param2 = addParamSqlColumn($param2, $SQL_COL_FIN_PROJECT);
      $param2 = addParamSqlColumn($param2, $SQL_COL_FIN_GARANTIE);
@@ -358,6 +373,7 @@ function showSuiviPropositions() {
      $result = setSQLFlagType ( $result, $COL_VALIDE, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $COL_ENVOYE, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $COL_ACCEPTE, SQL_TYPE::SQL_REQUEST );
+     $result = setSQLFlagType ( $result, $SQL_COL_PRIX_VENTE_PROJECT, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $SQL_COL_DEBUT_PROJECT, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $SQL_COL_FIN_PROJECT, SQL_TYPE::SQL_REQUEST );
      $result = setSQLFlagType ( $result, $SQL_COL_FIN_GARANTIE, SQL_TYPE::SQL_REQUEST );
@@ -388,6 +404,9 @@ function showSuiviPropositions() {
          $result[$COL_DDE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
              " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
              " and $SQL_COL_STATUS_STATUS_EVOLUTION='new'";
+         //prix vente
+         $result[$SQL_COL_PRIX_VENTE_PROJECT] [$cpt] = "select $SQL_COL_PRIX_VENTE_PROJECT from $SQL_TABLE_PROJECT ".
+             " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
          //debut
          $result[$SQL_COL_DEBUT_PROJECT] [$cpt] = "select date($SQL_COL_DEBUT_PROJECT) from $SQL_TABLE_PROJECT ".
              " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
@@ -407,15 +426,30 @@ function showSuiviPropositions() {
          $result2[$col] = $result[$col];
          $result2 = setSQLFlagType($result2,$col, mysqlFieldType($result,$col));
          $result2 = setSQLFlagStatus($result2, $col, "no");
+         //$result2 = setSQLFlagStatus($result2, $col, "yes");
      }
      
+     
+
+      //preparation pour l'export pour le apply
+      //on met dans les variables url les valeurs
+      $nbRes = mysqlNumrows($result2);
+      foreach ( $columns as $col){
+          for ($cpt = 0; $cpt < $nbRes; $cpt ++) {
+                 $value[$cpt] = mysqlResult($result2, $cpt, $col);
+          }
+          //setURLVariable($col, $result2[$col]);
+          setURLVariable($col, $value);
+      }
+     //gestion du apply
+     applySuiviPropositions();
      
      //header
      showTableHeader ( $param2 );
      //data
      
      beginTableBody();
-     //$res = showTableData($param2,"",$result,"no");
+     //$res = showTableData($param2,"",$result2,"no");
      showEditTableData($param2,"",$result2);
      endTableBody();
      endTable();

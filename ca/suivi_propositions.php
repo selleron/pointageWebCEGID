@@ -39,7 +39,7 @@
 	echo "<p>Suivi propositions.<br/></p>";
 	showTracePOST();
 
-	applyGestionDevis();
+	//applyGestionDevis();
 	
 	//showLoadFile("","","","import");
 	
