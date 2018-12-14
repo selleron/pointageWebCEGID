@@ -182,7 +182,7 @@ else{
 	    $urlCAPrev2    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel2.php$argument");
 	    $urlCloture    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/cloture.php$argument");
 	    $urlArchives   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/archives.php$argument");
-	    $urlSuiviDevis = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/suivi_propositions.php$argument");
+	    $urlSuiviDevis = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/suivi_propositions.php$argument");
 	    
     	echo"
     		<ul>

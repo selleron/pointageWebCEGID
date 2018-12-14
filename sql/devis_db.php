@@ -319,12 +319,12 @@ function showSuiviPropositions() {
     
     
     
-    $columns1 = " $SQL_COL_ID_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_SOCIETE_DEVIS, $SQL_COL_STATUS_DEVIS,$SQL_COL_CEGID_DEVIS,  $SQL_COL_COMMANDE_DEVIS,$SQL_COL_NUXEO_DEVIS, $SQL_COL_COMMANDE_DEVIS "; 
+    $columns1 = " $SQL_COL_SOCIETE_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_ID_DEVIS, $SQL_COL_STATUS_DEVIS, $SQL_COL_NUXEO_DEVIS, $SQL_COL_CEGID_DEVIS,  $SQL_COL_COMMANDE_DEVIS, $SQL_COL_COMMANDE_DEVIS "; 
     
     $param = prepareParamShowTableDevis ($columns1);
     $param = modifierTableParamSql($param, $FORM_TABLE_CEGID_DEVIS, /*$insert*/"no", /*$edit*/"no", /*$delete*/"no", /*$exportCSV*/"yes");
     $req = createRequeteTableData ( $param );
-    //showSQLAction ( $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]." : $req" );
+    showSQLAction ( $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]." : $req" );
 
      $result = sqlParamToArrayResult($param);
      $nbRes = mysqlNumrows ( $result );
@@ -339,7 +339,7 @@ function showSuiviPropositions() {
      $param2[PARAM_TABLE_TABLE::TABLE_SIZE]="1400px";
      
      //ajout colonne
-     $param2 = removeParamColumn($param2, $SQL_COL_NUXEO_DEVIS);
+     //$param2 = removeParamColumn($param2, $SQL_COL_NUXEO_DEVIS);
      $param2 = removeParamColumn($param2, $SQL_COL_COMMANDE_DEVIS);
      $param2 = addParamSqlColumn($param2, $COL_DDE);
      $param2 = addParamSqlColumn($param2, $COL_VALIDE);
@@ -371,7 +371,7 @@ function showSuiviPropositions() {
              " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
              " and $SQL_COL_STATUS_STATUS_EVOLUTION='Accepte'".
          "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
-         //envoyé
+         //envoyï¿½
          $result[$COL_ENVOYE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
              " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
              " and $SQL_COL_STATUS_STATUS_EVOLUTION='envoye'".
