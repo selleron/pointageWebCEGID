@@ -289,6 +289,9 @@ function prepareParamShowTableDevis($columns=""){
 //     $request = getRequeteCAByID($idRequest);
     $request ="suivi_proposition";
     $col= getURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS);
+    if ($col==""){
+        showSQLAction("URL variable ".PARAM_TABLE_COMMAND::EXPORT_COLUMNS." not found");
+    }
      $form_name="form_suivi_proposition";
      applyGestionTable($request, $col, $form_name);
      //applyGestionDevis();
@@ -438,8 +441,9 @@ function showSuiviPropositions() {
           for ($cpt = 0; $cpt < $nbRes; $cpt ++) {
                  $value[$cpt] = mysqlResult($result2, $cpt, $col);
           }
-          //setURLVariable($col, $result2[$col]);
           setURLVariable($col, $value);
+          setURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS, arrayToString($columns) );
+          
       }
      //gestion du apply
      applySuiviPropositions();
