@@ -126,9 +126,9 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["VISIBLE"]=$SELECT_ID_FROM
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT;
 
 $FORM_VALUE_INSERT ["form_table_cegid_devis_update"]["VISIBLE"]["DEFAULT"]="Visible";
-$FORM_STYLE         ["form_table_cegid_devis_update"]["NAME"]["SIZE"]=50;
-$FORM_STYLE         ["form_table_cegid_devis_update"]["NUXEO"]["SIZE"]=100;
-$FORM_STYLE         ["form_table_cegid_devis_update"]["MODIFICATION"]["SIZE"]=5;
+$FORM_STYLE        ["form_table_cegid_devis_update"]["NAME"]["SIZE"]=50;
+$FORM_STYLE        ["form_table_cegid_devis_update"]["NUXEO"]["SIZE"]=100;
+$FORM_STYLE        ["form_table_cegid_devis_update"]["CEGID"]["CB_COMPLETION"]="yes";
 
 //table cegid project
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["STATUS"]["DEFAULT"]="Prevision";

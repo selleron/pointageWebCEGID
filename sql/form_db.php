@@ -398,11 +398,14 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 	// via sql
 	if (hasSqlListValueFormColumn ( $form, $nameNoDimension )) {
 		$Request = getSqlListValueFormColumn ( $form, $nameNoDimension );
-		showFormComboBoxSql ( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit );
-// 	} else if (isForeignerKeyFlag ( $flags ) && isPrimaryKeyFlag ( $flags ) == false) {
-// 		// traitement des cles etrangeres => combo box
-// 		// aurait du etre traite au dessus
-// 		echoTD("foreigner key & not primary key detected. not CB detected : not found FORM_VALUE_POSSIBLE[$form][$name]");
+		
+		$useCompletion = getFormStyleCBCompletion2($form, $nameNoDimension);
+        if ($useCompletion=="yes"){
+            showFormComboBoxCompletionSql( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit );
+        }
+        else{
+            showFormComboBoxSql ( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit );
+        }		
 	} else if (isAutoIncrementFlag ( $flags ) && isPrimaryKeyFlag ( $flags )) {
 		// traitement primary key with auto increment
 		showFormPrimary ( $form, $name, $showLabel, $useTD, $value );

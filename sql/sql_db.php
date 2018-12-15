@@ -13,20 +13,21 @@ include_once (dirname ( __FILE__ ) . "/../configuration/form_db_config.php");
 // $param[$KEY_INFO][$KEY_INFO_TYPE, $KEY_INFO_TYPE_SIZE][Colonne]
 
 class KEY_INFO{
-	const KEY_INFO                 = "array key info";
-	const KEY_INFO_FIELD           = "array key info flag";
-	const KEY_INFO_TYPE            = "array key info type";
-	//const KEY_INFO_TYPE_SIZE     = "array key info type size";
-	const KEY_INFO_TYPE_SUFFIX     = "SUFFIX";
+	const KEY_INFO                   = "array key info";
+	const KEY_INFO_FIELD             = "array key info flag";
+	const KEY_INFO_TYPE              = "array key info type";
+	//const KEY_INFO_TYPE_SIZE       = "array key info type size";
+	const KEY_INFO_TYPE_SUFFIX       = "SUFFIX";
 	const KEY_INFO_TYPE_SUFFIX_FIELD = "SUFFIX_FIELD";
-	const KEY_INFO_TYPE_SIZE       = "SIZE";
-	const KEY_INFO_TYPE_WIDTH      = "WIDTH";
-	const KEY_INFO_TYPE_SIZE_FIELD = "SIZE_FIELD";
-	const KEY_INFO_TYPE_TD         = "TD";
-	const KEY_INFO_TYPE_TD_EVAL    = "TD_EVAL";
-	const KEY_INFO_TYPE_FORMAT     = "FORMAT";
-	const KEY_INFO_STATUS          = "STATUS";
-	const KEY_INFO_STYLE           = "array key info style";
+	const KEY_INFO_TYPE_SIZE         = "SIZE";
+	const KEY_INFO_TYPE_WIDTH        = "WIDTH";
+	const KEY_INFO_TYPE_SIZE_FIELD   = "SIZE_FIELD";
+	const KEY_INFO_TYPE_TD           = "TD";
+	const KEY_INFO_TYPE_TD_EVAL      = "TD_EVAL";
+	const KEY_INFO_TYPE_FORMAT       = "FORMAT";
+	const KEY_INFO_TYPE_CB_COMPLETION= "CB_COMPLETION";
+	const KEY_INFO_STATUS            = "STATUS";
+	const KEY_INFO_STYLE             = "array key info style";
 }
 
 $KEY_INFO           = KEY_INFO::KEY_INFO;
@@ -525,6 +526,50 @@ function getFormStyleSuffix($Resultat, $param, $idx){
     }
     return NULL;
 }
+
+function getFormStyleCBCompletion($Resultat, $param, $idx){
+    if (isset($param)){
+        return getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_CB_COMPLETION);
+    }
+    return NULL;
+}
+
+
+function getFormStyleCBCompletion2($form, $variable, $key=""){
+
+    global $FORM_STYLE;
+    global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
+    
+    if ($key==""){
+        $key = KEY_INFO::KEY_INFO_TYPE_CB_COMPLETION;
+    }
+       
+    if (isset($FORM_STYLE) && isset($FORM_STYLE[$form]) && isset($FORM_STYLE[$form][$variable])){
+        $value = $FORM_STYLE[$form][$variable][$key];
+        
+        if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
+            if (isset($value)){
+                echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$variable"."]"."[\"$key\"] : $value");
+            }
+            else{
+                echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$variable"."]"."[\"$key\"] : not set");
+            }
+        }
+        return $value;        
+    }  
+    else{
+        if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
+            echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$variable"."]"."[\"$key\"] : not found");
+        }
+        return NULL;
+    }
+    
+    
+}
+
+
+
+
 
 /**
  * getFormStyleTD
