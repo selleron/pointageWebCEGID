@@ -11,7 +11,7 @@ $time_calendar_txt['french']['days']		    = array('Lundi', 'Mardi', 'Mercredi','
  * month in texte
  * @param int $month 01..12
  * @param langue 'french', 'english'
- * @return month en lettre janvier, fevrier, ...
+ * @return string month en lettre janvier, fevrier, ...
 */
 function monthInTexte($month, $langue="french"){
 	$idxMonth = (int) $month;
@@ -23,7 +23,7 @@ function monthInTexte($month, $langue="french"){
 /**
  * formatCalendar
  * format YYYYMMDD
- * @param timestamp $time
+ * @param integer timestamp $time
  */
 function formatCalendar($time){
 	$date = date("Ymd",$time);
@@ -35,7 +35,7 @@ function formatCalendar($time){
  *
  * calendarDateToTime
  * retourne un timestamp
- * @param $date YYYYMMDD
+ * @param string $date YYYYMMDD
  */
 function calendarDateToTime($date){
 	$month 		= substr($date, 4 ,2);
@@ -49,7 +49,7 @@ function calendarDateToTime($date){
 /**
  * getYearFromCalendar
  * return une ann&eacute;e YYYY
- * @param $date YYYYMMDD
+ * @param string $date YYYYMMDD
  */
 function getYearFromCalendar($date){
 	$year		= substr($date, 0 ,4);
@@ -96,7 +96,7 @@ function isSqlDate($date){
 
 /**
  * day from Sql Date
- * @param unknown $date YYYY-MM-DD
+ * @param string $date YYYY-MM-DD
  * @return string day (DD)
  */
 function dayFromSqlDate($date){
@@ -106,7 +106,7 @@ function dayFromSqlDate($date){
 
 /**
  * month from Sql Date
- * @param unknown $date YYYY-MM-DD
+ * @param string $date YYYY-MM-DD
  * @return string month (MM)
  */
 function monthFromSqlDate($date){
@@ -116,7 +116,7 @@ function monthFromSqlDate($date){
 
 /**
  * year from Sql Date
- * @param unknown $date YYYY-MM-DD
+ * @param string $date YYYY-MM-DD
  * @return string year (YYYY)
  */
 function yearFromSqlDate($date){
@@ -127,7 +127,7 @@ function yearFromSqlDate($date){
 
 /**
  * retourne une YYYY-MM-DD depuis un timestamp
- * @param $time1 timestamp
+ * @param integer $time1 timestamp
  */
 function timeToSqlDate($time1){
 	$day = date("d", $time1);
@@ -139,7 +139,7 @@ function timeToSqlDate($time1){
 
 /**
  * retourne une YYYY-MM-DD HH:MM:SSdepuis un timestamp
- * @param $time1 timestamp
+ * @param string $time1 timestamp
  */
 function timeToSqlDateTime($time1){
 	$day = date("d", $time1);
@@ -180,8 +180,8 @@ function sqlDateFromDDMMYY( $day,  $month,  $year){
 /**
  * incrementDate
  * increment une date de n jours
- * @return timestamp $time1+ ($inc day)
- * @param timestamp $time1
+ * @return integer timestamp $time1+ ($inc day)
+ * @param integer timestamp $time1
  * @param integer $inc increment day
  */
 function incrementDate($time1, $inc=1){
@@ -194,9 +194,9 @@ function incrementDate($time1, $inc=1){
 
 /**
  * incremente une date
- * @param sqlDate $date1
+ * @param string sqlDate $date1
  * @param integer $incDay
- * @return sqlDate YYYY-MM-DD
+ * @return string sqlDate YYYY-MM-DD
  */
 function incrementDateSql($date1, $incDay=1){
 	$time1=sqlDateToTime($date1);
@@ -210,8 +210,8 @@ function incrementDateSql($date1, $incDay=1){
  * createDateInterval
  * creation de date espac&eacute;e de 1 jour
  * return array of time
- * @param timestamp $time1
- * @param timestamp $time2
+ * @param integer timestamp $time1
+ * @param integer timestamp $time2
  */
 function createDateInterval($time1, $time2, $excludeT2){
 	//echo "date1 $time1 - date2 $time2 <br>";
@@ -255,7 +255,7 @@ ISO-8601
 * @param jour:Int Jour
 * @param mois:Int Mois
 * @param annee:Int Année
-* @return Numéro de semaine
+* @return integer Numéro de semaine
 *
 * @author Thomas Pequet
 * @url http://www.memotoo.com

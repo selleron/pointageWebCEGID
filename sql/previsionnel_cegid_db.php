@@ -214,7 +214,7 @@ function getTableauPrevisionnelCegid($projectName = "", $showAll = "yes") {
  * @param string $columns        	
  * @param integer $cpt index        	
  * @param integer $cptP  index      	
- * @return number|unknown index trouvé dans $tableauPrev
+ * @return number index trouvé dans $tableauPrev
  */
 function isSamePointageRef($tableauPrev, $tableauPointage, $columns, $cpt, $cptP) {
 	foreach ( $columns as $c ) {

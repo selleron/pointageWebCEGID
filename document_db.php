@@ -128,7 +128,7 @@ function getDocumentForQuery( $Request ){
 /**
  * Afficher la combo de selection d'un identifiant de document
  * Si on a les droits, on a aussi un textfield pour creer un nouveau document
- * @param  $html url de la page qui traitera l'action
+ * @param  string $html url de la page qui traitera l'action
  */
 function showSelectionDocument($html){
 	$id_member=getMemberID();
@@ -226,7 +226,7 @@ function createDocumentByGet(){
 /**
  * createDocument
  * creation d'un nouveau document en base de donn�es
- * @param unknown $documentName
+ * @param string $documentName
  */
 function createDocument($documentName){
 	global $SQL_TABLE_DOCUMENT;
@@ -368,8 +368,8 @@ function applyActionShowHistoryDocument(){
 /**
  * restaurerHistoryDocumentOneElement
  * restaurer ledocument depuis une date don�e
- * @param unknown_type $date
- * @param unknown_type $docName
+ * @param string $date
+ * @param string $docName
  */
 function restaurerHistoryDocumentOneElement($date, $docName){
 		global $SQL_TABLE_DOCUMENT_HISTORY;
@@ -477,7 +477,7 @@ function showHistoryDocumentElement($date, $doc){
 
 /**
  * historisationDocument
- * @param unknown_type $condition
+ * @param string $condition
  */
 function historisationDocument($condition){
 	global $SQL_TABLE_DOCUMENT;

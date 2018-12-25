@@ -68,18 +68,22 @@ function applyGestionPoinstageCegid()
  * affiche les versions des elements du projet
  * (description)
  */
-function showTablePointageBrutCegid()
+function showTablePointageBrutCegid($table="")
 {
     global $SQL_SHOW_COL_CEGID_POINTAGE;
     global $SQL_TABLE_CEGID_POINTAGE;
     global $FORM_TABLE_CEGID_POINTAGE;
     global $TABLE_EXPORT_CSV;
     
+    if($table == ""){
+        $table = $SQL_TABLE_CEGID_POINTAGE;
+    }
+    
     $form_name = $FORM_TABLE_CEGID_POINTAGE . "_insert";
     $condition = "";
     
     // prepare request table
-    $param = prepareshowTable($SQL_TABLE_CEGID_POINTAGE, $SQL_SHOW_COL_CEGID_POINTAGE, $form_name, $condition);
+    $param = prepareshowTable($table, $SQL_SHOW_COL_CEGID_POINTAGE, $form_name, $condition);
     $param = updateParamSqlWithDeleteByRow($param);
     $param = updateParamSqlWithEditByRow($param);
     $param[$TABLE_EXPORT_CSV] = "yes";
@@ -237,7 +241,7 @@ function applyGestionTablePointageProjetCegid($table)
 /**
  * applyPointageBrutCegid
  */
-function applyPointageBrutCegid()
+function applyPointageBrutCegid($table="")
 {
     global $SQL_DEL_COL_CEGID_POINTAGE;
     global $SQL_SHOW_COL_CEGID_POINTAGE;
@@ -245,11 +249,15 @@ function applyPointageBrutCegid()
     global $FORM_TABLE_CEGID_POINTAGE;
     $form_name = $FORM_TABLE_CEGID_POINTAGE . "_replace";
     
+    if($table == ""){
+        $table=$SQL_TABLE_CEGID_POINTAGE;
+    }
+    
     // execution action
     // $exec = applyImportCSV();
     // if ($exec < 1) {
     // apply classique
-    applyGestionTable($SQL_TABLE_CEGID_POINTAGE, $SQL_SHOW_COL_CEGID_POINTAGE, $form_name);
+    applyGestionTable($table, $SQL_SHOW_COL_CEGID_POINTAGE, $form_name);
     // }
     // }
 }

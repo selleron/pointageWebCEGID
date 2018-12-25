@@ -98,7 +98,7 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 			$res_query = mysqlQuery ( $sql );
 			$nbRow = mysqlAffectedRows ();
 			$res_error = mySqlError ();
-			showSQLError ( "# $nbRow", $txt );
+			showSQLError ( "# $nbRow", $sql );
 			if ($nbRow < 1) {
 				$sql = createSqlUpdate ( $table, $columns, $values, $condition );
 				

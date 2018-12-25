@@ -79,7 +79,7 @@ function login(){
 
 /**
  * mise a jour de la connexion
- * @param $id identifiant reel du login
+ * @param string $id identifiant reel du login
  */
 function updateConnection($id){
 	global $SQL_TABLE_LOGIN_HISTORY;
@@ -141,8 +141,8 @@ function convertPassword(){
 
 /**
  * fonction de cryptage
- * @param $str chaine a crypter
- * @param $salt seed
+ * @param string $str chaine a crypter
+ * @param string $salt seed
  */
 function myCrypt ( $str) {
 	global $CRYPT_PWD;
@@ -304,8 +304,8 @@ function applyGestionUser($url){
 /**
  *
  * Enter showModifyUserForm
- * @param $url pour les resultats
- * @param $current_selection user selectionn�
+ * @param string $url pour les resultats
+ * @param string $current_selection user selectionn�
  */
 function showModifyUserForm($url, $current_selection){
 	global $SQL_TABLE_MEMBER;
@@ -372,7 +372,7 @@ function showAddUserForm($url, $action, $login, $pwd, $destination, $email){
 
 /**
  * formulaire pour afficher l'historique des connexions
- * @param $html url de la page � activer
+ * @param string $html url de la page � activer
  */
 function menuActionShowConnection($html){
 	//$id_member=getMemberID();
@@ -400,7 +400,7 @@ function menuActionShowConnection($html){
  * actions possible:
  *	 - showHistoryConnexion
  *	 - modifyUser
- * @param $url pour les resultats
+ * @param string $url pour les resultats
  */
 function applyActionShowConnection($url){
 	$action=getActionGet();
@@ -437,7 +437,7 @@ function createParamSqlConnexionHistory(){
  * showHistoryConnection
  * affiche l'historique des connexions
  * @param $url  = url pour les actions
- * @param $condition de filtrage
+ * @param string $condition de filtrage
  */
 function showHistoryConnection($url, $param){
 	global $SQL_TABLE_MEMBER;
@@ -732,7 +732,7 @@ function propagateDocumentName(){
 /**
  * propagateURLVariable
  * construit la chaine $variable=xxxx
- * @param $variable ou vide
+ * @param string $variable ou vide
  */
 function propagateURLVariable($variable){
 	$doc=getURLVariable($variable);
