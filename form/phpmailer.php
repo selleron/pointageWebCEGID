@@ -2806,7 +2806,7 @@ class PHPMailer {
   /**
    * Gets the mime type of the embedded or inline image
    * @access private
-   * @return mime type of ext
+   * @return string mime type of ext
    */
   function _mime_types($ext = '') {
     $mimes = array(
