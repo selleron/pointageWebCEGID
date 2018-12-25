@@ -231,8 +231,8 @@ else{
 		<li><a title=\"Gestion Frais Mission\"  href=\"$urlfraismission\">  <img src=\"$URL_IMAGES/menu_frais_mission.png\" $menuIconSize > Gestion Frais Mis.</a></li>
 		<li><a title=\"Projet\"                 href=\"$urlproject2\">      <img src=\"$URL_IMAGES/menu_projets.png\"       $menuIconSize > Projet</a></li>
 		<li><a title=\"Gestion Pointage\"       href=\"$urlpointage\">      <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Gestion Pointage</a></li>
-		<li><a title=\"Pointage Brut\"          href=\"$urlpointagebrut\">  <img src=\"$URL_IMAGES/blocnote.png\"      $menuIconSize > Pointage brut</a></li>
-		<li><a title=\"Previsionnel Brut\"      href=\"$urlprevisionnelbrut\">  <img src=\"$URL_IMAGES/blocnote.png\"  $menuIconSize > Previsionnel brut</a></li>
+		<li><a title=\"Pointage Brut\"          href=\"$urlpointagebrut\">  <img src=\"$URL_IMAGES/menu_telechargement.png\"      $menuIconSize > Pointage brut</a></li>
+		<li><a title=\"Previsionnel Brut\"      href=\"$urlprevisionnelbrut\">  <img src=\"$URL_IMAGES/menu_telechargement.png\"  $menuIconSize > Previsionnel brut</a></li>
 		<li><a title=\"Historique\"             href=\"$URL_ROOT_POINTAGE/admin/administration_planning.php$argument\"> <img src=\"$URL_IMAGES/menu_historique.png\" $menuIconSize > Historique</a></li>
 		</ul>";
 	}
