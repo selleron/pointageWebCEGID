@@ -52,6 +52,7 @@ $FORM_VALUE_POSSIBLE["form_select_table_cegid_devis_project"]["NAME"]="select NA
 
 //primary
 $PRIMARY_TABLE [ "cegid_pointage_voulu" ] = "PROJECT_ID,DATE,USER_ID,PROFIL";
+$PRIMARY_TABLE [ "cegid_proposition" ] = "ID";
 
 //table cegid_file
 $FORM_STYLE["form_table_cegid_file_insert"]["REFERENCE"]["SIZE"]=30;

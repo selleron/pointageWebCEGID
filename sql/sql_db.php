@@ -1067,9 +1067,10 @@ function mysqlInsertId(){
  * @return object request result or null
  */
 function mysqlQueries($requests){
+    global $SHOW_SQL_UPDATE;
     if (is_array($requests)){
         foreach ($requests as $req){
-            //showSQLAction($req);
+            showActionVariable($req, $SHOW_SQL_UPDATE);
             mysqlQuery($req);
         }
     }

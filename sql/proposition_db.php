@@ -5,13 +5,13 @@ $SQL_TABLE_CEGID_PROPOSITION   = "cegid_proposition";
 $FORM_TABLE_CEGID_PROPOSITION  = "form_table_cegid_proposition";
 
 
-$SQL_COL_ID_PROPOSITION       = "ID";
-$SQL_COL_PRIX_VENTE           = "PRIX_VENTE";
-$SQL_COL_REUSSITE             = "REUSSITE";
+$SQL_COL_ID_PROPOSITION          = "ID";
+$SQL_COL_PRIX_VENTE_PROPOSITION  = "PRIX_VENTE";
+$SQL_COL_REUSSITE                = "REUSSITE";
 
 
 
-$SQL_SHOW_COL_PROPOSITION   = "$SQL_COL_ID_PROPOSITION, $SQL_COL_PRIX_VENTE, $SQL_COL_REUSSITE";
+$SQL_SHOW_COL_PROPOSITION   = "$SQL_COL_ID_PROPOSITION, $SQL_COL_PRIX_VENTE_PROPOSITION, $SQL_COL_REUSSITE";
 
 
 // include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
@@ -59,9 +59,22 @@ function applyGestionProposition() {
         global $SQL_TABLE_CEGID_PROPOSITION;
         global $FORM_TABLE_CEGID_PROPOSITION;
         global $TRACE_INFO_ACTION;
+        
+        $table = $SQL_TABLE_CEGID_PROPOSITION;
+        $cols = $SQL_SHOW_COL_PROPOSITION;
+        $colFilter=NULL;
         $form_name = $FORM_TABLE_CEGID_PROPOSITION."_update";
-           
-        $res =  applyGestionTable($SQL_TABLE_CEGID_PROPOSITION, $SQL_SHOW_COL_PROPOSITION, $form_name);
+        
+        
+        //cas update sans re-edit
+        if (getActionGet () == "update") {
+            //$res = updateTableByGet ( $param, "no" );
+            $res = multiReplaceTableByGet2($table, $cols, $form_name);
+        }
+            
+        if ($res<=0){   
+            $res =  applyGestionTable($table, $col, $form_name);
+        }
     }
     return $res;
 }
@@ -83,7 +96,7 @@ function showSuiviPropositions() {
     global $SQL_COL_STATUS_COMMANDE_DEVIS;
     global $SQL_COL_COMMANDE_DEVIS       ;
     global $SQL_COL_MODIFICATION_DEVIS   ;
-    global $SQL_COL_COMMANDE_DEVIS          ;
+    global $SQL_COL_COMMANDE_DEVIS       ;
     global $SQL_COL_NUXEO_DEVIS          ;
     global $SQL_COL_COMMENTAIRE_DEVIS    ;
     global $SQL_COL_VISIBLE_DEVIS        ;
@@ -104,8 +117,11 @@ function showSuiviPropositions() {
     global $SQL_COL_FIN_PROJECT;
     global $SQL_COL_FIN_GARANTIE;
     global $SQL_COL_ID_PROJECT;
+ 
+    global $SQL_TABLE_CEGID_PROPOSITION;
     global $SQL_COL_PRIX_VENTE_PROJECT;
-    
+    global $SQL_COL_ID_PROPOSITION;
+    global $SQL_COL_PRIX_VENTE_PROPOSITION;
     
     
     $columns1 = " $SQL_COL_SOCIETE_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_ID_DEVIS, $SQL_COL_STATUS_DEVIS, $SQL_COL_NUXEO_DEVIS, $SQL_COL_CEGID_DEVIS,  $SQL_COL_COMMANDE_DEVIS, $SQL_COL_COMMANDE_DEVIS ";
@@ -162,7 +178,7 @@ function showSuiviPropositions() {
             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
             " and $SQL_COL_STATUS_STATUS_EVOLUTION='Accepte'".
             "and $SQL_COL_ORIGIN_STATUS_EVOLUTION = $SQL_TRIGGER_ORIGIN_STATUS_DEVIS_EVOLUTION";
-        //envoy�
+        //envoye
         $result[$COL_ENVOYE] [$cpt] = "select date($SQL_COL_DATE_STATUS_EVOLUTION) from $SQL_TABLE_STATUS_EVOLUTION ".
             " where $SQL_COL_REFERENCE_STATUS_EVOLUTION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'".
             " and $SQL_COL_STATUS_STATUS_EVOLUTION='envoye'".
@@ -182,6 +198,8 @@ function showSuiviPropositions() {
         //prix vente
         $result[$SQL_COL_PRIX_VENTE_PROJECT] [$cpt] = "select $SQL_COL_PRIX_VENTE_PROJECT from $SQL_TABLE_PROJECT ".
             " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
+        $result[$SQL_COL_PRIX_VENTE_PROJECT] [$cpt] = $result[$SQL_COL_PRIX_VENTE_PROJECT] [$cpt]." union "."select $SQL_COL_PRIX_VENTE_PROPOSITION from $SQL_TABLE_CEGID_PROPOSITION ".
+           " where $SQL_COL_ID_PROPOSITION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'";
         //debut
         $result[$SQL_COL_DEBUT_PROJECT] [$cpt] = "select date($SQL_COL_DEBUT_PROJECT) from $SQL_TABLE_PROJECT ".
             " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
@@ -191,6 +209,10 @@ function showSuiviPropositions() {
         //garantie
         $result[$SQL_COL_FIN_GARANTIE] [$cpt] = "select date($SQL_COL_FIN_GARANTIE) from $SQL_TABLE_PROJECT ".
             " where $SQL_COL_ID_PROJECT   ='". mysqlResult ( $result, $cpt, "$SQL_COL_CEGID_DEVIS" )."'";
+
+        $txt =   $result[$SQL_COL_PRIX_VENTE_PROJECT][$cpt];
+        showSQLAction(">>>> $txt");
+        
     }
     
     
@@ -203,6 +225,9 @@ function showSuiviPropositions() {
         $result2 = setSQLFlagStatus($result2, $col, "no");
         //$result2 = setSQLFlagStatus($result2, $col, "yes");
     }
+
+    $result2 = setSQLFlagStatus($result2, $SQL_COL_ID_PROPOSITION, "yes");
+    $result2 = setSQLFlagStatus($result2, $SQL_COL_PRIX_VENTE_PROJECT, "yes");
     
     
     
@@ -214,9 +239,12 @@ function showSuiviPropositions() {
             $value[$cpt] = mysqlResult($result2, $cpt, $col);
         }
         setURLVariable($col, $value);
-        setURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS, arrayToString($columns) );
-        
+        //setURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS, arrayToString($columns) );       
     }
+
+    setURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS, arrayToString($columns) );
+    $param2[PARAM_TABLE_ACTION::TABLE_UPDATE]="yes";
+    
     //gestion du apply
     applySuiviPropositions();
     

@@ -1372,7 +1372,7 @@ function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "",
             
         }
         else{
-          showError("information not found :\$PRIMARY_TABLE [ \"$table\" ]");  
+          showError("information not found in form-db_config.php : \$PRIMARY_TABLE [ \"$table\" ]");  
           //pas normal, on empeche l'update avec un WHERE 0
           $condition = "0";
         }

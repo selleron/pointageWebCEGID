@@ -647,6 +647,15 @@ function updateTableByGet(/*$table, $cols, $form_name,*/ $param, $reedit = "yes"
  	}
 }
 
+function multiUpdateTableByGet($table, $cols, $form_name){
+    if (getActionGet () == "update") {
+        return multiUpdateTableByGet2($table, $cols, $form_name);
+    } else {
+        return 0;
+    }
+}
+
+
 /**
  * 
  * updateTableByGet2
@@ -696,6 +705,7 @@ function updateTableByGet2(/*$table, $cols, $form_name,*/ $param, $reedit = "yes
             
             
             global $ID_TABLE_GET;
+            $subParam=NULL;
             $idTable = getURLVariable ( $ID_TABLE_GET );
             if ($idTable) {
                 editTable ( $table, $cols, $idTable, $form_name, $param );
