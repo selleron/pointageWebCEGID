@@ -226,8 +226,8 @@ function showSuiviPropositions() {
         $result[$SQL_COL_COMMENTAIRE_PROPOSITION] [$cpt] = "select $SQL_COL_COMMENTAIRE_PROPOSITION from $SQL_TABLE_CEGID_PROPOSITION ".
             " where $SQL_COL_ID_PROPOSITION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'";
         
-        $txt =   $result[$SQL_COL_REUSSITE_PROPOSITION][$cpt];
-        showSQLAction(">>>> $txt");
+        //$txt =   $result[$SQL_COL_REUSSITE_PROPOSITION][$cpt];
+        //showSQLAction(">>>> $txt");
         
     }
     
