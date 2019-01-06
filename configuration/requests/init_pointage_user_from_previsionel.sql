@@ -12,7 +12,9 @@ START TRANSACTION;
 
 set @ID_DATE="2018-01-01";  -- date yyyy-mm-dd
 
--- creation nouveau projet par copie
+-- creation nouveau pointage de projet par copie depuis le provisionnel
+-- ne cree le pointage que pour (annee-mois) donné et pour les tuples non deja existant (projet, user, profil)
+-- place le nombre d'UO a 0
 
 INSERT INTO `test`.`cegid_pointage` (`PROJECT_ID`, `DATE`, `USER_ID`, `PROFIL`, `UO`)
 SELECT `PROJECT_ID`, `DATE`, `USER_ID`, `PROFIL`, 0 FROM `cegid_pointage_previsionnel`

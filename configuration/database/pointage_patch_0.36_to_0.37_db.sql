@@ -39,7 +39,7 @@ ALTER TABLE `cegid_proposition` ADD PRIMARY KEY(`ID`);
   
   
 --
--- Contraintes pour les tables déchargées
+-- Contraintes pour les tables dï¿½chargï¿½es
 --
 
 --
@@ -47,7 +47,6 @@ ALTER TABLE `cegid_proposition` ADD PRIMARY KEY(`ID`);
 --
 ALTER TABLE `cegid_proposition`
   ADD CONSTRAINT `cegid_proposition_ibfk_1` FOREIGN KEY (`ID`) REFERENCES `cegid_devis_project` (`ID`);
-COMMIT;
 
 
 
