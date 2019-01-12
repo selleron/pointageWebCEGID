@@ -27,6 +27,8 @@ function actionRequete( $html=""){
 	else if ($action=="testRequest"){
 		if(isset($_POST['testRequestExecute'])){
 			actionTestRequest($html);
+			//a methode ci dessous ne fonctionne pas avec les scripts
+			//actionExecScriptRequest($html);
 		}
 		else if(isset($_POST['saveRequestExecute'])){
 			actionSauverRequest($html);
@@ -80,6 +82,40 @@ function actionTestRequest($html=""){
 	//reaffiche l'edition
 	showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html);
 }
+
+/**
+ * actionExecScriptRequest
+ * @param string $html
+ */
+function actionExecScriptRequest($html=""){
+    global $SQL_COL_REQUETES_SQL_REQUEST;
+    global $SQL_COL_REQUETES_NAME;
+    global $SQL_COL_REQUETES_DESCRIPTION;
+    global $SQL_TABLE_REQUETES;
+    
+    //recuperation des parametres
+    $idRequete = getDocumentName();
+    $name = getURLVariable("$SQL_COL_REQUETES_NAME");
+    $description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
+    $sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
+    
+    //fait les remplacement ${XXX} pr le getURL(XXX)
+    $othersKeyValue = getArrayRequete($SQL_TABLE_REQUETES);
+    $sqlTxt2 = replaceVariableURLByGet($sqlTxt, $othersKeyValue);
+    
+    
+    //execute la requete
+    showSQLAction($sqlTxt2);
+    $stmt = mysqlPrepare($sqlTxt2);
+    mysqlExecute($stmt);
+    showSQLError("requetes_db.actionExecScriptRequest() cette methode ne fonctionne pas<br>.", $request);
+    
+    echo"<br><br>";
+    
+    //reaffiche l'edition
+    showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html);
+}
+
 
 
 /**

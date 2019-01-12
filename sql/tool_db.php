@@ -1791,8 +1791,8 @@ function showTableHeader($param, $html = "", $createTable="yes")
     
     if ($createTable=="yes"){
         global $TRACE_FORM_TABLE_STYLE;
-        $formname = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
-        showActionVariable("Table Style name \$FORM_STYLE[\"".$formname."\"][\"Colonne\"][\"SIZE|FORMAT|...\"]", $TRACE_FORM_TABLE_STYLE);
+        //$formname = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+        //showActionVariable("Table Style name \$FORM_STYLE[\"".$formname."\"][\"Colonne\"][\"SIZE|FORMAT|...\"]", $TRACE_FORM_TABLE_STYLE);
         echo "<table $tableId $tableSize $tableOther >";
     }
     

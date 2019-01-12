@@ -1044,9 +1044,35 @@ function mysqlFieldFlags($Resultat, $idx) {
 function mysqlQuery($request) {
     global $CONNECTION_ID;
     $resultat = mysqli_query ($CONNECTION_ID, $request );
-	showSQLError ( "", $request . "<br><br>" );
-	//var_dump($resultat);
-	return $resultat;
+    showSQLError ( "", $request . "<br><br>" );
+    //var_dump($resultat);
+    return $resultat;
+}
+
+/**
+ * mysqlPrepare
+ * @param string $request
+ * @return Object Request statement
+ */
+function mysqlPrepare( $request) {
+    global $CONNECTION_ID;
+    $stmt = mysqli_prepare($CONNECTION_ID, $request);
+    showSQLError ( "", $request . "<br><br>" );
+    //var_dump($resultat);
+    return $stmt;
+}
+
+/**
+ * 
+ * @param object $stmt request statement : voir mysqlPrepare
+ * @return TRUE or FALSE
+ */
+function mysqlExecute($stmt) {
+    global $CONNECTION_ID;
+    $resultat = mysqli_stmt_execute($stmt);
+    showSQLError ( "", $request . "<br><br>" );
+    //var_dump($resultat);
+    return $resultat;
 }
 
 
