@@ -57,8 +57,8 @@ include_once '../configuration/labelAction.php';
  * @param array param ($table , $cols, $form_name)
  */
 function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
-	if ((getActionGet () == "import")) {
-		$array = actionImportCSV ();
+    if ((getActionGet () == "import") || (getActionGet () == "insert_update")) {
+            $array = actionImportCSV ();
 		
 		if (isset($param[PARAM_TABLE_SQL::TABLE_NAME_INSERT])){
 		    $table = $param[PARAM_TABLE_SQL::TABLE_NAME_INSERT];
@@ -89,12 +89,18 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 		
 		$data = suppressCommentMatrice ( $array );
 		foreach ( $data as $values ) {
-			// $sql = createSqlReplace ( $table, $columns, $values );
+			//$sql = createSqlReplace ( $table, $columns, $values );
 			$key = $columns [0];
 			$idTable = $values [0];
 			$condition = createSqlWhereID ( $key, $idTable );
-			$sql = createSqlInsert ( $table, $columns, $values );
-			showSQLAction ( "table_db.importCSVTableByGet() insert action : $sql" );
+			if (getActionGet()=="insert_update"){
+			     $sql = createSqlReplace( $table, $columns, $values );
+			     showSQLAction ( "table_db.importCSVTableByGet() insert_update (replace) action : $sql" );
+			}
+			else{
+			    $sql = createSqlInsert ( $table, $columns, $values );
+			    showSQLAction ( "table_db.importCSVTableByGet() insert action : $sql" );
+			}
 			$res_query = mysqlQuery ( $sql );
 			$nbRow = mysqlAffectedRows ();
 			$res_error = mySqlError ();

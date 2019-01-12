@@ -19,9 +19,14 @@ function numberToByte($num){
  * showLoadFile
  * affiche le champ de selection d'un fichier a uploader
  * 
- * @param string $url url
  *        	lorsque l'on appuie sur load
  *        	voir http://phpcodeur.net/articles/php/upload
+ * @param string $url       url par defaut url courante sera utilis&e
+ * @param string $choose    texte du choose        par defaut "importer le fichier"
+ * @param string $load      texte du bouton load   par defaut "Importer le fichier"
+ * @param string $action    action                 par defaut "load"
+ * @param string $infoForm
+ * @param string $MAX_FILE_SIZE
  */
 function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoForm="", $MAX_FILE_SIZE="") {
 	if (! $action) {
@@ -52,13 +57,17 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"$MAX_FILE_SIZE\" />
 	<!-- Le nom de l\'element input determine le nom dans le tableau -->
 	$choose : <input name=\"userfile\" type=\"file\" />";
-	showFormAction ( $action );
 	showFormIDElement ();
 	echo "$infoForm";
-	echo "
-	<input type=\"submit\" value=\"$load\" />
-	</form>
-	";
+	if (is_array($action)){
+	    foreach ($action as $one_action )
+	    showFormSubmit($one_action, $ACTION_GET);
+	}
+	else{
+	    showFormAction ( $action );
+	    showFormSubmit($load);
+	}
+	endForm();
 }
 
 /**

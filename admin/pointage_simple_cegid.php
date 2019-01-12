@@ -37,7 +37,9 @@
 	
 	applyPointageBrutCegid(); 
 
-	showLoadFile("","","","import");
+	//showLoadFile("","","","import");
+	//on veut pouvoir faire un insert ou un replace
+	showLoadFile("","","",array("import","insert_update"));
 	
 	showTablePointageBrutCegid();
 ?>

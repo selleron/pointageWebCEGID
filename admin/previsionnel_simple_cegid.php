@@ -39,7 +39,7 @@
 	
 	applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL); 
 
-	showLoadFile("","","","import");
+	showLoadFile("","","",array("import","insert_update"));
 	
 	showTablePointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL);
 ?>
