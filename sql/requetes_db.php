@@ -12,6 +12,7 @@ $SQL_COL_REQUETES_ID="ID";
 $SQL_COL_REQUETES_NAME="NAME";
 $SQL_COL_REQUETES_DESCRIPTION="DESCRIPTION";
 $SQL_COL_REQUETES_SQL_REQUEST="SQL_REQUEST";
+$SQL_COL_REQUETES_PARAM_AEREA="REQUEST_PARAM";
 
 
 
@@ -61,12 +62,14 @@ function actionTestRequest($html=""){
 	global $SQL_COL_REQUETES_NAME;
 	global $SQL_COL_REQUETES_DESCRIPTION;
 	global $SQL_TABLE_REQUETES;
+	global $SQL_COL_REQUETES_PARAM_AEREA;
 	
 	//recuperation des parametres
 	$idRequete = getDocumentName();
 	$name = getURLVariable("$SQL_COL_REQUETES_NAME");
 	$description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
 	$sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
+	$paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
 	
 	//fait les remplacement ${XXX} pr le getURL(XXX)
 	$othersKeyValue = getArrayRequete($SQL_TABLE_REQUETES);
@@ -80,7 +83,7 @@ function actionTestRequest($html=""){
 	echo"<br><br>";
 	
 	//reaffiche l'edition
-	showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html);
+	showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
 }
 
 /**
@@ -92,12 +95,14 @@ function actionExecScriptRequest($html=""){
     global $SQL_COL_REQUETES_NAME;
     global $SQL_COL_REQUETES_DESCRIPTION;
     global $SQL_TABLE_REQUETES;
+    global $SQL_COL_REQUETES_PARAM_AEREA;
     
     //recuperation des parametres
     $idRequete = getDocumentName();
     $name = getURLVariable("$SQL_COL_REQUETES_NAME");
     $description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
     $sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
+    $paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
     
     //fait les remplacement ${XXX} pr le getURL(XXX)
     $othersKeyValue = getArrayRequete($SQL_TABLE_REQUETES);
@@ -113,7 +118,7 @@ function actionExecScriptRequest($html=""){
     echo"<br><br>";
     
     //reaffiche l'edition
-    showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html);
+    showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
 }
 
 
@@ -128,18 +133,21 @@ function actionSauverRequest($html=""){
 	global $SQL_COL_REQUETES_SQL_REQUEST;
 	global $SQL_COL_REQUETES_NAME;
 	global $SQL_COL_REQUETES_DESCRIPTION;
+	global $SQL_COL_REQUETES_PARAM_AEREA;
 
 	//recuperation des param�tres
 	$idRequete = getDocumentName();
 	$name = getURLVariable("$SQL_COL_REQUETES_NAME");
 	$description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
 	$sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
+	$paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
+	
 
 	//faire la sauvegarde 
 	//echo "action to do saveRequestExecute <br>";
 	$request = "REPLACE INTO `$SQL_TABLE_REQUETES` (`$SQL_COL_REQUETES_ID`, `$SQL_COL_REQUETES_NAME`, 
-	`$SQL_COL_REQUETES_DESCRIPTION`, `$SQL_COL_REQUETES_SQL_REQUEST`) VALUES
-	('$idRequete', '$name', '$description', '$sqlTxt')";
+	`$SQL_COL_REQUETES_DESCRIPTION`, `$SQL_COL_REQUETES_SQL_REQUEST`, `$SQL_COL_REQUETES_PARAM_AEREA`) VALUES
+	('$idRequete', '$name', '$description', '$sqlTxt', '$paramFormulaire')";
 	
 	showSQLAction($request);
 	$Resultat = mysqlQuery($request);
@@ -148,7 +156,7 @@ function actionSauverRequest($html=""){
 	echo "<br><br>";
 
 	//reaffiche l'edition
-	showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html);
+	showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
 }
 
 
@@ -427,7 +435,7 @@ function showFormulaireRequeteByName($idRequete, $name, $html=""){
  * @param string $sqlTxt
  * @param string $html
  */
-function showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html=""){
+function showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html="", $paramFormulaire=""){
 	if (!isset($html) || $html==""){
 		$html=getCurrentPageName();
 	}
@@ -437,7 +445,11 @@ function showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $ht
 	global $SQL_COL_REQUETES_NAME;
 	global $SQL_COL_REQUETES_DESCRIPTION;
 	global $SQL_COL_REQUETES_SQL_REQUEST;
+	global $SQL_COL_REQUETES_PARAM_AEREA;
 	
+	if ($paramFormulaire==""){
+	    $paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
+	}
 	
 	echo"<table>";
 	//execute
@@ -448,22 +460,39 @@ function showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $ht
 	<td>identifiant</td>
 	<td><INPUT type=\"text\" size=\"50\" name=\"$DOCUMENT_NAME_GET\" value=\"$idRequete\" >  </td>
 	</tr>
+    ";
 	
+	echo"
 	<tr>
 	<td>nom</td>
 	<td><INPUT type=\"text\" size=\"50\" name=\"$SQL_COL_REQUETES_NAME\" value=\"$name\" > </td>
 	</tr>
-		
+    ";
+	
+	echo"	
 	<tr>
 	<td>description</td>
 	<td><TEXTAREA rows=\"2\" cols=\"70\" name=\"$SQL_COL_REQUETES_DESCRIPTION\" >$description</TEXTAREA></td>
 	</tr>
-		
+    ";
+	
+	//champ parameters
+	echo"		
+	<tr>
+	<td>parametres</td>
+	<td><TEXTAREA rows=\"2\" cols=\"70\" name=\"$SQL_COL_REQUETES_PARAM_AEREA\"  >$paramFormulaire</TEXTAREA></td>
+	</tr>
+    ";
+	
+	//ajout des elements de formulaires dynamiques
+	echo "$paramFormulaire";
+	
+	//champ requete
+	echo"
 	<tr>
 	<td>requete</td>
 	<td><TEXTAREA rows=\"7\" cols=\"70\" name=\"$SQL_COL_REQUETES_SQL_REQUEST\"  >$sqlTxt</TEXTAREA></td>
 	</tr>
-		
 	";
 	
 	echo "
@@ -491,6 +520,7 @@ function actionEditRequeteParID($idRequete, $html=""){
 	global $SQL_COL_REQUETES_NAME;
 	global $SQL_COL_REQUETES_DESCRIPTION;
 	global $SQL_COL_REQUETES_SQL_REQUEST;
+	global $SQL_COL_REQUETES_PARAM_AEREA;
 	
 	if ($idRequete== ""){
 		showFormulairshowFormulaireEditRequete("", "<le nom>", "<la description>", "<la requete sql>", $html);
@@ -498,7 +528,7 @@ function actionEditRequeteParID($idRequete, $html=""){
 	}
 	
 	
-	$request = "SELECT $SQL_COL_REQUETES_ID, $SQL_COL_REQUETES_NAME, $SQL_COL_REQUETES_DESCRIPTION, $SQL_COL_REQUETES_SQL_REQUEST
+	$request = "SELECT $SQL_COL_REQUETES_ID, $SQL_COL_REQUETES_NAME, $SQL_COL_REQUETES_DESCRIPTION, $SQL_COL_REQUETES_SQL_REQUEST, $SQL_COL_REQUETES_PARAM_AEREA
 	  FROM `$SQL_TABLE_REQUETES`
 	  WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
 	
@@ -513,7 +543,9 @@ function actionEditRequeteParID($idRequete, $html=""){
 		$name = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_NAME);
 		$description = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_DESCRIPTION);
 		$sqlTxt = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
-		showFormulaireEditRequete($id, $name, $description, $sqlTxt, $html);
+		$sqlParam = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_PARAM_AEREA);
+		
+		showFormulaireEditRequete($id, $name, $description, $sqlTxt, $html, $sqlParam);
 	}
 }
 

@@ -31,7 +31,9 @@
 
 
 <?php
-	echo "<br/>";
+    showTracePOST();
+    
+    echo "<br/>";
 	actionRequete();
 	echo "<br/><br/><br/>";
 	echo "<p>Requetes enregistr&eacute;es : <br/></p>";
