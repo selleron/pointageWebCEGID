@@ -203,11 +203,21 @@ function convertURLVariableID_to_NAME_IfNeeded($table, $SQL_COL_ID="ID", $SQL_CO
     
     //init name si besoin
     if ($id == "" && $projectName){
-        showActionVariable("initialisation id $TABLE_ID_SELECTION from name $SQL_COL_NAME_TABLE : $projectName",$TRACE_NEXT_PREVIOUS );
         $id = getNameFromID_Table($table, $SQL_COL_NAME_TABLE, $projectName, $SQL_COL_ID);
+        if ($id == ""){
+            $tmpName = getNameFromID_Table($table, $SQL_COL_ID, $projectName, $SQL_COL_NAME_TABLE);
+            //recherche s'il y a inversion name & id
+            if ($tmpName != ""){
+               $id = $projectName;
+               $projectName = $tmpName;
+            }
+        }
+        showActionVariable("initialisation id $TABLE_ID_SELECTION from name $SQL_COL_NAME_TABLE : $TABLE_ID_SELECTION =  $projectName",$TRACE_NEXT_PREVIOUS );
         setURLVariable($TABLE_ID_SELECTION, $id);
+        setURLVariable($SQL_COL_NAME_TABLE, $projectName);
     }
-    //showTracePOST();
+
+    showTracePOST();
 }
 
 
