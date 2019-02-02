@@ -43,6 +43,14 @@
 	global $SQL_COL_ID_CEGID_USER;
 	global $SQL_COL_NAME_CEGID_USER;
 	global $CONDITION_FROM_CEGID_USER;
+	
+ 	if (blockCondition("only_user_visible", "<h4>only user visible [<value>]</h4>")){
+ 	    //nothing to do
+ 	}
+ 	else{
+ 	    $CONDITION_FROM_CEGID_USER="";
+ 	}
+	
 	$exec = applyNextPreviousSelectTable("$SQL_TABLE_CEGID_USER"/*$table*/, 	$SQL_COL_ID_CEGID_USER, "$SQL_COL_NAME_CEGID_USER"/*$colName*/,$CONDITION_FROM_CEGID_USER/*condition*/);
 	
 	echo"<p>";
@@ -64,7 +72,7 @@
 	//short liste utilisateur
 	$idBalise="user_short";
 	createHeaderBaliseDiv($idBalise,"<h3>Liste des users.</h3>");
-	showShortTableUserCEGID();
+	showShortTableUserCEGID($CONDITION_FROM_CEGID_USER);
 	endHeaderBaliseDiv($idBalise);
 	
 	
@@ -73,10 +81,10 @@
 	createHeaderBaliseDiv($idBalise,"<h3>Detail des users.</h3>");
 	showLoadFile("","","","import");
 	if (blockCondition("user_expert_insert", "<h4>user mode expert[<value>]</h4>")){
-	  showTableUserCEGID();
+	    showTableUserCEGID($CONDITION_FROM_CEGID_USER);
 	}
 	else{
-	  showTableMediumUserCEGID();
+	    showTableMediumUserCEGID($CONDITION_FROM_CEGID_USER);
 	}
 	endHeaderBaliseDiv($idBalise)
 ?>
