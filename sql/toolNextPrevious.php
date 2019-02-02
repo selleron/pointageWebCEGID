@@ -196,14 +196,17 @@ function convertURLVariableID_to_NAME_IfNeeded($table, $SQL_COL_ID="ID", $SQL_CO
     $projectName = getURLVariable("$SQL_COL_NAME_TABLE");
     
     if ($id != "" && $projectName == ""){
-        showActionVariable("initialisation name $SQL_COL_NAME_TABLE from id $SQL_COL_ID : $id",$TRACE_NEXT_PREVIOUS);
+        showActionVariable("convertURLVariableID_to_NAME_IfNeeded : initialisation name $SQL_COL_NAME_TABLE from id $SQL_COL_ID : $id",$TRACE_NEXT_PREVIOUS);
         $projectName = getNameFromID_Table($table, $SQL_COL_ID, $id, $SQL_COL_NAME_TABLE);
         setURLVariable($SQL_COL_NAME_TABLE, $projectName);
     }
-    
+
     //init name si besoin
     if ($id == "" && $projectName){
-        $id = getNameFromID_Table($table, $SQL_COL_NAME_TABLE, $projectName, $SQL_COL_ID);
+        //showActionVariable("$TABLE_ID_SELECTION  : $id - $SQL_COL_NAME_TABLE : $projectName", $TRACE_NEXT_PREVIOUS);
+        //$id = getNameFromID_Table($table, $SQL_COL_NAME_TABLE, $projectName, $SQL_COL_ID);
+        $id = getIDFromName_Table($table, $SQL_COL_NAME_TABLE, $projectName, $SQL_COL_ID);
+        //showActionVariable("$TABLE_ID_SELECTION  : $id - $SQL_COL_NAME_TABLE : $projectName", $TRACE_NEXT_PREVIOUS);
         if ($id == ""){
             $tmpName = getNameFromID_Table($table, $SQL_COL_ID, $projectName, $SQL_COL_NAME_TABLE);
             //recherche s'il y a inversion name & id
@@ -212,15 +215,44 @@ function convertURLVariableID_to_NAME_IfNeeded($table, $SQL_COL_ID="ID", $SQL_CO
                $projectName = $tmpName;
             }
         }
-        showActionVariable("initialisation id $TABLE_ID_SELECTION from name $SQL_COL_NAME_TABLE : $TABLE_ID_SELECTION =  $projectName",$TRACE_NEXT_PREVIOUS );
+        showActionVariable("convertURLVariableID_to_NAME_IfNeeded : initialisation id $TABLE_ID_SELECTION from name $SQL_COL_NAME_TABLE : $TABLE_ID_SELECTION =  $projectName",$TRACE_NEXT_PREVIOUS );
         setURLVariable($TABLE_ID_SELECTION, $id);
         setURLVariable($SQL_COL_NAME_TABLE, $projectName);
     }
 
-    showTracePOST();
+    //if ($TRACE_NEXT_PREVIOUS == "yes")     showTracePOST();
 }
 
+/**
+ * activeEditFromNextPrevious
+ * permet de forcer l'edition quand on a une barre next/previous
+ * @param string $SQL_COL_NAME_TABLE
+ */
+function activeEditFromNextPrevious($SQL_COL_NAME_TABLE="NAME"){
+    $TABLE_ID_SELECTION = URL_VARIABLE__KEY::ID_TABLE_GET;
+    global $TRACE_NEXT_PREVIOUS;
+    
+    $action = getActionGet();
+    if ($action == LabelAction::ACTION_NEXT || $action == LabelAction::ACTION_PREVIOUS || $action == LabelAction::ActionSelect){
+        $id = getURLVariable("$TABLE_ID_SELECTION");
+        $projectName = getURLVariable("$SQL_COL_NAME_TABLE");
+        if ($id != "" || $projectName != ""){
+            $action = LabelAction::ActionEdit;
+            setURLVariable(LabelAction::ACTION_GET, $action);            
+        }
+    }
 
+    //if ($TRACE_NEXT_PREVIOUS == "yes")     showTracePOST();
+}
+
+/**
+ * applyNextPreviousSelectTable
+ * @param String $table  table name
+ * @param string $SQL_COL_ID
+ * @param string $SQL_COL_NAME_TABLE
+ * @param string $condition
+ * @return number
+ */
 function applyNextPreviousSelectTable($table, $SQL_COL_ID="ID", $SQL_COL_NAME_TABLE="NAME" , $condition="")
 {
     global $TRACE_NEXT_PREVIOUS;

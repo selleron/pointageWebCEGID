@@ -7,7 +7,8 @@
     include_once("../header.php");
 	include_once("../sql/files.php");
     include_once("../sql/user_cegid_db.php");
-	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
+    include_once("../sql/toolNextPrevious.php");
+    include_once("../sql/member_db.php");// lien croisé avec tool_db.php
   	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
 </head>
@@ -36,6 +37,19 @@
 <?php
 	echo "<p>Gestion des users CEGID.<br/></p>";
 	showTracePOST();
+	
+	//gestion Next - previous
+	global $SQL_TABLE_CEGID_USER;
+	global $SQL_COL_ID_CEGID_USER;
+	global $SQL_COL_NAME_CEGID_USER;
+	global $CONDITION_FROM_CEGID_USER;
+	$exec = applyNextPreviousSelectTable("$SQL_TABLE_CEGID_USER"/*$table*/, 	$SQL_COL_ID_CEGID_USER, "$SQL_COL_NAME_CEGID_USER"/*$colName*/,$CONDITION_FROM_CEGID_USER/*condition*/);
+	
+	echo"<p>";
+	showTableSelection(""/*$url*/, "$SQL_TABLE_CEGID_USER"/*$table*/, "$SQL_COL_NAME_CEGID_USER"/*$colName*/, ""/*$formName*/, "no"/*$yearVisible = "yes"*/, "no"/*$export*/, "no"/*$userVisible*/, "yes"/*$previousVisible*/, "yes"/*$nextVisible*/);
+	echo"<br/></p>";
+	activeEditFromNextPrevious($SQL_COL_NAME_CEGID_USER);
+	
 	
     //gestion des actions sur les utilisateurs
 	applyGestionUserCEGID(); 

@@ -47,7 +47,7 @@ $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["NAME"] = $SELECT_NAME_AND_
 $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["year"] = "select distinct year(DATE) from cegid_pointage_previsionnel order by DATE";
 $FORM_VALUE_POSSIBLE["form_select_project_pointage"]["user"] = "$SELECT_NAME_FROM_CEGID_USER order by NAME";
 $FORM_VALUE_POSSIBLE["form_select_table_cegid_devis_project"]["NAME"]="select NAME from cegid_devis_project WHERE $CONDITION_FROM_CEGID_DEVIS";
-
+$FORM_VALUE_POSSIBLE["form_select_table_cegid_user"]["NAME"]="$SELECT_NAME_FROM_CEGID_USER";
 
 
 //primary
