@@ -5,7 +5,10 @@
   <title> Pointage </title>
   <?PHP 
     include_once("../header.php");
-	include_once("../sql/previsionnel_user_cegid.php");
+	include_once("../sql/files.php");
+	include_once("../sql/project_db.php");
+	include_once("../sql/cout_project_db.php");
+	include_once("../sql/previsionnel_cegid_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
   	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
   	include_once("../js/form_db.js");   // affichage calebdrier pour saisie date 
@@ -14,14 +17,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Gestion Pointage Previsionnel Utilisateurs</h1>
+  <h1>Serveur Web Pointage : Gestion Pointage Import (Bac a Sable)</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Gestion Pointage Previsionnel Utilisateurs");
+	showBandeauHeaderPage("Gestion Pointage Import  (Bac a Sable)");
 	?>
   
 
@@ -31,47 +34,46 @@
 
 
 <?php
-	echo "<p>Gestion Pointage Previsionnel Utilisateurs CEGID.<br/></p>";
+	echo "<p>Gestion Pointage Import CEGID  (Bac a Sable).<br/></p>";
 	
 	showTracePOST();
 
-	$exec = applyNextPreviousSelectUser();
+	$exec = applyNextPreviousSelectPointage();
 	
 	
 	echo"<p>";
 	//global $URL_ROOT_POINTAGE;
 	global $urlPointage;
-	global $urlPrevision;
+	global $urlImportPointage;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
-	    "pointage;formaction='$urlPointage',previsionel;formaction='$urlPrevision'",
-	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
-	echoSpace(4);
-	echo"(Next Previous sur le user)</p>";
-	
+ 	LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
+ 	"yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
+ 	echo"<br/></p>";
+
  	
  	//actions
- 	$res = -1;
  	$res = applyGestionOneProject();
  	if ($res<=0){
  		$res = applyGestionCoutOneProjectForm();
  	}
- 	if ($res <=0){
- 		$res = applyGestionPrevisionnelProjetCegid();
- 	}
- 	if ($res <=0){
- 		$res = applySynchronizePrevisionnel();
- 	}
+//  	if ($res <=0){
+//  		$res = applyGestionPrevisionnelProjetCegid();
+//  	}
+//  	if ($res <=0){
+//  		$res = applySynchronizePrevisionnel();
+//  	}
  	
-//   	beginTable();
-//   	beginTableRow( getVAlign("top")  );
-// 	  	beginTableCell();
-// 	  	    showGestionOneProject();
-// 	  	endTableCell();
-// 	  	beginTableCell();
-// 			showTableCoutOneProjectPrevisionel();
-// 	  	endTableCell();
-//   	endTableRow();
-//    	endTable();
+  	beginTable();
+  	beginTableRow( getVAlign("top")  );
+	  	beginTableCell();
+	  	showGestionOneProject();
+	  	endTableCell();
+	  	beginTableCell();
+			//showTableCoutOneProject();
+			showTableCoutOneProjectImport();
+	  	endTableCell();
+  	endTableRow();
+   	endTable();
  	
 	
 	//permet d'ajout un pointage pour un utilisateur
@@ -80,8 +82,8 @@
  	showSynchronizePrevisionnel();
  	echo"<br>";
 	
- 	//show prevision
- 	showTablePrevisionnelPointageCegid();
+ 	//show tableau fusion pointage & import
+ 	showTableImportPointageCegid();
 	
 	
 	

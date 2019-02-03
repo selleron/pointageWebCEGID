@@ -14,14 +14,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Previsionnel</h1>
+  <h1>Serveur Web Pointage : Import (Bac a Sable)</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Gestion Pointage Previsionnel");
+	showBandeauHeaderPage("Gestion Pointage Import (bac à sable)");
 	?>
   
 
@@ -31,18 +31,15 @@
 
 
 <?php
-   showTracePOST();
-   echo "<h4>Gestion Previsionnel Pointage CEGID BRUT.</h4>
-    <p>Permet d'importer dans la table de pointage previsionnel.<br/><br/></p>";
-
-	global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
-	
-	
-	applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL); 
+    showTracePOST();
+    echo "<h4>Gestion Pointage CEGID Import.</h4><p>Permet d'importer dans la table de pointage.<br> => validation avant report dans le pointage.<br><br></p>";
+	global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
+		
+	applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT); 
 
 	showLoadFile("","","",array("import","insert_update"));
 	
-	showTablePointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL);
+	showTablePointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT);
 ?>
 <br/><br/><br/>
 

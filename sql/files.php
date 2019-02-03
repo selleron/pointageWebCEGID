@@ -48,7 +48,9 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	if ($MAX_FILE_SIZE==""){
 	    $MAX_FILE_SIZE = numberToByte(ini_get('upload_max_filesize'));
 	}
-	
+	beginTable();
+	beginTableRow();
+	beginTableCell();
 	echo "
 	<!-- Le type d\'encodage des donnees, enctype, DOIT etre specifie comme ce qui suit: -->
 
@@ -67,7 +69,10 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	    showFormAction ( $action );
 	    showFormSubmit($load);
 	}
+	endTableCell();
+	endTableRow();
 	endForm();
+	endTable();
 }
 
 /**

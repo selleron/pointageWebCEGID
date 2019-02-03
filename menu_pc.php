@@ -69,6 +69,11 @@ if (isMemberGroup(2)){
 
 	$urlprevisionuser2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_user2_cegid.php$argument");
 	echo "<li><a title=\"Prevision par Collaborateur\" href=\"$urlprevisionuser2\"> <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Prev. par collab.</a></li>";
+
+	$urlimport  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_import_cegid.php$argument");
+	echo "<li><a title=\"Import projet\" href=\"$urlimport\"> <img src=\"$URL_IMAGES/menu_import.png\" $menuIconSize > Import</a></li>";
+	
+	
 }
 else{
 	$date = $ANNEE_RESERVATION;
@@ -218,21 +223,23 @@ else{
 	    $urlfraismission     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_frais_mission_cegid.php$argument");
 	    $urlpointage         = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_pointage_cegid.php$argument");
 	    $urlpointagebrut     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/pointage_simple_cegid.php$argument");
+	    $urlpointageimport   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/import_simple_cegid.php$argument");
 	    $urlprevisionnelbrut = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/previsionnel_simple_cegid.php$argument");
 	    $urlcegidfile        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_cegid_file.php$argument");
 	    $urldepot            = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_depot_file.php$argument");
 	    
 	    echo"
 		<ul>
-		<li><a title=\"Gestion File CEGID\"     href=\"$urlcegidfile\">     <img src=\"$URL_IMAGES/menu_historique.png\"    $menuIconSize > Gestion Ref Files</a></li>
-		<li><a title=\"Gestion File Code\"      href=\"$urlfilecode\">      <img src=\"$URL_IMAGES/menu_historique.png\"    $menuIconSize > Gestion File Code</a></li>
-		<li><a title=\"Depot de fichiers\"      href=\"$urldepot\">         <img src=\"$URL_IMAGES/menu_courrier.png\"      $menuIconSize > Depot de fichiers</a></li>
-		<li><a title=\"Gestion Projet\"         href=\"$urlcout\"> 	   	    <img src=\"$URL_IMAGES/menu_cout.png\"          $menuIconSize > Gestion Cout</a></li>
-		<li><a title=\"Gestion Frais Mission\"  href=\"$urlfraismission\">  <img src=\"$URL_IMAGES/menu_frais_mission.png\" $menuIconSize > Gestion Frais Mis.</a></li>
-		<li><a title=\"Projet\"                 href=\"$urlproject2\">      <img src=\"$URL_IMAGES/menu_projets.png\"       $menuIconSize > Projet</a></li>
-		<li><a title=\"Gestion Pointage\"       href=\"$urlpointage\">      <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Gestion Pointage</a></li>
-		<li><a title=\"Pointage Brut\"          href=\"$urlpointagebrut\">  <img src=\"$URL_IMAGES/menu_telechargement.png\"      $menuIconSize > Pointage brut</a></li>
+		<li><a title=\"Gestion File CEGID\"     href=\"$urlcegidfile\">         <img src=\"$URL_IMAGES/menu_historique.png\"      $menuIconSize > Gestion Ref Files</a></li>
+		<li><a title=\"Gestion File Code\"      href=\"$urlfilecode\">          <img src=\"$URL_IMAGES/menu_historique.png\"      $menuIconSize > Gestion File Code</a></li>
+		<li><a title=\"Depot de fichiers\"      href=\"$urldepot\">             <img src=\"$URL_IMAGES/menu_courrier.png\"        $menuIconSize > Depot de fichiers</a></li>
+		<li><a title=\"Gestion Projet\"         href=\"$urlcout\"> 	   	        <img src=\"$URL_IMAGES/menu_cout.png\"            $menuIconSize > Gestion Cout</a></li>
+		<li><a title=\"Gestion Frais Mission\"  href=\"$urlfraismission\">      <img src=\"$URL_IMAGES/menu_frais_mission.png\"   $menuIconSize > Gestion Frais Mis.</a></li>
+		<li><a title=\"Projet\"                 href=\"$urlproject2\">          <img src=\"$URL_IMAGES/menu_projets.png\"         $menuIconSize > Projet</a></li>
+		<li><a title=\"Gestion Pointage\"       href=\"$urlpointage\">          <img src=\"$URL_IMAGES/menu_planning.png\"        $menuIconSize > Gestion Pointage</a></li>
+		<li><a title=\"Pointage Brut\"          href=\"$urlpointagebrut\">      <img src=\"$URL_IMAGES/menu_telechargement.png\"  $menuIconSize > Pointage brut</a></li>
 		<li><a title=\"Previsionnel Brut\"      href=\"$urlprevisionnelbrut\">  <img src=\"$URL_IMAGES/menu_telechargement.png\"  $menuIconSize > Previsionnel brut</a></li>
+		<li><a title=\"Pointage Import\"        href=\"$urlpointageimport\">    <img src=\"$URL_IMAGES/menu_telechargement.png\"  $menuIconSize > Pointage Import</a></li>
 		<li><a title=\"Historique\"             href=\"$URL_ROOT_POINTAGE/admin/administration_planning.php$argument\"> <img src=\"$URL_IMAGES/menu_historique.png\" $menuIconSize > Historique</a></li>
 		</ul>";
 	}

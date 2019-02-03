@@ -3,10 +3,18 @@ include_once 'pointage_cegid_db.php';
 include_once (dirname ( __FILE__ ) .'/../configuration/labelAction.php');
 include_once 'historisation_db.php';
 
-
+//table previsionnel
 $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL = "cegid_pointage_previsionnel";
 $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2 = "cegid_pointage_previsionnel as p,  cegid_user as u, cegid_project as pj";
 
+//table pointage import (c'est un bac à sable)
+$SQL_TABLE_CEGID_POINTAGE_IMPORT= "cegid_pointage_import";
+$SQL_TABLE_CEGID_POINTAGE_IMPORT2 = "cegid_pointage_import as p,  cegid_user as u, cegid_project as pj";
+
+
+//
+//les nomn de colonne sont dans pointage_cegid_db.php
+//
 
 /**
  * applyGestionPointagePrevisionnelCegid
@@ -182,10 +190,20 @@ function showSynchronizePrevisionnel($url="", $formName=""){
  * showTableCoutOneProjectPrevisionel
  */
 function showTableCoutOneProjectPrevisionel() {
-	global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
-	
-	$tablePointage= $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
-	return showTableCoutOneProject($tablePointage, "no"/*showOnlyOneProject*/);
+    global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
+    
+    $tablePointage= $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
+    return showTableCoutOneProject($tablePointage, "no"/*showOnlyOneProject*/);
+}
+
+/**
+ * showTableCoutOneProjectImport
+ */
+function showTableCoutOneProjectImport() {
+    global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
+    
+    $tablePointage= $SQL_TABLE_CEGID_POINTAGE_IMPORT;
+    return showTableCoutOneProject($tablePointage, "no"/*showOnlyOneProject*/);
 }
 
 /**
@@ -293,30 +311,58 @@ function showTablePrevisionnelPointageCegid() {
 }
 
 /**
-* showTablePrevisionnelPointageCegid
-* Affichage du previsionnel
-* - modification par mois
-* - sommation automatique
-*/
+ * showTableImportPointageCegid
+ * affiche la fusion de pointage et import CEGID
+ */
+function showTableImportPointageCegid() {
+    global $TRACE_INFO_POINTAGE;
+    showActionVariable( "function showTableImportPointageCegid()", $TRACE_INFO_POINTAGE );
+    
+    // condition project
+    global $ITEM_COMBOBOX_SELECTION;
+    global $PROJECT_SELECTION;
+    $projectName = getURLVariable ( $PROJECT_SELECTION );
+    if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
+        showActionVariable ( "No project Selected...", $TRACE_INFO_POINTAGE );
+        // $projectName = "no project";
+        $projectName = $ITEM_COMBOBOX_SELECTION;
+    }
+    
+    // create tableau de pointage et previsionnel
+    $tableauPointage = getTableauPointageProjetCegid ( $projectName, "no" );
+    echo "tableau pointage : ".mysqlNumrows($tableauPointage)."<br>";
+
+    //tableau import
+    global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
+    global $SQL_TABLE_CEGID_POINTAGE_IMPORT2;   
+    $tableauImport = getTableauPointageProjetCegid2($projectName, "no", $SQL_TABLE_CEGID_POINTAGE_IMPORT, $SQL_TABLE_CEGID_POINTAGE_IMPORT2);
+    echo "tableau import : ".mysqlNumrows($tableauImport)."<br>";
+    
+    //fusion des deux tableaux
+    $tableau = fusionTableauPointageImport($tableauPointage, $tableauImport);
+    echo "tableau fusion import : ".mysqlNumrows($tableau)."<br>";
+    
+    
+    
+    //affichage
+    showTablePointageOneProjetCegid ( $tableau );
+}
+
+
+
+/**
+ * fusionTableauPointage
+ * 
+ * @param array $tableauPointage
+ * @param array $tableauPrev
+ * @param string $colPointage (a,b,c,...)
+ * @return array tableau de pointage fusionne
+ */
 function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="")  {
     global $TRACE_INFO_POINTAGE;
     
-    showActionVariable ( "function showTablePrevisionnelPointageCegid2()", $TRACE_INFO_POINTAGE );
-    
-//     // condition project
-//     global $ITEM_COMBOBOX_SELECTION;
-//     global $PROJECT_SELECTION;
-//     $projectName = getURLVariable ( $PROJECT_SELECTION );
-//     if ($projectName == $ITEM_COMBOBOX_SELECTION || $projectName == "") {
-//         showSQLAction ( "No project Selected..." );
-//         // $projectName = "no project";
-//         $projectName = $ITEM_COMBOBOX_SELECTION;
-//     }
-    
-//     // create tableau de pointage et previsionnel
-//     $tableauPointage = getTableauPointageProjetCegid ( $projectName, "yes" );
-//     $tableauPrev = getTableauPrevisionnelCegid ( $projectName, "yes" );
-    
+    showActionVariable ( "function fusionTableauPointage()", $TRACE_INFO_POINTAGE );
+       
     // fusion des deux tableaux
     $tableau = $tableauPrev;
     
@@ -404,5 +450,97 @@ function fusionTableauPointage($tableauPointage, $tableauPrev, $colPointage="") 
     return $tableau;
     //showTablePointageOneProjetCegid ( $tableau );
 }
+
+
+/**
+ * fusionTableauPointage
+ *
+ * @param array $tableauPointage
+ * @param array $tableauPrev
+ * @param string $colPointage (a,b,c,...)
+ * @return array tableau de pointage fusionne
+ */
+function fusionTableauPointageImport($tableauPointage, $tableauPrev, $colPointage="")  {
+    global $TRACE_INFO_POINTAGE;
+    
+    showActionVariable ( "function fusionTableauPointage()", $TRACE_INFO_POINTAGE );
+    
+    // fusion des deux tableaux
+    $tableau = $tableauPrev;
+    
+    $nbResPointage = mysqlNumrows ( $tableauPointage );
+    $nbResPrevision = mysqlNumrows ( $tableauPrev );
+    
+    global $LIST_COLS_MONTHS;
+    $arrayMonth = stringToArray ( $LIST_COLS_MONTHS );
+    
+    $columns = $colPointage;
+    if($columns==""){
+        global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+        $columns = stringToArray ( $SQL_SHOW_COL_CEGID_POINTAGE2_2 );
+    }
+    
+    
+    // copie pointage
+    $tableau = $tableauPointage;
+    
+    for($cpt = 0; $cpt < $nbResPointage; $cpt ++) {
+        foreach ( $arrayMonth as $m ) {
+            // $value = $tableauPointage[$m][$cpt];
+            $value = $tableau [$m] [$cpt];
+            $index = findIndexPointage ( $tableauPrev, $tableauPointage, $columns, $cpt );
+            if (isset($tableauPrev [$m])&& isset($tableauPrev [$m] [$index])){
+                $value2 = $tableauPrev [$m] [$index];
+            }
+            else{
+                $value2="";
+            }
+            if ($value == "") {
+                //import sur vide => couleur bleu
+                $value = $value2;
+                $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style='color: #0000FF;' " );
+                $tableau [$m] [$cpt] = $value;
+            } else {
+                if (($value2!="") && ($value2!=$value)){
+                    //import sur valeur existante differente => couleur rouge 
+                    $tableau [$m] [$cpt] = "$value/$value2";
+                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style=\"color: #FF0000; font-weight:bold\" " );
+                }
+                else if ($value2==$value){
+                    //value equivalente =>couleur verte
+                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style=\"color:  #00FF00; background: #E0E0E0; font-weight:bold\" " );
+                }
+                else{
+                    //pas dans import : fond gris
+                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"background: #E0E0E0; font-weight:bold\" " );
+                }
+            }
+        }
+    }
+
+
+    $cpt2 = $nbResPointage;
+    showActionVariable( "nb row previsionnel : $nbResPrevision", $TRACE_INFO_POINTAGE );
+    for($cpt = 0; $cpt < $nbResPrevision; $cpt ++) {
+        $index = findIndexPointage ( $tableauPointage, $tableauPrev, $columns, $cpt );
+        if ($index < 0) {
+            // copie premieres colonnes
+            foreach ( $columns as $c ) {
+                $tableau [$c] [$cpt2] = $tableauPrev [$c] [$cpt];
+            }
+            // U.O par date
+            foreach ( $arrayMonth as $m ) {
+                $value = $tableauPrev [$m] [$cpt];
+                $tableau = setSQLFlagStyle ( $tableau, $m, $cpt2, " style='color: #0000FF;' " );
+                $tableau [$m] [$cpt2] = $value;
+            }
+            $cpt2 ++;
+        }
+    }
+
+
+    return $tableau;
+}
+
 
 ?>

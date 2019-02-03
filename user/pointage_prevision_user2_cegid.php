@@ -45,7 +45,7 @@
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
 	    "pointage;formaction='$urlPointage',previsionel;formaction='$urlPrevision'",
 	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
-	echo"<br/></p>";
+	echo"<br/>Next Previous sur le user <br/></p>";
 
  	
  	//actions
