@@ -330,17 +330,14 @@ function showTableImportPointageCegid() {
     
     // create tableau de pointage et previsionnel
     $tableauPointage = getTableauPointageProjetCegid ( $projectName, "no" );
-    echo "tableau pointage : ".mysqlNumrows($tableauPointage)."<br>";
 
     //tableau import
     global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
     global $SQL_TABLE_CEGID_POINTAGE_IMPORT2;   
     $tableauImport = getTableauPointageProjetCegid2($projectName, "no", $SQL_TABLE_CEGID_POINTAGE_IMPORT, $SQL_TABLE_CEGID_POINTAGE_IMPORT2);
-    echo "tableau import : ".mysqlNumrows($tableauImport)."<br>";
     
     //fusion des deux tableaux
     $tableau = fusionTableauPointageImport($tableauPointage, $tableauImport);
-    echo "tableau fusion import : ".mysqlNumrows($tableau)."<br>";
     
     
     
@@ -508,7 +505,7 @@ function fusionTableauPointageImport($tableauPointage, $tableauPrev, $colPointag
                 }
                 else if ($value2==$value){
                     //value equivalente =>couleur verte
-                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style=\"color:  #00FF00; background: #E0E0E0; font-weight:bold\" " );
+                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " style=\"color:  #00CC00; background: #E0E0E0; font-weight:bold\" " );
                 }
                 else{
                     //pas dans import : fond gris

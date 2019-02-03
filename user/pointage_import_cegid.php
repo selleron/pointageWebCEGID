@@ -42,7 +42,7 @@
 	
 	
 	echo"<p>";
-	//global $URL_ROOT_POINTAGE;
+	global $SQL_TABLE_CEGID_POINTAGE;
 	global $urlPointage;
 	global $urlImportPointage;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
@@ -56,9 +56,9 @@
  	if ($res<=0){
  		$res = applyGestionCoutOneProjectForm();
  	}
-//  	if ($res <=0){
-//  		$res = applyGestionPrevisionnelProjetCegid();
-//  	}
+  	if ($res <=0){
+  	    $res = applyGestionTablePointageProjetCegid($SQL_TABLE_CEGID_POINTAGE);
+  	}
 //  	if ($res <=0){
 //  		$res = applySynchronizePrevisionnel();
 //  	}
@@ -77,11 +77,21 @@
  	
 	
 	//permet d'ajout un pointage pour un utilisateur
- 	showInsertTablePointageCegid(); 
+ 	//showInsertTablePointageCegid(); 
  	//pour la resynchronisation
- 	showSynchronizePrevisionnel();
+ 	//showSynchronizePrevisionnel();
  	echo"<br>";
 	
+ 	//legend
+ 	$txt =   "Legende : <br>
+ 	  - import sur vide                     : couleur bleu <br>
+ 	  - import valeur existante differente  : couleur rouge <br>
+ 	  - import valeur equivalente           : couleur verte <br>
+ 	  - valeur hors import                  : fond gris <br>"
+ 	;
+ 	echo "".getActionMessage($txt);
+ 	
+ 	
  	//show tableau fusion pointage & import
  	showTableImportPointageCegid();
 	
