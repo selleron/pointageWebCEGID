@@ -111,6 +111,21 @@ function getURLVariable($variable)
 }
 
 /**
+ * getURLVariable
+ * retourne la variable stockee dans GETou POST de l'adresse url
+ * dans le cas d'un tableau retourne la premiere valeur
+ * @param  $variable
+ */
+function getURLVariableFirstValue($variable){
+    $value = getURLVariable($variable);
+    if (is_array($value)){
+        $value = $value[0];
+    }
+    return $value;
+}
+
+
+/**
  * return variable $variable[$row]
  * 
  * @param string $variable
@@ -2444,12 +2459,22 @@ function createRequestLimit($request, $first, $limit)
  * createSqlWhereID
  *
  * @param string $key
- * @param string $value
+ * @param string $value or array[]
  * @return string
  */
 function createSqlWhereID($key, $value, $condition = "")
 {
-    $res = "$key" . "='" . $value . "'";
+    if (is_array($value)){
+        if (count($value) == 1){
+            $res = "$key" . "='" . $value[0] . "'";
+        }else{
+            $valuelist = arrayToString($value, ", ","'","'");
+            $res = "$key" . " IN (" . $valuelist . ")";
+        }
+    }
+    else{
+        $res = "$key" . "='" . $value . "'";
+    }
     if ($condition) {
         $res = $condition . " AND " . $res;
     }
@@ -2934,13 +2959,13 @@ function endHeaderBaliseDiv($idBalise)
  * @param string $txt
  * @return true | false
  */
-function blockCondition($idBalise, $txt = "")
+function blockCondition($idBalise, $txt = "", $default = true)
 {
     //echo "$idBalise : $_COOKIE[$idBalise]";
     if (isset($_COOKIE[$idBalise])) {
         $visibility = $_COOKIE[$idBalise];
     } else {
-        $visibility = true;
+        $visibility = $default;
     }
     $newVisibility=!$visibility;
     $txt = str_replace("<value>", "$visibility", $txt);

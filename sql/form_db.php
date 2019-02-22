@@ -199,8 +199,19 @@ function showFormHidden($name, $value) {
  * @return string html input
  */
 function streamFormHidden($name, $value) {
-	$txt = "<INPUT TYPE=\"hidden\"   NAME=\"$name\" VALUE=\"$value\">";
-	// echo "streamFormHidden($name, $value) <br>";
+    if (is_array($value)){
+        $txt = "";
+        $idx=0;
+        //showError("form_db.streamFormHidden() error variable $name => $"."value is an array");
+        foreach ($value as $v){
+            $txt = $txt." <INPUT TYPE=\"hidden\"   NAME=\"$name"."[$idx]\" VALUE=\"$value[$idx]\">";
+            $idx++;
+        }
+    }
+    else{
+	   $txt = "<INPUT TYPE=\"hidden\"   NAME=\"$name\" VALUE=\"$value\">";
+	   // echo "streamFormHidden($name, $value) <br>";
+    }
 	return $txt;
 }
 
@@ -814,6 +825,62 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 		echo "</td>";
 	}
 }
+
+function showFormMultiselectionSql($formName, $name, $Request, $sql_col, $useTD, $current_selection, $enabledStatus = "enabled") {
+    //global $ITEM_COMBOBOX_SELECTION;
+    
+    if (!is_array($current_selection)){
+        if ($current_selection==""){
+            //showError("showFormMultiselectionSql is null");
+            $current_selection= [];
+        }
+        else{
+            $anArray[0]=$current_selection;
+            $current_selection=$anArray;
+        }
+    }
+    
+    $enabledStatus = prepareFlagStatus ( $enabledStatus );
+    $current_selection_found="no";
+    
+    // showSQLAction ( $Request );
+    $Resultat = mysqlQuery ( $Request );
+    $nbRes = mysqlNumrows ( $Resultat );
+    
+    if ($useTD == "yes") {
+        echo "<td>";
+    }
+    echo "<SELECT $enabledStatus name=\"$name"."[]\"  onchange=\"this.submit()\" multiple >";
+    echo "<OPTION> ".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
+    if (FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION == $current_selection) {
+        $current_selection_found="yes";
+    }
+    for($cpt = 0; $cpt < $nbRes; $cpt ++) {
+        $res = mysqlResult ( $Resultat, $cpt, $sql_col );
+        $selected = "";
+        foreach ($current_selection as $cs){
+            if ($res == $cs) {
+               $selected = "selected";
+               $current_selection_found="yes";
+            }
+        }
+        echo "<OPTION $selected>$res";
+    }
+    
+    if ($current_selection_found=="no" && $current_selection){
+        foreach ($current_selection as $cs){
+            //permet de traiter le cas des éléments non present dans la liste (archivés???)
+            echo "<OPTION selected>$cs";
+        }
+    }
+    
+    echo "</SELECT>";
+    if ($useTD == "yes") {
+        echo "</td>";
+    }
+}
+
+
 
 /**
  * showFormComboBoxSql2 combobox avec completion

@@ -149,7 +149,7 @@ function showInsertTablePointageCegid()
     $year = getURLVariable($YEAR_SELECTION);
     $infoForm = streamFormHidden($YEAR_SELECTION, $year);
     global $PROJECT_SELECTION;
-    $projectName = getURLVariable($PROJECT_SELECTION);
+    $projectName = getURLVariableFirstValue($PROJECT_SELECTION);
     $infoForm = $infoForm . streamFormHidden($PROJECT_SELECTION, $projectName);
     $param = setInfoForm($param, $infoForm);
     // showSQLAction("showInsertTablePointageCegid - form info : $infoForm");
@@ -637,7 +637,8 @@ function replacePointage($table, $colsSet, $colsDelete, $form_name)
  * @param string $userVisible
  *            is section user visible "yes/no"
  */
-function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $export = "no", $userVisible = "no", $previousVisible = "no", $nextVisible = "no")
+function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $export = "no", $userVisible = "no", 
+    $previousVisible = "no", $nextVisible = "no", $multiselection = false)
 {
     global $FORM_VALUE_POSSIBLE;
     global $SQL_TABLE_PROJECT;
@@ -682,21 +683,38 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     //si une requet existe, on l'utilise (certaines ajoute "[all]"
     global $PROJECT_AUTO_COMPLETION;
     if (isset($FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT])){
-        if ($PROJECT_AUTO_COMPLETION=="yes"){
-            showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT], $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
-        }
-        else{
-            showFormComboBoxSql($formName, $PROJECT_SELECTION, $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT], $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
-        }
+        $sqltableproject = $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT];
+    }
+    else{
+        $sqltableproject = $SQL_TABLE_PROJECT;
+    }
+    if ($multiselection){
+        showFormMultiselectionSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
     }
     else{
         if ($PROJECT_AUTO_COMPLETION=="yes"){
-            showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+            showFormComboBoxCompletionSql($formName, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
         }
         else{
-            showFormComboBoxSql($formName, $PROJECT_SELECTION, $SQL_TABLE_PROJECT, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+            showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
         }
     }
+//     if (isset($FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT])){
+//         if ($PROJECT_AUTO_COMPLETION=="yes"){
+//             showFormComboBoxCompletionSql($formName, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+//         }
+//         else{
+//             showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+//         }
+//     }
+//     else{
+//         if ($PROJECT_AUTO_COMPLETION=="yes"){
+//             showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+//         }
+//         else{
+//             showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+//         }
+//     }
     
     // combo year
     if ($yearVisible == "yes") {
@@ -981,7 +999,13 @@ $formName, $conditionPointage, $select = "p.UO")
         $projectName = getURLVariable($PROJECT_SELECTION);
     }
     
-    showActionVariable("getTableauPointageProjetCegid3() pointage project used : $projectName", $TRACE_INFO_PROJECT);
+    if (is_array($projectName)){
+        $projects = arrayToString($projectName);
+        showActionVariable("getTableauPointageProjetCegid3() pointage project used : $projects", $TRACE_INFO_PROJECT);
+    }
+    else{
+        showActionVariable("getTableauPointageProjetCegid3() pointage project used : $projectName", $TRACE_INFO_PROJECT);
+    }
     
     if ($projectName) {
         if ($projectName == FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION) {
@@ -992,7 +1016,8 @@ $formName, $conditionPointage, $select = "p.UO")
                 // nothing to do
                 // showSQLAction("no project selected");
         } else {
-                $condition = $condition . " AND pj.$SQL_COL_NAME_PROJECT=\"$projectName\"";
+            $condition = createSqlWhereID("pj.$SQL_COL_NAME_PROJECT",$projectName, $condition);
+            //$condition = $condition . " AND pj.$SQL_COL_NAME_PROJECT=\"$projectName\"";
         }
     }
     

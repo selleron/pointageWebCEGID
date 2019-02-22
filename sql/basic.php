@@ -125,13 +125,13 @@ function trimArray($array){
 * @param array of string $array
 * @return string or NULL (unset)
 */
-function arrayToString( $array, $separator=","){
+function arrayToString( $array, $separator=",",$before="",$after=""){
 	foreach ($array as $a){
 		if (isset($txt)){
-			$txt="$txt$separator$a";
+			$txt=$txt.$separator.$before.$a.$after;
 		}
 		else{
-			$txt=$a;
+		    $txt=$before.$a.$after;
 		}
 	}
 	return $txt;

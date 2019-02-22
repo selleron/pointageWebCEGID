@@ -231,15 +231,15 @@ function showTableFraisMission($param="" ) {
 	
 	//test 20170408
 	$result = sqlParamToArrayResult($param);
-	$nbRes = mysqlNumrows ( $result );
+	//$nbRes = mysqlNumrows ( $result );
 	
 	//printMatrice($result);
 	
 	
- 	if ($tablePointage == ""){
- 		global $SQL_TABLE_CEGID_POINTAGE;
- 		$tablePointage = $SQL_TABLE_CEGID_POINTAGE;
- 	}
+//  	if ($tablePointage == ""){
+//  		global $SQL_TABLE_CEGID_POINTAGE;
+//  		$tablePointage = $SQL_TABLE_CEGID_POINTAGE;
+//  	}
  	
  	//showSQLAction("showTableFraisMission() tablePointage '$tablePointage'");
  	
