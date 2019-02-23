@@ -1032,6 +1032,8 @@ function showSQLError($txt, $txtError = "")
     global $CONNECTION_ID;
     $sqlError = mysqli_error($CONNECTION_ID);
     showSQLError2($txt, $sqlError, $txtError);
+    //debug_print_backtrace();
+    
     return $sqlError;
 }
 
@@ -1053,7 +1055,7 @@ function showSQLError2($txt, $sqlError, $txtError = "")
         }
     } else {
         //debug_print_backtrace();   
-        echo getActionMessage($txt . "   $txtError <font color=\"red\">  $sqlError </font>");
+        echo getActionMessage($txt . " --  $txtError -- <font color=\"red\">  $sqlError </font>");
     }
 }
 

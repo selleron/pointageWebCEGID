@@ -693,7 +693,7 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     }
     else{
         if ($PROJECT_AUTO_COMPLETION=="yes"){
-            showFormComboBoxCompletionSql($formName, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+            showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
         }
         else{
             showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
