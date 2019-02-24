@@ -21,7 +21,7 @@
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Gestion Pointage Previsionnel Utilisateurs");
+	showBandeauHeaderPage("Gestion Pointage Previsionnel Collaborateurs");
 	?>
   
 
@@ -31,10 +31,11 @@
 
 
 <?php
-	echo "<p>Gestion Pointage Previsionnel Utilisateurs CEGID.<br/></p>";
+	echo "<p>Gestion Pointage Previsionnel Collaborateurs CEGID.<br/></p>";
 	
 	showTracePOST();
 
+	$multiselection = blockCondition("multiselection_pointage", "<h4>multi-selection [<value>]</h4>", false);
 	$exec = applyNextPreviousSelectUser();
 	
 	
@@ -43,8 +44,9 @@
 	global $urlPointage;
 	global $urlPrevision;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
-	    "pointage;formaction='$urlPointage',previsionel;formaction='$urlPrevision'",
-	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
+	    "pointage;formaction='$urlPointage',previsionel;formaction='$urlPrevision',previsionel collaborateurs;formaction='$urlPrevisionCollaborateur2'",
+	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/,
+	    $multiselection);
 	echoSpace(4);
 	echo"(Next Previous sur le user)</p>";
 	
