@@ -17,14 +17,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Gestion Pointage Import (Bac a Sable)</h1>
+  <h1>Serveur Web Pointage : Validation Import Pointage (Bac a Sable)</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Gestion Pointage Import  (Bac a Sable)");
+	showBandeauHeaderPage("Validation Import Pointage (Bac a Sable)");
 	?>
   
 
@@ -34,9 +34,14 @@
 
 
 <?php
-	echo "<p>Gestion Pointage Import CEGID  (Bac a Sable).<br/></p>";
+    showTracePOST();
+    
+    echo "<p>
+            Gestion Pointage Import CEGID  (Bac a Sable).<br/><br/>
+            [update] va mettre à jour la table de pointage à partir de la table d'import du bac à sable.<br/>
+            le bac à sable est alimenté par Autre\Pointage Import.<br/>
+    </p>";
 	
-	showTracePOST();
 
 	$multiselection = blockCondition("multiselection_pointage", "<h4>multi-selection [<value>]</h4>", false);
 	$exec = applyNextPreviousSelectPointage();
@@ -91,13 +96,15 @@
  	  - import valeur equivalente           : couleur verte <br>
  	  - valeur hors import                  : fond gris <br>"
  	;
- 	echo "".getActionMessage($txt);
+ 	echo "".getActionMessage($txt,"#FFFFFF");
  	
  	
  	//show tableau fusion pointage & import
  	showTableImportPointageCegid();
 	
-	
+ 	$txt="[update] va mettre à jour la table de pointage à partir de la table d'import du bac à sable";
+ 	echo "".getActionMessage($txt,"#FFBBBB");
+ 	
 	
 ?>
 <br/><br/><br/>

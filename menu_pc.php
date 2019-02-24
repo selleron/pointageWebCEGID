@@ -71,7 +71,7 @@ if (isMemberGroup(2)){
 	echo "<li><a title=\"Prevision par Collaborateur\" href=\"$urlprevisionuser2\"> <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Prev. par collab.</a></li>";
 
 	$urlimport  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_import_cegid.php$argument");
-	echo "<li><a title=\"Import projet\" href=\"$urlimport\"> <img src=\"$URL_IMAGES/menu_import.png\" $menuIconSize > Import</a></li>";
+	echo "<li><a title=\"Import projet\" href=\"$urlimport\"> <img src=\"$URL_IMAGES/menu_import.png\" $menuIconSize > Validation Import</a></li>";
 	
 	
 }

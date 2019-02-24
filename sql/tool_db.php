@@ -1109,15 +1109,8 @@ function showActionVariable($txt, $debugVariable)
  * @param
  *            $txt
  */
-function getActionMessage($txt)
-{
-    // return "<table> <tr bgcolor=#FFFFCC>
-    // <td>
-    // $txt
-    // </td>
-    // </tr></table>
-    // <br>";
-    return getBeginActionMessage() . "$txt" . getEndActionMessage();
+function getActionMessage($txt, $colorbg=null){
+    return getBeginActionMessage($colorbg) . "$txt" . getEndActionMessage();
 }
 
 /**
@@ -1125,9 +1118,11 @@ function getActionMessage($txt)
  *
  * @return string
  */
-function getBeginActionMessage()
-{
-    return "<table> <tr bgcolor=#FFFFCC> <td>";
+function getBeginActionMessage($colorbg=""){
+    if (!isset($colorbg)){
+        $colorbg="#FFFFCC";
+    }
+    return "<table> <tr bgcolor=\"$colorbg\" > <td>";
 }
 
 /**
