@@ -38,6 +38,7 @@
 	
 	showTracePOST();
 
+	$multiselection = blockCondition("multiselection_pointage", "<h4>multi-selection [<value>]</h4>", false);
 	$exec = applyNextPreviousSelectPointage();
 	
 	
@@ -46,8 +47,9 @@
 	global $urlPointage;
 	global $urlImportPointage;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
- 	LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
- 	"yes"/*user*/, "yes"/*previous*/, "yes"/*next*/);
+ 	    LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
+ 	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/,
+	    $multiselection);
  	echo"<br/></p>";
 
  	
