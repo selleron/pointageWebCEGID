@@ -2,6 +2,6 @@
   <!-- version : <majeur><mineur><evolution><correctif> -->
   Version 0.1.33.03 (dev) - Copyright &copy; 2016 - 2019 D&eacute;esse Corp. -  Contact &nbsp;: 
   <a title="Pour vos questions et remarques sur Le Site" 
-  href="mailto:cegid@kyoto-fr.no-ip.org?subject=%27Serveur%20Web%20Pointage%27">
+  href="mailto:<?PHP  global $CONTACT_EMAIL; echo "$CONTACT_EMAIL"; ?>?subject=%27Serveur%20Web%20Pointage%27">
   Administrateur</a>
 </div>

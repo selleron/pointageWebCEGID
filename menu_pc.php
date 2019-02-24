@@ -76,8 +76,7 @@ if (isMemberGroup(2)){
 	
 }
 else{
-	$date = $ANNEE_RESERVATION;
-	echo "<li><a title=\"Planning/Tarifs $date\"	href=\"$URL_ROOT_POINTAGE/planning".$date.".php$argument\"> 	<img src=\"$URL_IMAGES/menu_planning.png\" $menuIconSize > Planning $date</a></li>";
+    //nothing to do
 }
 
 if ($plateform==$COOKIE_PLATEFORM_VALUE_PC){
@@ -92,20 +91,20 @@ echo "
   <img src=\"$URL_IMAGES/menu_courrier.png\" $menuIconSize > Contacts</a></li>
   ";
 
-if ($plateform==$COOKIE_PLATEFORM_VALUE_PC){
-	echo 	"<li><a title=\"Pour affichage sur tablette ou mobile\" 
-			href=\"$URL_ROOT_POINTAGE/default.php$argument\" 
-			onclick=\"javascript:setPlateformMobile(); return true;  \">
-			<img src=\"$URL_IMAGES/menu_mobile.png\" $menuIconSize >      Version Mobile</a></li>
-	";
-}
-else{
-	echo 	"<li><a title=\"Pour affichage sur PC\"
-	href=\"$URL_ROOT_POINTAGE/default.php$argument\"
-	onclick=\"javascript:setPlateformPC(); return true;  \">
-	<img src=\"$URL_IMAGES/menu_pc.png\" $menuIconSize >      Version PC</a></li>
-	";
-}
+    // if ($plateform==$COOKIE_PLATEFORM_VALUE_PC){
+    // 	echo 	"<li><a title=\"Pour affichage sur tablette ou mobile\" 
+    // 			href=\"$URL_ROOT_POINTAGE/default.php$argument\" 
+    // 			onclick=\"javascript:setPlateformMobile(); return true;  \">
+    // 			<img src=\"$URL_IMAGES/menu_mobile.png\" $menuIconSize >      Version Mobile</a></li>
+    // 	";
+    // }
+    // else{
+    // 	echo 	"<li><a title=\"Pour affichage sur PC\"
+    // 	href=\"$URL_ROOT_POINTAGE/default.php$argument\"
+    // 	onclick=\"javascript:setPlateformPC(); return true;  \">
+    // 	<img src=\"$URL_IMAGES/menu_pc.png\" $menuIconSize >      Version PC</a></li>
+    // 	";
+    // }
 
 echo "</ul>";
 

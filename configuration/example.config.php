@@ -24,6 +24,9 @@ $SQL_DATABASE="ma_data_base";
 //yes or no
 $CRYPT_PWD="yes";
 
+//contact
+$CONTACT_EMAIL="mon email";
+
 
 // LOG
 /////////////////////////////////////
