@@ -33,7 +33,7 @@ function suppressCommentMatrice($tableau,$comment="#"){
 /**
  * suppressEmptyRowFromMatrice
  * @param array $tableau [row][col]
- * @return array[row][col]
+ * @return array[$row][$col]
  */
 function suppressEmptyRowFromMatrice($tableau){
     //echo "test empty row...";
