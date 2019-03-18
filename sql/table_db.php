@@ -85,9 +85,11 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 			return;
 		}
 		
+		global $TRACE_INFO_IMPORT;
+		$countModification=0;
 		$columns = getCSVTableColumn ( $array, $cols );
-		
 		$data = suppressCommentMatrice ( $array );
+		$data = suppressEmptyRowFromMatrice($data);
 		foreach ( $data as $values ) {
 			//$sql = createSqlReplace ( $table, $columns, $values );
 			$key = $columns [0];
@@ -95,16 +97,17 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 			$condition = createSqlWhereID ( $key, $idTable );
 			if (getActionGet()=="insert_update"){
 			     $sql = createSqlReplace( $table, $columns, $values );
-			     showSQLAction ( "table_db.importCSVTableByGet() insert_update (replace) action : $sql" );
+			     showActionVariable( "table_db.importCSVTableByGet() insert_update (replace) action : $sql", $TRACE_INFO_IMPORT );
 			}
 			else{
 			    $sql = createSqlInsert ( $table, $columns, $values );
-			    showSQLAction ( "table_db.importCSVTableByGet() insert action : $sql" );
+			    showActionVariable ( "table_db.importCSVTableByGet() insert action : $sql", $TRACE_INFO_IMPORT );
 			}
 			$res_query = mysqlQuery ( $sql );
 			$nbRow = mysqlAffectedRows ();
+			$countModification+=$nbRow;
 			$res_error = mySqlError ();
-			showSQLError ( "# $nbRow", $sql );
+			showActionVariable ( "#row impacted : $nbRow", $TRACE_INFO_IMPORT );
 			if ($nbRow < 1) {
 				$sql = createSqlUpdate ( $table, $columns, $values, $condition );
 				
@@ -117,6 +120,7 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 				showSQLError ( "# $nbRow", $txt );
 			}
 		}
+		showSQLAction("total insertion/modification : $countModification");
 		return 1;
 	} else {
 		return 0;

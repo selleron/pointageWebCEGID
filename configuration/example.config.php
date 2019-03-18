@@ -39,6 +39,7 @@ $TRACE_POST="yes";							//trace POST
 $TRACE_FILE="yes";							//trace File action
 $TRACE_INFO_ACTION="no";					//trace suivi action get
 $TRACE_INFO_EXPORT="no";					//trace generation export
+$TRACE_INFO_IMPORT="no";					//trace generation import
 $TRACE_INFO_POINTAGE="no";					//trace info pointage
 $TRACE_INFO_PROJECT="yes";                  //trace project usage
 $SHOW_FILE_ACTION="yes";                    //trace file operation

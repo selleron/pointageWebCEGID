@@ -5,29 +5,61 @@
  * @param array $tableau[row][col]
  */
 function suppressCommentMatrice($tableau,$comment="#"){
-	$nbRow = count( $tableau );
-	$array = array();
-	$line = 0;
-	for($r=0;$r<$nbRow;$r++){
-		$nbCol = count( $tableau[$r] );
-		//echo "!!! count $nbCol  :  ".arrayToString($tableau[$r])."<br>";
-		if ($nbCol>0){
-			$cell = $tableau[$r][0];
-			//echo "1 : [$cell] - [$comment] : ".strpos($cell , $comment) ." <br>";
-			if (false === strpos($cell , $comment) ){
-				$array[$line]=$tableau[$r];
-				$line++;
-			}
-			else{
-				echo "comment found : $cell <br>";
-				//comment found
-				//nothing to do
-			}
-		}
-	}
+    $nbRow = count( $tableau );
+    $array = array();
+    $line = 0;
+    for($r=0;$r<$nbRow;$r++){
+        $nbCol = count( $tableau[$r] );
+        //echo "!!! count $nbCol  :  ".arrayToString($tableau[$r])."<br>";
+        if ($nbCol>0){
+            $cell = $tableau[$r][0];
+            //echo "1 : [$cell] - [$comment] : ".strpos($cell , $comment) ." <br>";
+            if (false === strpos($cell , $comment) ){
+                $array[$line]=$tableau[$r];
+                $line++;
+            }
+            else{
+                echo "comment found : $cell <br>";
+                //comment found
+                //nothing to do
+            }
+        }
+    }
+    
+    //printMatrice($array);
+    return $array;
+}
 
-	//printMatrice($array);
-	return $array;
+/**
+ * suppressEmptyRowFromMatrice
+ * @param array $tableau [row][col]
+ * @return array[row][col]
+ */
+function suppressEmptyRowFromMatrice($tableau){
+    //echo "test empty row...";
+    $nbRow = count( $tableau );
+    $array = array();
+    $line = 0;
+    for($r=0;$r<$nbRow;$r++){
+        $nbCol = count( $tableau[$r] );
+        if ($nbCol>0){
+            $isEmpty=TRUE;
+            foreach ($tableau[$r] as $cell){
+                if ($cell!=""){
+                    $isEmpty=FALSE;
+                    break;
+                }
+            }
+            if ($isEmpty == TRUE ){
+            }
+            else{
+                $array[$line]=$tableau[$r];
+                $line++;
+            }
+         }
+     }
+    //printMatrice($array);
+    return $array;
 }
 
 
