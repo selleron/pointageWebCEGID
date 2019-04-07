@@ -16,7 +16,7 @@ $CONDITION_FROM_CEGID_PROJECT = $CONDITION_FROM_CEGID_NO_ARCHIVE;
 $CONDITION_FROM_CEGID_DEVIS   = $CONDITION_FROM_CEGID_NO_ARCHIVE;
 $CONDITION_FROM_CEGID_USER    = $CONDITION_FROM_CEGID_NO_ARCHIVE;
 
-//selection 
+//selection
 $SELECT_NAME_FROM_CEGID_USER_NO_FILTRED     = "select NAME from cegid_user";
 $SELECT_NAME_FROM_CEGID_USER                = "$SELECT_NAME_FROM_CEGID_USER_NO_FILTRED WHERE $CONDITION_FROM_CEGID_USER";
 $SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED  = "select NAME from cegid_project";
@@ -173,6 +173,10 @@ $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["SQL"]
 $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["VARIABLE"]="PROJECT";
 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["ID"]["SIZE"] = 5;
+//ne marche pas : $FORM_STYLE["form_table_cegid_project_cout_insert"]["DATE"]["WIDTH"] = 10;
+//$FORM_STYLE["form_table_cegid_project_cout_insert"]["DATE"]["SIZE"] = 5;
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["COMMENTAIRE"]["SIZE"] = 40;
+$FORM_STYLE["form_table_cegid_project_cout_update"]["COMMENTAIRE"]["SIZE"] = 40;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["SIZE"] = $SIZE_UO;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["UO"]["FORMAT"] = $FORMAT_UO;
@@ -205,7 +209,7 @@ $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["TD"] 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_U.O.Pointage"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["TD"]    = $ALIGN_RIGHT;
 
-$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SUFFIX"] = " &euro;"; 
+$FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Total.COUT"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["sum_col_Reel.COUT"]["SUFFIX"]  = " &euro;";
 
 
@@ -372,7 +376,7 @@ $FORM_STYLE["form_cegid_societe_fournisseur_update"]["NAME"]["SIZE"] = "70";
 
 
 
-//suivi proposition 
+//suivi proposition
 $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["SUFFIX_FIELD"] = "";
 $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["TD"] = $ALIGN_RIGHT;
