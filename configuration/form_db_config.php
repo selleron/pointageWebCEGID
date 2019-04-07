@@ -151,6 +151,12 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["TYPE"]="select ID from 
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["TYPE"]="select ID from cegid_type_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project"]["TYPE"]="select ID from cegid_type_project";
 $FORM_STYLE         ["form_table_cegid_project_insert"]["PRIX_VENTE"]["SIZE"]=10;
+$FORM_STYLE         ["form_table_cegid_project_insert"]["NAME"]["SIZE"]=60;
+$FORM_STYLE         ["form_table_cegid_project_update"]["NAME"]["SIZE"]=60;
+$FORM_STYLE         ["form_table_cegid_project_insert"]["CEGID"]["SIZE"]=10;
+$FORM_STYLE         ["form_table_cegid_project_update"]["CEGID"]["SIZE"]=10;
+$FORM_STYLE         ["form_table_cegid_project_insert"]["GROUPE"]["SIZE"]=20;
+$FORM_STYLE         ["form_table_cegid_project_update"]["GROUPE"]["SIZE"]=60;
 
 
 //table project cout
