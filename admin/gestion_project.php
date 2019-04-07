@@ -38,6 +38,7 @@
 	echo "<p>Gestion des projects CEGID.<br/></p>";
 	showTracePOST();
 	
+	
 	$exec = applyNextPreviousSelectPointage();
 	synchoTableIdProject();
 	
@@ -58,12 +59,21 @@
 	
 	applyGestionProject();
 		
+	//gestion de l'import fichier
 	echo "<p>";
 	showLoadFile("","","","import");
 	echo "<br/></p>";
 	
+	//doit on afficher le groupe du projet dans la liste?
+	if (blockCondition("show_groupe_on_project_list", "<h4>show groupe [<value>]</h4>")){
+	    $showGroup="yes";
+	}
+	else{
+	    $showGroup="no";
+	}
 	
-	showTableProject();
+	
+	showTableProject($showGroup);
 ?>
 <br/><br/><br/>
 

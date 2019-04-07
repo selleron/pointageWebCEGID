@@ -19,7 +19,9 @@ $SQL_COL_VISIBLE_PROJECT = "VISIBLE";
 
 $SQL_LABEL_PROJECT_NAME = "PROJECT";
 
-$SQL_SHOW_COL_PROJECT = "$SQL_COL_ID_PROJECT, $SQL_COL_NAME_PROJECT, $SQL_COL_PRIX_VENTE_PROJECT, $SQL_COL_DEBUT_PROJECT, $SQL_COL_FIN_PROJECT, $SQL_COL_FIN_GARANTIE";
+$SQL_SHOW_COL_PROJECT_SUITE = "$SQL_COL_NAME_PROJECT, $SQL_COL_PRIX_VENTE_PROJECT, $SQL_COL_DEBUT_PROJECT, $SQL_COL_FIN_PROJECT, $SQL_COL_FIN_GARANTIE";
+$SQL_SHOW_COL_PROJECT            = "$SQL_COL_ID_PROJECT,  $SQL_SHOW_COL_PROJECT_SUITE";
+$SQL_SHOW_COL_PROJECT_WITH_GROUP = "$SQL_COL_ID_PROJECT, $SQL_COL_GROUPE_PROJECT, $SQL_SHOW_COL_PROJECT_SUITE";
 $SQL_SHOW_ALL_COL_PROJECT = $SQL_SHOW_COL_PROJECT . ", $SQL_COL_STATUS_PROJECT,  $SQL_COL_TYPE_PROJECT, $SQL_COL_GROUPE_PROJECT, $SQL_COL_COMMENTAIRE_PROJECT, $SQL_COL_VISIBLE_PROJECT";
 
 // include_once 'connection_db.php';
@@ -179,10 +181,12 @@ function applyGestionProject()
 /**
  * affiche les versions des elements du projet
  * (description)
+ * @param string $showGroup  yes|no
  */
-function showTableProject()
+function showTableProject($showGroup="yes")
 {
     global $SQL_SHOW_COL_PROJECT;
+    global $SQL_SHOW_COL_PROJECT_WITH_GROUP;
     global $SQL_TABLE_PROJECT;
     global $FORM_TABLE_CEGID_PROJECT;
     global $TABLE_EXPORT_CSV;
@@ -191,9 +195,15 @@ function showTableProject()
     $condition = "$CONDITION_FROM_CEGID_PROJECT";
     
     // showSQLAction("showTableProject - ...");
+    if ($showGroup == "yes"){
+        $sqlshowgroup=$SQL_SHOW_COL_PROJECT_WITH_GROUP;
+    }
+    else{
+        $sqlshowgroup=$SQL_SHOW_COL_PROJECT;
+    }
     
     // showTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name);
-    $param = prepareshowTable($SQL_TABLE_PROJECT, $SQL_SHOW_COL_PROJECT, $form_name, $condition);
+    $param = prepareshowTable($SQL_TABLE_PROJECT, $sqlshowgroup, $form_name, $condition);
     // par defaut on a edit & delete
     
     // ajout export CSV
