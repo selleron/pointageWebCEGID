@@ -1136,7 +1136,12 @@ $formName, $conditionPointage, $select = "p.UO")
             else{
                 $valueProject="";
             }
-            $valueUser = $tableau[$SQL_COL_USER_CEGID_POINTAGE][$cpt];
+            if (isset($tableau[$SQL_COL_USER_CEGID_POINTAGE])){
+                $valueUser = $tableau[$SQL_COL_USER_CEGID_POINTAGE][$cpt];
+            }
+            else{
+                $valueUser = "";
+            }
             if (isset($tableau[$SQL_COL_PROFIL_CEGID_POINTAGE])){
                 $valueDate = $tableau[$SQL_COL_PROFIL_CEGID_POINTAGE][$cpt];
             }
@@ -1150,10 +1155,12 @@ $formName, $conditionPointage, $select = "p.UO")
             $reqDate = $reqDate . " AND  month(p.$SQL_COL_DATE_CEGID_POINTAGE)=\"$month\"";
             if ($valueProject != "")
                 $reqDate = $reqDate . " AND p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE=\"$valueProject\"  ";
-            $reqDate = $reqDate . " AND p.$SQL_COL_USER_CEGID_POINTAGE=\"$valueUser\"  ";
+            if ($valueUser != "")
+                $reqDate = $reqDate . " AND p.$SQL_COL_USER_CEGID_POINTAGE=\"$valueUser\"  ";
             if ($valueDate != "")
                 $reqDate = $reqDate . " AND p.$SQL_COL_PROFIL_CEGID_POINTAGE=\"$valueDate\"  ";
-            // showSQLAction($reqDate);
+            //showSQLAction($reqDate);
+            showActionVariable( $reqDate, $TRACE_INFO_POINTAGE );
             
             $resDate = mysqlQuery($reqDate);
             $tableau[$m][$cpt] = mysqlResult($resDate, 0, 0, "");
