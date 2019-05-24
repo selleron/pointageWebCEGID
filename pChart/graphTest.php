@@ -3,7 +3,7 @@
      Example1 : A simple line chart
  */
  
-
+global $PATH_UPLOAD_DIRECTORY;
 
  // Standard inclusions      
  include("pChart/class/pData.class.php");
@@ -66,7 +66,9 @@
  //$myPicture->drawLegend(510,205,array("Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL)); 
  $myPicture->drawLegend(50,210,array("Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL));
  
- /* Render the picture (choose the best way) */ 
- //$myPicture->autoOutput("tmp/example.drawPlotChart.png"); 
+ /* Render the picture (choose the best way) */
+ $images = "$PATH_UPLOAD_DIRECTORY/example.drawPlotChart.png";
+ echo "generation images $image<br/>";
+ $myPicture->autoOutput("$images"); 
  $myPicture->Stroke();
   ?>

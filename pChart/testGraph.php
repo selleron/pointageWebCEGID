@@ -4,7 +4,7 @@
 <head>
 <title>Serveur Web MobilHome200.</title>
 <?PHP include("../header.php"); ?>
-<?PHP include("../sql/document_db.php"); ?>
+<?PHP include("../sql/member_db.php"); ?>
 <?PHP include("../sql/connection_db.php"); ?>
 </head>
 
@@ -31,9 +31,8 @@
 		<!-- article -->
 
 		<div class="article">
-			
-			<img src="graphTest.php" alt="" />
-			
+			<?PHP include("graphTest.php"); ?>
+			<img src="graphTest.php" alt="generation de l'image de graphTest.php ...." />
 		</div>
 		<!-- article -->
 	</div>

@@ -72,6 +72,10 @@ if (isMemberGroup(2)){
 
 	$urlimport  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_import_cegid.php$argument");
 	echo "<li><a title=\"Import projet\" href=\"$urlimport\"> <img src=\"$URL_IMAGES/menu_import.png\" $menuIconSize > Validation Import</a></li>";
+
+	
+	$urlprevisionprojet  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_projet_cegid.php$argument");
+	echo "<li><a title=\"Prevision par Projet\" href=\"$urlprevisionprojet\"> <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Prev. par projet</a></li>";
 	
 	
 }
@@ -282,6 +286,7 @@ else{
 		echo"
 		<ul>
 		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graphiques</a></li>
+		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart2.0-for-PHP7-master/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graphiques php 7.0</a></li>
 		<li><a title=\"Table Requetes\"          href=\"$URL_ROOT_POINTAGE/test/testRequetes.php$argument&order=order\">       <img src=\"$URL_IMAGES/version.png\" $menuIconSize >Requetes Generique</a></li>
 		<li><a title=\"Requetes CEGID\"          href=\"$URL_ROOT_POINTAGE/test/testRequetesCEGID.php$argument&order=order\">  <img src=\"$URL_IMAGES/version.png\" $menuIconSize >Requetes CEGID</a></li>
 		<li><a title=\"Tableaux\"          href=\"$URL_ROOT_POINTAGE/test/testTableaux.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tableaux</a></li>
