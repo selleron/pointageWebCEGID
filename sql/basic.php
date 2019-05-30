@@ -339,6 +339,20 @@ function echoSpace($count=1){
 }
 
 /**
+ * show HTML br
+ */
+/**
+ * echo BR
+ *
+ * @param number $count nb <br> to insert
+ */
+function echoBR($count=1){
+    for($i=0;$i<$count;$i++){
+        echo "<br>";
+    }
+}
+
+/**
  * echoTD
  *
  * @param string $txt

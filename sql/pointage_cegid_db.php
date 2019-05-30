@@ -14,6 +14,7 @@ $urlPointage                    = "$URL_ROOT_POINTAGE/user/one_project_cegid.php
 $urlPrevision                   = "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php";
 $urlPrevisionCollaborateur      = "$URL_ROOT_POINTAGE/user/pointage_prevision_user_cegid.php";
 $urlPrevisionCollaborateur2     = "$URL_ROOT_POINTAGE/user/pointage_prevision_user2_cegid.php";
+$urlPrevisionProjet             = "$URL_ROOT_POINTAGE/user/pointage_prevision_projet_cegid.php";
 $urlImportPointage              = "$URL_ROOT_POINTAGE/user/pointage_import_cegid.php";
 
 //SQL et TABLE

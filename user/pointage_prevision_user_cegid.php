@@ -44,9 +44,11 @@
 	global $urlPointage;
 	global $urlPrevision;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
-	    "pointage;formaction='$urlPointage',previsionel;formaction='$urlPrevision',previsionel collaborateurs;formaction='$urlPrevisionCollaborateur2'",
+	    "pointage;formaction='$urlPointage',previsionel;formaction='$urlPrevision',prev. collaborateurs;formaction='$urlPrevisionCollaborateur2', 
+         prev. projet;formaction='$urlPrevisionProjet'  ",
 	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/,
 	    $multiselection);
+	echoBR();
 	echoSpace(4);
 	echo"(Next Previous sur le user)</p>";
 	
