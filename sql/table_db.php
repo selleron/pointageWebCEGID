@@ -15,13 +15,15 @@ include_once '../configuration/labelAction.php';
  * @param string $form_name
  * @param string $colFilter
  * @param array $param
- * @return number
+ * @return number result 0 nothing < error >0 ok
  */
  function applyGestionTable($table, $cols, $form_name, $colFilter = "", $param=NULL) {
      if (!isset($param)){
         $condition="";
         $param = createDefaultParamSql ( $table, $cols, $condition );
         $param = updateTableParamSql ( $param, $form_name, $colFilter );
+        //precise si possible les types des colomnes
+        $param = updateTableParamType ( $param, $table, $cols, $form_name );
      }
      
      // trace
@@ -899,12 +901,17 @@ function insertInTable($param) {
 
     showSQLAction("insertInTable( $table ; ".arrayToString($columns)." ; $form)");
     
+    global $TRACE_INFO_SQL_PARAM;
+    if ($TRACE_INFO_SQL_PARAM=="yes"){
+       printParam($param, "***");
+    }
+    
 	// echo "search columns : [$cols]";
 	//$columns = stringToArray ( $cols );
 	$values = getURLVariableArraySQLForm ( $columns, $form );
 	
 	// showAction($document2);
-	$sql = createSqlInsert ( $table, $columns, $values );
+	$sql = createSqlInsert ( $table, $columns, $values, NULL, $param );
 	showSQLAction ( $sql );
 	$txt = "sql result : " . mysqlQuery ( $sql ) . "   " . mySqlError ();
 	showAction ( $txt );

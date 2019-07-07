@@ -432,6 +432,9 @@ function mysqlFieldValueByKey($Resultat, $idx, $key, $default = "???") {
 		//echoTD("search for Resultat [$KEY_INFO] [$key] [$idx / $idx2] : ".$Resultat [$KEY_INFO] [$key] [$idx2]."<br>");
 		//var_dump($Resultat [$KEY_INFO]);
 	}
+
+	//echoTD("search for Resultat [$KEY_INFO] [$key] [$idx / $idx2] : ".$Resultat [$KEY_INFO] [$key] [$idx2]."<br>");
+	
 	if (isset ( $Resultat [$KEY_INFO] )) {
 		if (isset ( $Resultat [$KEY_INFO] [$key] )) {
 			if (isset ( $Resultat [$KEY_INFO] [$key] [$idx2] )) {

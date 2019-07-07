@@ -528,12 +528,60 @@ function createDefaultParamSql($table = "", $columnsTxt = "", $condition = "")
     return $param;
 }
 
+/**
+ * updateTableParamSql
+ * @param array $param  
+ * @param String $form not used
+ * @param String $colFilter column sur laquelle se fera le WHERE
+ * @return array $param modified
+ */
 function updateTableParamSql($param, $form, $colFilter=NULL){
     $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT] = $form;
     $param = updateParamSqlColumnFilter($param, $colFilter);
     
     return $param;
 }
+
+/**
+ * updateTableParamType
+ * 
+ * @param array $param
+ * @param string $table
+ * @param array or string $cols liste of columns name
+ * @param string $form_name
+ * @return array $param modified
+ */
+function updateTableParamType ( $param, $table, $cols, $form_name ){
+    global $FORM_VALUE_INSERT;
+    
+    if (!is_array($cols)){
+        $cols = stringToArray($cols);
+    }
+
+    if (isset($FORM_VALUE_INSERT[$form_name])){
+        
+        foreach ($cols as $c){
+            if (isset($FORM_VALUE_INSERT[$form_name][$c])){
+                if (isset($FORM_VALUE_INSERT[$form_name][$c]["TYPE"])){
+                    //initialisation du type
+                    $param[KEY_INFO::KEY_INFO][KEY_INFO::KEY_INFO_TYPE][$c]=$FORM_VALUE_INSERT[$form_name][$c]["TYPE"];
+                }
+            }
+        }
+    }
+    return $param;
+}
+
+
+/**
+ * updateTableParamSqlInsert
+ *  init in $param TABLE_NAME_INSERT and COLUMNS_INSERT
+ *  
+ * @param array $param
+ * @param string $table
+ * @param array or string $cols liste of columns name
+ * @return array $param modified
+ */
 function updateTableParamSqlInsert($param, $table, $cols){
     if (!is_array($cols)){
         $cols = stringToArray($cols);
@@ -938,17 +986,20 @@ function updateParamSqlWithSubParam($param, $subParam)
  * @param
  *            parameter array $parm
  */
-function printParam($param, $header = "")
+function printParam($param, $header = "", $suffix="")
 {
     $keys = array_keys($param);
     // var_dump($keys);
     foreach ($keys as $k) {
         if (is_array($param[$k])){
-            $res = arrayToString($param[$k]); 
-            echo "$header printParam -- $k (array) : $res <br>";
+            //$res = arrayToString($param[$k]); 
+            //echo "$header printParam -- $k (array) : $res <br>";
+            $suffix2=$suffix."[$k]";
+            printParam($param[$k], $header, $suffix2);
         }
         else{
-           echo "$header printParam -- $k : $param[$k] <br>";
+            //echo "$header printParam $suffix-- $k : $param[$k] <br>";
+            echo "$header printParam $suffix"."[".$k."]"." : $param[$k] <br>";
         }
     }
 }
@@ -1393,7 +1444,17 @@ function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "",
         //$condition = "0";
     }
     
-    $sql = createSqlUpdate($table, $columns, $arrayValues, $condition);    
+    
+    //$param = createDefaultParamSql ( $table, $cols, $condition );
+    //$param = updateTableParamSql ( $param, $form_name, $colFilter );
+    //precise si possible les types des colomnes
+    $paramTmp = updateTableParamType ( $paramTmp, $table, $columns, $formName );
+    global $TRACE_INFO_SQL_PARAM;
+    if ($TRACE_INFO_SQL_PARAM=="yes"){
+        showSQLAction("result updateTableParamType() for $formName");
+        printParam($paramTmp, "***");
+    }
+    $sql = createSqlUpdate($table, $columns, $arrayValues, $condition, NULL, $paramTmp);    
     return $sql;
 }
 
@@ -1459,8 +1520,13 @@ function createMultiSqlReplace($table, $columnsString, $formName = ""){
  *            si on doit quoter dans la requete les values
  *            return sql request
  */
-function createSqlUpdate($table, $arrayCol, $arrayValue, $condition, $quoteValue = "true")
+function createSqlUpdate($table, $arrayCol, $arrayValue, $condition, $quoteValue = "true", $param=NULL)
 {
+    if ($quoteValue==NULL){
+        $quoteValue="true";
+    }
+    
+    //debug_print_backtrace();
     $sql = "UPDATE `$table` SET ";
     
     $i = 0;
@@ -1475,7 +1541,8 @@ function createSqlUpdate($table, $arrayCol, $arrayValue, $condition, $quoteValue
             $sql = $sql . " , ";
         }
         $sql = $sql . "`$c` = ";
-        $v = transformSqlValueFormInsert($v, $quoteValue);
+        $type = mysqlFieldType($param, $c);
+        $v = transformSqlValueFormInsert($v, $quoteValue, $type);
 //         if ($quoteValue == "true")
 //             if ($v!="NULL"){$v = "\"$v\"";}
         $sql = $sql . $v;
@@ -1493,13 +1560,21 @@ function createSqlUpdate($table, $arrayCol, $arrayValue, $condition, $quoteValue
  * @param string $table la  table
  * @param array $arrayCol le tableau des colonnes
  * @param array $arrayValue le tableau des valeurs
- * @param string $quoteValue "true"
- *            si on doit quoter dans la requete les values
+ * @param string $quoteValue "true"    si on doit quoter dans la requete les values
+ * @return string Sql request
  */
-function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true")
+function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true", $param = NULL)
 {
+    //valeur par defaut pour $quoteValue
+    if ($quoteValue==NULL){
+        $quoteValue="true";
+    }
+    
+    //creation requete
     $sql = "INSERT INTO `$table` ( ";
     
+    
+    //parcours colonnes
     $i = 0;
     foreach ($arrayCol as $v) {
         if ($i > 0) {
@@ -1509,6 +1584,7 @@ function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true")
         $i ++;
     }
     
+    //parcours values
     $sql = $sql . ") VALUES (";
     
     $i = 0;
@@ -1516,26 +1592,41 @@ function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true")
         if ($i > 0) {
             $sql = $sql . " , ";
         }
-        $v = transformSqlValueFormInsert($v, $quoteValue);
-//         if ($v==FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION){
-//             $v="NULL";
-//         }
-//         else if ($quoteValue == "true"){
-//             if ($v!="NULL"){$v = "\"$v\"";}
-//         }
+        $type = mysqlFieldType($param, $arrayCol[$i]);
+        //showSQLAction("type $arrayCol[$i] : $type");
+        $v = transformSqlValueFormInsert($v, $quoteValue, $type);
         $sql = $sql . $v;
         $i ++;
     }
     $sql = $sql . ")";
-    
+
+    //retourne la requete
     return $sql;
 }
 
-function transformSqlValueFormInsert($v, $quoteValue){
+/**
+ * transformSqlValueFormInsert
+ * @param string  $v
+ * @param boolean $quoteValue "true" | "false"
+ * @param string $type : value type @see SQL_TYPE::XXX
+ * @return string $v modified
+ */
+function transformSqlValueFormInsert($v, $quoteValue, $type){
+    //showAction("value ($v) type : $type isset : ".isset($v)."   isempty : ".($v==""));
     if ($v==FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION){
         $v="NULL";
     }
-    else if ($quoteValue == "true"){
+    if ((!isset($v)) || ($v=="")){
+        //transformation si besoin en null
+        if ($type == SQL_TYPE::SQL_DATE){
+            $v="NULL";
+        }
+        elseif ($type == SQL_TYPE::SQL_REAL){
+            $v="NULL";
+        }
+    }
+    
+    if ($quoteValue == "true"){
         if ($v!="NULL"){$v = "\"$v\"";}
     }
     
@@ -1551,7 +1642,7 @@ function transformSqlValueFormInsert($v, $quoteValue){
  * @param string $quoteValue
  * @return string sql to exec
  */
-function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true")
+function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true", $param=NULL)
 {
     $sql = "REPLACE INTO `$table` SET ";
     
@@ -1570,7 +1661,7 @@ function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true")
         } else {
             $v = $arrayValue[$i];
         }
-        $v = transformSqlValueFormInsert($v, $quoteValue);
+        $v = transformSqlValueFormInsert($v, $quoteValue, $param);
 //         if ($quoteValue == "true") {
 //             if ($v!="NULL"){$v = "\"$v\"";}
 //         }

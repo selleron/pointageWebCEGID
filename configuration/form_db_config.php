@@ -1,10 +1,11 @@
 <?php
 
-$FORM_VALUE_POSSIBLE ["<formulaire>"]["<variable>"]="ma requete sql";   //requete pour une liste de choix
+$FORM_VALUE_POSSIBLE ["<formulaire>"]["<variable>"]="ma requete sql";    //requete pour une liste de choix
 $FORM_VALUE_DEFAULT  ["<formulaire>"]["<variable>"]="ma requete sql";    //requete pour une valeur par defaut
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["SQL"]="ma requete sql avec WHERE <variable2>=\"???\"";
-$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["VARIABLE"]="<variable3>";
-$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["DEFAULT"]="une string";
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["VARIABLE"]="<variable3>";  
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["DEFAULT"]="une string";    // valeur par defaut 
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["TYPE"]="xxxx";             // type de la colonne sql SQL_TYPE::XXX
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE"]="<size cellule>";
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "enabled";
 //$FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]= "string" | "number"  | "url";
@@ -140,6 +141,10 @@ $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["STATUS"]["DEFAULT"]="Pre
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["TYPE"]["DEFAULT"]="Undefined";
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["COMMENTAIRE"]["DEFAULT"]="";
 $FORM_VALUE_INSERT ["form_table_cegid_project_update"]["VISIBLE"]["DEFAULT"]="Visible";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["FIN_GARANTIE"]["TYPE"]="date";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["DEBUT"]["TYPE"]="date";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["FIN"]["TYPE"]="date";
+$FORM_VALUE_INSERT ["form_table_cegid_project_update"]["PRIX_VENTE"]["TYPE"]="real";
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["STATUS"]="select ID from cegid_status_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["STATUS"]="select ID from cegid_status_project";
