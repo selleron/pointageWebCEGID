@@ -29,7 +29,7 @@ if( ! isset($TOOL_DB_PHP)){
 include_once(dirname(__FILE__)."/time.php");
 //include_once($_SERVER ['DOCUMENT_ROOT']."/form/phpmailer.php"); 
 //include_once($_SERVER ['DOCUMENT_ROOT']."/form/form.cste.php"); 
-include_once($_SERVER ['DOCUMENT_ROOT']."/form/form.lib.php");
+include_once(dirname(__FILE__)."/../form/form.lib.php");
 
 
 /**

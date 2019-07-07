@@ -203,7 +203,7 @@ function phpfmg_thankyou(){
 <!-- [Your confirmation message goes here] -->
 	<br>
 
-    <b>Le formulaire &agrave;� bien &eacute;t&eacute; envoy&eacute;. Un Email de r&eacute;ception vous à &eacute;t&eacute; envoy&eacute;.</b>
+    <b>Le formulaire &agrave;� bien &eacute;t&eacute; envoy&eacute;. Un Email de r&eacute;ception vous à &eacute;t&eacute; envoy&eacute;.</b>
     <br><br>
 
 <?php
@@ -605,7 +605,7 @@ function    sendFormMail( $form_mail, $sFileName = ""  )
               mailAttachments( $to , $subject , $content, $sendmail_from, $fromName, $fromHeader,  $cc , $bcc, PHPFMG_CHARSET ) ;
         	   break;
         case 'mailandfile' :
-        default:
+//        default:
               mailAttachments( $to , $subject , $content, $sendmail_from, $fromName, $fromHeader,  $cc , $bcc, PHPFMG_CHARSET ) ;
               appendToFile( $sFileName, $record, $recordCols );
         	   break;
