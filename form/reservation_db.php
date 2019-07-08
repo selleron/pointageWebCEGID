@@ -302,10 +302,10 @@ function show_sql_reservation($param){
 /**
  * show_all_sql_reservation_on_elt
  *
- * @param unknown_type $html        la page
- * @param unknown_type $Resultat    le resultat de la requete
- * @param unknown_type $cpt         le row a lire
- * @param unknown_type $columns     la colonne a lire
+ * @param string $html
+ * @param array $Resultat
+ * @param integer $cpt
+ * @param array $param
  */
 function show_all_sql_reservation_on_elt($html, $Resultat, $cpt, $param){
 	$columns = $param['columns_summary'];
@@ -325,7 +325,7 @@ function show_all_sql_reservation_on_elt($html, $Resultat, $cpt, $param){
  *
  * show_sql_formulaire
  * @param  $html
- * @param  $id id de la reservation a afficher
+ * @param  string $id id de la reservation a afficher
  */
 function show_sql_formulaire($html, $id){
 	global $SQL_TABLE_RESERVATION;
@@ -360,8 +360,8 @@ function show_sql_formulaire($html, $id){
 
 /**
  * affiche les action possible sur le show d'un formulaire (consultation)
- * @param unknown_type $html la page a appeler sur l'action
- * @param unknown_type $id : id du formulaire (reservation)
+ * @param string $html la page a appeler sur l'action
+ * @param string $id : id du formulaire (reservation)
  */
 function show_sql_formulaire_action($html, $id){
 	echo "<div ALIGN='right'>";
@@ -375,7 +375,7 @@ function show_sql_formulaire_action($html, $id){
  *
  * update_post_for_reservation
  * remplit la variable POST pour reediter un formulaire de reservation
- * @param  $id id de la reservation a afficher
+ * @param  string $id id de la reservation a afficher
  */
 function update_post_for_reservation($id){
 	if ($_POST[ "formmail_submit" ] == "Y"){
@@ -440,8 +440,8 @@ function show_formulaire_one_elt($html, $Resultat, $cpt, $columns){
  * showSQLReservationElementAction
  * Affiche un formulaire pour pouvoir lancer le show d'une reservation
  * boutons : show, edit , delete
- * @param $html  nom de la page html
- * @param $id          id de la reservation a afficher
+ * @param string $html  nom de la page html
+ * @param string $id          id de la reservation a afficher
  * @param $showShow     true par defaut
  * @param $showDelete   true par defaut
  * @param $showEdit     true par defaut
@@ -480,7 +480,7 @@ function showSQLReservationElementAction($html, $id, $showShow="true", $showDele
  * - showSummarySQLReservation
  * - showLogReservation
  * - ...
- * @param URL $html
+ * @param string URL $html
  */
 function menuActionReservation($html){
 	$id_member=getMemberID();
@@ -632,7 +632,7 @@ class phpReservationDataManager
 
 			switch( $i ){
 				case $phpExitLine:
-					continue;
+					//continue;
 					break;
 				case $colsLine :
 					$this->columns = explode($sep,$line);
@@ -764,9 +764,8 @@ class phpReservationDataManager
 	/**
 	 * import Record
 	 * insert dans la table reservation l'enregistrement du formulaire
-	 * @param $r     array of data see $SQL_COL_RESERVATION for liste of data name
-	 * @param $show  affiche la requete Sql executee
-	 * @param $update 0 for insert 1 for update
+	 * @param array $r     array of data see $SQL_COL_RESERVATION for liste of data name
+	 * @param integer $show  affiche la requete Sql executee
 	 */
 	function importRecord($r, $show="1"){
 		global $SQL_TABLE_RESERVATION;
