@@ -1448,6 +1448,7 @@ function createSqlUpdateByIdAndCondition($table, $columnsString, $formName = "",
     //$param = createDefaultParamSql ( $table, $cols, $condition );
     //$param = updateTableParamSql ( $param, $form_name, $colFilter );
     //precise si possible les types des colomnes
+    $paramTmp = NULL;
     $paramTmp = updateTableParamType ( $paramTmp, $table, $columns, $formName );
     global $TRACE_INFO_SQL_PARAM;
     if ($TRACE_INFO_SQL_PARAM=="yes"){

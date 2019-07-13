@@ -371,6 +371,10 @@ function mysqli_field_flags($result, $field_nr){
 }
 
 function mysqli_field_type($result, $field_nr){
+    if ($result == NULL){
+        //debug_print_backtrace();
+        return NULL;
+    }
     $type =  mysqli_fetch_field_direct($result, $field_nr)->type;
     $type2 = $type;
     switch ($type){
