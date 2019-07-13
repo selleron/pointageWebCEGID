@@ -1566,6 +1566,8 @@ function createSqlUpdate($table, $arrayCol, $arrayValue, $condition, $quoteValue
  */
 function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true", $param = NULL)
 {
+    global $TRACE_INFO_SQL_PARAM;
+    
     //valeur par defaut pour $quoteValue
     if ($quoteValue==NULL){
         $quoteValue="true";
@@ -1593,8 +1595,8 @@ function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true", $
         if ($i > 0) {
             $sql = $sql . " , ";
         }
-        $type = mysqlFieldType($param, $arrayCol[$i]);
-        //showSQLAction("type $arrayCol[$i] : $type");
+        $type = mysqlFieldType($param, $arrayCol[$i]);            
+        showActionVariable("type $arrayCol[$i] : $type", $TRACE_INFO_SQL_PARAM);
         $v = transformSqlValueFormInsert($v, $quoteValue, $type);
         $sql = $sql . $v;
         $i ++;
@@ -1623,6 +1625,9 @@ function transformSqlValueFormInsert($v, $quoteValue, $type){
             $v="NULL";
         }
         elseif ($type == SQL_TYPE::SQL_REAL){
+            $v="NULL";
+        }
+        elseif ($type == SQL_TYPE::SQL_STRING_NULL){
             $v="NULL";
         }
     }

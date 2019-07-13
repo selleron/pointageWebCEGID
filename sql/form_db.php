@@ -42,6 +42,7 @@ class SQL_TYPE {
     const  SQL_BLOB    = "blob";
     const  SQL_DATE    = "date";
     const  SQL_STRING  = "string";
+    const  SQL_STRING_NULL  = "string_null";   //pour pouvoir transformer "" en NULL automatiquement
     const  SQL_TEXT    = "text";
     const  SQL_REAL    = "real";
     const  SQL_REQUEST = "request";

@@ -176,6 +176,10 @@ $FORM_VALUE_DEFAULT ["form_table_cegid_project_cout_insert"]["PROJECT"]["VARIABL
 
 $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["VARIABLE"]="PROJECT";
+$FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["ID"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["DATE"]["TYPE"]="date";
+
 
 $FORM_STYLE["form_table_cegid_project_cout_insert"]["ID"]["SIZE"] = 5;
 //ne marche pas : $FORM_STYLE["form_table_cegid_project_cout_insert"]["DATE"]["WIDTH"] = 10;
