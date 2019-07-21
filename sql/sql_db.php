@@ -551,7 +551,7 @@ function getFormStyleCBCompletion2($form, $variable, $key=""){
         $key = KEY_INFO::KEY_INFO_TYPE_CB_COMPLETION;
     }
        
-    if (isset($FORM_STYLE) && isset($FORM_STYLE[$form]) && isset($FORM_STYLE[$form][$variable])){
+    if (isset($FORM_STYLE) && isset($FORM_STYLE[$form]) && isset($FORM_STYLE[$form][$variable]) && isset($FORM_STYLE[$form][$variable][$key])){
         $value = $FORM_STYLE[$form][$variable][$key];
         
         if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
