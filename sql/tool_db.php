@@ -2226,10 +2226,11 @@ function showTableLineExportCSV($param, $html = "")
     }
     
     beginTableRow();
+    $infoform = getInfoForm($param);
     showLineExportCSV($param, /**
      * $infoForm
      */
-    "", "yes", /**
+    $infoform, "yes", /**
      * form autonome
      */
     $html, "");
