@@ -921,7 +921,8 @@ function updateParamSqlWithResult($param, $sqlResult)
     
     // detection des colonnes
     $param[$COLUMNS_SUMMARY] = array();
-    $num = $numfields = mysqli_num_fields($sqlResult);
+    $num =  mysqlNumFields($sqlResult);
+    //$num =  mysqli_num_fields($sqlResult);
     for ($Compteur = 0; $Compteur < $num; $Compteur ++) {
         $name = mysqli_field_name($sqlResult, $Compteur);
         $param[$COLUMNS_SUMMARY][$Compteur] = $name;
@@ -929,13 +930,6 @@ function updateParamSqlWithResult($param, $sqlResult)
     
     // detection du nom de la table
     $name = mysqli_tablename($sqlResult);
-//     $field = mysqli_fetch_fields($sqlResult);
-//     if (isset($field["table"])){
-//     $name = $field["table"];
-//     }
-//     else{
-//         $name = "undefine table";
-//     }
     $param[$TABLE_NAME] = $name;
     
     return $param;

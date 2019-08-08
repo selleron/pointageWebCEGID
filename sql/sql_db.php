@@ -63,6 +63,10 @@ function getNameSqlCol($col){
  * @return number rows count
  */
 function mysqlNumrows($Resultat) {
+    if (is_bool($Resultat)){
+        //cas insert or update
+        return 0;
+    }
 	if (is_array ( $Resultat )) {
 		$keys = arrayKeys ( $Resultat );
 		$nbCol = count ( $keys );
@@ -311,8 +315,13 @@ function arrayKeys($resultat) {
  * @return number
  */
 function mysqlNumFields($resultat) {
-    if (is_array ( $resultat )) {
-        $keys = arrayKeys ( $resultat );
+    //echo " ".gettype($resultat )."<br>";
+    if (is_bool($resultat )) {
+        //cas d'un retour d'inser or update
+        return 0;
+    }
+    else if (is_array ( $resultat )) {
+            $keys = arrayKeys ( $resultat );
         $res = count ( $keys );
     } else {
         $res = mysqli_num_fields ( $resultat );
@@ -356,12 +365,17 @@ function mysqli_field_name($result, $field_nr){
 
 
 function mysqli_tablename($sqlResult){
-    $field = mysqli_fetch_fields($sqlResult);
-    if (isset($field["table"])){
-        $name = $field["table"];
+    if (is_bool($sqlResult)){
+        $name = "undefine table";
     }
     else{
-        $name = "undefine table";
+        $field = mysqli_fetch_fields($sqlResult);
+        if (isset($field["table"])){
+            $name = $field["table"];
+        }
+        else{
+            $name = "undefine table";
+        }
     }
     return $name;
 }
