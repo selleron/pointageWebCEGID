@@ -94,11 +94,35 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["VISIBLE"]=$SELECT_ID_FROM_
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["VISIBLE"]["DEFAULT"]="Visible";
 $FORM_VALUE_INSERT ["form_table_cegid_user_update"]["VISIBLE"]["DEFAULT"]="Visible";
+$FORM_VALUE_INSERT ["form_table_cegid_user_update"]["DEPART"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["DEPART"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_user_update"]["ARRIVEE"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["ARRIVEE"]["TYPE"]="string_null";
 
-$FORM_STYLE["form_table_cegid_user_update"]["EMAIL1"]["SIZE"] = "100";
-$FORM_STYLE["form_table_cegid_user_update"]["EMAIL2"]["SIZE"] = "100";
+
+$FORM_STYLE["form_table_cegid_user_update"]["NAME"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_update"]["NOM"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_update"]["PRENOM"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_update"]["EMAIL1"]["SIZE"] = "60";
+$FORM_STYLE["form_table_cegid_user_update"]["EMAIL2"]["SIZE"] = "60";
 $FORM_STYLE["form_table_cegid_user_update"]["TEL1"]["SIZE"] = "20";
 $FORM_STYLE["form_table_cegid_user_update"]["TEL2"]["SIZE"] = "20";
+$FORM_STYLE["form_table_cegid_user_update"]["GROUPE"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_update"]["TEAM"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_update"]["LOCALISATION"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_update"]["CEGID_ID"]["SIZE"] = "30";
+
+$FORM_STYLE["form_table_cegid_user_insert"]["NAME"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_insert"]["NOM"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_insert"]["PRENOM"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_insert"]["EMAIL1"]["SIZE"] = "60";
+$FORM_STYLE["form_table_cegid_user_insert"]["EMAIL2"]["SIZE"] = "60";
+$FORM_STYLE["form_table_cegid_user_insert"]["TEL1"]["SIZE"] = "20";
+$FORM_STYLE["form_table_cegid_user_insert"]["TEL2"]["SIZE"] = "20";
+$FORM_STYLE["form_table_cegid_user_insert"]["GROUPE"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_insert"]["TEAM"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_insert"]["LOCALISATION"]["SIZE"] = "30";
+$FORM_STYLE["form_table_cegid_user_insert"]["CEGID_ID"]["SIZE"] = "30";
 
 
 //table cegid_devis
