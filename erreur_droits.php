@@ -16,7 +16,7 @@
 
 <div id="contenu">
 	<?PHP 
-	showBandeauHeaderPage("Erreur de connexion");
+	showBandeauHeaderPage("Erreur de droits");
 	?>
 
   <div class="article">
@@ -35,8 +35,8 @@
 	</td>
     <td>
       <p align="center"><font face="Verdana, Arial, Helvetica, sans-serif" size="4">
-	  <b>Erreur de connexion,<br> 
-	  v&eacute;rifiez votre login et votre mot de passe !</b></font> 
+	  <b>Erreur de droits,<br> 
+	  vous ne pouvez pas acc&eacute;der &agrave; cette page !</b></font> 
       </p>
       <p></p>
     </td>

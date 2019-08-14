@@ -10,11 +10,15 @@
 	include_once("../sql/toolNextPrevious.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
 	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
-	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
+	//include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
 </head>
 
 <?PHP 		testMemberGroup(2); ?>
+
+<?PHP 	 
+include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date
+?>
 
 
 <body>
