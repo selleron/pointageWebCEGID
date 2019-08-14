@@ -13,7 +13,7 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web MobilHome200 : Configuration</h1>
+  <h1>Serveur Web CEGID : Configuration</h1>
 </div>
 
 
@@ -25,6 +25,9 @@
 
 <div class="article">
 <?PHP
+
+global $SQL_HOST, $SQL_DATABASE, $SQL_USER, $CRYPT_PWD;
+
 echo "<h4> Configuration de la base de donn&eacute;es </h4>";
 echo "<table>";
 beginTableHeader();
@@ -115,6 +118,14 @@ echo " <tr><td>NO_MSG_CHANGE_HEADER</td>           <td>".$NO_MSG_CHANGE_HEADER."
 echo "</table>";
 
 echo "<br>";
+
+global  $TRACE_INFO_SQL_PARAM;
+global  $TRACE_INFO_SQL_PARAM;
+global  $TRACE_NEXT_PREVIOUS;
+global  $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
+global  $SHOW_VARIABLE_SUBSTITUTE_SEARCH;
+global  $SHOW_REQUEST_TABLE_DATA;
+
 echo "<h4> Configuration des Traces </h4>";
 echo "<table>";
 beginTableHeader();
