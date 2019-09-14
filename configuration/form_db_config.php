@@ -134,6 +134,7 @@ $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS_CEGID"]="select \"
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["STATUS_COMMANDE"]="select ID from cegid_status_commande order by ORDRE";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["STATUS_COMMANDE"]="select \"Neant\"";
 $FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["VERSION"]="select \"1.0\"";
+$FORM_VALUE_DEFAULT ["form_table_cegid_devis_insert"]["MODIFICATION"]="select \"0\"";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_INSERT ["form_table_cegid_devis_insert"]["VISIBLE"]["DEFAULT"]="Visible";
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_insert"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT;
