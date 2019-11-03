@@ -42,7 +42,7 @@
 	global $SQL_TABLE_CEGID_USER;
 	global $SQL_COL_ID_CEGID_USER;
 	global $SQL_COL_NAME_CEGID_USER;
-	global $CONDITION_FROM_CEGID_USER;
+	global $CONDITION_FROM_CEGID_USER;      //dans form_db_config.php
 	
  	if (blockCondition("only_user_visible", "<h4>only user visible [<value>]</h4>")){
  	    //nothing to do
@@ -72,7 +72,17 @@
 	//short liste utilisateur
 	$idBalise="user_short";
 	createHeaderBaliseDiv($idBalise,"<h3>Liste des users.</h3>");
-	showShortTableUserCEGID($CONDITION_FROM_CEGID_USER);
+
+	if (blockCondition("show_user_team", "<h4>show team [<value>]</h4>")){
+	    global $SQL_SHOW_BEGIN_COL_CEGID_USER;  //dans user_cegid_db.php
+	    global $SQL_COL_TEAM_CEGID_USER;        //dans user_cegid_db.php
+	    global $SQL_COL_STATUS_CEGID_USER;       //dans user_cegid_db.php
+	    $colsShowed=$SQL_SHOW_BEGIN_COL_CEGID_USER.", $SQL_COL_TEAM_CEGID_USER, $SQL_COL_STATUS_CEGID_USER";
+	}
+	else{
+	    $colsShowed="";
+	}
+	showShortTableUserCEGID($CONDITION_FROM_CEGID_USER, $colsShowed);
 	endHeaderBaliseDiv($idBalise);
 	
 	
