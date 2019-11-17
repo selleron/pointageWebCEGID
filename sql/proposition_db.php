@@ -130,6 +130,7 @@ function showSuiviPropositions() {
     global $SQL_COL_ID_PROJECT;
  
     //table proposition
+    global $FORM_TABLE_CEGID_PROPOSITION;
     global $SQL_TABLE_CEGID_PROPOSITION;
     global $SQL_COL_ID_PROPOSITION;
     global $SQL_COL_PRIX_VENTE_PROPOSITION;
@@ -145,6 +146,14 @@ function showSuiviPropositions() {
     
     //mixte
     global $SQL_COL_PRIX_VENTE_PROJECT;
+    
+    //autre
+    global $YEAR_SELECTION;
+    global $PROJECT_SELECTION;
+    global $TABLE_FORM_NAME_INSERT;
+    global $PROJECT_SELECTION;
+    global $SQL_COL_NAME_PROJECT;
+    
     
     
     $columns1 = " $SQL_COL_SOCIETE_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_ID_DEVIS, $SQL_COL_STATUS_DEVIS, $SQL_COL_NUXEO_DEVIS, $SQL_COL_CEGID_DEVIS,  $SQL_COL_COMMANDE_DEVIS, $SQL_COL_COMMANDE_DEVIS ";
@@ -313,6 +322,15 @@ function showSuiviPropositions() {
 
     setURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS, arrayToString($columns) );
     $param2[PARAM_TABLE_ACTION::TABLE_UPDATE]="yes";
+    
+    
+    // info formulaire year et project name
+    $projectName = getURLVariable($PROJECT_SELECTION);
+    $infoForm = streamFormHidden($YEAR_SELECTION, $year);
+    $infoForm = $infoForm . streamFormHidden($PROJECT_SELECTION, $projectName);
+    $infoForm = $infoForm . streamFormHidden($TABLE_FORM_NAME_INSERT, $FORM_TABLE_CEGID_PROPOSITION);
+    $param2 = setInfoForm($param2, $infoForm);
+    
     
     
     //gestion du apply
