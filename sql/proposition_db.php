@@ -74,7 +74,7 @@ function applyGestionProposition() {
         }
             
         if ($res<=0){   
-            $res =  applyGestionTable($table, $col, $form_name);
+            $res =  applyGestionTable($table, $cols, $form_name);
         }
     }
     return $res;
