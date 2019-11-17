@@ -66,17 +66,6 @@
  		$res = applySynchronizePrevisionnel();
  	}
  	
-//   	beginTable();
-//   	beginTableRow( getVAlign("top")  );
-// 	  	beginTableCell();
-// 	  	    showGestionOneProject();
-// 	  	endTableCell();
-// 	  	beginTableCell();
-// 			showTableCoutOneProjectPrevisionel();
-// 	  	endTableCell();
-//   	endTableRow();
-//    	endTable();
- 	
 	
 	//permet d'ajout un pointage pour un utilisateur
  	showInsertTablePointageCegid(); 

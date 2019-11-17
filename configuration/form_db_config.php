@@ -410,13 +410,15 @@ $FORM_STYLE["form_cegid_societe_fournisseur_update"]["NAME"]["SIZE"] = "70";
 
 
 
-//suivi proposition
+//suivi devis
 $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["SUFFIX_FIELD"] = "";
 $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["FORMAT"] = $FORMAT_TARIF;
 
-
+//suivi proposition
+$FORM_VALUE_INSERT ["form_table_cegid_proposition_update"]["PRIX_VENTE"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_proposition_update"]["REUSSITE"]["TYPE"]="string_null";
 
 
 ?>

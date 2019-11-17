@@ -14,6 +14,16 @@ $SQL_COL_COMMENTAIRE_PROPOSITION = "COMMENTAIRE";
 
 $SQL_SHOW_COL_PROPOSITION   = "$SQL_COL_ID_PROPOSITION, $SQL_COL_PRIX_VENTE_PROPOSITION, $SQL_COL_REUSSITE_PROPOSITION, $SQL_COL_COMMENTAIRE_PROPOSITION";
 
+$SQL_TABLE_CEGID_PROPOSITION_ANNEE   = "cegid_proposition_annee";
+$FORM_TABLE_CEGID_PROPOSITION_ANNEE  = "form_table_cegid_proposition_annee";
+
+
+$SQL_COL_ID_PROPOSITION_ANNEE          = $SQL_COL_ID_PROPOSITION;
+$SQL_COL_ANNEE_PROPOSITION_ANNEE       = "ANNEE";
+$SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE  = $SQL_COL_PRIX_VENTE_PROPOSITION;
+$SQL_COL_COMMENTAIRE_PROPOSITION_ANNEE = $SQL_COL_COMMENTAIRE_PROPOSITION;
+
+
 
 // include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
 // include_once (dirname ( __FILE__ ) . "/table_db.php");
@@ -126,6 +136,13 @@ function showSuiviPropositions() {
     global $SQL_COL_REUSSITE_PROPOSITION;
     global $SQL_COL_COMMENTAIRE_PROPOSITION;
     
+    //table proposition_annee
+    global $SQL_TABLE_CEGID_PROPOSITION_ANNEE;
+    global $SQL_COL_ID_PROPOSITION_ANNEE;
+    global $SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE;
+    global $SQL_COL_ANNEE_PROPOSITION_ANNEE;
+    global $SQL_COL_COMMENTAIRE_PROPOSITION_ANNEE;
+    
     //mixte
     global $SQL_COL_PRIX_VENTE_PROJECT;
     
@@ -133,7 +150,7 @@ function showSuiviPropositions() {
     $columns1 = " $SQL_COL_SOCIETE_DEVIS, $SQL_COL_NAME_DEVIS, $SQL_COL_ID_DEVIS, $SQL_COL_STATUS_DEVIS, $SQL_COL_NUXEO_DEVIS, $SQL_COL_CEGID_DEVIS,  $SQL_COL_COMMANDE_DEVIS, $SQL_COL_COMMANDE_DEVIS ";
     
     $param = prepareParamShowTableDevis ($columns1);
-    $param = modifierTableParamSql($param, $FORM_TABLE_CEGID_DEVIS, /*$insert*/"no", /*$edit*/"no", /*$delete*/"no", /*$exportCSV*/"yes");
+    $param = modifierTableParamSql($param, $FORM_TABLE_CEGID_DEVIS, /*$insert*/"no", /*$edit*/"no", /*$delete*/"no", /*$exportCSV*/"yes");    
     $req = createRequeteTableData ( $param );
     showSQLAction ( $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT]." : $req" );
     
@@ -144,7 +161,15 @@ function showSuiviPropositions() {
     $COL_VALIDE = "Valide";
     $COL_ENVOYE = "Envoye";
     $COL_ACCEPTE = "Accepte";
-    $COL_DEBUT = "Accepte";
+    //$COL_DEBUT = "Accepte";
+    
+    //condition year
+    //on ne s'en sert que si la date est vraiment defini
+    //on ne veut pas forcement filtrer pour projet sur plusieurs année
+    global $YEAR_SELECTION;
+    $year = getURLVariable($YEAR_SELECTION);
+    $COL_YEAR="ANNEE_".$year;
+    
     
     $param2 = $param;
     $param2[PARAM_TABLE_TABLE::TABLE_SIZE]="1400px";
@@ -163,6 +188,11 @@ function showSuiviPropositions() {
     $param2 = addParamSqlColumn($param2, $SQL_COL_FIN_GARANTIE);
     $param2 = addParamSqlColumn($param2, $SQL_COL_COMMANDE_DEVIS);
     $param2 = addParamSqlColumn($param2, $SQL_COL_COMMENTAIRE_PROPOSITION);
+
+    if (is_numeric($year)){
+        $param2 = addParamSqlColumn($param2, $COL_YEAR);
+    }
+    
     
     //echoTD("<<<>>>".arrayToString($param2[PARAM_TABLE::COLUMNS_SUMMARY]));
     $param2[PARAM_TABLE_COMMAND::EXPORT_COLUMNS]=getParamColumns($param2);
@@ -178,8 +208,15 @@ function showSuiviPropositions() {
     $result = setSQLFlagType ( $result, $SQL_COL_FIN_PROJECT, SQL_TYPE::SQL_REQUEST );
     $result = setSQLFlagType ( $result, $SQL_COL_FIN_GARANTIE, SQL_TYPE::SQL_REQUEST );
     $result = setSQLFlagType ( $result, $SQL_COL_COMMENTAIRE_PROPOSITION, SQL_TYPE::SQL_REQUEST );
+    if (is_numeric($year)){
+        $result = setSQLFlagType ( $result, $COL_YEAR, SQL_TYPE::SQL_REQUEST );
+        $type = mysqlFieldType($result, $COL_YEAR);
+        //echo "<br>col $COL_YEAR : type : $type <br>";
+    }
     //$result = setSQLFlagTypeSize ( $result, $colpointage, 3 );
     //$tableau = setSQLFlagStatus($tableau, $c, "enabled");
+    
+    
     
     
     for($cpt = 0; $cpt < $nbRes; $cpt ++) {
@@ -226,6 +263,12 @@ function showSuiviPropositions() {
         $result[$SQL_COL_COMMENTAIRE_PROPOSITION] [$cpt] = "select $SQL_COL_COMMENTAIRE_PROPOSITION from $SQL_TABLE_CEGID_PROPOSITION ".
             " where $SQL_COL_ID_PROPOSITION   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'";
         
+
+        if (is_numeric($year)){
+            $result[$COL_YEAR] [$cpt] = "select $SQL_COL_ANNEE_PROPOSITION_ANNEE from $SQL_TABLE_CEGID_PROPOSITION_ANNEE ".
+                " where $SQL_COL_ID_PROPOSITION_ANNEE   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'";
+        }
+        
         //$txt =   $result[$SQL_COL_REUSSITE_PROPOSITION][$cpt];
         //showSQLAction(">>>> $txt");
         
@@ -246,13 +289,21 @@ function showSuiviPropositions() {
     $result2 = setSQLFlagStatus($result2, $SQL_COL_PRIX_VENTE_PROPOSITION, "yes");
     $result2 = setSQLFlagStatus($result2, $SQL_COL_REUSSITE_PROPOSITION, "yes");
     $result2 = setSQLFlagStatus($result2, $SQL_COL_COMMENTAIRE_PROPOSITION, "yes");
-    
+    if (is_numeric($year)){
+        //$result2 = setSQLFlagType ( $result2, $COL_YEAR, SQL_TYPE::SQL_REQUEST );
+        $result2 = setSQLFlagStatus($result2, $COL_YEAR, "yes");
+    }
+        
     
     
     //preparation pour l'export pour le apply
     //on met dans les variables url les valeurs
     $nbRes = mysqlNumrows($result2);
     foreach ( $columns as $col){
+//         if ($col==$COL_YEAR){
+//             $type = mysqlFieldType($result2, $col);
+//             echo "<br>$col : type : $type <br>"; 
+//         }
         for ($cpt = 0; $cpt < $nbRes; $cpt ++) {
             $value[$cpt] = mysqlResult($result2, $cpt, $col);
         }
@@ -262,6 +313,7 @@ function showSuiviPropositions() {
 
     setURLVariable(PARAM_TABLE_COMMAND::EXPORT_COLUMNS, arrayToString($columns) );
     $param2[PARAM_TABLE_ACTION::TABLE_UPDATE]="yes";
+    
     
     //gestion du apply
     applySuiviPropositions();

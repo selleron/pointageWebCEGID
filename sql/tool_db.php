@@ -571,7 +571,21 @@ function updateTableParamType ( $param, $table, $cols, $form_name ){
     }
     return $param;
 }
+ 
 
+ /**
+  * getFormValueInsert
+  *   @see $FORM_VALUE_INSERT
+  */
+function getFormValueInsert($form_name, $col){
+    global $FORM_VALUE_INSERT;
+    if (isset($FORM_VALUE_INSERT[$form_name][$col])){
+        if (isset($FORM_VALUE_INSERT[$form_name][$col]["TYPE"])){
+            return $FORM_VALUE_INSERT[$form_name][$col]["TYPE"];
+        }
+    }
+    return NULL;
+}
 
 /**
  * updateTableParamSqlInsert
@@ -1475,14 +1489,24 @@ function createMultiSqlUpdateByIdAndCondition($table, $columnsString, $formName 
  * @return string[] request replace
  */
 function createMultiSqlReplace($table, $columnsString, $formName = ""){
+    global $FORM_VALUE_INSERT;
+    
     $cols=stringToArray($columnsString);
     $firstValues=getURLVariable($cols[0]);
     $nbVal = count($firstValues);
-    
     $request = array();
+    $type    = array();
+    
+    foreach ($cols as $c) {
+        $type[$c] = getFormValueInsert($formName, $c);
+        //echo "search type : $ FORM_VALUE_INSERT [ $formName ] [ $c ] : == $type[$c] == <br>";
+    }
+        
+    
+    //boucle sur les lignes (row)
     for ( $cpt=0; $cpt<$nbVal; $cpt++){
         $arrayValue = getURLVariableArraySQLForm($cols, $formName, $cpt);
-        $request[$cpt]= createSqlReplace($table, $cols, $arrayValue);
+        $request[$cpt]= createSqlReplace($table, $cols, $arrayValue, NULL, $type);
     }
     
     return $request;
@@ -1642,8 +1666,12 @@ function transformSqlValueFormInsert($v, $quoteValue, $type){
  * @param string $quoteValue
  * @return string sql to exec
  */
-function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true", $param=NULL)
+function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true", $type=NULL)
 {
+    if (!isset($quoteValue)){
+        $quoteValue = "true";
+        
+    }
     $sql = "REPLACE INTO `$table` SET ";
     
     if (! is_array($arrayCol)) {
@@ -1661,7 +1689,7 @@ function createSqlReplace($table, $arrayCol, $arrayValue, $quoteValue = "true", 
         } else {
             $v = $arrayValue[$i];
         }
-        $v = transformSqlValueFormInsert($v, $quoteValue, $param);
+        $v = transformSqlValueFormInsert($v, $quoteValue, $type[$c]);
 //         if ($quoteValue == "true") {
 //             if ($v!="NULL"){$v = "\"$v\"";}
 //         }
