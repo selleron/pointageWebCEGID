@@ -10,8 +10,6 @@ $SQL_COL_PRIX_VENTE_PROPOSITION  = "PRIX_VENTE";
 $SQL_COL_REUSSITE_PROPOSITION    = "REUSSITE";
 $SQL_COL_COMMENTAIRE_PROPOSITION = "COMMENTAIRE";
 
-
-
 $SQL_SHOW_COL_PROPOSITION   = "$SQL_COL_ID_PROPOSITION, $SQL_COL_PRIX_VENTE_PROPOSITION, $SQL_COL_REUSSITE_PROPOSITION, $SQL_COL_COMMENTAIRE_PROPOSITION";
 
 $SQL_TABLE_CEGID_PROPOSITION_ANNEE   = "cegid_proposition_annee";
@@ -23,6 +21,7 @@ $SQL_COL_ANNEE_PROPOSITION_ANNEE       = "ANNEE";
 $SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE  = $SQL_COL_PRIX_VENTE_PROPOSITION;
 $SQL_COL_COMMENTAIRE_PROPOSITION_ANNEE = $SQL_COL_COMMENTAIRE_PROPOSITION;
 
+$SQL_SHOW_COL_PROPOSITION_ANNEE   = "$SQL_COL_ID_PROPOSITION_ANNEE, $SQL_COL_ANNEE_PROPOSITION_ANNEE, $SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE, $SQL_COL_COMMENTAIRE_PROPOSITION_ANNEE";
 
 
 // include_once (dirname ( __FILE__ ) . "/../configuration/labelAction.php");
@@ -66,9 +65,15 @@ function applyGestionProposition() {
     }
     
     if ($res<=0){
-        global $SQL_SHOW_COL_PROPOSITION;
+        //table proposition
         global $SQL_TABLE_CEGID_PROPOSITION;
+        global $SQL_SHOW_COL_PROPOSITION;
         global $FORM_TABLE_CEGID_PROPOSITION;
+        //table proposition annee
+        global $SQL_TABLE_CEGID_PROPOSITION_ANNEE;
+        global $SQL_SHOW_COL_PROPOSITION_ANNEE;
+        global $FORM_TABLE_CEGID_PROPOSITION_ANNEE;
+        
         global $TRACE_INFO_ACTION;
         
         $table = $SQL_TABLE_CEGID_PROPOSITION;
@@ -81,6 +86,7 @@ function applyGestionProposition() {
         if (getActionGet () == "update") {
             //$res = updateTableByGet ( $param, "no" );
             $res = multiReplaceTableByGet2($table, $cols, $form_name);
+            $res2 = multiReplaceTableByGet2($SQL_TABLE_CEGID_PROPOSITION_ANNEE, $SQL_SHOW_COL_PROPOSITION_ANNEE, $FORM_TABLE_CEGID_PROPOSITION_ANNEE);
         }
             
         if ($res<=0){   
