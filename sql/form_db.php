@@ -851,7 +851,30 @@ function showFormMultiselectionSql($formName, $name, $Request, $sql_col, $useTD,
     if ($useTD == "yes") {
         echo "<td>";
     }
-    echo "<SELECT $enabledStatus name=\"$name"."[]\"  onchange=\"this.submit()\" multiple >";
+    
+    $multiselectionSize=4;
+    
+    $value = getBlockCondition("multi-selection-maximise-10", false);
+    
+    if(getBlockCondition("multi-selection-maximise-10", false)){
+        $multiselectionSize = min(array($nbRes,10));
+    }
+    if(getBlockCondition("multi-selection-maximise-20", false)){
+        $multiselectionSize = min(array($nbRes,20));
+    }
+    if(getBlockCondition("multi-selection-maximise-30", false)){
+        $multiselectionSize = min(array($nbRes,30));
+    }
+    if(getBlockCondition("multi-selection-maximise-50", false)){
+        $multiselectionSize = min(array($nbRes,50));
+    }
+     if(getBlockCondition("multi-selection-maximise-100", false)){
+         $multiselectionSize = min(array($nbRes,100));
+     }
+    //echo " multiselectionSize : $multiselectionSize <br>";
+    
+    
+    echo "<SELECT $enabledStatus name=\"$name"."[]\"  onchange=\"this.submit()\" multiple size=$multiselectionSize>";
     echo "<OPTION> ".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
     if (FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION == $current_selection) {
         $current_selection_found="yes";

@@ -3069,6 +3069,19 @@ function endHeaderBaliseDiv($idBalise)
     echo "</div id=\"$idBalise\" > <!-- close div $idBalise -->";
 }
 
+
+function getblockCondition($idBalise, $txt = "", $default = true)
+{
+    //echo "$idBalise : $_COOKIE[$idBalise]";
+    if (isset($_COOKIE[$idBalise])) {
+        $visibility = $_COOKIE[$idBalise];
+    } else {
+        $visibility = $default;
+    }
+    return $visibility;
+}
+
+
 /**
  * blockCondition
  * utilise un cookie pour connaitre une valeur et pouvoir la changer

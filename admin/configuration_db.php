@@ -117,6 +117,15 @@ echo " <tr><td>NO_MSG_CHANGE_HEADER</td>           <td>".$NO_MSG_CHANGE_HEADER."
 															yes or no <br> </td></tr>	";
 echo "</table>";
 
+echoBR();
+echo "<h5> Configuration taille selection multiple </h5>";
+$multiselectionSize = blockCondition("multi-selection-maximise-10", "multi-selection-maximise-10 [<value>]", false);echoBR();
+$multiselectionSize = blockCondition("multi-selection-maximise-20", "multi-selection-maximise-20 [<value>]", false);echoBR();
+$multiselectionSize = blockCondition("multi-selection-maximise-30", "multi-selection-maximise-30 [<value>]", false);echoBR();
+$multiselectionSize = blockCondition("multi-selection-maximise-50", "multi-selection-maximise-50 [<value>]", false);echoBR();
+$multiselectionSize = blockCondition("multi-selection-maximise-100", "multi-selection-maximise-100 [<value>]", false);echoBR();
+
+
 echo "<br>";
 
 global  $TRACE_INFO_SQL_PARAM;
