@@ -419,6 +419,7 @@ $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["FORMAT"] = $FORMAT_TARIF;
 //suivi proposition
 $FORM_VALUE_INSERT ["form_table_cegid_proposition_update"]["PRIX_VENTE"]["TYPE"]="string_null";
 $FORM_VALUE_INSERT ["form_table_cegid_proposition_update"]["REUSSITE"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_proposition_annee_update"]["PRIX_VENTE"]["TYPE"]="string_null";
 
 
 ?>

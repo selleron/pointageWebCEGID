@@ -54,6 +54,30 @@ function applySuiviPropositions() {
     return $res;
 }
 
+
+function createPrixPropositionAnnee($year){
+    global $SQL_COL_PRIX_VENTE_PROPOSITION;
+    global $SQL_COL_ANNEE_PROPOSITION_ANNEE;
+    
+    $prixGlobal = getURLVariable($SQL_COL_PRIX_VENTE_PROPOSITION);
+    $key="$SQL_COL_ANNEE_PROPOSITION_ANNEE"."_".$year;
+    $prixLocal = getURLVariable($key);
+    $max = sizeof($prixGlobal);
+    for($i=0;$i<$max;$i++){
+        if (isset($prixLocal) && isset($prixLocal[$i])){
+            //nothing to do
+            if ($prixLocal[$i]==""){
+                $prixLocal[$i] = $prixGlobal[$i];
+            }
+        }
+        else{
+            $prixLocal[$i] = $prixGlobal[i];
+        }
+    }
+    
+    return $prixLocal;
+}
+
 /**
  * applyGestionProposition
  * @return number
@@ -73,6 +97,10 @@ function applyGestionProposition() {
         global $SQL_TABLE_CEGID_PROPOSITION_ANNEE;
         global $SQL_SHOW_COL_PROPOSITION_ANNEE;
         global $FORM_TABLE_CEGID_PROPOSITION_ANNEE;
+        global $SQL_COL_ANNEE_PROPOSITION_ANNEE;
+        global $SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE;
+        global $SQL_COL_PRIX_VENTE_PROPOSITION;
+        global $YEAR_SELECTION;
         
         global $TRACE_INFO_ACTION;
         
@@ -84,9 +112,25 @@ function applyGestionProposition() {
         
         //cas update sans re-edit
         if (getActionGet () == "update") {
+            //update table proposition
             //$res = updateTableByGet ( $param, "no" );
             $res = multiReplaceTableByGet2($table, $cols, $form_name);
+            
+            //update table proposition annee
+            //1. positionner l'annee  $SQL_COL_ANNEE_PROPOSITION_ANNEE
+            //2. positionner le prix  $SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE
+            //3. update de la table
+            
+            //1
+            $year = getURLVariable($YEAR_SELECTION);
+            setURLVariable($SQL_COL_ANNEE_PROPOSITION_ANNEE, $year);
+            //2
+            $arrayPrix = getURLVariable($SQL_COL_PRIX_VENTE_PROPOSITION);
+            $arrayPrix2 = createPrixPropositionAnnee($year);
+            setURLVariable($SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE, $arrayPrix2);
+            //3
             $res2 = multiReplaceTableByGet2($SQL_TABLE_CEGID_PROPOSITION_ANNEE, $SQL_SHOW_COL_PROPOSITION_ANNEE, $FORM_TABLE_CEGID_PROPOSITION_ANNEE);
+            setURLVariable($SQL_COL_PRIX_VENTE_PROPOSITION, $arrayPrix);
         }
             
         if ($res<=0){   
@@ -280,7 +324,7 @@ function showSuiviPropositions() {
         
 
         if (is_numeric($year)){
-            $result[$COL_YEAR] [$cpt] = "select $SQL_COL_ANNEE_PROPOSITION_ANNEE from $SQL_TABLE_CEGID_PROPOSITION_ANNEE ".
+            $result[$COL_YEAR] [$cpt] = "select $SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE from $SQL_TABLE_CEGID_PROPOSITION_ANNEE ".
                 " where $SQL_COL_ID_PROPOSITION_ANNEE   ='". mysqlResult ( $result, $cpt, "$SQL_COL_ID_DEVIS" )."'";
         }
         
