@@ -43,6 +43,7 @@ $SQL_SELECT_COL_CEGID_POINTAGE2_2 = "p.PROJECT_ID, pj.NAME as $SQL_LABEL_PROJECT
 $SQL_SHOW_COL_CEGID_POINTAGE2 = "             $SQL_LABEL_PROJECT_NAME , DATE,           NAME,   PROFIL, UO";
 $SQL_SELECT_COL_CEGID_POINTAGE2 = "pj.NAME as $SQL_LABEL_PROJECT_NAME , DATE, u.NAME as NAME, p.PROFIL, UO";
 $SQL_SHOW_WHERE_CEGID_POINTAGE2 = "p.USER_ID = u.ID and pj.$SQL_COL_ID_PROJECT = p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE";
+$SQL_SHOW_WHERE_NO_ABS_CEGID_POINTAGE2 = "p.$SQL_COL_PROJECT_ID_CEGID_POINTAGE NOT LIKE \"Absence%\"";
 
 // $PROJECT_SELECTION = "project";
 // $YEAR_SELECTION = "year";
@@ -979,7 +980,7 @@ function getTableauPointageProjetCegid2($projectName = "", $showAll = "yes", $ta
  */
 function getTableauPointageProjetCegid3($projectName = "", $showAll = "yes", $table_pointage, $table_pointage2, // tables
 $showColPointage, $selectColPointage, // columns
-$formName, $conditionPointage, $select = "p.UO")
+$formName, $conditionPointage, $conditionPointageMois="", $select = "p.UO")
 {
     global $SQL_COL_DATE_CEGID_POINTAGE;
         
@@ -1160,8 +1161,10 @@ $formName, $conditionPointage, $select = "p.UO")
                 $reqDate = $reqDate . " AND p.$SQL_COL_USER_CEGID_POINTAGE=\"$valueUser\"  ";
             if ($valueDate != "")
                 $reqDate = $reqDate . " AND p.$SQL_COL_PROFIL_CEGID_POINTAGE=\"$valueDate\"  ";
+            if ($conditionPointageMois != "")
+                $reqDate = $reqDate . " AND $conditionPointageMois  ";
             //showSQLAction($reqDate);
-            showActionVariable( $reqDate, $TRACE_INFO_POINTAGE );
+            showActionVariable("request date : ".$reqDate, $TRACE_INFO_POINTAGE );                
             
             $resDate = mysqlQuery($reqDate);
             $tableau[$m][$cpt] = mysqlResult($resDate, 0, 0, "");

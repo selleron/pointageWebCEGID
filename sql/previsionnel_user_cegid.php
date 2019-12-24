@@ -102,32 +102,50 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
         $projectName = $ITEM_COMBOBOX_SELECTION;
     }
     
+    
+    $inclureAbsence = getblockCondition("include_abscence", "<h4>Inclure les absences [<value>]</h4>", false);
+    
     // create tableau de pointage et previsionnel
     global $SQL_TABLE_CEGID_POINTAGE;
     global $SQL_TABLE_CEGID_POINTAGE2;
     global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL;
     global $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2;
     
-    global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
-    global $SQL_SELECT_COL_CEGID_POINTAGE2_2;
+    //global $SQL_SHOW_COL_CEGID_POINTAGE2_2;
+    //global $SQL_SELECT_COL_CEGID_POINTAGE2_2;
     global $FORM_TABLE_CEGID_POINTAGE2;
     global $SQL_SHOW_WHERE_CEGID_POINTAGE2;
-    
+    global $SQL_SHOW_WHERE_NO_ABS_CEGID_POINTAGE2;
     global $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER;
     global $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER;
+    
+    $condition = $SQL_SHOW_WHERE_CEGID_POINTAGE2;
+    $conditionMois="";
+    if ($inclureAbsence){
+        //nothing to do
+        echoTD("inclure absence yes");
+    }
+    else{
+        //on supprime les absence
+        echoTD("inclure absence no");
+        $conditionMois = "$SQL_SHOW_WHERE_NO_ABS_CEGID_POINTAGE2 ";
+        $condition = "$condition AND $conditionMois "; 
+    }
+    
+    
     
     $tableauPointage =  getTableauPointageProjetCegid3($projectName, $showAll, $SQL_TABLE_CEGID_POINTAGE, $SQL_TABLE_CEGID_POINTAGE2,
         $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER,
         $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER,
         $FORM_TABLE_CEGID_POINTAGE2,
-        $SQL_SHOW_WHERE_CEGID_POINTAGE2,
+        $condition, $conditionMois,
         "sum(p.UO)"
         );
     $tableauPrev =  getTableauPointageProjetCegid3($projectName, $showAll, $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL, $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2,
         $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER,
         $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYUSER,
         $FORM_TABLE_CEGID_POINTAGE2,
-        $SQL_SHOW_WHERE_CEGID_POINTAGE2,
+        $condition, $conditionMois,
         "sum(p.UO)"
         );
   
@@ -142,6 +160,7 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
     global $TABLE_INSERT;
     global $TABLE_EXPORT_CSV;
     //showError("TABLE_UPDATE $TABLE_UPDATE");
+    $subparam = array();
     $subparam [$TABLE_UPDATE] = "no";
     $subparam [$TABLE_INSERT] = "no";
     $subparam [$TABLE_EXPORT_CSV] = "yes";
@@ -166,7 +185,7 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
             showActionVariable ( "No project Selected...", $TRACE_INFO_POINTAGE );
             // $projectName = "no project";
             $projectName = $ITEM_COMBOBOX_SELECTION;
-        }
+        }        
         
         // create tableau de pointage et previsionnel
         global $SQL_TABLE_CEGID_POINTAGE;
@@ -176,22 +195,22 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
         
         global $FORM_TABLE_CEGID_POINTAGE2;
         global $SQL_SHOW_WHERE_CEGID_POINTAGE2;
-        
         global $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYPROJECT;
         global $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYPROJECT;
+        $condition = $SQL_SHOW_WHERE_CEGID_POINTAGE2;
         
         $tableauPointage =  getTableauPointageProjetCegid3($projectName, $showAll, $SQL_TABLE_CEGID_POINTAGE, $SQL_TABLE_CEGID_POINTAGE2,
             $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYPROJECT,
             $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYPROJECT,
             $FORM_TABLE_CEGID_POINTAGE2,
-            $SQL_SHOW_WHERE_CEGID_POINTAGE2,
+            $condition, "", 
             "sum(p.UO)"
             );
         $tableauPrev =  getTableauPointageProjetCegid3($projectName, $showAll, $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL, $SQL_TABLE_CEGID_POINTAGE_PREVISIONNEL2,
             $SQL_SHOW_COL_CEGID_POINTAGE_PREVISIONNEL_BYPROJECT,
             $SQL_SELECT_COL_CEGID_POINTAGE_PREVISIONNEL_BYPROJECT,
             $FORM_TABLE_CEGID_POINTAGE2,
-            $SQL_SHOW_WHERE_CEGID_POINTAGE2,
+            $condition, "",
             "sum(p.UO)"
             );
         
@@ -206,6 +225,7 @@ function showTablePrevisionnelByUserPointageCegid($showAll="yes") {
         global $TABLE_INSERT;
         global $TABLE_EXPORT_CSV;
         //showError("TABLE_UPDATE $TABLE_UPDATE");
+        $subparam = array();
         $subparam [$TABLE_UPDATE] = "no";
         $subparam [$TABLE_INSERT] = "no";
         $subparam [$TABLE_EXPORT_CSV] = "yes";

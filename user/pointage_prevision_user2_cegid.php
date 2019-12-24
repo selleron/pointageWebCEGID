@@ -34,9 +34,19 @@
 	echo "<p>Gestion Pointage Previsionnel Par Collaborateur CEGID.<br/></p>";
 	
 	showTracePOST();
-
+    
+	beginTable();beginTableRow();
+	beginTableCell();
 	$multiselection = blockCondition("multiselection_pointage", "<h4>multi-selection [<value>]</h4>", false);
-	$exec = applyNextPreviousSelectUser();
+	endTableCell();
+	beginTableCell();
+	$inclureAbsence = blockCondition("include_abscence", "<h4>Inclure les absences [<value>]</h4>", false);
+	endTableCell();
+	endTableRow();endTable();
+	
+	echo "</tr></table>";
+
+    applyNextPreviousSelectUser();
 	
 	
 	echo"<p>";
@@ -44,6 +54,7 @@
 	global $urlPointage;
 	global $urlPrevision;
 	global $urlPrevisionProjet;
+	global $urlPrevisionCollaborateur;
 	;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
 	    "pointage;formaction='$urlPointage',previsionel;formaction='$urlPrevision',prev. collaborateurs;formaction='$urlPrevisionCollaborateur',
@@ -52,7 +63,8 @@
 	    $multiselection);
 	echo"<br/>Next Previous sur le user <br/></p>";
 
- 	
+	
+	
  	//actions
  	$res = -1;
  	//showAction("applyGestionOneProject");
