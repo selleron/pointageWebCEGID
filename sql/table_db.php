@@ -829,8 +829,8 @@ function insertInTableByGet($param) {
 function editTable($table, $cols, $idTable, $form_name, $subParam = "") {
     //showSQLAction("editTable( $table; $cols ; $idTable; $form_name ) ");
     
-    global $SQL_SHOW_COL_PROFIL;
-	global $SQL_TABLE_PROFILS;
+    //global $SQL_SHOW_COL_PROFIL;
+	//global $SQL_TABLE_PROFILS;
 	global $TABLE_SIZE;
 	global $COLUMNS_SUMMARY;
 	

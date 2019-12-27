@@ -88,6 +88,12 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from c
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["GROUPE"]="select distinct GROUPE from cegid_user order by GROUPE";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["GROUPE"]=$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["GROUPE"];
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["TEAM"]="select distinct TEAM from cegid_user order by TEAM";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["TEAM"]=$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["TEAM"];
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["LOCALISATION"]="select distinct LOCALISATION from cegid_user order by LOCALISATION";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["LOCALISATION"]=$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["LOCALISATION"];
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR;
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR;
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
@@ -98,6 +104,20 @@ $FORM_VALUE_INSERT ["form_table_cegid_user_update"]["DEPART"]["TYPE"]="string_nu
 $FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["DEPART"]["TYPE"]="string_null";
 $FORM_VALUE_INSERT ["form_table_cegid_user_update"]["ARRIVEE"]["TYPE"]="string_null";
 $FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["ARRIVEE"]["TYPE"]="string_null";
+
+
+$FORM_STYLE["form_table_cegid_user_insert"]["GROUPE"]["CB_COMPLETION"]="yes";
+$FORM_STYLE["form_table_cegid_user_update"]["GROUPE"]["CB_COMPLETION"]="yes";
+$FORM_STYLE["form_table_cegid_user_insert"]["GROUPE"]["CB_NO_SELECTION"]="yes";
+$FORM_STYLE["form_table_cegid_user_update"]["GROUPE"]["CB_NO_SELECTION"]="yes";
+$FORM_STYLE["form_table_cegid_user_insert"]["TEAM"]["CB_COMPLETION"]="yes";
+$FORM_STYLE["form_table_cegid_user_update"]["TEAM"]["CB_COMPLETION"]="yes";
+$FORM_STYLE["form_table_cegid_user_insert"]["TEAM"]["CB_NO_SELECTION"]="yes";
+$FORM_STYLE["form_table_cegid_user_update"]["TEAM"]["CB_NO_SELECTION"]="yes";
+$FORM_STYLE["form_table_cegid_user_insert"]["LOCALISATION"]["CB_COMPLETION"]="yes";
+$FORM_STYLE["form_table_cegid_user_update"]["LOCALISATION"]["CB_COMPLETION"]="yes";
+$FORM_STYLE["form_table_cegid_user_insert"]["LOCALISATION"]["CB_NO_SELECTION"]="yes";
+$FORM_STYLE["form_table_cegid_user_update"]["LOCALISATION"]["CB_NO_SELECTION"]="yes";
 
 
 $FORM_STYLE["form_table_cegid_user_update"]["NAME"]["SIZE"] = "30";

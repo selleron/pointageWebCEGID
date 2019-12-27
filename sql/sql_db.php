@@ -25,7 +25,8 @@ class KEY_INFO{
 	const KEY_INFO_TYPE_TD           = "TD";
 	const KEY_INFO_TYPE_TD_EVAL      = "TD_EVAL";
 	const KEY_INFO_TYPE_FORMAT       = "FORMAT";
-	const KEY_INFO_TYPE_CB_COMPLETION= "CB_COMPLETION";
+	const KEY_INFO_TYPE_CB_COMPLETION   = "CB_COMPLETION";
+	const KEY_INFO_TYPE_CB_NO_SELECTION = "CB_NO_SELECTION";
 	const KEY_INFO_STATUS            = "STATUS";
 	const KEY_INFO_STYLE             = "array key info style";
 }
@@ -556,8 +557,8 @@ function getFormStyleCBCompletion($Resultat, $param, $idx){
 }
 
 
-function getFormStyleCBCompletion2($form, $variable, $key=""){
 
+function getFormStyleCBCompletion2($form, $variable, $key=""){
     global $FORM_STYLE;
     global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
     
@@ -903,7 +904,7 @@ function mysqlFieldStyle($Resultat, $idxCol, $idxRow , $param = "") {
 	    if (is_numeric($idxCol)){
 	        $col = mysqlFieldName($Resultat, $idxCol);
 		}
-		//echoTD("mysqlFieldStatus() parameter found. Search for idx : $idx / $col ...");
+		//echoTD("mysqlFieldStatus() parameter found. Search for idx : $idxCol   / $col ...");
 		return mysqlFieldStyle($param, $col,null);
 	}
 }

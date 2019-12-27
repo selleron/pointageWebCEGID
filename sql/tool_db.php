@@ -2791,7 +2791,7 @@ function showTableOneData($html, $Resultat, $cpt, $param)
 function editTableOneData($html, $Resultat, $cpt, $param, $idTable = "")
 {
     global $COLUMNS_SUMMARY;
-    global $TABLE_ROW_FIRST;
+    //global $TABLE_ROW_FIRST;
     global $TABLE_FORM_NAME_INSERT;
     global $TABLE_WHERE_CONDITION;
     global $TABLE_WHERE_CONDITION_FOR_UPDATE;
@@ -2816,23 +2816,13 @@ function editTableOneData($html, $Resultat, $cpt, $param, $idTable = "")
     
     // parcours des colonnes
     $idx = 0;
-//     $idxGroupCol = 0;
-//     $sizeGroupCol = 2;
-//     beginTableRow();
     foreach ($columns as $c) {
         beginTableRow();
         echo "<td align=\"right\">$c :</td>";
         editSqlRow($Resultat, $c, $cpt, $formName, $idx, $param);
-//          $idxGroupCol = $idxGroupCol+1;
-//          $idxGroupCol = $idxGroupCol % $sizeGroupCol;
-//          if ($idxGroupCol==0){
-//              endTableRow();
-//              beginTableRow();
-//          }
          endTableRow();
          $idx ++;
     }
-//    endTableRow();
     
     echo "<tr>";
     echo "<td></td>";

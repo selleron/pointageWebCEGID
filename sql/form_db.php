@@ -413,7 +413,8 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 		
 		$useCompletion = getFormStyleCBCompletion2($form, $nameNoDimension);
         if ($useCompletion=="yes"){
-            showFormComboBoxCompletionSql( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit );
+            $useNoSelection = getFormStyleCBCompletion2($form, $nameNoDimension, KEY_INFO::KEY_INFO_TYPE_CB_NO_SELECTION);
+            showFormComboBoxCompletionSql( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit, $useNoSelection );
         }
         else{
             showFormComboBoxSql ( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit );
@@ -916,11 +917,10 @@ function showFormMultiselectionSql($formName, $name, $Request, $sql_col, $useTD,
  * @param string $current_selection
  * @param string $enabledStatus
  */
-function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $useTD, $current_selection, $enabledStatus = "enabled") {
+function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $useTD, $current_selection, $enabledStatus = "enabled", $useNoSelection="no") {
     //global $ITEM_COMBOBOX_SELECTION;
-    
     $enabledStatus = prepareFlagStatus ( $enabledStatus );
-    
+     
     global $SHOW_COMPLETION_REQUEST;
     showActionVariable( "showFormComboBoxCompletionSql() $Request", $SHOW_COMPLETION_REQUEST);
     $Resultat = mysqlQuery ( $Request );
@@ -931,11 +931,21 @@ function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $us
     }
     //input option :  placeholder="un texte"
     if ($current_selection==""){
-        $current_selection=FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
+        if ($useNoSelection=="yes"){
+          //nothing to do  
+        }
+        else{
+          $current_selection=FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
+        }
     }
     echo "<input $enabledStatus type=\"text\" list=\"$name\" name=\"$name\" value=\"$current_selection\"  >";
     echo "<datalist $enabledStatus id=\"$name\"  >";
-    echo "<OPTION value='".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION."' > </OPTION>";
+    if ($useNoSelection == "yes"){
+      //nothing to do  
+    }
+    else{
+      echo "<OPTION value='".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION."' > </OPTION>";
+    }
     for($cpt = 0; $cpt < $nbRes; $cpt ++) {
         $res = mysqlResult ( $Resultat, $cpt, $sql_col );
         echo "<OPTION value='$res'> </OPTION>";
