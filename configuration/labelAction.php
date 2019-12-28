@@ -5,6 +5,7 @@ class LabelAction {
     const ActionUpdate = "update";
     const ActionInsert = "insert";
     const ActionSelect = "select";
+    const ActionTruncate = "truncate";
     const ActionExport = "export!!!";
 	const ActionExport2 = "exportCSVSelect";
 	const ActionExportCSV = "exportCSV";

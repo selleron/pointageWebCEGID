@@ -40,7 +40,7 @@
 	showTracePOST();
 
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
-	    LabelAction::ActionExportCSV.",".LabelAction::ACTION_SYNCHRONIZE/*export*/,
+	    LabelAction::ActionExportCSV.",".LabelAction::ACTION_SYNCHRONIZE.",".LabelAction::ActionTruncate  /*export*/,
 	    "no"/*user*/, "no"/*previous*/, "no"/*next*/);
 	    echo"<p>".LabelAction::ACTION_SYNCHRONIZE." : recalcule le CA pour l'annee donnee a partir ce resp. affaires.<br/><br/></p>";
 	

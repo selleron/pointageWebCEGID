@@ -29,6 +29,7 @@ $SQL_SHOW_COL_PROPOSITION_ANNEE   = "$SQL_COL_ID_PROPOSITION_ANNEE, $SQL_COL_ANN
 // include_once (dirname ( __FILE__ ) . "/tool_db.php");
 // include_once (dirname ( __FILE__ ) . "/project_db.php");
 include_once (dirname ( __FILE__ ) . "/devis_db.php");
+include_once (dirname ( __FILE__ ) . "/ca_previsionel_db.php");
 
 
 
@@ -83,13 +84,62 @@ function createPrixPropositionAnnee($year){
  * @return number
  */
 function applyGestionProposition() {
-    $res=-1;
+    global $SQL_TABLE_CEGID_PROPOSITION_ANNEE;
+    global $SQL_COL_ID_PROPOSITION_ANNEE;
+    global $SQL_COL_ANNEE_PROPOSITION_ANNEE;
+    global  $SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE;
+    
+     $res=-1;
     if ((getActionGet () == "export CSV") || (getActionGet () == LabelAction::ActionExportCSV)) {
         $res=1;
     }
     
-    if (getActionGet() == LabelAction::ACTION_SYNCHRONIZE ){
-        echoTD("To do : ".LabelAction::ACTION_SYNCHRONIZE);
+    if (getActionGet() == LabelAction::ActionTruncate ){
+        showSQLAction("applyGestionProposition() - Truncate  ...");
+        $year = getURLYear("-1");
+        $truncate = "DELETE FROM $SQL_TABLE_CEGID_PROPOSITION_ANNEE WHERE $SQL_COL_ANNEE_PROPOSITION_ANNEE = $year ";
+        showSQLAction("requeste : $truncate");
+        mysqlQuery($truncate);
+        $res=1;
+    }
+    else if (getActionGet() == LabelAction::ACTION_SYNCHRONIZE ){
+        showSQLAction("applyGestionProposition() - compute CA ...");
+        global $ID_REQUETE_SQL_CA_RESPONSABLE_AFFAIRES;
+        
+        $arrayCol = array( $SQL_COL_ID_PROPOSITION_ANNEE, $SQL_COL_ANNEE_PROPOSITION_ANNEE, $SQL_COL_PRIX_VENTE_PROPOSITION_ANNEE  );
+        $year = getURLYear();
+        
+        //recuperation de la requete
+        $request = getRequeteCAByID($ID_REQUETE_SQL_CA_RESPONSABLE_AFFAIRES); 
+        if ($request == ""){
+            showError("request id not found : $idRequest");
+        }
+        else{
+            //execute request
+            //showSQLAction($request);
+            $Resultat = mysqlQuery($request);
+            $nbRes = mysqlNumrows($Resultat);
+            //showSQLAction("Resultats trouv&eacute;s : $nbRes");
+            for ($cpt = 0; $cpt < $nbRes; $cpt ++) {
+                //recuperation projet et ca previsionnel
+                $projet = mysqlResult($Resultat, $cpt, "project_id");
+                $ca = mysqlResult($Resultat, $cpt, "CA_Realise_prev");
+                //recuperation du devis
+                $requestDevis = "select ID from cegid_devis_project where cegid=\"$projet\"";
+                $ResultatDevis = mysqlQuery($requestDevis);
+                $nbResDevis = mysqlNumrows($ResultatDevis);
+                if ($nbResDevis>0){
+                    //showSQLAction("request : $requestDevis - $nbResDevis");
+                    $devis = mysqlResult($ResultatDevis, 0, "$SQL_COL_ID_PROPOSITION_ANNEE");
+                    if ($ca > 0){
+                        $arrayValue = array($devis, $year, $ca);
+                        $insert = createSqlReplace($SQL_TABLE_CEGID_PROPOSITION_ANNEE, $arrayCol, $arrayValue);
+                        //showSQLAction("request : $insert");
+                        mysqlQuery($insert);
+                    }
+                }
+            }
+        }
         $res=1;
     }
     
