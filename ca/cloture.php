@@ -39,9 +39,10 @@
 	echo "<p>Cloture<br/></p>";
 	showTracePOST();
 	
-	echo"<p>";
-	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV.",cloture"/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
-	echo"<br/></p>";
+	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
+	    LabelAction::ActionExportCSV.",cloture"/*export*/,
+	    "no"/*user*/, "no"/*previous*/, "no"/*next*/);
+	echo"<p> Cloture permet de migrer les UO restants sur l'ann&eacute;e suivante.<br><br></p>";
 	
 	//action
 	applyGestionCloture();

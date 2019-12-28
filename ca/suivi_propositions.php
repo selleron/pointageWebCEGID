@@ -9,13 +9,12 @@
 	include_once("../sql/proposition_db.php");
 	include_once("../sql/toolNextPrevious.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
+	testMemberGroup(2);
 	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
 	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
 </head>
 
-
-<?PHP 		testMemberGroup(2); ?>
 
 
 <body>
@@ -40,9 +39,10 @@
 	echo "<p>Suivi propositions.<br/></p>";
 	showTracePOST();
 
-	echo"<p>";
-	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
-	echo"<br/></p>";
+	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
+	    LabelAction::ActionExportCSV.",".LabelAction::ACTION_SYNCHRONIZE/*export*/,
+	    "no"/*user*/, "no"/*previous*/, "no"/*next*/);
+	    echo"<p>".LabelAction::ACTION_SYNCHRONIZE." : recalcule le CA pour l'annee donnee a partir ce resp. affaires.<br/><br/></p>";
 	
 	
 	applyGestionProposition();

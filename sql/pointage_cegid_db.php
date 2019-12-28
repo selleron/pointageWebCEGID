@@ -703,22 +703,6 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
             showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
         }
     }
-//     if (isset($FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT])){
-//         if ($PROJECT_AUTO_COMPLETION=="yes"){
-//             showFormComboBoxCompletionSql($formName, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
-//         }
-//         else{
-//             showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
-//         }
-//     }
-//     else{
-//         if ($PROJECT_AUTO_COMPLETION=="yes"){
-//             showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
-//         }
-//         else{
-//             showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
-//         }
-//     }
     
     // combo year
     if ($yearVisible == "yes") {

@@ -40,7 +40,9 @@
 	showTracePOST();
 	
 	echo"<p>";
-	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
+	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
+	    LabelAction::ActionExportCSV/*export*/,
+	    "no"/*user*/, "no"/*previous*/, "no"/*next*/);
 	echo"<br/></p>";
 	
 	

@@ -84,7 +84,12 @@ function createPrixPropositionAnnee($year){
  */
 function applyGestionProposition() {
     $res=-1;
-    if ((getActionGet () == "export CSV") || (getActionGet () == "exportCSV")) {
+    if ((getActionGet () == "export CSV") || (getActionGet () == LabelAction::ActionExportCSV)) {
+        $res=1;
+    }
+    
+    if (getActionGet() == LabelAction::ACTION_SYNCHRONIZE ){
+        echoTD("To do : ".LabelAction::ACTION_SYNCHRONIZE);
         $res=1;
     }
     
@@ -111,7 +116,7 @@ function applyGestionProposition() {
         
         
         //cas update sans re-edit
-        if (getActionGet () == "update") {
+        if (getActionGet () == LabelAction::ActionUpdate) {
             //update table proposition
             //$res = updateTableByGet ( $param, "no" );
             $res = multiReplaceTableByGet2($table, $cols, $form_name);
