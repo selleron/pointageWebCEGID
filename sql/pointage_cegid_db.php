@@ -776,18 +776,18 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
  */
 function getInfoFormProjectSelection($infoForm = "")
 {
-    global $PROJECT_SELECTION;
-    global $YEAR_SELECTION;
-    global $USER_SELECTION;
+    //global $PROJECT_SELECTION;
+    //global $YEAR_SELECTION;
+    //global $USER_SELECTION;
     //global $ITEM_COMBOBOX_SELECTION;
     
-    $projectName = getURLVariable($PROJECT_SELECTION);
-    $year = getURLVariable($YEAR_SELECTION);
-    $user = getURLVariable($USER_SELECTION);
+    $projectName = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION);
+    $year = getURLVariable(FORM_COMBOX_BOX_KEY::YEAR_SELECTION);
+    $user = getURLVariable(FORM_COMBOX_BOX_KEY::USER_SELECTION);
     
-    $infoForm = $infoForm . streamFormHidden($YEAR_SELECTION, $year);
-    $infoForm = $infoForm . streamFormHidden($PROJECT_SELECTION, $projectName);
-    $infoForm = $infoForm . streamFormHidden($USER_SELECTION, $user);
+    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_KEY::YEAR_SELECTION, $year);
+    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
+    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_KEY::USER_SELECTION, $user);
     
     return $infoForm;
 }

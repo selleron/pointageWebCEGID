@@ -17,9 +17,6 @@ $USER_SELECTION    = FORM_COMBOX_BOX_KEY::USER_SELECTION;
 
 
 
-
-
-
 /**
  * getURLYear
  *

@@ -9,11 +9,11 @@
     include_once("../sql/user_cegid_db.php");
     include_once("../sql/toolNextPrevious.php");
     include_once("../sql/member_db.php");// lien croisé avec tool_db.php
+    testMemberGroup(2);
   	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
 </head>
 
-<?PHP 		testMemberGroup(2); ?>
 
 
 <body>

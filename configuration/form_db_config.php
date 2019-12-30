@@ -13,19 +13,22 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "ena
 
 //condition selection archivage
 $CONDITION_FROM_CEGID_NO_ARCHIVE = "VISIBLE LIKE 'Visible'";
-$CONDITION_FROM_CEGID_PROJECT = $CONDITION_FROM_CEGID_NO_ARCHIVE;
-$CONDITION_FROM_CEGID_DEVIS   = $CONDITION_FROM_CEGID_NO_ARCHIVE;
-$CONDITION_FROM_CEGID_USER    = $CONDITION_FROM_CEGID_NO_ARCHIVE;
+$CONDITION_FROM_CEGID_PROJECT    = $CONDITION_FROM_CEGID_NO_ARCHIVE;
+$CONDITION_FROM_CEGID_DEVIS      = $CONDITION_FROM_CEGID_NO_ARCHIVE;
+$CONDITION_FROM_CEGID_USER       = $CONDITION_FROM_CEGID_NO_ARCHIVE;
+$CONDITION_FROM_CEGID_COMMANDE   = "cp.VISIBLE LIKE 'Visible'";
 
 //selection
 $SELECT_NAME_FROM_CEGID_USER_NO_FILTRED     = "select NAME from cegid_user";
-$SELECT_NAME_FROM_CEGID_USER                = "$SELECT_NAME_FROM_CEGID_USER_NO_FILTRED WHERE $CONDITION_FROM_CEGID_USER";
+$SELECT_NAME_FROM_CEGID_USER                = "$SELECT_NAME_FROM_CEGID_USER_NO_FILTRED WHERE $CONDITION_FROM_CEGID_USER GROUP BY NAME";
 $SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED  = "select NAME from cegid_project";
 $SELECT_NAME_FROM_CEGID_PROJECT             = "select NAME from cegid_project WHERE $CONDITION_FROM_CEGID_PROJECT";
 $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT     = "select '[all]' as NAME union ($SELECT_NAME_FROM_CEGID_PROJECT)";
 $SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT      = "select NAME from cegid_societe_client order by NAME";
 $SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR = "select NAME from cegid_societe_fournisseur order by NAME";
+$SELECT_NAME_FROM_CEGID_GROUPE               = "select distinct GROUPE from cegid_user order by GROUPE";
 $SELECT_ID_FROM_CEGID_STATUS_VISIBLE        = "select ID from cegid_status_visible";
+$SELECT_ID_FROM_CEGID_STATUS_CEGID          = "select ID from cegid_status_cegid order by ORDRE";
 
 //formatage
 //$ALIGN_RIGHT = " align='right' ";
@@ -88,7 +91,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from c
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from cegid_profil";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
-$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["GROUPE"]="select distinct GROUPE from cegid_user order by GROUPE";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["GROUPE"]=$SELECT_NAME_FROM_CEGID_GROUPE;
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["GROUPE"]=$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["GROUPE"];
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["TEAM"]="select distinct TEAM from cegid_user order by TEAM";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["TEAM"]=$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["TEAM"];
@@ -324,7 +327,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["PROFIL"]="select ID fr
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROJECT_ID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["USER_ID"]="select ID from cegid_user";
-$FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["NAME"]="select NAME from cegid_user";
+$FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["NAME"]=$SELECT_NAME_FROM_CEGID_USER;
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROFIL"]="select ID from cegid_profil";
 
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage_insert"]["DATE"]="select now()";
@@ -440,6 +443,46 @@ $FORM_STYLE["form_table_cegid_devis"]["PRIX_VENTE"]["FORMAT"] = $FORMAT_TARIF;
 $FORM_VALUE_INSERT ["form_table_cegid_proposition_update"]["PRIX_VENTE"]["TYPE"]="string_null";
 $FORM_VALUE_INSERT ["form_table_cegid_proposition_update"]["REUSSITE"]["TYPE"]="string_null";
 $FORM_VALUE_INSERT ["form_table_cegid_proposition_annee_update"]["PRIX_VENTE"]["TYPE"]="string_null";
+
+//table_cegid_commande_prestataire
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["NAME"]=$SELECT_NAME_FROM_CEGID_USER;
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR;
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["STATUS"]=$SELECT_ID_FROM_CEGID_STATUS_CEGID;
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["GROUPE"]=$SELECT_NAME_FROM_CEGID_GROUPE;
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_update"] = $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"];
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire"] = $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"];
+
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["USER_ID"]["SQL"]="select ID from cegid_user  WHERE NAME=\"???\"";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["USER_ID"]["VARIABLE"]="NAME";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["SOCIETE"]["SQL"]="select SOCIETE from cegid_user  WHERE NAME=\"???\"";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["SOCIETE"]["VARIABLE"]="NAME";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["GROUPE"]["SQL"]="select GROUPE from cegid_user  WHERE NAME=\"???\"";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["GROUPE"]["VARIABLE"]="NAME";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["STATUS"]["DEFAULT"]="Neant";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["VISIBLE"]["DEFAULT"]="Visible";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["ID"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["ID"]["SQL"]="select concat(\"CP_\", user.ID, \"_\", cp.c) from (select ID from cegid_user where NAME=\"???\") user, (select count(ID) as c from cegid_commande_prestataire) cp";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["ID"]["VARIABLE"]="NAME";
+
+
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"]["SUFFIX"] = " &euro;";
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"]["SUFFIX_FIELD"] = " &euro;";
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"]["FORMAT"] = $FORMAT_TARIF;
+
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["TARIF_ACHAT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
+$FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["TARIF_ACHAT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_VENTE"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["TARIF_VENTE"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
+$FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["TARIF_VENTE"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
+$FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
+
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["UO"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["UO"]["TD"] = $ALIGN_RIGHT;
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["UO"]["TD"] = $ALIGN_RIGHT;
 
 
 ?>

@@ -3,12 +3,12 @@
 //include_once($_SERVER ['DOCUMENT_ROOT']. "/js/menu.js");
 include_once(dirname(__FILE__). "/js/menu.js");
 
-if (!isset($MEMBER_DB_PHP)){
+//if (!isset($MEMBER_DB_PHP)){
 	include_once("sql/member_db.php");
-}
-if (!isset($ACCESS_SITE_PHP)){
+//}
+//if (!isset($ACCESS_SITE_PHP)){
 	include_once("sql/access_site.php");
-}
+//}
 
 global $URL_ROOT_POINTAGE;
 global $ACTION_GET;
@@ -20,11 +20,6 @@ $id=getMemberID();
 
 //gestion des arguments par defaut
 $argument=propagateArguments();
-// if (! strpos ( $html, "?" )) {
-// 	//$argument = propagateArguments ( "yes" );
-// 	$argument = propagateArguments ( "" );
-// 	$html = $html . $argument;
-// }
 
 
 trace_access_history();
@@ -132,7 +127,8 @@ else{
 	    $urldevis          = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_devis.php$argument");
 	    $urlprofils        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_profils.php$argument");
 	    $urluser           = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_user_cegid.php$argument");
-
+	    $urlcommandePresta = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_commande_presta.php$argument");
+	    
 	    $urlstatusdevis    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_devis.php$argument");
 	    $urlstatuscegid    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_cegid.php$argument");
 	    $urlstatusvisible  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_status_visible.php$argument");
@@ -172,7 +168,8 @@ else{
 		<ul>
 		<li><a title=\"Gestion Profils\" href=\"$urlprofils\"> 	             <img src=\"$URL_IMAGES/menu_plan.png\"     $menuIconSize> Gestion Profils</a></li>
 		<li><a title=\"Gestion Users\" href=\"$urluser\"> 	                 <img src=\"$URL_IMAGES/modify_user.png\"   $menuIconSize > Gestion Users</a></li>
-		<li><a title=\"Gestion Devis\" href=\"$urldevis\"> 	                 <img src=\"$URL_IMAGES/menu_projets.png\"  $menuIconSize > Gestion Devis</a></li>
+		<li><a title=\"Gestion Commandes\" href=\"$urlcommandePresta\">      <img src=\"$URL_IMAGES/menu_commande.png\"   $menuIconSize > Commandes Presta</a></li>
+		<li><a title=\"Gestion Devis\" href=\"$urldevis\"> 	                 <img src=\"$URL_IMAGES/menu_devis.png\"  $menuIconSize > Gestion Devis</a></li>
 		<li><a title=\"Gestion Projet\" href=\"$urlproject\"> 	             <img src=\"$URL_IMAGES/menu_projets.png\"  $menuIconSize > Gestion Projets</a></li>
 		</ul>";
 	}
