@@ -479,7 +479,8 @@ $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["TARIF_VENTE"] = $FO
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
-$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["NAME"]["STATUS"]= "disabled";
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["NOM"]["STATUS"]= "disabled";
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["PRENOM"]["STATUS"]= "disabled";
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["COUT"]["STATUS"]= "disabled";
 
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["UO"]["TD"] = $ALIGN_RIGHT;
