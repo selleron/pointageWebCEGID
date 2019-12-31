@@ -15,6 +15,7 @@ $SQL_COL_USER_ID_COMMANDE_PRESTA        = "USER_ID";
 $SQL_COL_SOCIETE_COMMANDE_PRESTA        = "SOCIETE";
 $SQL_COL_UO_COMMANDE_PRESTA             = "GROUPE";
 $SQL_COL_STATUS_COMMANDE_PRESTA         = "STATUS";
+$SQL_COL_COMMANDE_COMMANDE_PRESTA       = "COMMANDE";
 $SQL_COL_DEBUT_COMMANDE_PRESTA          = "DEBUT";
 $SQL_COL_FIN_COMMANDE_PRESTA            = "FIN";
 $SQL_COL_ACHAT_COMMANDE_PRESTA          = "TARIF_ACHAT";
@@ -25,11 +26,11 @@ $SQL_COL_VISIBLE_COMMANDE_PRESTA        = "VISIBLE";
 $SQL_COL_COMMENTAIRE_COMMANDE_PRESTA    = "COMMENTAIRE";
 
 
+$SQL_SHOW_UPDATE_COMMANDE     = "   $SQL_COL_ID_COMMANDE_PRESTA,  USER_ID,  $SQL_COL_SOCIETE_COMMANDE_PRESTA ,  GROUPE,  $SQL_COL_STATUS_COMMANDE_PRESTA,  $SQL_COL_COMMANDE_COMMANDE_PRESTA, $SQL_COL_DEBUT_COMMANDE_PRESTA,  $SQL_COL_FIN_COMMANDE_PRESTA,  $SQL_COL_ACHAT_COMMANDE_PRESTA, $SQL_COL_VENTE_COMMANDE_PRESTA,  $SQL_COL_UO_COMMANDE_PRESTA,  $SQL_COL_COUT_COMMANDE_PRESTA, $SQL_COL_VISIBLE_COMMANDE_PRESTA, $SQL_COL_COMMENTAIRE_COMMANDE_PRESTA ";
 $SQL_SELECT_COL_COMMANDE_USER = "cp.$SQL_COL_ID_COMMANDE_PRESTA as ID, u.NOM, u.PRENOM, cp.$SQL_COL_SOCIETE_COMMANDE_PRESTA , cp.GROUPE, cp.$SQL_COL_STATUS_COMMANDE_PRESTA, cp.$SQL_COL_DEBUT_COMMANDE_PRESTA, cp.$SQL_COL_FIN_COMMANDE_PRESTA, cp.$SQL_COL_ACHAT_COMMANDE_PRESTA, cp.$SQL_COL_VENTE_COMMANDE_PRESTA, cp.$SQL_COL_UO_COMMANDE_PRESTA, cp.$SQL_COL_COUT_COMMANDE_PRESTA, cp.$SQL_COL_VISIBLE_COMMANDE_PRESTA, cp.$SQL_COL_COMMENTAIRE_COMMANDE_PRESTA ";
 $SQL_SHOW_COL_COMMANDE_USER   = "   $SQL_COL_ID_COMMANDE_PRESTA,         NOM,   PRENOM,    $SQL_COL_SOCIETE_COMMANDE_PRESTA ,    GROUPE,    $SQL_COL_STATUS_COMMANDE_PRESTA,    $SQL_COL_DEBUT_COMMANDE_PRESTA,    $SQL_COL_FIN_COMMANDE_PRESTA,    $SQL_COL_ACHAT_COMMANDE_PRESTA,    $SQL_COL_VENTE_COMMANDE_PRESTA,    $SQL_COL_UO_COMMANDE_PRESTA,    $SQL_COL_COUT_COMMANDE_PRESTA, $SQL_COL_VISIBLE_COMMANDE_PRESTA,    $SQL_COL_COMMENTAIRE_COMMANDE_PRESTA ";
-$SQL_COL_COMMANDE             = "   $SQL_COL_ID_COMMANDE_PRESTA,  USER_ID,  $SQL_COL_SOCIETE_COMMANDE_PRESTA ,  GROUPE,  $SQL_COL_STATUS_COMMANDE_PRESTA,  $SQL_COL_DEBUT_COMMANDE_PRESTA,  $SQL_COL_FIN_COMMANDE_PRESTA,  $SQL_COL_ACHAT_COMMANDE_PRESTA, $SQL_COL_VENTE_COMMANDE_PRESTA,  $SQL_COL_UO_COMMANDE_PRESTA,  $SQL_COL_COUT_COMMANDE_PRESTA, $SQL_COL_VISIBLE_COMMANDE_PRESTA, $SQL_COL_COMMENTAIRE_COMMANDE_PRESTA ";
 $SQL_SHOW_WHERE_COMMANDE_USER = "cp.$SQL_COL_USER_ID_COMMANDE_PRESTA = u.ID";
-$SQL_SHOW_INSERT_COL_COMMANDE   = "NAME, $SQL_COL_SOCIETE_COMMANDE_PRESTA, $SQL_COL_DEBUT_COMMANDE_PRESTA,    $SQL_COL_FIN_COMMANDE_PRESTA,    $SQL_COL_ACHAT_COMMANDE_PRESTA,    $SQL_COL_VENTE_COMMANDE_PRESTA,  $SQL_COL_UO_COMMANDE_PRESTA";
+$SQL_SHOW_INSERT_COL_COMMANDE = "NAME, $SQL_COL_SOCIETE_COMMANDE_PRESTA, $SQL_COL_DEBUT_COMMANDE_PRESTA,    $SQL_COL_FIN_COMMANDE_PRESTA,    $SQL_COL_ACHAT_COMMANDE_PRESTA,    $SQL_COL_VENTE_COMMANDE_PRESTA,  $SQL_COL_UO_COMMANDE_PRESTA";
 
 
 /**
@@ -54,22 +55,52 @@ function computeCout($vente, $uo){
     }
     return $cout;
 }
+/**
+ * computeUO
+ * compute UO from variable url debut & fin ou variable url uo
+ * @return string| integer |NULL
+ */
+function computeUO(){
+    global $SQL_COL_UO_COMMANDE_PRESTA;
+    global $SQL_COL_DEBUT_COMMANDE_PRESTA;
+    global $SQL_COL_FIN_COMMANDE_PRESTA;
+    $uo = getURLVariable($SQL_COL_UO_COMMANDE_PRESTA);
+    
+    if (is_numeric($uo)){
+        if ($uo>0) return $uo;
+    }
+    
+    $debut = getURLVariable($SQL_COL_DEBUT_COMMANDE_PRESTA);
+    $fin = getURLVariable($SQL_COL_FIN_COMMANDE_PRESTA);
+    
+    if (isSqlDate($debut) && isSqlDate($fin) ){
+        $time1 = sqlDateToTime($debut);
+        $time2 = sqlDateToTime($fin);
+        $duree = ($time2 - $time1)/3600/24;
+        $duree = intval($duree*5/7);
+        //showSQLAction("times : $time1 -  $time2  ||  $duree");
+        return $duree;
+    }
+    
+    return NULL;
+}
 
 /**
  * applyGestionCommandePrestataire
  * @return number
  */
 function applyGestionCommandePrestataire() {
-    global $SQL_COL_COMMANDE;
+    global $SQL_SHOW_UPDATE_COMMANDE;
     global $SQL_SELECT_COL_COMMANDE_USER;
     global $SQL_COL_COUT_COMMANDE_PRESTA;
+    global $SQL_COL_UO_COMMANDE_PRESTA;
     global $SQL_COL_ACHAT_COMMANDE_PRESTA;
     global $SQL_COL_UO_COMMANDE_PRESTA;
     global $SQL_TABLE_COMMANDE_PRESTA;
     global $SQL_TABLE_COMMANDE_PRESTA2;
     global $FORM_TABLE_COMMANDE_PRESTA;
     $table = $SQL_TABLE_COMMANDE_PRESTA;
-    $col = $SQL_COL_COMMANDE;
+    $col = $SQL_SHOW_UPDATE_COMMANDE;
     $form_name = $FORM_TABLE_COMMANDE_PRESTA . "_update";
     $res=-1;
 
@@ -77,9 +108,10 @@ function applyGestionCommandePrestataire() {
     if ($action == LabelAction::ActionInsert || $action = LabelAction::ActionUpdate){
         //on force le recalcul du cout
         $vente = getURLVariable($SQL_COL_ACHAT_COMMANDE_PRESTA);
-        $uo = getURLVariable($SQL_COL_UO_COMMANDE_PRESTA);
+        $uo = computeUO();      
         $cout = computeCout($vente, $uo);
         setURLVariable($SQL_COL_COUT_COMMANDE_PRESTA, $cout);
+        setURLVariable($SQL_COL_UO_COMMANDE_PRESTA, $uo);
     }
 
     //TOTO
@@ -117,6 +149,7 @@ function showOnlyInsertTableCommandePrestataire($condition="") {
     // pour avoir les types des variables
     $Resultat = requeteTableData($param);
     
+    $selectedValue= array();
     $userName =  getURLVariable(FORM_COMBOX_BOX_KEY::USER_SELECTION);
     $selectedValue["NAME"] = "$userName";
     
@@ -153,7 +186,6 @@ function showTableCommandePresta( $conditionVisible="") {
     
     //$year
     if (is_numeric($year)){
-        global $SQL_COL_DATE_CEGID_POINTAGE;
         $condition = "$condition AND year(cp.$SQL_COL_DEBUT_COMMANDE_PRESTA)=\"$year\"";
     }
     

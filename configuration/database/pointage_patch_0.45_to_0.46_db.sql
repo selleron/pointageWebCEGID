@@ -33,6 +33,7 @@ CREATE TABLE `cegid_commande_prestataire` (
   `SOCIETE` varchar(30) DEFAULT NULL,
   `GROUPE` varchar(20) DEFAULT NULL,
   `STATUS` varchar(15) DEFAULT NULL,
+  `COMMANDE` varchar(20) DEFAULT NULL,
   `DEBUT` date NOT NULL,
   `FIN` date NOT NULL,
   `TARIF_ACHAT` double NOT NULL,
