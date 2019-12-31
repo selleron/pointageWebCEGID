@@ -453,6 +453,7 @@ function getCSVIndexFromMatrice($matrice, $key, $comment = "#") {
  */
 function exportCSVDataURL($handle, $table) {
     //debug_print_backtrace();
+    global $TRACE_INFO_EXPORT;
     
     //ici on regarde si la table n'est pas plutôt une requete
     $pos = strpos(strtolower($table), "select");
@@ -462,6 +463,7 @@ function exportCSVDataURL($handle, $table) {
     else{
         $sql = $table;
     }
+    showActionVariable ( "cvs export request : $sql<br>", $TRACE_INFO_EXPORT );
     
    $Resultat = mysqlQuery ( $sql );
 	
