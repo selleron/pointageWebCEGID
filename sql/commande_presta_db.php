@@ -231,10 +231,12 @@ function showTableCommandePresta( $conditionVisible="") {
     
     $param = prepareshowTable ( $SQL_TABLE_COMMANDE_PRESTA2, $SQL_SHOW_COL_COMMANDE_USER, $form_name, $condition );
     $param [PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "yes";
-    $param [PARAM_TABLE_ACTION::TABLE_INSERT] = "yes";
+    $param [PARAM_TABLE_ACTION::TABLE_INSERT] = "No";
     $param = updateParamSqlWithDistinct ( $param );
     $param = updateParamSqlColumnFilter ( $param, $SQL_SELECT_COL_COMMANDE_USER );
     $param  = setInfoForm($param, $infoForm);
+    $param[PARAM_TABLE_TABLE::TABLE_SIZE] = 2000;       // taille du tableau agrandi
+    $param[PARAM_TABLE_ACTION::ACTIONS_AT_LEFT]="yes";  // affiche aussi les actions à gauche
     
     //trace
     $req = createRequeteTableData ( $param );

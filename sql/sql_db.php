@@ -699,13 +699,15 @@ function getFormStyleStatus($Resultat, $param, $idxField){
         if(isset($style[$key])){
             $value = $style[$key];
             if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
-                echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx"."]"."[\"$key\"] : $value");
+                $variable = mysqlFieldName($Resultat, $idx);
+                echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx/$variable"."]"."[\"$key\"] : $value");
             }
             return $value;
         }
     }
     if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
-        echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx"."]"."[\"$key\"] : not found");
+        $variable = mysqlFieldName($Resultat, $idx);
+        echoComment("$"."FORM_STYLE"."["."$form"."]"."["."$idx/$variable"."]"."[\"$key\"] : not found");
     }
     return NULL;
  }

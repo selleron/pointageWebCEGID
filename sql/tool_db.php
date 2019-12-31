@@ -1929,6 +1929,17 @@ function showTableHeader($param, $html = "", $createTable="yes")
     
     beginTableHeader();
     
+    
+    if (array_key_exists(PARAM_TABLE_ACTION::ACTIONS_AT_LEFT, $param)) {
+        $atLeft = $param[PARAM_TABLE_ACTION::ACTIONS_AT_LEFT];
+        if ($atLeft=="yes"){
+            $count = countTableOneDataActionBlock($param);
+            for ($i=0;$i<$count;$i++){
+                echo getBeginTableHeaderCell() . "." . getEndTableHeaderCell();
+            }
+        }
+    }
+    
     // ajout colonne count
     if ($param[$SHOW_COL_COUNT] == "yes") {
         echo getBeginTableHeaderCell() . "#" . getEndTableHeaderCell();
@@ -2249,13 +2260,7 @@ function showTableLineExportCSV($param, $html = "")
     
     beginTableRow();
     $infoform = getInfoForm($param);
-    showLineExportCSV($param, /**
-     * $infoForm
-     */
-    $infoform, "yes", /**
-     * form autonome
-     */
-    $html, "");
+    showLineExportCSV($param,  $infoform, "yes" /**form autonome  */, $html, "");
     endTableRow();
 }
 
@@ -2424,20 +2429,6 @@ function showLineExportCSV($param, $infoForm = "", $formAutonome = "no", $html =
     
     if (isset($param[$TABLE_EXPORT_CSV]) && ($param[$TABLE_EXPORT_CSV] == "yes")) {
         showCellAction("export CSV", $param, $infoForm, $formAutonome, $html, $formName);
-//         if ($formAutonome == "yes") {
-//             createForm($html, $formName);
-//         }
-        
-//         echo "<td>";
-//         showFormIDElement();
-//         echo "$infoForm";
-//         // showFormAction ( "multi-action" );
-//         showFormSubmit("export CSV", $ACTION_GET);
-//         echo "</td>";
-        
-//         if ($formAutonome == "yes") {
-//             endForm();
-//         }
     }
 }
 
@@ -2696,20 +2687,25 @@ function getSqlWhere($condition = "")
  * @param array $param
  *            structure affichage du row
  */
-function showTableOneData($html, $Resultat, $cpt, $param)
-{
-    global $COLUMNS_SUMMARY;
-    global $TABLE_ROW_FIRST;
-    global $TABLE_DELETE;
-    global $TABLE_EDIT;
-    global $TABLE_DELETE_BY_ROW;
-    global $TABLE_EDIT_BY_ROW;
+function showTableOneData($html, $Resultat, $cpt, $param) {  
+    $columns = $param[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
+    $resArray =array();
+    
+    //si besoin affiche les actions
+    if (array_key_exists(PARAM_TABLE_ACTION::ACTIONS_AT_LEFT, $param)) {
+        $atRight = $param[PARAM_TABLE_ACTION::ACTIONS_AT_LEFT];
+        if ($atRight=="yes"){
+            foreach ($columns as $c) {
+                $res = mysqlResult($Resultat, $cpt, $c);
+            }
+            showTableOneDataActionBlock($html, $Resultat, $cpt, $param, $resArray);
+        }
+    }
     
     // colonne index
-    $columns = $param[$COLUMNS_SUMMARY];
     if ($param['show_col_count'] == "yes") {
-        if (array_key_exists($TABLE_ROW_FIRST, $param)) {
-            $cpt2 = $cpt + $param[$TABLE_ROW_FIRST];
+        if (array_key_exists(PARAM_TABLE_SQL::TABLE_ROW_FIRST, $param)) {
+            $cpt2 = $cpt + $param[PARAM_TABLE_SQL::TABLE_ROW_FIRST];
             echo "<td>$cpt2</td>";
         } else {
             echo "<td>$cpt</td>";
@@ -2740,6 +2736,25 @@ function showTableOneData($html, $Resultat, $cpt, $param)
         $resArray[$r] = $res;
         $r ++;
     }
+
+    //boutons action en fin de ligne
+    showTableOneDataActionBlock($html, $Resultat, $cpt, $param, $resArray);
+    
+}
+
+/**
+ * showTableOneDataActionBlock
+ * Affiche les block d'actions dans une ligne de tableau
+ * @param string $html array
+ * @param sql array $Resultat
+ * @param number $cpt line number
+ * @param array sql param $param
+ * @param array $resArray array of values
+ */
+function showTableOneDataActionBlock($html, $Resultat, $cpt, $param, $resArray, $useTD="yes") {
+    // colonne index
+    $columns = $param[PARAM_TABLE_SQL::COLUMNS_SUMMARY];
+    
     
     // ajouter les boutons d'action
     $idTable = getPrimaryKeyValue($Resultat, $cpt);
@@ -2749,30 +2764,68 @@ function showTableOneData($html, $Resultat, $cpt, $param)
     // echo "<td>info form : $infoForm</td>";
     
     // bouton edit by id
-    if (isset($param[$TABLE_EDIT]) && ($param[$TABLE_EDIT] == "yes")) {
-        showMiniForm($html, "", "edit", "edit", $idTable, "yes", $infoForm);
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_EDIT]) && ($param[PARAM_TABLE_ACTION::TABLE_EDIT] == "yes")) {
+        showMiniForm($html, "", "edit", "edit", $idTable, $useTD, $infoForm);
     }
     // bouton delete by id
-    if (isset($param[$TABLE_DELETE]) && ($param[$TABLE_DELETE] == "yes")) {
-        showMiniForm($html, "", "delete", "delete", $idTable, "yes", $infoForm);
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_DELETE]) && ($param[PARAM_TABLE_ACTION::TABLE_DELETE] == "yes")) {
+        showMiniForm($html, "", "delete", "delete", $idTable, $useTD, $infoForm);
     }
     
     // bouton edit by row
-    if (isset($param[$TABLE_EDIT_BY_ROW]) && ($param[$TABLE_EDIT_BY_ROW] == "yes")) {
-        showMiniFormArray($html, "", "edit", "edit !", $columns, $resArray, "yes", $infoForm);
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_EDIT_BY_ROW]) && ($param[PARAM_TABLE_ACTION::TABLE_EDIT_BY_ROW] == "yes")) {
+        showMiniFormArray($html, "", "edit", "edit !", $columns, $resArray, $useTD, $infoForm);
     }
     
     // bouton delete by row
-    if (isset($param[$TABLE_DELETE_BY_ROW]) && ($param[$TABLE_DELETE_BY_ROW] == "yes")) {
-        showMiniFormArray($html, "", "delete", "delete !", $columns, $resArray, "yes", $infoForm);
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW]) && (PARAM_TABLE_ACTION::param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW] == "yes")) {
+        showMiniFormArray($html, "", "delete", "delete !", $columns, $resArray, $useTD, $infoForm);
     }
     
     if (isset($param[PARAM_TABLE_ACTION::TABLE_COMMNAND])) {
         foreach ($param[PARAM_TABLE_ACTION::TABLE_COMMNAND] as $actionCmd) {
-            showMiniFormArray($actionCmd[PARAM_TABLE_COMMAND::URL], "", $actionCmd[PARAM_TABLE_COMMAND::ACTION], $actionCmd[PARAM_TABLE_COMMAND::NAME], $columns, $resArray, "yes", $infoForm);
+            showMiniFormArray($actionCmd[PARAM_TABLE_COMMAND::URL], "", $actionCmd[PARAM_TABLE_COMMAND::ACTION], $actionCmd[PARAM_TABLE_COMMAND::NAME], $columns, $resArray, $useTD, $infoForm);
         }
     }
 }
+
+/**
+ * countTableOneDataActionBlock
+ * count action blocks in line of table
+ * @param array sql $param
+ * @return number of action => create columns for action
+ */
+function countTableOneDataActionBlock($param) {
+    $count=0;
+        
+    // bouton edit by id
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_EDIT]) && ($param[PARAM_TABLE_ACTION::TABLE_EDIT] == "yes")) {
+       $count++;
+    }
+    // bouton delete by id
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_DELETE]) && ($param[PARAM_TABLE_ACTION::TABLE_DELETE] == "yes")) {
+        $count++;
+    }
+    
+    // bouton edit by row
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_EDIT_BY_ROW]) && ($param[PARAM_TABLE_ACTION::TABLE_EDIT_BY_ROW] == "yes")) {
+        $count++;
+    }
+    
+    // bouton delete by row
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW]) && (PARAM_TABLE_ACTION::param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW] == "yes")) {
+        $count++;
+    }
+    
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_COMMNAND])) {
+        foreach ($param[PARAM_TABLE_ACTION::TABLE_COMMNAND] as $actionCmd) {
+            $count++;
+        }
+    }
+    
+    return $count;
+}
+
 
 /**
  * editTableOneData
