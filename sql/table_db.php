@@ -463,7 +463,6 @@ function exportCSVDataURL($handle, $table) {
     else{
         $sql = $table;
     }
-    //showActionVariable ( "cvs export request : $sql<br>", $TRACE_INFO_EXPORT );
     
    $Resultat = mysqlQuery ( $sql );
 	
