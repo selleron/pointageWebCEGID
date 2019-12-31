@@ -342,7 +342,14 @@ function exportCSVTableGestionPointageProjetCegid($table, $firstColExport="")
     
     $columnsAction = $firstColExport . "," . $LIST_COLS_MONTHS;
     $columnsExport = $firstColExport . "," . getExportMonths();
-    $exec = exportCSVTableByGet($table, $columnsAction, $columnsExport, $form_name);
+    
+    $condition="";
+    $param = createDefaultParamSql ( $table, $columnsAction, $condition );
+    $param = updateTableParamSql ( $param, $form_name, $columnsExport );
+    $param = updateTableParamType ( $param, $table, $columnsAction, $form_name );
+    
+    //$exec = exportCSVTableByGet($table, $columnsAction, $columnsExport, $form_name);
+    $exec = exportCSVTableByGet( $param );
     
     return $exec;
 }

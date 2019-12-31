@@ -158,6 +158,10 @@ function trimArray($array){
 * @return string or NULL (unset)
 */
 function arrayToString( $array, $separator=",",$before="",$after=""){
+    if ($array == "") return NULL;
+    if (!is_array($array)){
+        debug_print_backtrace();
+    }
 	foreach ($array as $a){
 		if (isset($txt)){
 			$txt=$txt.$separator.$before.$a.$after;

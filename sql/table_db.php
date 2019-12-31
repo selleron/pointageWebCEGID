@@ -41,7 +41,8 @@ include_once '../configuration/labelAction.php';
 		$res = updateTableByGet ( /*$table, $cols, $form_name,*/ $param );
 	}
 	if ($res <= 0) {
-		$res = exportCSVTableByGet ( $table, $cols, $cols, $form_name );
+	    //$res = exportCSVTableByGet ( $table, $cols, $cols, $form_name );
+	    $res = exportCSVTableByGet ( $param );
 	}
 	if ($res <= 0) {
 	    $res = importCSVTableByGet ( /*$table, $cols, $form_name,*/ $param );
@@ -210,8 +211,21 @@ function exportCSVArray($table, $colsSet, $colsSetExport, $matrice) {
  * @param string $form_name        	
  * @return number 1 si ok 0 si nothing
  */
-function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name) {
-	if ((getActionGet () == "export CSV") || (getActionGet () == "exportCSV")) {
+
+//function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name)
+function exportCSVTableByGet($param) {
+    
+    $table = $param[ PARAM_TABLE_SQL::TABLE_NAME];
+    $colsSet = arrayToString($param[ PARAM_TABLE_SQL::COLUMNS_SUMMARY]);
+    if (isset($param[ PARAM_TABLE_SQL::COLUMNS_FILTER])){
+        $colsSetExport = $param[ PARAM_TABLE_SQL::COLUMNS_FILTER];
+    }
+    else{
+        $colsSetExport = $colsSet;
+    }
+    $form_name = $param[ PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
+    
+        if ((getActionGet () == "export CSV") || (getActionGet () == "exportCSV")) {
 	    global $TRACE_INFO_EXPORT;
 	    //debug_print_backtrace();
 		// trace
