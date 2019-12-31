@@ -96,6 +96,7 @@ function applyGestionCommandePrestataire() {
     global $SQL_SHOW_UPDATE_COMMANDE_USER;
     global $SQL_SELECT_UPDATE_COMMANDE_USER;
     global $SQL_SELECT_COL_COMMANDE_USER;
+    global $SQL_SHOW_COL_COMMANDE_USER;
     global $SQL_COL_COUT_COMMANDE_PRESTA;
     global $SQL_COL_UO_COMMANDE_PRESTA;
     global $SQL_COL_ACHAT_COMMANDE_PRESTA;
@@ -113,7 +114,7 @@ function applyGestionCommandePrestataire() {
     $res=-1;
 
     $action = getActionGet();
-    showAction("action : $action");
+    //showAction("action : $action");
     
     if ($action == LabelAction::ActionInsert || $action == LabelAction::ActionUpdate  ){
         //on force le recalcul du cout
@@ -131,6 +132,7 @@ function applyGestionCommandePrestataire() {
         $param = updateTableParamSql ( $param, $form_name, $colFilter );
         $param = updateTableParamType ( $param, $table, $col, $form_name );
         updateTableByGet($param, "no");
+        //on doit fait l'edit apres
     }
         
     if ($action == LabelAction::ActionUpdate ||  $action == LabelAction::ActionEdit ){
@@ -145,11 +147,20 @@ function applyGestionCommandePrestataire() {
         $param = updateTableParamType ( $param, $table, $col, $form_name );
         $res = editTable2($param);
     }
-//     if ($action == LabelAction::ActionExportCSV || $action = LabelAction::ActionExport2){
-//         $col = $SQL_SELECT_COL_COMMANDE_USER;
-//         $table = $SQL_TABLE_COMMANDE_PRESTA2;
-//         $param = createDefaultParamSql($table, $col, $condition);
-//     }
+    
+     if ($action == LabelAction::ActionExportCSV || $action = LabelAction::ActionExport2){
+         $condition = createConditionCommandePrestataire();
+         $col = $SQL_SHOW_COL_COMMANDE_USER;
+         $colFilter = $SQL_SELECT_COL_COMMANDE_USER;
+         $table = $SQL_TABLE_COMMANDE_PRESTA2;
+         $param = createDefaultParamSql($table, $col, $condition);
+         $param = updateTableParamSql ( $param, $form_name, $colFilter );
+         $param = updateTableParamType ( $param, $table, $col, $form_name );
+
+         $request = createRequeteTableData($param);
+         $table = $request;
+         $param = NULL;
+     }
           
     // cas classique : edit, export, ...
     if ($res <= 0) {
@@ -206,13 +217,46 @@ function showTableCommandePresta( $conditionVisible="") {
     global $SQL_COL_DEBUT_COMMANDE_PRESTA;
     $form_name = $FORM_TABLE_COMMANDE_PRESTA/*."_one_update"*/;
        
+    $condition = createConditionCommandePrestataire($conditionVisible);
+     $infoForm = getInfoFormProjectSelection();
+    
+    $param = prepareshowTable ( $SQL_TABLE_COMMANDE_PRESTA2, $SQL_SHOW_COL_COMMANDE_USER, $form_name, $condition );
+    $param [PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "yes";
+    $param [PARAM_TABLE_ACTION::TABLE_INSERT] = "No";
+    $param = updateParamSqlWithDistinct ( $param );
+    $param = updateParamSqlColumnFilter ( $param, $SQL_SELECT_COL_COMMANDE_USER );
+    $param  = setInfoForm($param, $infoForm);
+    $param[PARAM_TABLE_TABLE::TABLE_SIZE] = 2000;       // taille du tableau agrandi
+    $param[PARAM_TABLE_ACTION::ACTIONS_AT_LEFT]="yes";  // affiche aussi les actions à gauche
+    
+    //trace
+    $req = createRequeteTableData ( $param );
+    showActionVariable( $req, $TRACE_INFO_PROJECT );
+    //end trace
+    
+    showTableByParam($param);
+}
+
+/**
+ * createConditionCommandePrestataire
+ * recherche les variables rl pour creer les contition pour la commande prestataire
+ * @param string $conditionVisible
+ * @return string
+ */
+function createConditionCommandePrestataire($conditionVisible=""){
+//     global $FORM_TABLE_COMMANDE_PRESTA;
+//     global $SQL_TABLE_COMMANDE_PRESTA;
+//     global $SQL_TABLE_COMMANDE_PRESTA2;
+//     global $SQL_SELECT_COL_COMMANDE_USER;
+//     global $SQL_SHOW_COL_COMMANDE_USER;
+    global $SQL_SHOW_WHERE_COMMANDE_USER;
+    global $SQL_COL_DEBUT_COMMANDE_PRESTA;
+    
     $condition=$SQL_SHOW_WHERE_COMMANDE_USER;
     
-    // info formulaire year et user name 
+    // info formulaire year et user name
     $userName =  getURLVariable(FORM_COMBOX_BOX_KEY::USER_SELECTION);
     $year = getURLYear(FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION);
-    $infoForm = getInfoFormProjectSelection();
-    //$infoForm = $infoForm . streamFormHidden ( $TABLE_FORM_NAME_INSERT, $form_name );
     
     //$year
     if (is_numeric($year)){
@@ -230,24 +274,9 @@ function showTableCommandePresta( $conditionVisible="") {
     if ($conditionVisible!=""){
         $condition = "$condition AND $conditionVisible";
     }
-         
+    
     showSQLAction("condition : $condition");
-    
-    $param = prepareshowTable ( $SQL_TABLE_COMMANDE_PRESTA2, $SQL_SHOW_COL_COMMANDE_USER, $form_name, $condition );
-    $param [PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "yes";
-    $param [PARAM_TABLE_ACTION::TABLE_INSERT] = "No";
-    $param = updateParamSqlWithDistinct ( $param );
-    $param = updateParamSqlColumnFilter ( $param, $SQL_SELECT_COL_COMMANDE_USER );
-    $param  = setInfoForm($param, $infoForm);
-    $param[PARAM_TABLE_TABLE::TABLE_SIZE] = 2000;       // taille du tableau agrandi
-    $param[PARAM_TABLE_ACTION::ACTIONS_AT_LEFT]="yes";  // affiche aussi les actions à gauche
-    
-    //trace
-    $req = createRequeteTableData ( $param );
-    showActionVariable( $req, $TRACE_INFO_PROJECT );
-    //end trace
-    
-    showTableByParam($param);
+    return $condition;   
 }
 
 
