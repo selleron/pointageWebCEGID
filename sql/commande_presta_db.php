@@ -113,7 +113,9 @@ function applyGestionCommandePrestataire() {
     $res=-1;
 
     $action = getActionGet();
-    if ($action == LabelAction::ActionInsert || $action = LabelAction::ActionUpdate){
+    showAction("action : $action");
+    
+    if ($action == LabelAction::ActionInsert || $action == LabelAction::ActionUpdate  ){
         //on force le recalcul du cout
         $vente = getURLVariable($SQL_COL_ACHAT_COMMANDE_PRESTA);
         $uo = computeUO();      
@@ -124,14 +126,16 @@ function applyGestionCommandePrestataire() {
 
     if ($action == LabelAction::ActionUpdate ){
         //update
-        showSQLAction("commande prestataire : update ...");
+        showSQLAction("commande prestataire : $action update ...");
         $param = createDefaultParamSql($table, $col, $condition);
         $param = updateTableParamSql ( $param, $form_name, $colFilter );
         $param = updateTableParamType ( $param, $table, $col, $form_name );
         updateTableByGet($param, "no");
+    }
         
-        //edit & reedit
-        showSQLAction("commande prestataire : edit ...");
+    if ($action == LabelAction::ActionUpdate ||  $action == LabelAction::ActionEdit ){
+            //edit & reedit
+        showSQLAction("commande prestataire : $action edit ...");
         $table = $SQL_TABLE_COMMANDE_PRESTA2;
         $col = $SQL_SHOW_UPDATE_COMMANDE_USER;
         $colFilter = $SQL_SELECT_UPDATE_COMMANDE_USER;
