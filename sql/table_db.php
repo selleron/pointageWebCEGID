@@ -60,7 +60,7 @@ include_once '../configuration/labelAction.php';
  * @param array param ($table , $cols, $form_name)
  */
 function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
-    if ((getActionGet () == "import") || (getActionGet () == "insert_update")) {
+    if ((getActionGet () == LabelAction::ActionImport) || (getActionGet () == "insert_update")) {
             $array = actionImportCSV ();
 		
 		if (isset($param[PARAM_TABLE_SQL::TABLE_NAME_INSERT])){
@@ -80,6 +80,7 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 		$cols = arrayToString($cols);
 		$form_name = $param[PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
 		
+		global $TRACE_INFO_IMPORT;
 		
 		
 		$valueTable = getCSVValueFromMatrice ( $array, "table", $table );
@@ -88,9 +89,17 @@ function importCSVTableByGet( /*$table, $cols, $form_name,*/ $param  ) {
 			return;
 		}
 		
-		global $TRACE_INFO_IMPORT;
 		$countModification=0;
 		$columns = getCSVTableColumn ( $array, $cols );
+
+		if ($TRACE_INFO_IMPORT=="yes"){
+		    $txt = " - table : $table  -  valueTable : $valueTable <br>";
+		    $txt = "$txt - colonnes : $cols <br>";
+		    $txt = "$txt - columns   : ".arrayToString($columns)." <br>";
+		    showActionVariable ( "table_db.importCSVTableByGet() <br>$txt", $TRACE_INFO_IMPORT );
+		}
+		
+		
 		$data = suppressCommentMatrice ( $array );
 		$data = suppressEmptyRowFromMatrice($data);
 		foreach ( $data as $values ) {
