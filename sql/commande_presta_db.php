@@ -150,8 +150,8 @@ function applyGestionCommandePrestataire() {
     
      if ($action == LabelAction::ActionExportCSV || $action = LabelAction::ActionExport2){
          $condition = createConditionCommandePrestataire();
-         $col = $SQL_SHOW_COL_COMMANDE_USER;
-         $colFilter = $SQL_SELECT_COL_COMMANDE_USER;
+         $col = $SQL_SHOW_UPDATE_COMMANDE_USER;
+         $colFilter = $SQL_SELECT_UPDATE_COMMANDE_USER;
          $table = $SQL_TABLE_COMMANDE_PRESTA2;
          $param = createDefaultParamSql($table, $col, $condition);
          $param = updateTableParamSql ( $param, $form_name, $colFilter );
