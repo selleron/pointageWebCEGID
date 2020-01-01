@@ -114,7 +114,12 @@ function applyGestionCommandePrestataire() {
     $res=-1;
 
     $action = getActionGet();
-    //showAction("action : $action");
+    showAction("action : $action");
+    
+    if ($action == LabelAction::ActionImport  ){
+        $table =   $SQL_TABLE_COMMANDE_PRESTA;
+        showAction("action import : $action");
+    }
     
     if ($action == LabelAction::ActionInsert || $action == LabelAction::ActionUpdate  ){
         //on force le recalcul du cout
@@ -148,7 +153,7 @@ function applyGestionCommandePrestataire() {
         $res = editTable2($param);
     }
     
-     if ($action == LabelAction::ActionExportCSV || $action = LabelAction::ActionExport2){
+     if ($action == LabelAction::ActionExportCSV || $action == LabelAction::ActionExport2){
          $condition = createConditionCommandePrestataire();
          $col = $SQL_SHOW_UPDATE_COMMANDE_USER;
          $colFilter = $SQL_SELECT_UPDATE_COMMANDE_USER;

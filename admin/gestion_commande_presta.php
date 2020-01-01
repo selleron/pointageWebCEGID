@@ -68,7 +68,7 @@
 	
 	//gestion de l'import fichier
 	echo "<p>";
-	showLoadFile("","","","import");
+	showLoadFile("","","",LabelAction::ActionImport );
 	echo "<br/></p>";
 	
 	showTableCommandePresta( $conditionVisible );
