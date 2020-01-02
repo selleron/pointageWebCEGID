@@ -611,7 +611,7 @@ function getFormStyleTD($Resultat, $param, $idx){
 
 /**
  * getFormStyleTDEval
- * 
+ * Style dans la cellule (TD) avec evaluation de la valeur de la cellule pour modifier le style
  * @param array or object $Resultat
  * @param array $param
  * @param string $idx
@@ -623,6 +623,7 @@ function getFormStyleTDEval($Resultat, $param, $idx, $res){
         $format = getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_TD_EVAL);
         if ($format != ""){
             eval( $format );
+            //showAction("getFormStyleTDEval() - $res - $format ");
         }
         return $format;
     }

@@ -3,6 +3,7 @@
 	require_once( dirname(__FILE__).'/sql/tool_db.php' );
 	require_once( dirname(__FILE__).'/sql/user_consultation_db.php' );
 	
+	global $CHARSET_SERVER;
  	//echo '$CHARSET_SERVER'."=[$CHARSET_SERVER]";
 	//$CHARSET_SERVER provient de configuration/<server>.config.php
 	echo "<meta http-equiv=\"content-type\" content=\"text/html; charset=$CHARSET_SERVER\" />";

@@ -2,14 +2,17 @@
 
 $FORM_VALUE_POSSIBLE ["<formulaire>"]["<variable>"]="ma requete sql";    //requete pour une liste de choix
 $FORM_VALUE_DEFAULT  ["<formulaire>"]["<variable>"]="ma requete sql";    //requete pour une valeur par defaut
-$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["SQL"]="ma requete sql avec WHERE <variable2>=\"???\"";
-$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["VARIABLE"]="<variable3>";  
-$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["DEFAULT"]="une string";    // valeur par defaut 
-$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["TYPE"]="xxxx";             // type de la colonne sql SQL_TYPE::XXX
-$FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE"]="<size cellule>";
-$FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]= "disabled" | "enabled";
-//$FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]= "string" | "number"  | "url";
-//$FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]= "<le suffix>";
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["SQL"]      ="ma requete sql avec WHERE <variable2>=\"???\"";
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["VARIABLE"] ="<variable3>";  
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["DEFAULT"]  ="une string";    // valeur par defaut 
+$FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["TYPE"]     ="xxxx";             // type de la colonne sql SQL_TYPE::XXX
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE"]    ="<size cellule>";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]  = "disabled" | "enabled";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]    = "string" | "number"  | "url";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]  = "<le suffix>";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["TD"]      = "valeur \$ALIGN_XXX";       //modification style cellule
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["TD_EVAL"] = "\$NUMBER_NEGATIF_ROUGE";   //modification style cellule fonction valeur de la cellule '$res'
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["FORMAT"]  = "valeur \$FORMAT_XXX";
 
 //condition selection archivage
 $CONDITION_FROM_CEGID_NO_ARCHIVE = "VISIBLE LIKE 'Visible'";
@@ -22,7 +25,7 @@ $CONDITION_FROM_CEGID_COMMANDE   = "cp.VISIBLE LIKE 'Visible'";
 $SELECT_NAME_FROM_CEGID_USER_NO_FILTRED     = "select NAME from cegid_user";
 $SELECT_NAME_FROM_CEGID_USER                = "$SELECT_NAME_FROM_CEGID_USER_NO_FILTRED WHERE $CONDITION_FROM_CEGID_USER GROUP BY NAME";
 $SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED  = "select NAME from cegid_project";
-$SELECT_NAME_FROM_CEGID_PROJECT             = "select NAME from cegid_project WHERE $CONDITION_FROM_CEGID_PROJECT";
+$SELECT_NAME_FROM_CEGID_PROJECT             = "$SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED WHERE $CONDITION_FROM_CEGID_PROJECT";
 $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT     = "select '[all]' as NAME union ($SELECT_NAME_FROM_CEGID_PROJECT)";
 $SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT      = "select NAME from cegid_societe_client order by NAME";
 $SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR = "select NAME from cegid_societe_fournisseur order by NAME";
@@ -31,14 +34,20 @@ $SELECT_ID_FROM_CEGID_STATUS_VISIBLE        = "select ID from cegid_status_visib
 $SELECT_ID_FROM_CEGID_STATUS_CEGID          = "select ID from cegid_status_cegid order by ORDRE";
 
 //formatage
+//$FORM_STYLE["<formulaire>"]["<variable>"]["TD"] = "valeur $ALIGN_XXX";
 //$ALIGN_RIGHT = " align='right' ";
 $ALIGN_LEFT  = " align='left' ";
 $ALIGN_RIGHT = "style=\"text-align:right;\"";
 
+//$FORM_STYLE["<formulaire>"]["<variable>"]["TD_EVAL"] = "valeur $ALIGN_XXX";
 $NUMBER_NEGATIF_ROUGE = "if (\$res<0){\$format =\"bgcolor='#FFAAAA'\";}else{\$format=\"\";} ";
+
+//$FORM_STYLE["<formulaire>"]["<variable>"]["FORMAT"] = "valeur $FORMAT_XXX";
 $FORMAT_UO     = "\$res=numberFormat(\$res,1,'.','');";
 $FORMAT_CA     = "\$res=numberFormat(\$res,0,'.',' ');";
 $FORMAT_TARIF  = "\$res=numberFormat(\$res,2,'.',' ');";
+
+//SIZE et WIDTH
 $SIZE_UO    =  5;
 $SIZE_COUT  =  7;
 $SIZE_COUT_EURO  =  10;
@@ -488,6 +497,14 @@ $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["COUT"]["STATUS"]= "
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["UO"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["UO"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["UO"]["TD"] = $ALIGN_RIGHT;
+
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["DEBUT"]["TD_EVAL"] = "\$format = getStyleDateDebutCommandePrestataire(\$res);";
+$FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["DEBUT"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["DEBUT"]["TD_EVAL"];
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["DEBUT"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["DEBUT"]["TD_EVAL"];
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"] = "\$format = getStyleDateFinCommandePrestataire(\$res);";
+$FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["FIN"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"];
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["FIN"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"];
+
 
 
 ?>

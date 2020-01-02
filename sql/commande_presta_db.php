@@ -4,6 +4,7 @@ $COMMANDE_PRESTA_DB_PHP = "loaded";
 
 include_once 'project_db.php';
 include_once 'user_cegid_db.php';
+include_once 'time.php';
 //include_once 'pointage_cegid_db.php';
 
 $SQL_TABLE_COMMANDE_PRESTA        = "cegid_commande_prestataire";
@@ -39,6 +40,41 @@ $SQL_SHOW_COL_COMMANDE_USER   = "   $SQL_COL_ID_COMMANDE_PRESTA,         NOM,   
 $SQL_SHOW_WHERE_COMMANDE_USER = "cp.$SQL_COL_USER_ID_COMMANDE_PRESTA = u.ID";
 $SQL_SHOW_INSERT_COL_COMMANDE = "NAME, $SQL_COL_SOCIETE_COMMANDE_PRESTA, $SQL_COL_DEBUT_COMMANDE_PRESTA,    $SQL_COL_FIN_COMMANDE_PRESTA,    $SQL_COL_ACHAT_COMMANDE_PRESTA,    $SQL_COL_VENTE_COMMANDE_PRESTA,  $SQL_COL_UO_COMMANDE_PRESTA";
 
+
+function getStyleDateDebutCommandePrestataire( $date1 ) {
+    $format = "";
+    
+    //showAction("getStyleDateCommandePrestataire ( \"$date1\" ) ");
+    
+    if (time() < sqlDateToTime($date1)){
+        $format ="bgcolor='#AAAAFF'";
+    }
+    else  {
+        $format ="bgcolor='#AAFFAA'";
+    }
+
+    return $format;
+}
+
+function getStyleDateFinCommandePrestataire( $date1 ) {
+    $timeDelai = 3600*30;
+    $format = "";
+    
+    //showAction("getStyleDateCommandePrestataire ( \"$date1\" ) ");
+    
+    if (time() < sqlDateToTime($date1)){
+        $format ="bgcolor='#AAFFAA'";
+    }
+    if (  (time()+$timeDelai) > sqlDateToTime($date1)){
+        $format ="bgcolor='#FFAAFF'";
+    }
+    if (time() > sqlDateToTime($date1)  ){
+            $format ="bgcolor='#FFAAAA'";
+    }
+            
+    //showAction(" return getStyleDateCommandePrestataire() : $format ");
+    return $format;
+}
 
 /**
  * computeCout
@@ -84,7 +120,7 @@ function computeUO(){
         $time1 = sqlDateToTime($debut);
         $time2 = sqlDateToTime($fin);
         $duree = ($time2 - $time1)/3600/24;
-        $duree = intval($duree*5/7);
+        $duree = intval($duree*4/7);
         //showSQLAction("times : $time1 -  $time2  ||  $duree");
         return $duree;
     }

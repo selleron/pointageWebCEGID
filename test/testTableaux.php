@@ -7,8 +7,9 @@
     include_once("../header.php");
 	include_once("../sql/member_db.php");// lien croise avec tool_db.php
     include_once("../sql/connection_db.php"); 
-	include_once("../sql/requetes_db.php");
-  	
+    include_once("../sql/requetes_db.php");
+    include_once("../sql/commande_presta_db.php");
+    
 	include_once("../js/form_db.js");   
 	testMember();
 	?>
@@ -117,7 +118,24 @@
 	</div>
 </div>
 
+<br/><br/><br/>
+<?php
 
+$date1 = "2020/01/01";
+$res = $date1;
+$cmd = "\$res = getStyleDateFinCommandePrestataire(\$res);";
+eval("$cmd");
+$dateFormatted = $res; 
+echo("evaluation result : [ $dateFormatted ] <br>");
+
+
+beginTable();
+beginTableRow("",3);
+beginTableCell();    echo"date : "; endTableCell();
+beginTableCell($dateFormatted);    echo" $date1"; endTableCell();
+endTableRow();
+endTable();
+?>
 
 </div> <!-- section -->
 </div> <!-- article -->

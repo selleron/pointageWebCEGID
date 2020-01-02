@@ -260,6 +260,7 @@ function endTableRow(){
 
 /**
  * show end table cell
+ * @param string $cellParam
  */
 function beginTableCell($cellParam=""){
 	echo "<td $cellParam>";
