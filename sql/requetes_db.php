@@ -274,7 +274,7 @@ function actionExecuteRequeteParID($idRequete, $html=""){
 	global $SQL_COL_REQUETES_SQL_REQUEST;
 	global $TABLE_EXPORT_CSV;
 	
-	
+	$subParam="";
 	$request = "SELECT $SQL_COL_REQUETES_ID,  $SQL_COL_REQUETES_SQL_REQUEST
 	FROM `$SQL_TABLE_REQUETES`
 	WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
