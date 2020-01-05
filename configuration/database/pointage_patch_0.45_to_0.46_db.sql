@@ -45,7 +45,7 @@ CREATE TABLE `cegid_commande_prestataire` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Index pour les tables déchargées
+-- Index pour les tables dï¿½chargï¿½es
 --
 
 --
@@ -58,7 +58,7 @@ ALTER TABLE `cegid_commande_prestataire`
   ADD KEY `USER_ID` (`USER_ID`);
 
 --
--- Contraintes pour les tables déchargées
+-- Contraintes pour les tables dï¿½chargï¿½es
 --
 
 --
@@ -79,8 +79,8 @@ ALTER TABLE `cegid_commande_prestataire`
 UPDATE `version` SET `DATE` = now(), `value` = '0.46.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.45_vers_0.46', '101', now(), 'add table commande prestataires', '0.46.0');
 
--- INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.35.2 vers_0.1.39.0', '200', now(), 'table users modif champs', '0.1.39.0');
--- UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.39.0' WHERE `version`.`id` = 'php';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.39.0 vers_0.1.41.11', '200', now(), 'table users modif champs', '0.1.39.0');
+UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.41.11' WHERE `version`.`id` = 'php';
 
 
 COMMIT;
