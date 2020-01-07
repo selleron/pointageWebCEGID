@@ -92,7 +92,7 @@
  	//legend
  	$txt =   "Legende : <br>
  	  - import sur vide                     : couleur bleu <br>
- 	  - import valeur existante differente  : couleur rouge <br>
+ 	  - import valeur existante differente  : couleur rouge [pointage/import]<br>
  	  - import valeur equivalente           : couleur verte <br>
  	  - valeur hors import                  : fond gris <br>"
  	;
