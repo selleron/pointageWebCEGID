@@ -2778,7 +2778,7 @@ function showTableOneDataActionBlock($html, $Resultat, $cpt, $param, $resArray, 
     }
     
     // bouton delete by row
-    if (isset($param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW]) && (PARAM_TABLE_ACTION::param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW] == "yes")) {
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW]) && ($param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW] == "yes")) {
         showMiniFormArray($html, "", "delete", "delete !", $columns, $resArray, $useTD, $infoForm);
     }
     
