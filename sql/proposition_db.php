@@ -72,7 +72,7 @@ function createPrixPropositionAnnee($year){
             }
         }
         else{
-            $prixLocal[$i] = $prixGlobal[i];
+            $prixLocal[$i] = $prixGlobal[$i];
         }
     }
     
