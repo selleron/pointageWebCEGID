@@ -23,6 +23,7 @@ $ID_REQUETE_SQL_UNARCHIVE_DEVIS         = "UNARCHIVE_DEVIS";
 $ID_REQUETE_SQL_USERS                   = "REQUETE_USERS";
 $ID_REQUETE_SQL_ARCHIVE_USERS           = "ARCHIVE_USERS";
 $ID_REQUETE_SQL_UNARCHIVE_USERS         = "UNARCHIVE_USERS";
+$ID_REQUETE_SQL_HISTORIQUE_COUT         = "HISTORIQUE_COUT";
 
 
 //include_once 'connection_db.php';
@@ -43,6 +44,8 @@ include_once (dirname ( __FILE__ ) . "/../js/form_db.js");   // affichage des fo
 function applyGestionCloture() {
     global $TRACE_CLOTURE;
     global $ID_REQUETE_SQL_PRIX_VENTE;
+    global $ID_REQUETE_SQL_HISTORIQUE_COUT;
+    
     $form_name="cloture";    
     $col="";
     $idRequest = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $ID_REQUETE_SQL_PRIX_VENTE);    
@@ -66,8 +69,20 @@ function applyGestionCloture() {
         //historisationCout("");
         $res = clotureYear();
         //$res = editTable2 ( /*$table, $cols, $form_name,*/ $subParam );
-    } else {
+    } 
+    else if (getActionGet () == "historique cout"){
+        showActionVariable("action [ historique cout ] detected", $TRACE_CLOTURE);
+        showDescriptionRequeteCEGID($ID_REQUETE_SQL_HISTORIQUE_COUT);
+        showTableRequeteCEGID( $ID_REQUETE_SQL_HISTORIQUE_COUT );
+        $res=1;
+    }
+    else {
+        if ($request==""){
+            showActionVariable("action [ applyGestionCloture ] detected : request not found for id : $idRequest. use id [$ID_REQUETE_SQL_PRIX_VENTE]", $TRACE_CLOTURE);
+            $request = getRequeteCAByID($ID_REQUETE_SQL_PRIX_VENTE);
+        }
         $res =  applyGestionTable($request, $col, $form_name);
+        //$res = -1;
     }
     return $res;
 }

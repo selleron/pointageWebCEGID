@@ -224,7 +224,16 @@ function exportCSVArray($table, $colsSet, $colsSetExport, $matrice) {
 //function exportCSVTableByGet($table, $colsSet, $colsSetExport, $form_name)
 function exportCSVTableByGet($param) {
     $colsSet="";
-    $table = $param[ PARAM_TABLE_SQL::TABLE_NAME];
+    $table="";
+    if (isset($param[ PARAM_TABLE_SQL::TABLE_NAME_INSERT])) {
+        $table = $param[ PARAM_TABLE_SQL::TABLE_NAME_INSERT];
+    }
+    if (isset($param[ PARAM_TABLE_SQL::TABLE_NAME])) {
+        $table = $param[ PARAM_TABLE_SQL::TABLE_NAME];
+    }
+    if ($table==""){
+        debug_print_backtrace();
+    }
     if (isset($param[ PARAM_TABLE_SQL::COLUMNS_INSERT])) {
         $colsSet = arrayToString($param[ PARAM_TABLE_SQL::COLUMNS_INSERT]);
     }

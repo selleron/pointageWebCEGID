@@ -6,9 +6,10 @@
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/files.php");
+	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
+	showBandeauHeaderPage("Cloture");
 	include_once("../sql/pointage_cegid_db.php");
 	include_once("../sql/ca_previsionel_db.php");
-	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
 	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
 	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
@@ -25,10 +26,7 @@
 
 <div id="contenu">
 
-  	<?PHP 
-	showBandeauHeaderPage("Cloture");
-	?>
-  
+  	
 
 
 <div class="article">
@@ -53,6 +51,8 @@
 	createForm ( $url, $formname );
 	showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $formname);
 	showFormSubmit(LabelAction::ActionExportCSV, LabelAction::ACTION_GET);
+	echoBR();
+	showFormSubmit("historique cout",LabelAction::ACTION_GET);
 	showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
 	showFormSubmit("restore cout",LabelAction::ACTION_GET);
 	endForm();
