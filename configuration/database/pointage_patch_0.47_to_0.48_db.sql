@@ -26,6 +26,11 @@ INSERT INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUE
 
 
 
+ALTER TABLE `cegid_status_evolution` 
+CHANGE `STATUS` `STATUS` VARCHAR(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL;
+
+
+
 --
 -- Declaration Modification
 --
