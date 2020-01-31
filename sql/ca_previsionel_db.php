@@ -150,6 +150,7 @@ function clotureYear(){
     global $SQL_COL_PROJECT_COUT_PROFIL;
     global $SQL_COL_UO_PROJECT_COUT;
     global $SQL_COL_COUT_PROJECT_COUT;
+    global $SQL_COL_COMMENTAIRE_PROJECT_COUT;
     
     $project = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION); 
     $year    = getURLYear();
@@ -185,11 +186,14 @@ function clotureYear(){
         $UO_CONSOMME = mysqlResult($Resultat, $row, "UO_consomme");
         $COUT        = mysqlResult($Resultat, $row, $SQL_COL_COUT_PROJECT_COUT);
         $PROFIL_ID   = mysqlResult($Resultat, $row, $SQL_COL_PROJECT_COUT_PROFIL);
+        $PROFIL_ID   = mysqlResult($Resultat, $row, $SQL_COL_PROJECT_COUT_PROFIL);
+        $COMMENTAIRE = mysqlResult($Resultat, $row, $SQL_COL_COMMENTAIRE_PROJECT_COUT);
+         
         
       
         $requestInsert = "INSERT INTO `cegid_project_cout`";
-        $requestInsert = "$requestInsert        (`DATE`, `PROJECT_ID`,   `PROFIL_ID`,  `UO`,   `COUT`)";
-        $requestInsert = "$requestInsert VALUES ('$year2-01-01', '$PROJECT_ID', '$PROFIL_ID', '$UO_RESTANT', '$COUT')";    
+        $requestInsert = "$requestInsert        (`DATE`, `PROJECT_ID`,   `PROFIL_ID`,  `UO`,   `COUT`, `$SQL_COL_COMMENTAIRE_PROJECT_COUT`)";
+        $requestInsert = "$requestInsert VALUES ('$year2-01-01', '$PROJECT_ID', '$PROFIL_ID', '$UO_RESTANT', '$COUT', \"$COMMENTAIRE\")";    
         showActionVariable($requestInsert, $TRACE_CLOTURE);
         if (mysqlQuery($requestInsert)){     
             $requestUpdate = "UPDATE `cegid_project_cout` ";
