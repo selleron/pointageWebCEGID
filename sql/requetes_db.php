@@ -2,9 +2,8 @@
 //echo "include requetes_db.php<br>";
 $REQUETES_DB_PHP="loaded";
 
-if( ! isset($TOOL_DB_PHP)){
-	include_once("tool_db.php");
-}
+include_once("basic.php");
+include_once("tool_db.php");
 
 $SQL_TABLE_REQUETES="requetes";
 
@@ -191,6 +190,8 @@ function getDescriptionRequeteByID($idRequete, $table=""){
     $othersKeyValue = getArrayRequete($table);
     $sql = replaceVariableURLByGet($sql, $othersKeyValue);
     
+    
+    $sql = repair_accent($sql);
     //retourne la description de la  requete
     return $sql;
 }

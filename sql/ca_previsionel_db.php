@@ -416,7 +416,7 @@ function executeRequeteCEGID($idRequest="", $formname="", $idTable = "") {
     }
      
     
-    showActionVariable("Cegid request : $request", $TRACE_REQUEST_CEGID);
+    showActionVariable("Cegid request [ $idRequest ]: $request", $TRACE_REQUEST_CEGID);
     $Resultat = mysqlQuery($request);
     showSQLError("", $request);
     

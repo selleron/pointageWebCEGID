@@ -358,6 +358,17 @@ function echoBR($count=1){
 }
 
 /**
+ * repair accent pour le html
+ * @param string $txt
+ */
+function repair_accent($txt){
+    $txt = str_replace("Ã©", "é", $txt);
+    $txt = str_replace("Ã´", "ô", $txt);
+    
+    return $txt;
+}
+
+/**
  * echoTD
  *
  * @param string $txt
