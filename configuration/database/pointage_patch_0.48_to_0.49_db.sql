@@ -48,6 +48,59 @@ INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('p
 
 
 
+
+--
+-- Structure de la table `cegid_check_prix_vente_cout`
+--
+
+DROP TABLE IF EXISTS `cegid_check_prix_vente_cout`;
+
+CREATE TABLE `cegid_check_prix_vente_cout` (
+  `CEGID` varchar(10) CHARACTER SET utf8 NOT NULL,
+  `COMMENTAIRE` text CHARACTER SET utf8 NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Explication différence Cout_Vente et Prix Devis';
+
+
+--
+-- Index pour la table `cegid_check_prix_vente_cout`
+--
+ALTER TABLE `cegid_check_prix_vente_cout`
+  ADD PRIMARY KEY (`CEGID`),
+  ADD CONSTRAINT `cegid_check_prix_vente_cout_ibfk_1` FOREIGN KEY (`CEGID`) REFERENCES `cegid_project` (`CEGID`);
+
+
+ UPDATE `cegid_requetes` SET `SQL_REQUEST` = 'SELECT PROJECT_ID, NAME, STATUS, PRIX_VENTE, CA, (PRIX_VENTE - CA) as DIFF, cpvc.COMMENTAIRE\r\nFROM \r\n (${PRIX_VENTE}) pv\r\nLEFT JOIN \r\n cegid_check_prix_vente_cout cpvc ON pv.PROJECT_ID = cpvc.CEGID\r\nWHERE \r\n (PRIX_VENTE - CA)>6 \r\n OR (PRIX_VENTE - CA)<-6 \r\n' WHERE `cegid_requetes`.`ID` = 'CHECK_PRIX_VENTE';
+  
+  
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P17002","Normal : Facturation supplémentaire car quelques travaux en plus sans modification de Devis");
+
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P18902","Normal : CA différent car inclut des report CA demandé par V.B (120 000€ pour toute la TMA 2018)");
+
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P19901","Normal : PRIX Vente après report CA vers P19013 versus Siso 1.9");
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P19903","Normal : PRIX Vente après report CA vers P19013 versus Siso 1.9");
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P19904","Normal : PRIX Vente après report CA vers P19013 versus Siso 1.9");
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P19905","Normal : PRIX Vente après report CA vers P19013 versus Siso 1.9");
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P19906","Normal : PRIX Vente après report CA vers P19013 versus Siso 1.9");
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P19907","Normal : PRIX Vente après report CA vers P19013 versus Siso 1.9");
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P19908","Normal : PRIX Vente après report CA vers P19013 versus Siso 1.9");
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P19909","Normal : PRIX Vente après report CA vers P19013 versus Siso 1.9");
+
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P20905","Normal : CA groupement vs CA possible (gain perte maroc en différence)");
+INSERT INTO `cegid_check_prix_vente_cout`(`CEGID`, `COMMENTAIRE`) VALUES ("P20907","Normal : CA groupement vs CA possible (gain perte maroc en différence)");
+
+
+  
+UPDATE `version` SET `DATE` = now(), `value` = '0.49.2' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.49.1_vers_0.49.2', '101', now(), 'add table cegid_check_prix_vente_cout', '0.49.2');
+
+
+UPDATE `cegid_requetes` SET `SQL_REQUEST` = 'SELECT PROJECT_ID, NAME, STATUS, PRIX_VENTE, CA, (PRIX_VENTE - CA) as DIFF, cpvc.COMMENTAIRE\r\nFROM \r\n (${PRIX_VENTE}) pv\r\nLEFT JOIN \r\n cegid_check_prix_vente_cout cpvc ON pv.PROJECT_ID = cpvc.CEGID\r\nWHERE \r\n ( (PRIX_VENTE - CA)>6 \r\n OR (PRIX_VENTE - CA)<-6 )\r\n AND\r\n (SELECT VISIBLE From cegid_project cp WHERE cp.CEGID = pv.PROJECT_ID) like \"Visible\" \r\n' WHERE `cegid_requetes`.`ID` = 'CHECK_PRIX_VENTE';
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.49.3' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.49.2_vers_0.49.3', '101', now(), 'update check prix vente versus cout', '0.49.3');
+
+
+
 COMMIT;
 
 

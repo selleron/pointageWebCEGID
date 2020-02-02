@@ -689,6 +689,8 @@ function showFormTextElementForVariable($formName = "form", $name, $showType = "
  */
 function showFormAreaElementForVariable($formName = "form", $name, $showType = "yes", $useTD = "yes", $value = "", $type = "", $size = "", $enabledStatus = "", $otherCondition = "")
 {
+    $value = repair_accent($value);
+    
     if ($formName == "") {
         $formName = "form";
     }

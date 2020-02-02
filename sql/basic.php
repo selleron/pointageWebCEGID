@@ -364,6 +364,7 @@ function echoBR($count=1){
 function repair_accent($txt){
     $txt = str_replace("Ã©", "é", $txt);
     $txt = str_replace("Ã´", "ô", $txt);
+    $txt = str_replace("â‚¬", "€", $txt);
     
     return $txt;
 }
