@@ -391,13 +391,14 @@ function showTableRequeteCEGID($idRequest="", $formname="", $idTable = "") {
 }
 
 /**
- * affiche une requete stock�e dans la table des requetes CEGID
+ * Execute une requete stockée dans la table des requetes CEGID
  * @param string $idRequest
  * @param string $formname
  * @param string $idTable
  */
 function executeRequeteCEGID($idRequest="", $formname="", $idTable = "") {
     global $TABLE_EXPORT_CSV;
+    global $TRACE_REQUEST_CEGID;
     $html="";
     
     //recuperation de la requete
@@ -415,6 +416,7 @@ function executeRequeteCEGID($idRequest="", $formname="", $idTable = "") {
     }
      
     
+    showActionVariable("Cegid request : $request", $TRACE_REQUEST_CEGID);
     $Resultat = mysqlQuery($request);
     showSQLError("", $request);
     

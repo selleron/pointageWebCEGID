@@ -152,16 +152,17 @@ echo "
 	<tr>	<td> SHOW_FILE_ACTION	</td>	<td> $SHOW_FILE_ACTION		</td>	<td>trace file action				</td></tr>
 
     <tr></tr>    <tr></tr>
-	<tr>	<td> TRACE_INFO_SQL_PARAM</td> 	<td> $TRACE_INFO_SQL_PARAM			</td>	<td>trace suivi action d'utilisation de param    </td></tr>
-	<tr>	<td> TRACE_INFO_SQL_PARAM</td> 	<td> $TRACE_INFO_SQL_PARAM	       		</td>	<td>trace suivi action get    </td></tr>
-	<tr>	<td> TRACE_INFO_EXPORT</td> 	<td> $TRACE_INFO_EXPORT				</td>	<td>trace generation export    </td></tr>
-	<tr>	<td> TRACE_INFO_IMPORT</td> 	<td> $TRACE_INFO_IMPORT				</td>	<td>trace generation import    </td></tr>
-	<tr>	<td> TRACE_INFO_POINTAGE</td> 	<td> $TRACE_INFO_POINTAGE			</td>	<td>trace info pointage    </td></tr>
-	<tr>	<td> TRACE_INFO_PROJECT </td> 	<td> $TRACE_INFO_PROJECT            </td>	<td>trace project usage    </td></tr>
-	<tr>	<td> TRACE_CLOTURE</td> 	<td> $TRACE_CLOTURE                  </td>	<td>trace cloture operation    </td></tr>
+	<tr>	<td> TRACE_INFO_SQL_PARAM</td> 	    <td> $TRACE_INFO_SQL_PARAM			</td>	<td>trace suivi action d'utilisation de param    </td></tr>
+	<tr>	<td> TRACE_INFO_SQL_PARAM</td> 	    <td> $TRACE_INFO_SQL_PARAM    		</td>	<td>trace suivi action get    </td></tr>
+	<tr>	<td> TRACE_INFO_EXPORT</td> 	    <td> $TRACE_INFO_EXPORT				</td>	<td>trace generation export    </td></tr>
+	<tr>	<td> TRACE_INFO_IMPORT</td> 	    <td> $TRACE_INFO_IMPORT				</td>	<td>trace generation import    </td></tr>
+	<tr>	<td> TRACE_INFO_POINTAGE</td> 	    <td> $TRACE_INFO_POINTAGE			</td>	<td>trace info pointage    </td></tr>
+	<tr>	<td> TRACE_INFO_PROJECT </td>     	<td> $TRACE_INFO_PROJECT            </td>	<td>trace project usage    </td></tr>
+	<tr>	<td> TRACE_REQUEST_CEGID</td> 	    <td> $TRACE_REQUEST_CEGID           </td>	<td>trace request CEGID      </td></tr>
+	<tr>	<td> TRACE_CLOTURE</td> 	        <td> $TRACE_CLOTURE                 </td>	<td>trace cloture operation    </td></tr>
 	<tr>	<td> TRACE_FORM_TABLE_STYLE</td> 	<td> $TRACE_FORM_TABLE_STYLE	    </td>	<td>trace le nom de la variable pour configurer les stypes yes | no    </td></tr>
 	<tr>	<td> TRACE_FORM_FIELD_STYLE </td> 	<td> $TRACE_FORM_FIELD_STYLE	    </td>	<td>trace le nom de la variable (field) pour configurer les stypes yes | no    </td></tr>
-	<tr>	<td> TRACE_NEXT_PREVIOUS</td> 	<td> $TRACE_NEXT_PREVIOUS           </td>	<td>trace les operation sur les boutons next/previous    </td></tr>
+	<tr>	<td> TRACE_NEXT_PREVIOUS</td> 	    <td> $TRACE_NEXT_PREVIOUS           </td>	<td>trace les operation sur les boutons next/previous    </td></tr>
 
     <tr></tr>    <tr></tr>
 	<tr>	<td> SHOW_SQL_EDIT</td> 	<td> $SHOW_SQL_EDIT		      	    </td>	<td>trace ou non les actions SQL edit    </td></tr>

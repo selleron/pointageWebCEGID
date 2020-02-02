@@ -33,10 +33,19 @@ UPDATE `cegid_requetes` SET `SQL_REQUEST` = 'SELECT cpc.ID, cp.DATE, cp.PROJECT_
 --
   
 UPDATE `version` SET `DATE` = now(), `value` = '0.49.0' WHERE `version`.`id` = 'database';
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.47_vers_0.49', '101', now(), 'bug cloture', '0.48.0');
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.48_vers_0.49', '101', now(), 'bug cloture', '0.49.0');
 
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.42.0 vers_0.1.42.01', '200', now(), 'bug cloture', '0.1.42.1');
 UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.42.01' WHERE `version`.`id` = 'php';
+
+
+
+UPDATE `cegid_requetes` SET `SQL_REQUEST` = 'UPDATE `cegid_devis_project` \r\nSET `VISIBLE`=\'Archive\' \r\nWHERE \r\n STATUS_DEVIS LIKE \'Annule\' \r\n OR STATUS_DEVIS LIKE \'Clos\' \r\n OR STATUS_DEVIS LIKE \'Non repondu\' \r\n OR STATUS_DEVIS LIKE \'Refuse\' \r\n OR STATUS_COMMANDE LIKE \'Annule\'\r\n OR CEGID IN (SELECT CEGID FROM cegid_project WHERE VISIBLE like \'Archive\')' WHERE `cegid_requetes`.`ID` = 'ARCHIVE_DEVIS';
+
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.49.1' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.49.0_vers_0.49.1', '101', now(), 'update request cegid archive devis', '0.49.1');
+
 
 
 COMMIT;
