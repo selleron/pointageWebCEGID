@@ -4,6 +4,7 @@ class LabelAction {
     const ActionEdit = "edit";
     const ActionUpdate = "update";
     const ActionInsert = "insert";
+    const ActionInserer = "inserer";
     const ActionImport = "import";
     const ActionSelect = "select";
     const ActionTruncate = "truncate";
