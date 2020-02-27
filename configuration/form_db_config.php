@@ -43,7 +43,7 @@ $ALIGN_RIGHT = "style=\"text-align:right;\"";
 $NUMBER_NEGATIF_ROUGE = "if (\$res<0){\$format =\"bgcolor='#FFAAAA'\";}else{\$format=\"\";} ";
 
 //$FORM_STYLE["<formulaire>"]["<variable>"]["FORMAT"] = "valeur $FORMAT_XXX";
-$FORMAT_UO     = "\$res=numberFormat(\$res,1,'.','');";
+$FORMAT_UO     = "\$res=numberFormat(\$res,2,'.','');";
 $FORMAT_CA     = "\$res=numberFormat(\$res,0,'.',' ');";
 $FORMAT_TARIF  = "\$res=numberFormat(\$res,2,'.',' ');";
 
