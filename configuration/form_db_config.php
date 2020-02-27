@@ -118,6 +118,8 @@ $FORM_VALUE_INSERT ["form_table_cegid_user_update"]["ARRIVEE"]["TYPE"]="string_n
 $FORM_VALUE_INSERT ["form_table_cegid_user_insert"]["ARRIVEE"]["TYPE"]="string_null";
 
 
+
+
 $FORM_STYLE["form_table_cegid_user_insert"]["GROUPE"]["CB_COMPLETION"]="yes";
 $FORM_STYLE["form_table_cegid_user_update"]["GROUPE"]["CB_COMPLETION"]="yes";
 $FORM_STYLE["form_table_cegid_user_insert"]["GROUPE"]["CB_NO_SELECTION"]="yes";

@@ -156,6 +156,7 @@ function applyGestionCommandePrestataire() {
 
     $action = getActionGet();
     $groupe = getURLVariable("GROUPE");
+    //showAction("action : $action");
     showAction("action groupe : $groupe");
     
     if ($action == LabelAction::ActionImport  ){
@@ -163,13 +164,14 @@ function applyGestionCommandePrestataire() {
         //showAction("action import : $action");
     }
     
-    if ($action == LabelAction::ActionInsert || $action == LabelAction::ActionUpdate  ){
+    if ($action == LabelAction::ActionInserer || $action == LabelAction::ActionInsert || $action == LabelAction::ActionUpdate  ){
         //on force le recalcul du cout
         $vente = getURLVariable($SQL_COL_ACHAT_COMMANDE_PRESTA);
         $uo = computeUO();      
         $cout = computeCout($vente, $uo);
         setURLVariable($SQL_COL_COUT_COMMANDE_PRESTA, $cout);
         setURLVariable($SQL_COL_UO_COMMANDE_PRESTA, $uo);
+        //showTracePOST();
     }
 
     if ($action == LabelAction::ActionUpdate ){
