@@ -197,7 +197,8 @@ function applyGestionCommandePrestataire() {
         $res = editTable2($param);
     }
     
-     if ($action == LabelAction::ActionExportCSV || $action == LabelAction::ActionExport2){
+    if ($action == LabelAction::ActionExportCSV || $action == LabelAction::ActionExport2|| $action == LabelAction::ActionExport3){
+         //showSQLAction("commande prestataire : $action export ...");
          $condition = createConditionCommandePrestataire();
          $col = $SQL_SHOW_UPDATE_COMMANDE_USER;
          $colFilter = $SQL_SELECT_UPDATE_COMMANDE_USER;
@@ -283,6 +284,11 @@ function showTableCommandePresta( $conditionVisible="") {
     showActionVariable( $req, $TRACE_INFO_PROJECT );
     //end trace
     
+ //   //export complexe
+ //   $param[PARAM_TABLE_COMMAND::EXPORT_COLUMNS]=getParamColumns($param);
+ //   $param[PARAM_TABLE_ACTION::TABLE_UPDATE] = "yes";
+    
+    //show table
     showTableByParam($param);
 }
 

@@ -9,8 +9,9 @@ class LabelAction {
     const ActionSelect = "select";
     const ActionTruncate = "truncate";
     const ActionExport = "export!!!";
-	const ActionExport2 = "exportCSVSelect";
-	const ActionExportCSV = "exportCSV";
+    const ActionExport2 = "exportCSVSelect";
+    const ActionExport3 = "export CSV";
+    const ActionExportCSV = "exportCSV";
 	const ACTION_NEXT = "next >>";
 	const ACTION_PREVIOUS = "<< previous";
 	const ACTION_SYNCHRONIZE = "synchroniser";
