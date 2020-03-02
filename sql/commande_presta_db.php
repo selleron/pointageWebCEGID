@@ -57,17 +57,22 @@ function getStyleDateDebutCommandePrestataire( $date1 ) {
 }
 
 function getStyleDateFinCommandePrestataire( $date1 ) {
-    $timeDelai = 3600*30;
+    $timeDelai = 3600*24*30;
     $format = "";
     
     //showAction("getStyleDateCommandePrestataire ( \"$date1\" ) ");
     
+    //vert
     if (time() < sqlDateToTime($date1)){
         $format ="bgcolor='#AAFFAA'";
     }
+    
+    //orange : date proche : inf un mois
     if (  (time()+$timeDelai) > sqlDateToTime($date1)){
-        $format ="bgcolor='#FFAAFF'";
+        $format ="bgcolor='#FFDDAA'";
     }
+    
+    //rouge : date depassee
     if (time() > sqlDateToTime($date1)  ){
             $format ="bgcolor='#FFAAAA'";
     }
