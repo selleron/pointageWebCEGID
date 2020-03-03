@@ -12,7 +12,8 @@ class LabelAction {
     const ActionExport2 = "exportCSVSelect";
     const ActionExport3 = "export CSV";
     const ActionExportCSV = "exportCSV";
-	const ACTION_NEXT = "next >>";
+    const ActionDuplicate = "duplicate";
+    const ACTION_NEXT = "next >>";
 	const ACTION_PREVIOUS = "<< previous";
 	const ACTION_SYNCHRONIZE = "synchroniser";
     const ACTION_POINTAGE = "pointage";

@@ -2902,8 +2902,12 @@ function editTableOneData($html, $Resultat, $cpt, $param, $idTable = "")
     echo "$infoform";
     
     // bouton action
-    showFormAction("update");
-    showFormSubmit("update");
+    //showFormAction("update");
+    //showFormSubmit("update");
+    showFormSubmit(LabelAction::ActionUpdate, LabelAction::ACTION_GET);
+    if (isset($param[PARAM_TABLE_ACTION::TABLE_DUPLICATE]) &&  $param[PARAM_TABLE_ACTION::TABLE_DUPLICATE]== "yes"){
+        showFormSubmit(LabelAction::ActionDuplicate, LabelAction::ACTION_GET);
+    }
     echo "</td></tr>";
     endForm();
 }

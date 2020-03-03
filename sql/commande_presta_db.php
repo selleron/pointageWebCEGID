@@ -169,7 +169,8 @@ function applyGestionCommandePrestataire() {
         //showAction("action import : $action");
     }
     
-    if ($action == LabelAction::ActionInserer || $action == LabelAction::ActionInsert || $action == LabelAction::ActionUpdate  ){
+    if ($action == LabelAction::ActionInserer || $action == LabelAction::ActionInsert || 
+        $action == LabelAction::ActionUpdate  || $action == LabelAction::ActionDuplicate ){
         //on force le recalcul du cout
         $vente = getURLVariable($SQL_COL_ACHAT_COMMANDE_PRESTA);
         $uo = computeUO();      
@@ -179,17 +180,37 @@ function applyGestionCommandePrestataire() {
         //showTracePOST();
     }
 
-    if ($action == LabelAction::ActionUpdate ){
+    if ($action == LabelAction::ActionUpdate || $action == LabelAction::ActionDuplicate  ){
         //update
         //showSQLAction("commande prestataire : $action update ...");
         $param = createDefaultParamSql($table, $col, $condition);
         $param = updateTableParamSql ( $param, $form_name, $colFilter );
         $param = updateTableParamType ( $param, $table, $col, $form_name );
-        updateTableByGet($param, "no");
+        
+        
+        if ($action == LabelAction::ActionUpdate ){
+            updateTableByGet($param, "no");
+        }
+        else if ($action == LabelAction::ActionDuplicate ){
+            insertInTable($param);
+            
+            
+            //force le reload sur le nouvel ID
+            global $SQL_COL_ID_COMMANDE_PRESTA;
+            global $ID_TABLE_GET;
+            
+            $idTable = getURLVariable($SQL_COL_ID_COMMANDE_PRESTA);
+            if (isset($idTable)){
+                setURLVariable($ID_TABLE_GET, $idTable);
+            }
+        }
+        
+        
         //on doit fait l'edit apres
     }
         
-    if ($action == LabelAction::ActionUpdate ||  $action == LabelAction::ActionEdit ){
+    if ($action == LabelAction::ActionUpdate ||  $action == LabelAction::ActionEdit || 
+        $action == LabelAction::ActionDuplicate ){
             //edit & reedit
         //showSQLAction("commande prestataire : $action edit ...");
         $table = $SQL_TABLE_COMMANDE_PRESTA2;
@@ -199,6 +220,10 @@ function applyGestionCommandePrestataire() {
         $param = createDefaultParamSql($table, $col, $condition);
         $param = updateTableParamSql ( $param, $form_name, $colFilter );
         $param = updateTableParamType ( $param, $table, $col, $form_name );
+        
+        //ajout bouton duplicate en plus de update
+        $param [PARAM_TABLE_ACTION::TABLE_DUPLICATE] = "yes";
+        
         $res = editTable2($param);
     }
     
