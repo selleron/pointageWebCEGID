@@ -56,11 +56,11 @@
 
 	echo "<p>";
 	$conditionVisible="";
-	if (blockCondition("only_commande_visible", "only commande visible [<value>]<br/>")){
+	if (blockCondition("only_commande_visible", " [<value>] only commande visible<br/>")){
 	    $conditionVisible = $CONDITION_FROM_CEGID_COMMANDE;
 	}
 	
-	if (blockCondition("only_user_actif", "only active user [<value>]<br/>")){
+	if (blockCondition("only_user_actif", " [<value>] only active user <br/>")){
 	    if ($conditionVisible==""){
 	        //nothing to do
 	    }
@@ -70,7 +70,7 @@
 	    $conditionVisible = $conditionVisible.$CONDITION_USER_FROM_CEGID_COMMANDE;
 	}
 	
-	if (blockCondition("only_cmd_active", "only active commande [<value>]<br/>")){
+	if (blockCondition("only_cmd_active", " [<value>] only active commande <br/>")){
 	    if ($conditionVisible==""){
 	        //nothing to do
 	    }
