@@ -114,6 +114,9 @@ function computeUO(){
     global $SQL_COL_FIN_COMMANDE_PRESTA;
     $uo = getURLVariable($SQL_COL_UO_COMMANDE_PRESTA);
     
+    //$in = is_numeric($uo);
+    //showSQLAction("UO found : $uo - is numeric : $in ");
+    
     if (is_numeric($uo)){
         if ($uo>0) return $uo;
     }

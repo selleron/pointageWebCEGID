@@ -557,9 +557,9 @@ function showFormDateElementForVariable($formName = "form", $DATE_GET,
 	}
 	
 	echo "
-	<input $statusEdit type=\"text\" name=\"$DATE_GET\" value=\"$date\" size=\"$size\" onclick=\"ds_sh(this);\" >
+	<input $statusEdit type=\"text\" name=\"$DATE_GET\" value=\"$date\" size=\"$size\" ondblclick=\"ds_sh(this);\" >
 	<img id=\"calendar\" title=\"calendar\" border=\"0\" src=\"$URL_IMAGES/calendrier.png\"
-	onclick=\"ds_sh(document.$formName.$DATE_GET);\"/>";
+	ondblclick=\"ds_sh(document.$formName.$DATE_GET);\"/>";
 	
 	if ($useTD == "yes") {
 		echo "</td>";
