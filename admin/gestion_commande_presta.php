@@ -53,13 +53,14 @@
 	LabelAction::ActionExportCSV  /*export*/,
 	"yes"/*user*/, "no"/*previous*/, "no"/*next*/);
 	echo"<br/></p>";
-	
+
+	echo "<p>";
 	$conditionVisible="";
-	if (blockCondition("only_commande_visible", "<h4>only commande visible [<value>]</h4>")){
+	if (blockCondition("only_commande_visible", "only commande visible [<value>]<br/>")){
 	    $conditionVisible = $CONDITION_FROM_CEGID_COMMANDE;
 	}
 	
-	if (blockCondition("only_user_actif", "<h4>only active user [<value>]</h4>")){
+	if (blockCondition("only_user_actif", "only active user [<value>]<br/>")){
 	    if ($conditionVisible==""){
 	        //nothing to do
 	    }
@@ -69,7 +70,7 @@
 	    $conditionVisible = $conditionVisible.$CONDITION_USER_FROM_CEGID_COMMANDE;
 	}
 	
-	if (blockCondition("only_cmd_active", "<h4>only active commande [<value>]</h4>")){
+	if (blockCondition("only_cmd_active", "only active commande [<value>]<br/>")){
 	    if ($conditionVisible==""){
 	        //nothing to do
 	    }
@@ -78,6 +79,7 @@
 	    }
 	    $conditionVisible = $conditionVisible.$CONDITION_CMD_FROM_CEGID_COMMANDE;
 	}
+	echo "<br/></p>";
 	
 	
 	applyGestionCommandePrestataire();
