@@ -39,6 +39,8 @@
 	showTracePOST();
 	
 	global $CONDITION_FROM_CEGID_COMMANDE;
+	global $CONDITION_USER_FROM_CEGID_COMMANDE;
+	global $CONDITION_CMD_FROM_CEGID_COMMANDE;
 	//$exec = applyNextPreviousSelectPointage();
 	//synchoTableIdProject();
 	
@@ -55,6 +57,26 @@
 	$conditionVisible="";
 	if (blockCondition("only_commande_visible", "<h4>only commande visible [<value>]</h4>")){
 	    $conditionVisible = $CONDITION_FROM_CEGID_COMMANDE;
+	}
+	
+	if (blockCondition("only_user_actif", "<h4>only active user [<value>]</h4>")){
+	    if ($conditionVisible==""){
+	        //nothing to do
+	    }
+	    else{
+	        $conditionVisible = $conditionVisible.' AND ';
+	    }
+	    $conditionVisible = $conditionVisible.$CONDITION_USER_FROM_CEGID_COMMANDE;
+	}
+	
+	if (blockCondition("only_cmd_active", "<h4>only active commande [<value>]</h4>")){
+	    if ($conditionVisible==""){
+	        //nothing to do
+	    }
+	    else{
+	        $conditionVisible = $conditionVisible.' AND ';
+	    }
+	    $conditionVisible = $conditionVisible.$CONDITION_CMD_FROM_CEGID_COMMANDE;
 	}
 	
 	
