@@ -4,6 +4,7 @@ $TABLE_DB_PHP = "loaded";
 include_once 'connection_db.php';
 include_once 'tool_db.php';
 include_once '../configuration/labelAction.php';
+include_once 'files.php';
 
 
 
@@ -248,7 +249,9 @@ function exportCSVTableByGet($param) {
     }
     $form_name = $param[ PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT];
     
-        if ((getActionGet () == "export CSV") || (getActionGet () == "exportCSV")) {
+    if ((getActionGet () == LabelAction::ActionExport3        /*"export CSV")*/) || 
+        (getActionGet () == LabelAction::ActionExportCSV      /*"exportCSV"*/) || 
+        (getActionGet () == LabelAction::ActionExport)        /*"export!!!"*/) {
 	    global $TRACE_INFO_EXPORT;
 	    //debug_print_backtrace();
 		// trace

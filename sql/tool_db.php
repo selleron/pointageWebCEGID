@@ -322,6 +322,21 @@ function getActionGet()
 }
 
 /**
+ * setActionGet
+ * retourne l'ancienne valeur
+ * @param string $value : new value
+ * @return string  : old value;
+ */
+function setActionGet($value)
+{
+    global $ACTION_GET;
+    $old =  getURLVariable("$ACTION_GET");
+    setURLVariable($ACTION_GET, $value);
+    
+    return $old;
+}
+
+/**
  * getAnneeCalendrierGet
  * retourne le calendrier a consulter
  * par defaut 2013

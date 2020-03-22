@@ -4,6 +4,7 @@ $REQUETES_DB_PHP="loaded";
 
 include_once("basic.php");
 include_once("tool_db.php");
+include_once("table_db.php");
 include_once("../configuration/labelAction.php");
 
 $SQL_TABLE_REQUETES="requetes";
@@ -32,7 +33,10 @@ function actionRequete( $html=""){
 			//actionExecScriptRequest($html);
 		}
 		else if(isset($_POST['saveRequestExecute'])){
-			actionSauverRequest($html);
+		    actionSauverRequest($html);
+		}
+		else if(isset($_POST[LabelAction::ActionExport])){
+		    actionExportRequest($html);
 		}
 	}
 	else if ($action=="editRequest"){
@@ -63,42 +67,49 @@ function actionRequete( $html=""){
 
 /**
  * actionTestRequest
+ *  exec request
+ *     +
+ *  show request parameters
  * @param string $html
  */
 function actionTestRequest($html=""){
-	global $SQL_COL_REQUETES_SQL_REQUEST;
-	global $SQL_COL_REQUETES_NAME;
-	global $SQL_COL_REQUETES_DESCRIPTION;
-	global $SQL_TABLE_REQUETES;
-	global $SQL_COL_REQUETES_PARAM_AEREA;
-	
-	//recuperation des parametres
-	$idRequete = getDocumentName();
-	$name = getURLVariable("$SQL_COL_REQUETES_NAME");
-	$description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
-	$sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
-	$paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
-	
-	//fait les remplacement ${XXX} pr le getURL(XXX)
-	$othersKeyValue = getArrayRequete($SQL_TABLE_REQUETES);
-	$sqlTxt2 = replaceVariableURLByGet($sqlTxt, $othersKeyValue);
-	
-		
-	//execute la requete
-	showSQLAction($sqlTxt2);
+    //execute request
+    $sqlTxt2 = getSqlTestRequest($html);
 	actionRequeteSql($sqlTxt2);
 	
-	echo"<br><br>";
+    echo"<br>";
 	
-	//reaffiche l'edition
-	showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
+	actionshowFormulaireEditRequete($html);
 }
 
 /**
- * actionExecScriptRequest
+ * actionshowFormulaireEditRequete
+ * affiche les parametre de la requete
  * @param string $html
  */
-function actionExecScriptRequest($html=""){
+function actionshowFormulaireEditRequete($html=""){
+    //reaffiche l'edition
+    global $SQL_COL_REQUETES_SQL_REQUEST;
+    global $SQL_COL_REQUETES_NAME;
+    global $SQL_COL_REQUETES_DESCRIPTION;
+    global $SQL_TABLE_REQUETES;
+    global $SQL_COL_REQUETES_PARAM_AEREA;
+    //recuperation des parametres
+    $idRequete = getDocumentName();
+    $name = getURLVariable("$SQL_COL_REQUETES_NAME");
+    $description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
+    $sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
+    $paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
+    showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
+}
+
+/**
+ * getSqlTestRequest
+ * retourne la requet a executer avec les subtitutions faites 
+ * @param string $html
+ * @return $txt
+ */
+function getSqlTestRequest($html=""){
     global $SQL_COL_REQUETES_SQL_REQUEST;
     global $SQL_COL_REQUETES_NAME;
     global $SQL_COL_REQUETES_DESCRIPTION;
@@ -117,17 +128,70 @@ function actionExecScriptRequest($html=""){
     $sqlTxt2 = replaceVariableURLByGet($sqlTxt, $othersKeyValue);
     
     
-    //execute la requete
-    showSQLAction($sqlTxt2);
-    $stmt = mysqlPrepare($sqlTxt2);
-    mysqlExecute($stmt);
-    showSQLError("requetes_db.actionExecScriptRequest() cette methode ne fonctionne pas<br>.", $request);
+    //global $TRACE_INFO_GESTION_REQUEST;
+    //showActionVariable("getSqlTestRequest() : ".$sqlTxt2, $TRACE_INFO_GESTION_REQUEST);
     
-    echo"<br><br>";
-    
-    //reaffiche l'edition
-    showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
+    return $sqlTxt2;
 }
+
+/**
+ * actionExportRequest
+ * @param string $html can be empty
+ */
+function actionExportRequest($html=""){
+    //showSQLAction("actionExportRequest()");
+    
+    //preparation requete export
+    $form_name = getDocumentName();
+    $sqlTxt2 = getSqlTestRequest($html);
+    $param = createDefaultParamSql ( $sqlTxt2 );
+    $param = updateTableParamSql ( $param, $form_name );
+    $oldValue = setActionGet(LabelAction::ActionExport);
+    
+    //execute request
+    exportCSVTableByGet($param);
+    
+    
+    //affichage request
+    actionTestRequest($html);
+}
+
+
+
+// /**
+//  * actionExecScriptRequest
+//  * @param string $html
+//  */
+// function actionExecScriptRequest($html=""){
+//     global $SQL_COL_REQUETES_SQL_REQUEST;
+//     global $SQL_COL_REQUETES_NAME;
+//     global $SQL_COL_REQUETES_DESCRIPTION;
+//     global $SQL_TABLE_REQUETES;
+//     global $SQL_COL_REQUETES_PARAM_AEREA;
+    
+//     //recuperation des parametres
+//     $idRequete = getDocumentName();
+//     $name = getURLVariable("$SQL_COL_REQUETES_NAME");
+//     $description = getURLVariable("$SQL_COL_REQUETES_DESCRIPTION");
+//     $sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
+//     $paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
+    
+//     //fait les remplacement ${XXX} pr le getURL(XXX)
+//     $othersKeyValue = getArrayRequete($SQL_TABLE_REQUETES);
+//     $sqlTxt2 = replaceVariableURLByGet($sqlTxt, $othersKeyValue);
+    
+    
+//     //execute la requete
+//     showSQLAction($sqlTxt2);
+//     $stmt = mysqlPrepare($sqlTxt2);
+//     mysqlExecute($stmt);
+//     showSQLError("requetes_db.actionExecScriptRequest() cette methode ne fonctionne pas<br>.", $request);
+    
+//     echo"<br><br>";
+    
+//     //reaffiche l'edition
+//     showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
+// }
 
 
 
@@ -319,7 +383,7 @@ function actionExecuteRequeteParID($idRequete, $html=""){
  * @return String[]     sql param
  */
 
-function actionRequeteSql($request, $html="", $subParam="", $closeTable=""){
+function actionRequeteSql($request, $html="", $subParam="", $closeTable="yes"){
 	//construction parameters
 	$param = createDefaultParamSql();
 	$param = updateParamSqlWithOrder($param);
@@ -487,6 +551,7 @@ function showFormulaireRequeteByName($idRequete, $name, $visible, $html=""){
 
 /**
  * showFormulaireEditRequete
+ *  [execution] [sauvegarde] [export]
  * @param string $idRequete 
  * @param string $name
  * @param string $description
@@ -553,14 +618,20 @@ function showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $ht
 	</tr>
 	";
 	
-	echo "
-	<tr>
-	<td></td>
-	<td>	
-		<input type=\"submit\"  name=\"testRequestExecute\" value=\"execute\" > 
-		<input type=\"submit\"  name=\"saveRequestExecute\" value=\"sauver\" > 
-	</td>
-	</tr>";
+    //les actions	
+	beginTableRow();
+	beginTableCell();
+	endTableCell();
+	beginTableCell();
+	showFormSubmit("execute" , "testRequestExecute");
+	echoSpace(1);
+	showFormSubmit("sauver"  , "saveRequestExecute");
+	echoSpace(2);
+	showFormSubmit(LabelAction::ActionExport  , LabelAction::ActionExport);
+	endTableCell();
+	endTableRow();
+	
+	//fin du formulaire
 	showFormIDElement();
 	showFormAction("testRequest");
 	echo"</form>";

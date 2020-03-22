@@ -145,6 +145,12 @@ function showMiniFormArray($url, $formname, $action, $txt, $arrayKeys, $arrayVal
 		echo "</td>";
 	}
 }
+/**
+ * showFormTxt
+ * 
+ * @param string $name
+ * @param string $value
+ */
 function showFormTxt($name, $value) {
 	echo "	$name <input type=\"text\" name=\"$name\" value=\"$value\"  \"/>";
 }
@@ -153,9 +159,9 @@ function showFormTxt($name, $value) {
 /**
  * show submit button
  * 
- * @param string $txt button name
- * @param string $action 
- * @param string $inputParameters
+ * @param string $txt button name   ( submit value )
+ * @param string $action            ( submit name  )
+ * @param string $inputParameters - html parameter  ( submit other parameters)
  */
 function showFormSubmit($txt, $action = "", $inputParameters = "") {
 	echo "<input type=\"submit\" ";
