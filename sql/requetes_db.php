@@ -4,15 +4,16 @@ $REQUETES_DB_PHP="loaded";
 
 include_once("basic.php");
 include_once("tool_db.php");
+include_once("../configuration/labelAction.php");
 
 $SQL_TABLE_REQUETES="requetes";
 
 $SQL_COL_REQUETES_ID="ID";
 $SQL_COL_REQUETES_NAME="NAME";
+$SQL_COL_REQUETES_VISIBLE="VISIBLE";
 $SQL_COL_REQUETES_DESCRIPTION="DESCRIPTION";
 $SQL_COL_REQUETES_SQL_REQUEST="SQL_REQUEST";
 $SQL_COL_REQUETES_PARAM_AEREA="REQUEST_PARAM";
-
 
 
 function actionRequete( $html=""){
@@ -41,8 +42,16 @@ function actionRequete( $html=""){
 		actionEditRequeteParID($idRequete, $html);
 	}
 	else if ($action=="deleteRequest"){
-		$idRequete = getDocumentName();
-		actionDeleteRequeteParID($idRequete, $html);
+	    $idRequete = getDocumentName();
+	    actionDeleteRequeteParID($idRequete, $html);
+	}
+	else if ($action==LabelAction::ActionArchive){
+	    $idRequete = getDocumentName();
+	    actionArchiveRequeteParID($idRequete, $html);
+	}
+	else if ($action==LabelAction::ActionVisible){
+	    $idRequete = getDocumentName();
+	    actionVisibleRequeteParID($idRequete, $html);
 	}
 	else if ($action==""){
 		//nothing to do
@@ -345,20 +354,27 @@ function actionRequeteSql($request, $html="", $subParam="", $closeTable=""){
  * une requete Sql est executée
  * @param String $idRequete  sql id de la table requetes : peut etre à ""
  * @param String URL $html : peut etre a "" 
- */
-function showFormulaireRequete($idRequete="", $html=""){
+ * @param string $requestCondition : autre condition par exemple pour la visibilité
+*/
+function showFormulaireRequete($idRequete="", $html="", $requestCondition=""){
 	global $SQL_TABLE_REQUETES;
 	global $SQL_COL_REQUETES_ID;
+	global $SQL_COL_REQUETES_VISIBLE;
 	global $SQL_COL_REQUETES_NAME;
+	global $TRACE_INFO_GESTION_REQUEST;
 	
 	
-	$request = "SELECT $SQL_COL_REQUETES_ID, $SQL_COL_REQUETES_NAME 
-	FROM `$SQL_TABLE_REQUETES`";
+	$request = "SELECT $SQL_COL_REQUETES_ID, $SQL_COL_REQUETES_NAME, $SQL_COL_REQUETES_VISIBLE 
+	FROM `$SQL_TABLE_REQUETES` WHERE 1 ";
 
 	if ($idRequete){
-		$request = $request."WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
+	    $request = $request." AND `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
+	}
+	if ($requestCondition){
+	    $request = $request." AND $requestCondition ";
 	}
 	//showSQLAction($request);
+	showActionVariable($request, $TRACE_INFO_GESTION_REQUEST);
 	$Resultat = mysqlQuery($request);
 	showSQLError("", $request);
 
@@ -369,7 +385,8 @@ function showFormulaireRequete($idRequete="", $html=""){
 	for ($Compteur=0 ; $Compteur<$num ; $Compteur++){
 		$id = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_ID);
 		$name = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_NAME);
-		showFormulaireRequeteByName($id, $name, $html);
+		$visible = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_VISIBLE);
+		showFormulaireRequeteByName($id, $name, $visible, $html);
 	}
 	//if ($num>1){
 		echo "</table>";
@@ -384,15 +401,17 @@ function showFormulaireRequete($idRequete="", $html=""){
  * @param string $name
  * @param string url $html   peut etre ""
  */
-function showFormulaireRequeteByName($idRequete, $name, $html=""){
+function showFormulaireRequeteByName($idRequete, $name, $visible, $html=""){
 	if (!isset($html) || $html==""){
 		$html=getCurrentPageName();
 	}
 	
 	echo"<tr>";
+	
 	//execute
 	echo "
 		<form method=\"get\" action=\"$html\">
+        <!-- id : $idRequete -->
 		<td>[$name]</td>";
 	showFormAction("executeRequest");
 	showFormIDElement();
@@ -402,6 +421,7 @@ function showFormulaireRequeteByName($idRequete, $name, $html=""){
 		<input type=\"submit\"  value=\"execute\" >
   		</td>
 		</form>";
+	
 	//edit
 	echo "
 		<form method=\"get\" action=\"$html\">";
@@ -413,6 +433,7 @@ function showFormulaireRequeteByName($idRequete, $name, $html=""){
 		<input type=\"submit\"  value=\"editer\" >
   		</td>
 		</form>";
+
 	//delete
 	echo "
 		<form method=\"get\" action=\"$html\">";
@@ -424,6 +445,42 @@ function showFormulaireRequeteByName($idRequete, $name, $html=""){
 		<input type=\"submit\"  value=\"supprimer\" >
   		</td>
 		</form>";
+
+	global $CONDITION_VALUE_VISIBLE;
+	global $CONDITION_VALUE_ARCHIVE;
+	
+	if ($visible == "$CONDITION_VALUE_VISIBLE"){
+	    //delete
+	    echo "
+		<form method=\"get\" action=\"$html\">";
+	    showFormAction(LabelAction::ActionArchive);
+	    showFormIDElement();
+	    showFormDocumentElementValue($idRequete);
+	    echo"
+		<td></td><td></td><td></td>
+		<td>
+		<input type=\"submit\"  value=\"".LabelAction::ActionArchive."\" >
+  		</td>
+		</form>";
+	}
+	
+	if ($visible == "$CONDITION_VALUE_ARCHIVE"){
+	    //delete
+	    echo "
+        <td></td><td></td>
+		<form method=\"get\" action=\"$html\">";
+	    showFormAction(LabelAction::ActionVisible);
+	    showFormIDElement();
+	    showFormDocumentElementValue($idRequete);
+	    echo"
+		<td>
+		<input type=\"submit\"  value=\"".LabelAction::ActionVisible."\" >
+  		</td>
+		</form>";
+	}
+	
+	
+	//fin de ligne
 	echo"</tr>";
 }
 
@@ -572,6 +629,57 @@ function actionDeleteRequeteParID($idRequete, $html=""){
 	//showSQLAction($request);
 	$Resultat = mysqlQuery($request);
 	showSQLError("", $request);
+}
+
+/**
+ * actionArchiveRequeteParID
+ * @param string $idRequete
+ * @param string $html can be ""
+ */
+function actionArchiveRequeteParID($idRequete, $html=""){
+    global $SQL_TABLE_REQUETES;
+    global $SQL_COL_REQUETES_ID;
+    global $SQL_COL_REQUETES_VISIBLE;
+    global $CONDITION_VALUE_ARCHIVE;
+    global $TRACE_INFO_GESTION_REQUEST;
+    
+    
+    if ($idRequete== ""){
+        showFormulairshowFormulaireEditRequete("", "<le nom>", "<la description>", "<la requete sql>", $html);
+        return;
+    }
+       
+    $request = "UPDATE 	`$SQL_TABLE_REQUETES` SET $SQL_COL_REQUETES_VISIBLE = '$CONDITION_VALUE_ARCHIVE' WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
+    showActionVariable($request, $TRACE_INFO_GESTION_REQUEST );
+    $Resultat = mysqlQuery($request);
+    showSQLError("", $request);
+}
+
+/**
+ * actionVisibleRequeteParID
+ * @param string $idRequete
+ * @param string $html can be ""
+ */
+function actionVisibleRequeteParID($idRequete, $html=""){
+    global $SQL_TABLE_REQUETES;
+    global $SQL_COL_REQUETES_ID;
+    global $SQL_COL_REQUETES_VISIBLE;
+    global $CONDITION_VALUE_VISIBLE;
+    global $TRACE_INFO_GESTION_REQUEST;
+    
+    
+    if ($idRequete== ""){
+        showFormulairshowFormulaireEditRequete("", "<le nom>", "<la description>", "<la requete sql>", $html);
+        return;
+    }
+    
+    $request = "UPDATE 	`$SQL_TABLE_REQUETES` SET $SQL_COL_REQUETES_VISIBLE = '$CONDITION_VALUE_VISIBLE' WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
+    showActionVariable($request, $TRACE_INFO_GESTION_REQUEST );
+    $Resultat = mysqlQuery($request);
+    showSQLError("", $request);
+    
+    actionEditRequeteParID($idRequete);
+    
 }
 
 

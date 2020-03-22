@@ -14,14 +14,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Table Requests</h1>
+  <h1>Serveur Web Pointage : Gestion Requêtes Génériques</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("To delete - Tests Table Requests");
+	showBandeauHeaderPage("Gestion Table Requêtes Géneriques");
 	?>
   
 
@@ -32,12 +32,21 @@
 
 <?php
     showTracePOST();
+
+    global $CONDITION_FROM_CEGID_NO_ARCHIVE;
+    if (blockCondition("only_requetes_visible", "<h4>only requetes visible [<value>]</h4>")){
+        $CONDITION_REQUEST = $CONDITION_FROM_CEGID_NO_ARCHIVE;
+    }
+    else{
+        $CONDITION_REQUEST="";
+    }
+    
     
     echo "<br/>";
 	actionRequete();
 	echo "<br/><br/><br/>";
 	echo "<p>Requetes enregistr&eacute;es : <br/></p>";
-	showFormulaireRequete();
+	showFormulaireRequete(""/*id request*/,""/*url*/,$CONDITION_REQUEST);
 	?>
 <br/><br/><br/>
 

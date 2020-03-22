@@ -1,6 +1,8 @@
 <?php
 
 class LabelAction {
+    const ACTION_GET = "action";
+    
     const ActionEdit = "edit";
     const ActionUpdate = "update";
     const ActionInsert = "insert";
@@ -15,12 +17,16 @@ class LabelAction {
     const ActionDuplicate = "duplicate";
     const ACTION_NEXT = "next >>";
 	const ACTION_PREVIOUS = "<< previous";
+	
 	const ACTION_SYNCHRONIZE = "synchroniser";
-    const ACTION_POINTAGE = "pointage";
+	const ActionVisible = "visible";
+	const ActionArchive = "archive";
+	
+	const ACTION_POINTAGE = "pointage";
     const ActionUpdateUOVoulu = "update UO voulu";
     
     
-    const ACTION_GET = "action";
+ 
 }
 
 

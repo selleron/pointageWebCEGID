@@ -179,15 +179,17 @@ else{
 	if (isMemberGroup(3)){
 	    createHeaderBaliseDiv("id_div_CA","<h2>CA</h2>");
 	 
-	    $urlRespAffaires   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/resp_affaires.php$argument");
-	    $urlUODiff     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/uo_diff_cegid.php$argument");
-	    $urlCAActuel   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_actuel.php$argument");
-	    $urlCAActuel2  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_actuel2.php$argument");
-	    $urlCAPrev     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel.php$argument");
-	    $urlCAPrev2    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel2.php$argument");
-	    $urlCloture    = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/cloture.php$argument");
-	    $urlArchives   = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/archives.php$argument");
-	    $urlSuiviDevis = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/suivi_propositions.php$argument");
+	    $urlRespAffaires      = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/resp_affaires.php$argument");
+	    $urlUODiff            = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/uo_diff_cegid.php$argument");
+	    $urlCAActuel          = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_actuel.php$argument");
+	    $urlCAActuel2         = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_actuel2.php$argument");
+	    $urlCAPrev            = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel.php$argument");
+	    $urlCAPrev2           = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/ca_previsionel2.php$argument");
+	    $urlCloture           = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/cloture.php$argument");
+	    $urlArchives          = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/archives.php$argument");
+	    $urlSuiviDevis        = replacePageURL("order", "", "$URL_ROOT_POINTAGE/ca/suivi_propositions.php$argument");
+	    $urlRequetesGenerique = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_requetes_generic.php$argument");
+	    $urlRequetesCEGID     = replacePageURL("order", "", "$URL_ROOT_POINTAGE/admin/gestion_requetes_cegid.php$argument");
 	    
     	echo"
     		<ul>
@@ -206,9 +208,11 @@ else{
     	endHeaderBaliseDiv("id_div_CA_Suite");
     	echo"
     		<ul>
-    	     <li><a title=\"Cloture\"                href=\"$urlCloture\">       <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Cloture</a></li>
-    	     <li><a title=\"Archives\"               href=\"$urlArchives\">      <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Archives</a></li>
-    		</ul>";
+    	     <li><a title=\"Cloture\"                href=\"$urlCloture\">              <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Cloture</a></li>
+    	     <li><a title=\"Archives\"               href=\"$urlArchives\">             <img src=\"$URL_IMAGES/menu_planning.png\"      $menuIconSize > Archives</a></li>
+             <li><a title=\"Requetes Generiques\"    href=\"$urlRequetesGenerique\">    <img src=\"$URL_IMAGES/version.png\"            $menuIconSize >Requetes Generiques</a></li>
+             <li><a title=\"Requetes CEGID\"         href=\"$urlRequetesCEGID\">        <img src=\"$URL_IMAGES/version.png\"            $menuIconSize >Requetes CEGID</a></li>
+   		</ul>";
     	endHeaderBaliseDiv("id_div_CA");
 	}
 	

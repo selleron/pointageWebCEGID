@@ -142,14 +142,17 @@ echo "<td>Define</td><td>Value</td><td>Description</td>";
 endTableHeader();
 echo "
   	  		<tr></tr>
-	<tr>	<td> SHOW_INCLUDE		</td>	<td> $SHOW_INCLUDE			</td>	<td>pas encore utilise				</td></tr>
-	<tr>	<td> SHOW_SQL_ACTION	</td>	<td> $SHOW_SQL_ACTION		</td>	<td>trace ou non les actions SQL	</td></tr>
-	<tr>	<td> SHOW_MENU_TRACE	</td>	<td> $SHOW_MENU_TRACE		</td>	<td>trace dans les menus			</td></tr>
-	<tr>	<td> SHOW_CONNECTION_ID	</td>	<td> $SHOW_CONNECTION_ID	</td>	<td>trace ou no l'id de connexion	</td></tr>
-	<tr>	<td> SHOW_FUNCION_JAVA	</td>	<td> $SHOW_FUNCION_JAVA		</td>	<td>trace java script function		</td></tr>
-	<tr>	<td> TRACE_POST			</td>	<td> $TRACE_POST			</td>	<td>trace POST						</td></tr>
-	<tr>	<td> TRACE_FILE			</td>	<td> $TRACE_FILE			</td>	<td>trace file						</td></tr>
-	<tr>	<td> SHOW_FILE_ACTION	</td>	<td> $SHOW_FILE_ACTION		</td>	<td>trace file action				</td></tr>
+	<tr>	<td> SHOW_INCLUDE		</td>	       <td> $SHOW_INCLUDE			        </td>	<td>pas encore utilise				</td></tr>
+	<tr>	<td> SHOW_SQL_ACTION	</td>          <td> $SHOW_SQL_ACTION		        </td>	<td>trace ou non les actions SQL	</td></tr>
+	<tr>	<td> SHOW_MENU_TRACE	</td>	       <td> $SHOW_MENU_TRACE		        </td>	<td>trace dans les menus			</td></tr>
+	<tr>	<td> SHOW_CONNECTION_ID	</td>	       <td> $SHOW_CONNECTION_ID	            </td>	<td>trace ou no l'id de connexion	</td></tr>
+	<tr>	<td> SHOW_FUNCION_JAVA	</td>	       <td> $SHOW_FUNCION_JAVA		        </td>	<td>trace java script function		</td></tr>
+	<tr>	<td> TRACE_POST			</td>	       <td> $TRACE_POST		    	        </td>	<td>trace POST						</td></tr>
+	<tr>	<td> TRACE_FILE			</td>	       <td> $TRACE_FILE			            </td>	<td>trace file						</td></tr>
+	<tr>	<td> SHOW_FILE_ACTION	</td>	       <td> $SHOW_FILE_ACTION		        </td>	<td>trace file action				</td></tr>
+	<tr>	<td> TRACE_INFO_GESTION_REQUEST	</td>  <td> $TRACE_INFO_GESTION_REQUEST		</td>	<td>tracegestion requetes generiques </td></tr>
+
+
 
     <tr></tr>    <tr></tr>
 	<tr>	<td> TRACE_INFO_SQL_PARAM</td> 	    <td> $TRACE_INFO_SQL_PARAM			</td>	<td>trace suivi action d'utilisation de param    </td></tr>

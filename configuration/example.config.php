@@ -39,6 +39,7 @@ $TRACE_POST="yes";							//trace POST
 $TRACE_FILE="yes";							//trace File action
 $TRACE_INFO_SQL_PARAM="no";					//trace suivi action d'utilisation de $param
 $TRACE_INFO_ACTION="no";					//trace suivi action get
+$TRACE_INFO_GESTION_REQUEST="no";	     	//trace suivi action gestion request cegid et generic
 $TRACE_INFO_EXPORT="no";					//trace generation export
 $TRACE_INFO_IMPORT="no";					//trace generation import
 $TRACE_INFO_POINTAGE="no";					//trace info pointage
