@@ -11,10 +11,13 @@ $TOOL_DB_PHP = "loaded";
 if (! isset($USER_CONSULTATION_DB_PHP)) {
     include_once (dirname(__FILE__) . "/user_consultation_db.php");
 }
+
+
 include_once (dirname(__FILE__) . "/basic.php");
 include_once (dirname(__FILE__) . "/form_db.php");
 include_once (dirname(__FILE__) . "/sql_db.php");
 include_once (dirname(__FILE__) . "/param_table_db.php");
+
 
 // gestion des nom de parametres dans la commande html (post et get)
     
@@ -38,10 +41,13 @@ class COOKIE__KEY {
 }
 
 $COOKIE_PLATEFORM_KEY = COOKIE__KEY::COOKIE_PLATEFORM_KEY;
-$COOKIE_PLATEFORM_VALUE_CURRENT = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_CURRENT;
+//  $COOKIE_PLATEFORM_VALUE_CURRENT = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_CURRENT;
 $COOKIE_PLATEFORM_VALUE_PC = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_PC;
 $COOKIE_PLATEFORM_VALUE_TABLETTE = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_TABLETTE;
 $COOKIE_PLATEFORM_VALUE_MOBILE = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_MOBILE;
+
+
+//echo "tool_db.php COOKIE_PLATEFORM_VALUE_CURRENT : $COOKIE_PLATEFORM_VALUE_CURRENT<br>";
 
 // ///////////////////// html //////////////////////////////////////////
 function myHeader($string, $replace = null, $http_response_code = null)
@@ -3184,30 +3190,28 @@ function getPlateformClient()
     global $COOKIE_PLATEFORM_VALUE_TABLETTE;
     global $COOKIE_PLATEFORM_VALUE_MOBILE;
     
+    //plateform à partir de la variable $COOKIE_PLATEFORM_KEY
     if (isset($COOKIE_PLATEFORM_VALUE_CURRENT) && $COOKIE_PLATEFORM_VALUE_CURRENT) {
-        // echo ">>> plateform : [$plateform]<br>";
-        return $COOKIE_PLATEFORM_VALUE_CURRENT;
+            return $COOKIE_PLATEFORM_VALUE_CURRENT;
     }
-    // if (isset($_SESSION[$COOKIE_PLATEFORM_KEY])){
-    // return $_SESSION[$COOKIE_PLATEFORM_KEY];
-    // }
+
     
-    $plateform = getMyCookie($COOKIE_PLATEFORM_KEY);
+    //detection de la plateform ($COOKIE_PLATEFORM_KEY)
+    $plateform = getMyCookie(COOKIE__KEY::COOKIE_PLATEFORM_KEY);
     if (! isset($plateform) || ! $plateform) {
         if (isMobile()) {
-            $plateform = $COOKIE_PLATEFORM_VALUE_MOBILE;
+            $plateform = $COOKIE__KEY::COOKIE_PLATEFORM_VALUE_MOBILE;
             // echo ">>> plateform mobile: [$plateform]<br>";
         } else {
-            $plateform = $COOKIE_PLATEFORM_VALUE_PC;
+            $plateform = COOKIE__KEY::COOKIE_PLATEFORM_VALUE_PC;
             // echo ">>> plateform pc: [$plateform]<br>";
         }
     } else {
         // echo ">>> plateform isset: [$plateform]<br>";
     }
     
-    // $_SESSION[$COOKIE_PLATEFORM_KEY]=$plateform;
+    //Set cookie plateform
     $COOKIE_PLATEFORM_VALUE_CURRENT = $plateform;
-    // echo ">>> plateform : [$plateform]<br>";
     return $plateform;
 }
 
@@ -3274,6 +3278,7 @@ function showBandeauHeaderPagePC($txtAbout)
  */
 function showBandeauMenuPageMobile()
 {
+    global $URL_IMAGES;
     // // le click sur le lien provoque l'affichage de la page "menu_mobile.php"
     // global $ACTION_GET;
     // $argument=propagateArguments();
@@ -3284,6 +3289,8 @@ function showBandeauMenuPageMobile()
     
     // affiche le bouton de menu
     // celui ci inverse la visibilite du block block_menu => affiche ou non le menu
+    $urlimage = "$URL_IMAGES/mobile_menu.png";
+    showSQLAction("url image : $urlimage");
     $txt = " <img id=\"baguette\" src=\"$URL_IMAGES/mobile_menu.png\" alt=\"\" title=\"Menu\" />";
     echo "<a href=\"\" onclick=\"javascript:inverseVisibilite('block_menu'); return false;\">$txt</a>";
 }

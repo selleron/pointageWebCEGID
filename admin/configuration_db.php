@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 
 <head>
-  <title>Serveur Web MobilHome200.</title>
+  <title>CEGID Web - Configuration</title>
   <?PHP 
 	include_once("../sql/connection_db.php");
 	include_once("../sql/member_db.php");
@@ -111,20 +111,43 @@ else{
 												  	  		</td></tr>
    		";
 	}
-echo " <tr><td>NO_MSG_CHANGE_HEADER</td>           <td>".$NO_MSG_CHANGE_HEADER."</td>
+	echo " <tr><td>NO_MSG_CHANGE_HEADER</td>           <td>".$NO_MSG_CHANGE_HEADER."</td>
 												  	  		<td> permet de ne pas afficher les message showAction<br>
 															en mode production mettre sur yes<br>
 															yes or no <br> </td></tr>	";
-echo "</table>";
+	echo " <tr><td>COOKIE_PLATEFORM_VALUE_CURRENT</td>  <td>".$COOKIE_PLATEFORM_VALUE_CURRENT."</td>
+											  	  		<td> Plateform courante : $COOKIE_PLATEFORM_VALUE_PC / $COOKIE_PLATEFORM_VALUE_MOBILE / $COOKIE_PLATEFORM_VALUE_TABLETTE</td></tr>	";
+	echo "</table>";
 
 echoBR();
 echo "<h5> Configuration taille selection multiple </h5>";
-$multiselectionSize = blockCondition("multi-selection-maximise-10", "multi-selection-maximise-10 [<value>]", false);echoBR();
-$multiselectionSize = blockCondition("multi-selection-maximise-20", "multi-selection-maximise-20 [<value>]", false);echoBR();
-$multiselectionSize = blockCondition("multi-selection-maximise-30", "multi-selection-maximise-30 [<value>]", false);echoBR();
-$multiselectionSize = blockCondition("multi-selection-maximise-50", "multi-selection-maximise-50 [<value>]", false);echoBR();
-$multiselectionSize = blockCondition("multi-selection-maximise-100", "multi-selection-maximise-100 [<value>]", false);echoBR();
-
+beginTable();
+beginTableRow();
+beginTableCell();
+ $multiselectionSize = blockCondition("multi-selection-maximise-10", "multi-selection-maximise-10 [<value>]", false);echoBR();
+ endTableCell();
+ endTableRow();
+ beginTableRow();
+ beginTableCell();
+ $multiselectionSize = blockCondition("multi-selection-maximise-20", "multi-selection-maximise-20 [<value>]", false);echoBR();
+ endTableCell();
+ endTableRow();
+ beginTableRow();
+ beginTableCell();
+ $multiselectionSize = blockCondition("multi-selection-maximise-30", "multi-selection-maximise-30 [<value>]", false);echoBR();
+ endTableCell();
+ endTableRow();
+ beginTableRow();
+ beginTableCell();
+ $multiselectionSize = blockCondition("multi-selection-maximise-50", "multi-selection-maximise-50 [<value>]", false);echoBR();
+ endTableCell();
+ endTableRow();
+ beginTableRow();
+ beginTableCell();
+ $multiselectionSize = blockCondition("multi-selection-maximise-100", "multi-selection-maximise-100 [<value>]", false);echoBR();
+ endTableCell();
+ endTableRow();
+endTable();
 
 echo "<br>";
 

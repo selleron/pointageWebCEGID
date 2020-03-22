@@ -87,6 +87,9 @@ $CHARSET_SERVER="ISO-8859-1";
 //suppression des slash quote dans les variables url
 $SUPPRESS_SLASH_QUOTE_URL_VARIABLE="no";
 
+//force cookie plateform
+//$COOKIE_PLATEFORM_VALUE_CURRENT="mobile";   //force la Plateforme courante : $COOKIE_PLATEFORM_VALUE_PC / $COOKIE_PLATEFORM_VALUE_MOBILE / $COOKIE_PLATEFORM_VALUE_TABLETTE
+
 
 //annee pour les reservations
 $ANNEE_RESERVATION=2017;

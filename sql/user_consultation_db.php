@@ -27,7 +27,8 @@
 		include ($CONFIGURATION_FILE);
 	}
 	
-
+	//echo "user_consultation_db.php COOKIE_PLATEFORM_VALUE_CURRENT : $COOKIE_PLATEFORM_VALUE_CURRENT<br>";
+	
 	
 	if ($SQL_USER=="not_configured"){
 		echo "Serveur name [$SERVER_NAME] inconnu <br>";
@@ -50,9 +51,9 @@
 	//ACCESS
 	$ACCESS_TRACE="yes"; 									//met en base les acces aux pages
 	$SHOW_ACCESS_TRACE="false";  							//show trace de access
-	//$ACCESS_FILTRE_TRACE= array( "/127.0.0.*/" ); 		//filtre les adresses � ne pas filtrer
+	//$ACCESS_FILTRE_TRACE= array( "/127.0.0.*/" ); 		//filtre les adresses a ne pas filtrer
 	$ACCESS_TIMEOUT_COUNTER=1200; 							//time en seconde
-	$ACCESS_EMAIL_COUNTER= "yes";							// doit on prevenir par email qu'une nouvelle IP c'est connect�e						 	
+	$ACCESS_EMAIL_COUNTER= "yes";							// doit on prevenir par email qu'une nouvelle IP c'est connectee						 	
 	//filtre les adresses � ne pas filtrer
 	$ACCESS_FILTRE_EMAIL_COUNTER= array( 
 			"/127.0.0.*/",

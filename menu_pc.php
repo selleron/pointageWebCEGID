@@ -25,6 +25,7 @@ $argument=propagateArguments();
 trace_access_history();
 updateCounterAccessAndEmail();
 
+//taille des icons suivant la plateform
 $plateform = getPlateformClient();
 if ($plateform==$COOKIE_PLATEFORM_VALUE_PC){
 	$menuIconSize="";
