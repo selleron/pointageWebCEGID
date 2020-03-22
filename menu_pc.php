@@ -200,10 +200,12 @@ else{
     	createHeaderBaliseDiv("id_div_CA_Suite","<h3>CA autres</h3>");
     	echo"
     		<ul>
+             <li><ul>
     		 <li><a title=\"CA Actuel\"              href=\"$urlCAActuel\">      <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > CA actuel...</a></li>
     		 <li><a title=\"CA Previsionnel\"        href=\"$urlCAPrev\">        <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA previsionnel</a></li>
     		 <li><a title=\"CA Previsionnel clos\"   href=\"$urlCAPrev2\">       <img src=\"$URL_IMAGES/ca_previsionel.png\"    $menuIconSize > CA prev. clos</a></li>
     		 <li><a title=\"UO Differentiel\"        href=\"$urlUODiff\">        <img src=\"$URL_IMAGES/ca_actuel.png\"         $menuIconSize > UO Differentiel</a></li>
+             </ul></li>
     		</ul>";
     	endHeaderBaliseDiv("id_div_CA_Suite");
     	echo"
@@ -287,9 +289,7 @@ else{
 		echo"
 		<ul>
 		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graphiques</a></li>
-		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart2.0-for-PHP7-master/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graphiques php 7.0</a></li>
-		<li><a title=\"Table Requetes\"          href=\"$URL_ROOT_POINTAGE/test/testRequetes.php$argument&order=order\">       <img src=\"$URL_IMAGES/version.png\" $menuIconSize >Requetes Generique</a></li>
-		<li><a title=\"Requetes CEGID\"          href=\"$URL_ROOT_POINTAGE/test/testRequetesCEGID.php$argument&order=order\">  <img src=\"$URL_IMAGES/version.png\" $menuIconSize >Requetes CEGID</a></li>
+		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart2.0-for-PHP7-master/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graph. php 7.0</a></li>
 		<li><a title=\"Tableaux\"          href=\"$URL_ROOT_POINTAGE/test/testTableaux.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tableaux</a></li>
 		</ul>
 		";
