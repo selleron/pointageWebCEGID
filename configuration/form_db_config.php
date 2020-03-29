@@ -88,8 +88,9 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["FILE"]="select ID from fil
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["FILE"]="select ID from files";
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["SQL"]="select ID from files where title=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["VARIABLE"]="title";
-$FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
-$FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
+ $FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
+ $FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
+$FORM_STYLE["form_table_cegid_file_update"]["link"]["STATUS"]="disabled";
 $FORM_STYLE["form_table_cegid_file_update"]["link"]["SIZE"]=100;
 
 $FORM_STYLE["files_insert"]["id"]["SIZE"]=4;

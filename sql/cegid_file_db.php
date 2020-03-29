@@ -229,7 +229,7 @@ function showTableCEGID_FILE($condition2="") {
 	global $SQL_COL_LINK_FILE;
 	
 	for($cpt = 0; $cpt < $nbRes; $cpt ++) {
-	    $titre = $result[$SQL_COL_TITLE_FILE][$cpt];
+	    //$titre = $result[$SQL_COL_TITLE_FILE][$cpt];
 	    $link = $result[$SQL_COL_LINK_FILE][$cpt];
 	    //$result[$colUpload] [$cpt] = getUrlTelechargement($link,$titre);
 	    $result[$colUpload] [$cpt] = getUrlTelechargement($link,"");

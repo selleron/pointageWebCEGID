@@ -1012,24 +1012,32 @@ function updateParamSqlWithSubParam($param, $subParam)
 /**
  * print param
  *
- * @param
- *            parameter array $parm
+ * @param    parameter array $parm
  */
 function printParam($param, $header = "", $suffix="")
 {
-    $keys = array_keys($param);
-    // var_dump($keys);
-    foreach ($keys as $k) {
-        if (is_array($param[$k])){
-            //$res = arrayToString($param[$k]); 
-            //echo "$header printParam -- $k (array) : $res <br>";
-            $suffix2=$suffix."[$k]";
-            printParam($param[$k], $header, $suffix2);
+    if (!isset($param)){
+        echo "$header printParam() param is null <br>";
+    }
+    else if (is_array($param)){
+        $keys = array_keys($param);
+        // var_dump($keys);
+        foreach ($keys as $k) {
+            if (is_array($param[$k])){
+                //$res = arrayToString($param[$k]); 
+                //echo "$header printParam -- $k (array) : $res <br>";
+                $suffix2=$suffix."[$k]";
+                printParam($param[$k], $header, $suffix2);
+            }
+            else{
+                //echo "$header printParam $suffix-- $k : $param[$k] <br>";
+                echo "$header printParam $suffix"."[".$k."]"." : $param[$k] <br>";
+            }
         }
-        else{
-            //echo "$header printParam $suffix-- $k : $param[$k] <br>";
-            echo "$header printParam $suffix"."[".$k."]"." : $param[$k] <br>";
-        }
+    }
+    else{
+        showSQLError("$"."param is not an array : $param");
+        debug_print_backtrace();        
     }
 }
 
