@@ -420,7 +420,7 @@ function showFieldForm1($form, $cpt, $nameNoDimension, $type, $flags, $showLabel
 		$useCompletion = getFormStyleCBCompletion2($form, $nameNoDimension);
         if ($useCompletion=="yes"){
             $useNoSelection = getFormStyleCBCompletion2($form, $nameNoDimension, KEY_INFO::KEY_INFO_TYPE_CB_NO_SELECTION);
-            showFormComboBoxCompletionSql( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit, $useNoSelection );
+            showFormComboBoxCompletionSql( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit, $useNoSelection, $size );
         }
         else{
             showFormComboBoxSql ( $form, $name, $Request, 0/*sql_col*/, $useTD, $value/*current selection*/, $statusEdit );
@@ -925,12 +925,12 @@ function showFormMultiselectionSql($formName, $name, $Request, $sql_col, $useTD,
  * @param string $current_selection
  * @param string $enabledStatus
  */
-function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $useTD, $current_selection, $enabledStatus = "enabled", $useNoSelection="no") {
+function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $useTD, $current_selection, $enabledStatus = "enabled", $useNoSelection="no", $size="") {
     //global $ITEM_COMBOBOX_SELECTION;
     $enabledStatus = prepareFlagStatus ( $enabledStatus );
      
     global $SHOW_COMPLETION_REQUEST;
-    showActionVariable( "showFormComboBoxCompletionSql() $Request", $SHOW_COMPLETION_REQUEST);
+    showActionVariable( "showFormComboBoxCompletionSql() <br> - request : $Request <br>  - size : $size", $SHOW_COMPLETION_REQUEST);
     $Resultat = mysqlQuery ( $Request );
     $nbRes = mysqlNumrows ( $Resultat );
     
@@ -946,7 +946,13 @@ function showFormComboBoxCompletionSql($formName, $name, $Request, $sql_col, $us
           $current_selection=FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
         }
     }
-    echo "<input $enabledStatus type=\"text\" list=\"$name\" name=\"$name\" value=\"$current_selection\"  >";
+    
+    echo "<input $enabledStatus";
+    echo " type=\"text\" list=\"$name\" name=\"$name\" value=\"$current_selection\" ";
+    if (isset($size)){
+        echo " size=$size ";
+    }
+    echo" >";
     echo "<datalist $enabledStatus id=\"$name\"  >";
     if ($useNoSelection == "yes"){
       //nothing to do  

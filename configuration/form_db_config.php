@@ -78,10 +78,12 @@ $FORM_STYLE["form_table_cegid_file_insert"]["CODE"]["SIZE"]=15;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["CODE"]="select ID from cegid_file_code order by ORDRE";
 $FORM_STYLE["form_table_cegid_file_update"]["CODE"]["SIZE"]=15;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["CODE"]="select ID from cegid_file_code order by ORDRE";
-$FORM_STYLE["form_table_cegid_file_insert"]["title"]["SIZE"]=120;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["title"]="select TITLE from files";
-$FORM_STYLE["form_table_cegid_file_update"]["title"]["SIZE"]=120;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["title"]="select TITLE from files";
+$FORM_STYLE["form_table_cegid_file_update"]["title"]["CB_COMPLETION"]="yes";
+$FORM_STYLE["form_table_cegid_file_insert"]["title"]["SIZE"]=100;
+$FORM_STYLE["form_table_cegid_file_update"]["title"]["SIZE"]=100;
+
 $FORM_STYLE["form_table_cegid_file_insert"]["COMMENTAIRE"]["SIZE"]=40;
 $FORM_STYLE["form_table_cegid_file_update"]["COMMENTAIRE"]["SIZE"]=40;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["FILE"]="select ID from files";
