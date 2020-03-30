@@ -36,6 +36,12 @@ INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('p
 UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.43.02' WHERE `version`.`id` = 'php';
 
 
+ALTER TABLE `cegid_frais_mission` CHANGE `STATUS_ID` `STATUS_ID` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'UNDEF';
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.51' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.50._vers_0.51', '101', now(), 'update cegid frais', '0.51.0');
+
+
 
 COMMIT;
 
