@@ -233,7 +233,7 @@ function showTableCoutProject($param="", $tablePointage = "") {
     $colTotalReel = $SQL_COL_TOTAL_REEL_PROJECT_COUT;
     $param2 = addParamSqlColumn($param2, $colTotalReel);
     
-    $param2[PARAM_TABLE_TABLE::TABLE_SIZE]="1400px";
+    //$param2[PARAM_TABLE_TABLE::TABLE_SIZE]="1400px";
     
     //header
     showTableHeader ( $param2 );
@@ -345,6 +345,10 @@ function prepareParamShowTableCoutProject($subParam="") {
     
     //$req = createRequeteTableData ( $param );
     //showSQLAction ( "2. ".$req );
+    
+    $param[PARAM_TABLE_TABLE::TABLE_SIZE] = 2000;
+    //showSQLAction("Cout table size : ".$param[PARAM_TABLE_TABLE::TABLE_SIZE]." ");
+    
     
     return $param;
 }

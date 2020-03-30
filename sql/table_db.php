@@ -968,8 +968,9 @@ function prepareshowTable($table, $cols, $form_name, $condition = "") {
 	//$param  = setInfoForm($param, $infoForm);
 	
 	
-	// global $TABLE_SIZE;
-	// $param [$TABLE_SIZE] = 740;
+	 //global $TABLE_SIZE;
+	 //showSQLAction("cout table size : $param[$TABLE_SIZE] ");
+	 //$param [$TABLE_SIZE] = 740;
 	return $param;
 }
 

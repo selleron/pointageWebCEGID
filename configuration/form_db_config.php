@@ -53,10 +53,10 @@ $FORMAT_TARIF  = "\$res=numberFormat(\$res,2,'.',' ');";
 
 //SIZE et WIDTH
 $SIZE_UO    =  5;
-$SIZE_COUT  =  7;
+$SIZE_COUT  =  6;
 $SIZE_COUT_EURO  =  10;
-$WIDTH_CA_EURO = 50; //size du td ca + €
-$SIZE_COUT_SUM = 8; //plus petit que $SIZE_COUT pour pouvoir ajouter €
+$WIDTH_CA_EURO = 90; //size du td ca Euro�
+$SIZE_COUT_SUM = 6; //plus petit que $SIZE_COUT pour pouvoir ajouter Euro
 $SIZE_CA    = 10;
 
 //select project Tool Bar

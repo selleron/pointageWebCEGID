@@ -317,6 +317,9 @@ function prepareParamShowTableFraisMission($subParam="") {
 	//$req = createRequeteTableData ( $param );
 	//showSQLAction ( "2. ".$req );
 	
+	$param[PARAM_TABLE_TABLE::TABLE_SIZE] = 2100;
+	
+	
 	return $param;
 }
 
