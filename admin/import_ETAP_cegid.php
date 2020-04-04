@@ -34,11 +34,15 @@
     showTracePOST();
     echo "<h4>Gestion Pointage CEGID Import.</h4><p>Permet d'importer dans la table de pointage.<br> => validation avant report dans le pointage.<br><br></p>";
 	global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
-		
+	$FORM_NAME_LOAD="form_load_ETAP";
+	
 	applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT); 
 
-	showLoadFile("","","",array("import","insert_update"));
-	
+	showLoadFile(
+	    ""/*url*/,""/*choose*/,""/*load*/,
+	    array(LabelAction::ActionImport,"insert_update",LabelAction::ActionTruncate)/*action*/,
+	    ""/*infoform*/,""/*file size*/,$FORM_NAME_LOAD);
+
 	showTablePointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT);
 ?>
 <br/><br/><br/>

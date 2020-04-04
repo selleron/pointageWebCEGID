@@ -514,33 +514,33 @@ function privateReplaceURLKeys($values, $txt){
  */
 function createDefaultParamSql($table = "", $columnsTxt = "", $condition = "")
 {
-    global $SHOW_COL_COUNT;
-    global $TABLE_SIZE;
-    global $TABLE_ID;
-    global $TABLE_OTHER;
-    global $TABLE_NAME;
-    global $TABLE_CONDITION;
-    global $COLUMNS_SUMMARY;
-    global $TABLE_WHERE_CONDITION;
-    global $TABLE_INFO_FORM;
+    //global $SHOW_COL_COUNT;
+    //global $TABLE_SIZE;
+    //global $TABLE_ID;
+    //global $TABLE_OTHER;
+    //global $TABLE_NAME;
+    //global $TABLE_CONDITION;
+    //global $COLUMNS_SUMMARY;
+    //global $TABLE_WHERE_CONDITION;
+    //global $TABLE_INFO_FORM;
     
-    $param[$SHOW_COL_COUNT] = "yes";
-    $param[$TABLE_SIZE] = 0;
-    $param[$TABLE_OTHER] = "";
-    $param[$TABLE_ID] = "";
-    $param[$TABLE_INFO_FORM] = "";
+    $param[PARAM_TABLE_SQL::SHOW_COL_COUNT] = "yes";
+    $param[PARAM_TABLE::TABLE_SIZE] = 0;
+    $param[PARAM_TABLE::TABLE_OTHER] = "";
+    $param[PARAM_TABLE::TABLE_ID] = "";
+    $param[PARAM_TABLE::TABLE_FORM_INFO] = "";
     
     if ($table) {
-        $param[$TABLE_ID] = "$table" . "_" . time();
+        $param[PARAM_TABLE::TABLE_ID] = "$table" . "_" . time();
     }
     // ordonne suivant une colonne
     $param = updateParamSqlWithOrder($param);
     
     if ($table) {
-        $param[$TABLE_NAME] = $table;
+        $param[PARAM_TABLE::TABLE_NAME] = $table;
     }
     if ($columnsTxt) {
-        $param[$COLUMNS_SUMMARY] = stringToArray($columnsTxt);
+        $param[PARAM_TABLE::COLUMNS_SUMMARY] = stringToArray($columnsTxt);
     }
     if ($condition) {
         // $param [$TABLE_WHERE_CONDITION] = $condition;

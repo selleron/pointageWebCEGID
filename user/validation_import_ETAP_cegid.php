@@ -73,7 +73,10 @@
  	}
 
  	
- 	showLoadFile(""/*url*/,""/*choose*/,""/*load*/,array("import","insert_update")/*action*/,""/*infoform*/,""/*file size*/,$FORM_NAME_LOAD);
+ 	showLoadFile(
+ 	    ""/*url*/,""/*choose*/,""/*load*/,
+ 	    array(LabelAction::ActionImport,"insert_update",LabelAction::ActionTruncate)/*action*/,
+ 	    ""/*infoform*/,""/*file size*/,$FORM_NAME_LOAD);
  	}
  	endHeaderBaliseDiv($idBalise);
  	
