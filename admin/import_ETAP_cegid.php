@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 
 <head>
-  <title> Previsionnel </title>
+  <title> Import depuis ETAP (Bac a Sable) </title>
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/files.php");
@@ -14,14 +14,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Import (Bac a Sable)</h1>
+  <h1>Serveur Web Pointage : Import depuis ETAP (Bac a Sable)</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Gestion Pointage Import (bac à sable)");
+	showBandeauHeaderPage("Gestion Import Pointage depuis ETAP (bac à sable)");
 	?>
   
 

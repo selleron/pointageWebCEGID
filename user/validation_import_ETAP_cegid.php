@@ -17,14 +17,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Validation Import Pointage (Bac a Sable)</h1>
+  <h1>Serveur Web Pointage : Validation Pointage depuis ETAP (Bac a Sable)</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Validation Import Pointage (Bac a Sable)");
+	showBandeauHeaderPage("Validation Pointage depuis ETAP( Bac a Sable)");
 	?>
   
 
@@ -37,7 +37,7 @@
     showTracePOST();
     
     echo "<p>
-            Gestion Pointage Import CEGID  (Bac a Sable).<br/><br/>
+            Gestion Pointage Import CEGID provenant de ETAP (Bac a Sable).<br/><br/>
             [update] va mettre à jour la table de pointage à partir de la table d'import du bac à sable.<br/>
             le bac à sable est alimenté par Autre\Pointage Import.<br/>
     </p>";
