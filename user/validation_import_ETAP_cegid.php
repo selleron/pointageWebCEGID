@@ -58,8 +58,30 @@
  	echo"<br/></p>";
 
  	
+ 	
+ 	$idBalise = "import_ETAP";
+ 	createHeaderBaliseDiv($idBalise, "<h3>Import depuis ETAP </h3>");
+ 	{
+ 	    global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
+ 	global $TABLE_FORM_NAME_INSERT;
+ 	$FORM_NAME_LOAD="form_load_ETAP";
+ 	$formName = getURLVariable($TABLE_FORM_NAME_INSERT);
+ 	//showAction("table import : $SQL_TABLE_CEGID_POINTAGE_IMPORT");
+ 	$res=0;
+ 	if ($formName == $FORM_NAME_LOAD) {
+ 	    $res = applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT);
+ 	}
+
+ 	
+ 	showLoadFile(""/*url*/,""/*choose*/,""/*load*/,array("import","insert_update")/*action*/,""/*infoform*/,""/*file size*/,$FORM_NAME_LOAD);
+ 	}
+ 	endHeaderBaliseDiv($idBalise);
+ 	
+ 	
  	//actions
- 	$res = applyGestionOneProject();
+ 	if ($res<=0){
+ 	    $res = applyGestionOneProject();
+ 	}
  	if ($res<=0){
  		$res = applyGestionCoutOneProjectForm();
  	}

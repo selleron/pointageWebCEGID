@@ -245,6 +245,8 @@ function applyGestionTablePointageProjetCegid($table)
 
 /**
  * applyPointageBrutCegid
+ * @param string $table nom de la table d'import
+ * @return number < 0 on Error > 1 if action executed
  */
 function applyPointageBrutCegid($table="")
 {
@@ -258,13 +260,8 @@ function applyPointageBrutCegid($table="")
         $table=$SQL_TABLE_CEGID_POINTAGE;
     }
     
-    // execution action
-    // $exec = applyImportCSV();
-    // if ($exec < 1) {
-    // apply classique
-    applyGestionTable($table, $SQL_SHOW_COL_CEGID_POINTAGE, $form_name);
-    // }
-    // }
+    $res = applyGestionTable($table, $SQL_SHOW_COL_CEGID_POINTAGE, $form_name);
+    return $res;
 }
 
 /**
