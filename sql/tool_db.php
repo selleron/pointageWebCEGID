@@ -1643,7 +1643,7 @@ function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true", $
             $sql = $sql . " , ";
         }
         $type = mysqlFieldType($param, $arrayCol[$i]);            
-        showActionVariable("type $arrayCol[$i] : $type", $TRACE_INFO_SQL_PARAM);
+        showActionVariable("createSqlInsert() type $arrayCol[$i] : $type", $TRACE_INFO_SQL_PARAM);
         $v = transformSqlValueFormInsert($v, $quoteValue, $type);
         $sql = $sql . $v;
         $i ++;

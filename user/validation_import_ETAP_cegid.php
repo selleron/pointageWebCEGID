@@ -50,7 +50,6 @@
 	echo"<p>";
 	global $SQL_TABLE_CEGID_POINTAGE;
 	global $urlPointage;
-	global $urlImportPointage;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
 	    LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
 	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/,
@@ -62,23 +61,25 @@
  	$idBalise = "import_ETAP";
  	createHeaderBaliseDiv($idBalise, "<h3>Import depuis ETAP </h3>");
  	{
- 	    global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
- 	$FORM_NAME_LOAD="form_load_ETAP";
- 	$formName = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
- 	$res=0;
- 	if ($formName == $FORM_NAME_LOAD) {
- 	    showError("apply Pointage Brut CEGID table import : $SQL_TABLE_CEGID_POINTAGE_IMPORT");
- 	    $res = applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT);
- 	}
-
- 	$infoformLoad="<button   type=\"button\"><a href=\"#openModalTruncate\">".LabelAction::ActionTruncate."</a></button>";
- 	
- 	showLoadFile(
- 	    ""/*url*/,""/*choose*/,""/*load*/,
- 	    //array(LabelAction::ActionImport,"insert_update",LabelAction::ActionTruncate)/*action*/,
- 	    array(LabelAction::ActionImport,"insert_update")/*action*/,
- 	    $infoformLoad,""/*file size*/,$FORM_NAME_LOAD/*form name*/);
- 	}
+     	global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
+     	$FORM_NAME_LOAD="form_load_ETAP";
+     	$formName = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+     	$res=0;
+     	
+     	//excecution insert/update/truncate des données importées
+     	if ($formName == $FORM_NAME_LOAD) {
+     	    //showError("apply Pointage Brut CEGID table import : $SQL_TABLE_CEGID_POINTAGE_IMPORT");
+     	    $res = applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT);
+     	}
+    
+     	$infoformLoad="<button   type=\"button\"><a href=\"#openModalTruncate\">".LabelAction::ActionTruncate."</a></button>";
+     	
+     	showLoadFile(
+     	    ""/*url*/,""/*choose*/,""/*load*/,
+     	    //array(LabelAction::ActionImport,"insert_update",LabelAction::ActionTruncate)/*action*/,
+     	    array(LabelAction::ActionImport,"insert_update")/*action*/,
+     	    $infoformLoad,""/*file size*/,$FORM_NAME_LOAD/*form name*/);
+    }
  	endHeaderBaliseDiv($idBalise);
 
  	
