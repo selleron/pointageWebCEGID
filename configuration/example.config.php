@@ -27,6 +27,10 @@ $CRYPT_PWD="yes";
 //contact
 $CONTACT_EMAIL="mon email";
 
+//accepte de faire des operations de truncate table
+$ACTIVE_TRUNCATE_TABLE="no";
+
+
 
 // LOG
 /////////////////////////////////////

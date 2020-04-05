@@ -26,19 +26,23 @@
 <div class="article">
 <?PHP
 
-global $SQL_HOST, $SQL_DATABASE, $SQL_USER, $CRYPT_PWD;
+global $SQL_HOST, $SQL_DATABASE, $SQL_USER, $CRYPT_PWD, $ACTIVE_TRUNCATE_TABLE;
 
 echo "<h4> Configuration de la base de donn&eacute;es </h4>";
 echo "<table>";
 beginTableHeader();
 echo "<td>Nom</td><td>Define</td><td>Value</td><td>Description</td>";
 endTableHeader();
-echo "<tr><td>Data Base Host  		</td>	<td>SQL_HOST		</td>		<td>".$SQL_HOST."		</td>	   	</tr>
-	  <tr><td>Data Base Name  		</td>	<td>SQL_DATABASE	</td>		<td>".$SQL_DATABASE."	</td>		</tr>
-  	  <tr><td>Data Base User  		</td>	<td>SQL_USER		</td>		<td>".$SQL_USER."		</td>		</tr>
-  	  <tr><td>Crypted password		</td>	<td>CRYPT_PWD		</td>		<td>".$CRYPT_PWD."		</td>		<td>les mots de passe user sont il crypt&eacute;s</td></tr>
+echo "<tr><td>Data Base Host  		</td>	<td>SQL_HOST		            </td>		<td>".$SQL_HOST."	               	</td>	   	</tr>
+	  <tr><td>Data Base Name  		</td>	<td>SQL_DATABASE	            </td>		<td>".$SQL_DATABASE."	            </td>		</tr>
+  	  <tr><td>Data Base User  		</td>	<td>SQL_USER		            </td>		<td>".$SQL_USER."		            </td>		</tr>
+  	  <tr><td>Crypted password		</td>	<td>CRYPT_PWD		            </td>		<td>".$CRYPT_PWD."		            </td>		<td>les mots de passe user sont il crypt&eacute;s</td></tr>
+  	  <tr><td>Active Truncate Table </td>	<td>ACTIVE_TRUNCATE_TABLE		</td>		<td>".$ACTIVE_TRUNCATE_TABLE."		</td>		<td>yes| no . default no</td></tr>
    </table>";
 
+
+//accepte de faire des operations de truncate table
+$ACTIVE_TRUNCATE_TABLE="no";
 
 
 

@@ -61,7 +61,6 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	$choose : <input name=\"userfile\" type=\"file\" />";
 	showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $formName);
 	showFormIDElement ();
-	echo "$infoForm";
 	if (is_array($action)){
 	    foreach ($action as $one_action )
 	    showFormSubmit($one_action, $ACTION_GET);
@@ -70,6 +69,7 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	    showFormAction ( $action );
 	    showFormSubmit($load);
 	}
+	echo "$infoForm";
 	endTableCell();
 	endTableRow();
 	endForm();

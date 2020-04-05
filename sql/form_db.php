@@ -60,12 +60,12 @@ class SQL_TYPE_CODE {
 }
 
 /**
- * createForm
+ * beginForm
  *
  * @param string  $url url        	
  * @param string $form_name id        	
  */
-function createForm($url, $form_name = "") {
+function beginForm($url, $form_name = "") {
 	echo "<form ";
 	echo "method=\"post\" ";
 	echo "action=\"$url\" ";
@@ -76,6 +76,17 @@ function createForm($url, $form_name = "") {
 	// echo"form url : [$url]";
 }
 
+/**
+ * createForm
+ * deprecated : use beginForm()
+ * @param string  $url url
+ * @param string $form_name id
+ */
+
+function createForm($url, $form_name = "") {
+    beginForm($url,$form_name);
+}
+    
 /**
  * end Form
  */
@@ -91,16 +102,26 @@ function endForm() {
  * @param string $action        	
  * @param string $txt        	
  * @param string $id        	
- * @param boolean $useTD
- *        	"yes"/"non" default "yes"
+ * @param boolean $useTD "yes"/"non" default "yes"
+ * @param string infoForm elements supplémentaire de la forme
  */
 function showMiniForm($url, $formname, $action, $txt, $id, $useTD = "yes", $infoForm="") {
 	if ($useTD == "yes") {
 		echo "<td>";
 	}
+
+	//preparation url
+	if (! $url) {
+	    $url = currentPageURL ();
+	}
+	global $ACTION_GET;
+	$url = suppressPageURL ( $url, $ACTION_GET );
 	
+	//creation de la forme
 	createForm ( $url, $formname );
+	echo"<!-- ici begin infoform -->";
 	echo "$infoForm";
+	echo"<!-- ici end infoform -->";
 	showFormIDElement ();
 	showFormIdTableElement ( $id );
 	showFormAction ( $action );

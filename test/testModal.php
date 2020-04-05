@@ -34,8 +34,9 @@
 
 <br/><br/><br/>
 
-
+<button  type="button">
 <a href="#openModal">Open Modal (1) par [href]</a>
+</button>
 
 <div id="openModal" class="modalDialog">
 	<div>
@@ -49,7 +50,9 @@
 
 <br/><br/><br/>
 
+<button  type="button">
 <a href="#openModal2">Open Modal (2) par [href]</a>
+</button>
 
 <div id="openModal2" class="modalDialog">
 	<div>
@@ -57,6 +60,24 @@
 		<h2>Modal Box Two</h2>
 		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
 		<p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+		<div align=center ><a href="#close" ">Close</a></div>
+	</div>
+</div>
+
+<button   type="button">
+<a href="#openModal3">Go to Tests Tableaux</a>
+</button>
+
+<div id="openModal3" class="modalDialog">
+	<div>
+		<a href="#close" title="Close" class="close">X</a>
+		<h2>Modal Box Two</h2>
+		<p>This is a sample modal box that can be created using the powers of CSS3.</p>
+		<p>You could do a lot of things here like have a pop-up ad that shows when your website loads, or create a login/register form for users.</p>
+		<div align=center > <button type="button">
+		<a href="testTableaux.php">Close</a>
+		</button></div>
+
 	</div>
 </div>
 

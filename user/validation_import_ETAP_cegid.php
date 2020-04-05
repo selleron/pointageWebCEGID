@@ -52,8 +52,8 @@
 	global $urlPointage;
 	global $urlImportPointage;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
- 	    LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
- 	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/,
+	    LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
+	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/,
 	    $multiselection);
  	echo"<br/></p>";
 
@@ -63,22 +63,42 @@
  	createHeaderBaliseDiv($idBalise, "<h3>Import depuis ETAP </h3>");
  	{
  	    global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
- 	global $TABLE_FORM_NAME_INSERT;
  	$FORM_NAME_LOAD="form_load_ETAP";
- 	$formName = getURLVariable($TABLE_FORM_NAME_INSERT);
- 	//showAction("table import : $SQL_TABLE_CEGID_POINTAGE_IMPORT");
+ 	$formName = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
  	$res=0;
  	if ($formName == $FORM_NAME_LOAD) {
+ 	    showError("apply Pointage Brut CEGID table import : $SQL_TABLE_CEGID_POINTAGE_IMPORT");
  	    $res = applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT);
  	}
 
+ 	$infoformLoad="<button   type=\"button\"><a href=\"#openModalTruncate\">".LabelAction::ActionTruncate."</a></button>";
  	
  	showLoadFile(
  	    ""/*url*/,""/*choose*/,""/*load*/,
- 	    array(LabelAction::ActionImport,"insert_update",LabelAction::ActionTruncate)/*action*/,
- 	    ""/*infoform*/,""/*file size*/,$FORM_NAME_LOAD);
+ 	    //array(LabelAction::ActionImport,"insert_update",LabelAction::ActionTruncate)/*action*/,
+ 	    array(LabelAction::ActionImport,"insert_update")/*action*/,
+ 	    $infoformLoad,""/*file size*/,$FORM_NAME_LOAD/*form name*/);
  	}
  	endHeaderBaliseDiv($idBalise);
+
+ 	
+ 	//Modal dialog pour le truncate
+ 	//attention on precise bien la table du truncate
+ 	$infoformTruncate = streamFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT,$FORM_NAME_LOAD);
+ 	echoComment("$ infoformTruncate : $infoformTruncate" );
+ 	echo"
+ 	<div id=\"openModalTruncate\" class=\"modalDialog\">
+ 	<div>
+ 	<a href=\"#close\" title=\"Close\" class=\"close\">X</a>
+ 	<h2>Validation</h2>
+ 	<p>Est vous sure de vouloir vider la table d'import?</p>
+ 	<div align=center > <button type=\"button\">";
+ 	showMiniForm(""/*url*/, "form_validation_ETAP_truncate"/*form name*/, 
+ 	    LabelAction::ActionTruncate/*action*/, LabelAction::ActionTruncate/*label action*/, 
+ 	    ""/*id form*/, "no"/*useTD*/,$infoformTruncate/*infoForm*/);
+ 	echo" </button></div>
+ 	</div>
+ 	</div>";
  	
  	
  	//actions

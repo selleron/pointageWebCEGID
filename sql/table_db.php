@@ -579,14 +579,22 @@ function truncateTable($param) {
         $table = $param;
     }
     if ($table){
-    showSQLAction("truncateTable - Truncate  $table ...");
-    $truncate = "TRUNCATE TABLE $table";
-    showSQLAction("request : $truncate");
-    mysqlQuery($truncate);
-    $res=1;
+        showSQLAction("truncateTable - Truncate  $table ...");
+        $truncate = "TRUNCATE TABLE $table";
+        showSQLAction("request : $truncate");
+        
+        global $ACTIVE_TRUNCATE_TABLE;
+        if ($ACTIVE_TRUNCATE_TABLE=="yes"){
+            mysqlQuery($truncate);
+            $res=1;
+        }
+        else{
+            showError("truncateTable() <br>Variable $ ACTIVE_TRUNCATE_TABLE not activated on $table");
+            $res=1;
+        }
     }
     else{
-        showSQLError("truncateTable() - Truncate table","no table name found in param");
+        showError("truncateTable() - Truncate table <br>No table name found in param");
         $res = -1;
     }
     
