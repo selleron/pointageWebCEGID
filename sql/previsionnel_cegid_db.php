@@ -509,7 +509,7 @@ function fusionTableauPointageImport($tableauPointage, $tableauPrev, $colPointag
                 }
                 else{
                     //pas dans import : fond gris
-                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"background: #E0E0E0; font-weight:bold\" " );
+                    $tableau = setSQLFlagStyle ( $tableau, $m, $cpt, " readonly style=\"color:  #000000; background: #E0E0E0; font-weight:bold\" " );
                 }
             }
         }

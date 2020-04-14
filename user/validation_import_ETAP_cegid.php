@@ -140,7 +140,7 @@
  	  - import sur vide                     : couleur bleu <br>
  	  - import valeur existante differente  : couleur rouge [pointage/import]<br>
  	  - import valeur equivalente           : couleur verte <br>
- 	  - valeur hors import                  : fond gris <br>"
+ 	  - valeur hors import                  : couleur noire <br>"
  	;
  	echo "".getActionMessage($txt,"#FFFFFF");
  	
