@@ -86,20 +86,24 @@ $FORM_STYLE["form_table_cegid_file_update"]["title"]["SIZE"]=100;
 
 $FORM_STYLE["form_table_cegid_file_insert"]["COMMENTAIRE"]["SIZE"]=40;
 $FORM_STYLE["form_table_cegid_file_update"]["COMMENTAIRE"]["SIZE"]=40;
+
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["FILE"]="select ID from files";
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["FILE"]="select ID from files";
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["SQL"]="select ID from files where title=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["VARIABLE"]="title";
  $FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
  $FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
-$FORM_STYLE["form_table_cegid_file_update"]["link"]["STATUS"]="disabled";
+
+ $FORM_STYLE["form_table_cegid_file_update"]["link"]["STATUS"]="disabled";
 $FORM_STYLE["form_table_cegid_file_update"]["link"]["SIZE"]=100;
 
-$FORM_STYLE["files_insert"]["id"]["SIZE"]=4;
-$FORM_STYLE["files_insert"]["title"]["SIZE"]=70;
-$FORM_STYLE["files_insert"]["name"]["SIZE"]=70;
-$FORM_STYLE["files_insert"]["mime"]["SIZE"]=17;
-$FORM_STYLE["files_insert"]["link"]["SIZE"]=80;
+//table files
+$FORM_STYLE["files_insert"]["id"]["WIDTH"]=4;
+$FORM_STYLE["files_insert"]["title"]["WIDTH"]=70;
+$FORM_STYLE["files_insert"]["name"]["WIDTH"]=70;
+$FORM_STYLE["files_insert"]["mime"]["WIDTH"]=17;
+$FORM_STYLE["files_insert"]["link"]["WIDTH"]=80;
+$FORM_STYLE["files_insert"]["date"]["WIDTH"]=30;
 
 
 //table cegid_user
