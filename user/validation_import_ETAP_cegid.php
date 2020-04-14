@@ -17,14 +17,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Validation Import Pointage (Bac a Sable)</h1>
+  <h1>Serveur Web Pointage : Validation Pointage depuis ETAP (Bac a Sable)</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Validation Import Pointage (Bac a Sable)");
+	showBandeauHeaderPage("Validation Pointage depuis ETAP( Bac a Sable)");
 	?>
   
 
@@ -37,7 +37,7 @@
     showTracePOST();
     
     echo "<p>
-            Gestion Pointage Import CEGID  (Bac a Sable).<br/><br/>
+            Gestion Pointage Import CEGID provenant de ETAP (Bac a Sable).<br/><br/>
             [update] va mettre à jour la table de pointage à partir de la table d'import du bac à sable.<br/>
             le bac à sable est alimenté par Autre\Pointage Import.<br/>
     </p>";
@@ -50,16 +50,62 @@
 	echo"<p>";
 	global $SQL_TABLE_CEGID_POINTAGE;
 	global $urlPointage;
-	global $urlImportPointage;
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
- 	    LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
- 	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/,
+	    LabelAction::ActionExport.",pointage;formaction='$urlPointage'",
+	    "yes"/*user*/, "yes"/*previous*/, "yes"/*next*/,
 	    $multiselection);
  	echo"<br/></p>";
 
  	
+ 	
+ 	$idBalise = "import_ETAP";
+ 	createHeaderBaliseDiv($idBalise, "<h3>Import depuis ETAP </h3>");
+ 	{
+     	global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
+     	$FORM_NAME_LOAD="form_load_ETAP";
+     	$formName = getURLVariable(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT);
+     	$res=0;
+     	
+     	//excecution insert/update/truncate des données importées
+     	if ($formName == $FORM_NAME_LOAD) {
+     	    //showError("apply Pointage Brut CEGID table import : $SQL_TABLE_CEGID_POINTAGE_IMPORT");
+     	    $res = applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT);
+     	}
+    
+     	$infoformLoad="<button   type=\"button\"><a href=\"#openModalTruncate\">".LabelAction::ActionTruncate."</a></button>";
+     	
+     	showLoadFile(
+     	    ""/*url*/,""/*choose*/,""/*load*/,
+     	    //array(LabelAction::ActionImport,"insert_update",LabelAction::ActionTruncate)/*action*/,
+     	    array(LabelAction::ActionImport,"insert_update")/*action*/,
+     	    $infoformLoad,""/*file size*/,$FORM_NAME_LOAD/*form name*/);
+    }
+ 	endHeaderBaliseDiv($idBalise);
+
+ 	
+ 	//Modal dialog pour le truncate
+ 	//attention on precise bien la table du truncate
+ 	$infoformTruncate = streamFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT,$FORM_NAME_LOAD);
+ 	echoComment("$ infoformTruncate : $infoformTruncate" );
+ 	echo"
+ 	<div id=\"openModalTruncate\" class=\"modalDialog\">
+ 	<div>
+ 	<a href=\"#close\" title=\"Close\" class=\"close\">X</a>
+ 	<h2>Validation</h2>
+ 	<p>Est vous sure de vouloir vider la table d'import?</p>
+ 	<div align=center > <button type=\"button\">";
+ 	showMiniForm(""/*url*/, "form_validation_ETAP_truncate"/*form name*/, 
+ 	    LabelAction::ActionTruncate/*action*/, LabelAction::ActionTruncate/*label action*/, 
+ 	    ""/*id form*/, "no"/*useTD*/,$infoformTruncate/*infoForm*/);
+ 	echo" </button></div>
+ 	</div>
+ 	</div>";
+ 	
+ 	
  	//actions
- 	$res = applyGestionOneProject();
+ 	if ($res<=0){
+ 	    $res = applyGestionOneProject();
+ 	}
  	if ($res<=0){
  		$res = applyGestionCoutOneProjectForm();
  	}

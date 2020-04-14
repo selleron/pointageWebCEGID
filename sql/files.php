@@ -28,7 +28,7 @@ function numberToByte($num){
  * @param string $infoForm
  * @param string $MAX_FILE_SIZE
  */
-function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoForm="", $MAX_FILE_SIZE="") {
+function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoForm="", $MAX_FILE_SIZE="", $formName="") {
 	if (! $action) {
 		$action = "load";
 	}
@@ -59,8 +59,8 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"$MAX_FILE_SIZE\" />
 	<!-- Le nom de l\'element input determine le nom dans le tableau -->
 	$choose : <input name=\"userfile\" type=\"file\" />";
+	showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $formName);
 	showFormIDElement ();
-	echo "$infoForm";
 	if (is_array($action)){
 	    foreach ($action as $one_action )
 	    showFormSubmit($one_action, $ACTION_GET);
@@ -69,6 +69,7 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	    showFormAction ( $action );
 	    showFormSubmit($load);
 	}
+	echo "$infoForm";
 	endTableCell();
 	endTableRow();
 	endForm();

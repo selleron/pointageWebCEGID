@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 
 <head>
-  <title> Previsionnel </title>
+  <title> Import depuis ETAP (Bac a Sable) </title>
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/files.php");
@@ -14,14 +14,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Import (Bac a Sable)</h1>
+  <h1>Serveur Web Pointage : Import depuis ETAP (Bac a Sable)</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Gestion Pointage Import (bac à sable)");
+	showBandeauHeaderPage("Gestion Import Pointage depuis ETAP (bac à sable)");
 	?>
   
 
@@ -34,11 +34,15 @@
     showTracePOST();
     echo "<h4>Gestion Pointage CEGID Import.</h4><p>Permet d'importer dans la table de pointage.<br> => validation avant report dans le pointage.<br><br></p>";
 	global $SQL_TABLE_CEGID_POINTAGE_IMPORT;
-		
+	$FORM_NAME_LOAD="form_load_ETAP";
+	
 	applyPointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT); 
 
-	showLoadFile("","","",array("import","insert_update"));
-	
+	showLoadFile(
+	    ""/*url*/,""/*choose*/,""/*load*/,
+	    array(LabelAction::ActionImport,"insert_update",LabelAction::ActionTruncate)/*action*/,
+	    ""/*infoform*/,""/*file size*/,$FORM_NAME_LOAD);
+
 	showTablePointageBrutCegid($SQL_TABLE_CEGID_POINTAGE_IMPORT);
 ?>
 <br/><br/><br/>

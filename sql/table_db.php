@@ -50,7 +50,10 @@ include_once 'files.php';
 	}
 	// insertOrupdateTableByGet ($table, $cols, $form_name);
 	if ($res <= 0) {
-		$res = applyDeleteTableByGet ( /*$table, $cols, $form_name,*/$param, "" );
+	    $res = applyDeleteTableByGet ( /*$table, $cols, $form_name,*/$param, "" );
+	}
+	if ($res <= 0) {
+	    $res = applyTruncateTableByGet ( /*$table, $cols, $form_name,*/$param, "" );
 	}
 	
 	return $res;
@@ -509,11 +512,18 @@ function exportCSVDataURL($handle, $table) {
  * @param string $cols  (separator ,)        	
  */
 function applyDeleteTableByGet(/*$table, $cols, $form_name,*/ $param="") {
-	if (getActionGet () == "delete") {
-		deleteTableByGet ( /*$table, $cols, $form_name,*/ $param );
-		return 1;
-	}
-	return 0;
+    if (getActionGet () == "delete") {
+        deleteTableByGet ( /*$table, $cols, $form_name,*/ $param );
+        return 1;
+    }
+    return 0;
+}
+
+function applyTruncateTableByGet(/*$table, $cols, $form_name,*/ $param="") {
+    if (getActionGet () == LabelAction::ActionTruncate) {
+        return truncateTable ( $param );
+    }
+    return 0;
 }
 
 /**
@@ -555,6 +565,42 @@ function deleteTableByGet(/*$table, $cols, $form_name,*/  $param, $row=NULL, $tr
 		deleteInTableByID ( $table, $columns [0], $idTable, $trace );
 	}
 }
+
+/**
+ * truncateTable
+ * @param array or string $param
+ * @return number
+ */
+function truncateTable($param) {
+    if (is_array($param)){
+        $table = $param[PARAM_TABLE::TABLE_NAME];
+    }
+    else{
+        $table = $param;
+    }
+    if ($table){
+        showSQLAction("truncateTable - Truncate  $table ...");
+        $truncate = "TRUNCATE TABLE $table";
+        showSQLAction("request : $truncate");
+        
+        global $ACTIVE_TRUNCATE_TABLE;
+        if ($ACTIVE_TRUNCATE_TABLE=="yes"){
+            mysqlQuery($truncate);
+            $res=1;
+        }
+        else{
+            showError("truncateTable() <br>Variable $ ACTIVE_TRUNCATE_TABLE not activated on $table");
+            $res=1;
+        }
+    }
+    else{
+        showError("truncateTable() - Truncate table <br>No table name found in param");
+        $res = -1;
+    }
+    
+    return $res;
+}
+
 
 /**
  * deleteInTableByWhere
