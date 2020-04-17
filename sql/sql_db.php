@@ -25,6 +25,7 @@ class KEY_INFO{
 	const KEY_INFO_TYPE_TD           = "TD";
 	const KEY_INFO_TYPE_TD_EVAL      = "TD_EVAL";
 	const KEY_INFO_TYPE_FORMAT       = "FORMAT";
+	const KEY_INFO_TYPE_DIV_INFO     = "DIV_INFO";
 	const KEY_INFO_TYPE_CB_COMPLETION   = "CB_COMPLETION";
 	const KEY_INFO_TYPE_CB_NO_SELECTION = "CB_NO_SELECTION";
 	const KEY_INFO_STATUS            = "STATUS";
@@ -632,7 +633,7 @@ function getFormStyleTDEval($Resultat, $param, $idx, $res){
 
 /**
  * getFormStyleFormat
- * 
+ * attention : utilisation de la fonction eval()
  * @param array or object $Resultat
  * @param array $param
  * @param string $idx name
@@ -640,12 +641,41 @@ function getFormStyleTDEval($Resultat, $param, $idx, $res){
  * @return string or int $res
  */
 function getFormStyleFormat($Resultat, $param, $idx, $res){
-     if (isset($param)){
-         $format =  getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_FORMAT);
-         if ($format != ""){
-             eval( $format );
-         }
-     }
+    if (isset($param)){
+        $format =  getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_FORMAT);
+        if ($format != ""){
+            eval( $format );
+        }
+    }
+    return $res;
+}
+
+/**
+ * getFormDivInfo
+ * info a mettre dans la div
+ * @param array or object $Resultat
+ * @param array $param
+ * @param string $idx name
+ * @param string $infoDiv valeur courante style pour la div
+ * @param string $addStyle yes | no
+ * @return string $res
+ */
+function getFormDivInfoStyle($Resultat, $param, $idx, $infoDiv,$addStyle="no"){
+    $res=$infoDiv;
+    if (isset($param)){
+        $res2 =  getFormStyleKey($Resultat, $param, $idx, KEY_INFO::KEY_INFO_TYPE_DIV_INFO);
+        if (isset($res2)){
+            $res="$res2 ; $infoDiv";
+        }
+    }
+    
+    //ajoute si besoin le prefix style
+    if ($addStyle=="yes"){
+        if (isset($res)){
+            $res="style=\"$res\"";
+        }
+    }
+    
     return $res;
 }
 

@@ -164,7 +164,7 @@ if ($action == "showTableStockage"){
 	$request=createRequeteTableData($param);
 	showSQLAction($request);
 	
- 	$param[$TABLE_SIZE]=1200;
+ 	$param[$TABLE_SIZE]=2000;
  	showTableHeader($param);
  	showTableData($param);
 } 

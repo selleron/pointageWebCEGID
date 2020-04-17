@@ -41,7 +41,7 @@ ALTER TABLE `cegid_frais_mission` CHANGE `STATUS_ID` `STATUS_ID` VARCHAR(25) CHA
 UPDATE `version` SET `DATE` = now(), `value` = '0.51' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.50._vers_0.51', '101', now(), 'update cegid frais', '0.51.0');
 
-ALTER TABLE `files` ADD `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP AFTER `version`
+ALTER TABLE `files` ADD `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP AFTER `version`;
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.52' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.51._vers_0.52', '101', now(), 'update table files', '0.52.0');

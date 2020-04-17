@@ -540,7 +540,8 @@ function createDefaultParamSql($table = "", $columnsTxt = "", $condition = "")
         $param[PARAM_TABLE::TABLE_NAME] = $table;
     }
     if ($columnsTxt) {
-        $param[PARAM_TABLE::COLUMNS_SUMMARY] = stringToArray($columnsTxt);
+        $param[PARAM_TABLE_SQL::COLUMNS_SUMMARY] = stringToArray($columnsTxt);
+        $param[PARAM_TABLE_SQL::COLUMNS_FILTER] = $columnsTxt;
     }
     if ($condition) {
         // $param [$TABLE_WHERE_CONDITION] = $condition;
@@ -2745,22 +2746,33 @@ function showTableOneData($html, $Resultat, $cpt, $param) {
     $r = 0;
     $sizehtml="";
     foreach ($columns as $c) {
-        $res = mysqlResult($Resultat, $cpt, $c);
+        $beginDiv="";
+        $endDiv="";
+        $res = mysqlResult($Resultat, $cpt, $c); 
         //echo "<td>$c"."[$cpt]  - $res</td>";
         
         //determination taille cellule
          $sizehtml="";
          $size = getFormStyleWidth($Resultat, $param, $r);
          if (isset($size)){
-             $sizehtml="width='$size'";
+             $sizehtml=" white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: $size";
          }
          $suffix = getFormStyleSuffix($Resultat, $param, $r);
          $td     = getFormStyleTD($Resultat, $param, $r);
          $td2    = getFormStyleTDEval($Resultat, $param, $r, $res);
          $res    = getFormStyleFormat($Resultat, $param, $r, $res);
+         $div    = getFormDivInfoStyle($Resultat, $param, $r, $sizehtml,"yes");
+         
+         //si besoin creation d'une div
+         if (isset($div)){
+             $beginDiv="<div $div>";
+             $endDiv="</div>";
+             
+         }
+         
         //affichage de la cellule
         //echo "<td> $r $c</td>";
-        echo "<td id='" . $c . "[" . $cpt . "]' $sizehtml $td $td2 >" . $res . "$suffix</td>";
+        echo "<td id='" . $c . "[" . $cpt . "]' $td $td2 > $beginDiv " . $res . "$suffix $endDiv </td>";
         
         $resArray[$r] = $res;
         $r ++;

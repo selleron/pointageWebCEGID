@@ -6,13 +6,17 @@ $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["SQL"]      ="ma requete sql
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["VARIABLE"] ="<variable3>";  
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["DEFAULT"]  ="une string";    // valeur par defaut 
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["TYPE"]     ="xxxx";             // type de la colonne sql SQL_TYPE::XXX
-$FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE"]    ="<size cellule>";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE"]    ="<size cellule>";    // taille de la cellule exprimé en caractere. valide pour les champs de saisie
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]  = "disabled" | "enabled";
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]    = "string" | "number"  | "url";
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]  = "<le suffix>";
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["TD"]      = "valeur \$ALIGN_XXX";       //modification style cellule
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["TD_EVAL"] = "\$NUMBER_NEGATIF_ROUGE";   //modification style cellule fonction valeur de la cellule '$res'
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["FORMAT"]  = "valeur \$FORMAT_XXX";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["DIV_INFO"]= "valeur d'une div";                   //exemple style=\"background-color:lightblue;width: 100px;text-align: right;\"";
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["WIDTH"]= "taille en pixel px ou pourcentage %";   //exemple "220px" ou "55%"   
+
+
 
 //condition selection archivage
 $CONDITION_VALUE_VISIBLE = "Visible";
@@ -55,7 +59,7 @@ $FORMAT_TARIF  = "\$res=numberFormat(\$res,2,'.',' ');";
 $SIZE_UO    =  5;
 $SIZE_COUT  =  6;
 $SIZE_COUT_EURO  =  10;
-$WIDTH_CA_EURO = 90; //size du td ca Euro²
+$WIDTH_CA_EURO = "90px"; //size du td ca Euro²
 $SIZE_COUT_SUM = 6; //plus petit que $SIZE_COUT pour pouvoir ajouter Euro
 $SIZE_CA    = 10;
 
@@ -98,12 +102,13 @@ $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["VARIABLE"]="title";
 $FORM_STYLE["form_table_cegid_file_update"]["link"]["SIZE"]=100;
 
 //table files
-$FORM_STYLE["files_insert"]["id"]["WIDTH"]=4;
-$FORM_STYLE["files_insert"]["title"]["WIDTH"]=70;
-$FORM_STYLE["files_insert"]["name"]["WIDTH"]=70;
-$FORM_STYLE["files_insert"]["mime"]["WIDTH"]=17;
-$FORM_STYLE["files_insert"]["link"]["WIDTH"]=80;
-$FORM_STYLE["files_insert"]["date"]["WIDTH"]=30;
+//$FORM_STYLE["files_insert"]["id"]["WIDTH"]="30px";
+$FORM_STYLE["files_insert"]["title"]["WIDTH"]="400px";
+//$FORM_STYLE["files_insert"]["title"]["DIV_INFO"]="style=\"background-color:lightblue;width: 100px;text-align: right;\"";
+$FORM_STYLE["files_insert"]["name"]["WIDTH"]="400px";
+// $FORM_STYLE["files_insert"]["mime"]["WIDTH"]=100;
+$FORM_STYLE["files_insert"]["link"]["WIDTH"]="600px";
+$FORM_STYLE["files_insert"]["date"]["WIDTH"]="80px";
 
 
 //table cegid_user
@@ -517,7 +522,6 @@ $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["DEBUT"]["TD_EVAL"] 
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"] = "\$format = getStyleDateFinCommandePrestataire(\$res);";
 $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["FIN"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["FIN"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"];
-
 
 
 ?>
