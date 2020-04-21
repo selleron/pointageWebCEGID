@@ -76,6 +76,7 @@ $PRIMARY_TABLE [ "cegid_pointage_voulu" ] = "PROJECT_ID,DATE,USER_ID,PROFIL";
 $PRIMARY_TABLE [ "cegid_proposition" ] = "ID";
 
 //table cegid_file
+//////////////////////////////////
 $FORM_STYLE["form_table_cegid_file_insert"]["REFERENCE"]["SIZE"]=30;
 $FORM_STYLE["form_table_cegid_file_update"]["REFERENCE"]["SIZE"]=30;
 $FORM_STYLE["form_table_cegid_file_insert"]["CODE"]["SIZE"]=15;
@@ -95,13 +96,14 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["FILE"]="select ID from fil
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["FILE"]="select ID from files";
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["SQL"]="select ID from files where title=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["VARIABLE"]="title";
- $FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
- $FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
+$FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
+$FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
 
- $FORM_STYLE["form_table_cegid_file_update"]["link"]["STATUS"]="disabled";
+$FORM_STYLE["form_table_cegid_file_update"]["link"]["STATUS"]="disabled";
 $FORM_STYLE["form_table_cegid_file_update"]["link"]["SIZE"]=100;
 
 //table files
+/////////////////////////////////////
 //$FORM_STYLE["files_insert"]["id"]["WIDTH"]="30px";
 $FORM_STYLE["files_insert"]["title"]["WIDTH"]="400px";
 //$FORM_STYLE["files_insert"]["title"]["DIV_INFO"]="style=\"background-color:lightblue;width: 100px;text-align: right;\"";
@@ -109,6 +111,14 @@ $FORM_STYLE["files_insert"]["name"]["WIDTH"]="400px";
 // $FORM_STYLE["files_insert"]["mime"]["WIDTH"]=100;
 $FORM_STYLE["files_insert"]["link"]["WIDTH"]="600px";
 $FORM_STYLE["files_insert"]["date"]["WIDTH"]="80px";
+
+$FORM_STYLE["files_edit"]["title"]["SIZE"]=100;
+$FORM_STYLE["files_edit"]["name"]["SIZE"]=100;
+$FORM_STYLE["files_edit"]["link"]["SIZE"]=100;
+$FORM_STYLE["files_edit"]["version"]["SIZE"]=2;
+$FORM_STYLE["files_edit"]["sizeBlob"]["STATUS"]="disabled";
+
+
 
 
 //table cegid_user

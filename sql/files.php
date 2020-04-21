@@ -436,7 +436,7 @@ function showDirectory($dossier = "./", $showSubDir = "yes", $showActionDelete =
  * @param string $showActionDelete        	
  */
 function createParamShowDirectory($dossier = "./", $showSubDir = "yes", $showActionDelete = "no") {
-    global $PATH_ROOT_DIRECTORY;
+    //global $PATH_ROOT_DIRECTORY;
     global $PATH_WEB_DIRECTORY;
     $param ["urlRoot"] = "$PATH_WEB_DIRECTORY";
     $param ["dossier"] = "$dossier";

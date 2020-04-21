@@ -119,55 +119,8 @@ Manuel PHP :
 <?php
 
 endHeaderBaliseDiv($idBalise);
+applyGestionDepot();
 
-
-global $TRACE_FILE;
-$action = getActionGet();
-showActionVariable( "traitement de l'action : $action <br>",$TRACE_FILE);
-if ($action == "depot"){
-    showActionVariable(  "actionStockFiles() ",$TRACE_FILE);
-	actionStockFiles();
-} 
-if ($action == "showDepot"){
-    showActionVariable(  "show depot [$DIR_DEPOT_FROM]... ",$TRACE_FILE);
-	showDirectory($DIR_DEPOT_FROM);
-} 
-
-if ($action == "load"){
-    showActionVariable(  "action load: actionStockTemporaryFile() ...",$TRACE_FILE);
-	actionStockTemporaryFile();
-} 
-
-if ($action == "showStockage"){
-    showActionVariable(  "show stockage [$DIR_DEPOT]... ",$TRACE_FILE);
-	showDirectory($DIR_DEPOT);
-} 
-if ($action == "showTableStockage"){
-    showActionVariable(  "show table stockage ... ",$TRACE_FILE);
-    global $SQL_TABLE_FILE;
-	global $SQL_SHOW_COL_FILE;
-	$condition="";
-	$form_name=$SQL_TABLE_FILE."_insert";
-
-	//$param = createDefaultParamSql("files", $SQL_SHOW_COL_FILE);
-	$param = prepareshowTable($SQL_TABLE_FILE, $SQL_SHOW_COL_FILE, $form_name, $condition);
-	//par defaut on a edit & delete
-	// 	$param[PARAM_TABLE_ACTION::TABLE_EDIT] = "no";
-	// 	$param[PARAM_TABLE_ACTION::TABLE_DELETE] = "no";
-	// 	$param[PARAM_TABLE_ACTION::TABLE_EDIT_BY_ROW] = "yes";
-	// 	$param[PARAM_TABLE_ACTION::TABLE_DELETE_BY_ROW] = "yes";
-	
-	//ajout export CSV
-	$param[PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "yes";
-	$param[PARAM_TABLE_ACTION::TABLE_INSERT] = "no";
-	
-	$request=createRequeteTableData($param);
-	showSQLAction($request);
-	
- 	$param[$TABLE_SIZE]=2000;
- 	showTableHeader($param);
- 	showTableData($param);
-} 
 ?>
 
 
