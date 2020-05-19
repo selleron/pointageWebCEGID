@@ -52,9 +52,12 @@
 	showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $formname);
 	showFormSubmit(LabelAction::ActionExportCSV, LabelAction::ACTION_GET);
 	echoBR();
+	echoBR();
 	showFormSubmit("historique cout",LabelAction::ACTION_GET);
 	showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
 	showFormSubmit("restore cout",LabelAction::ACTION_GET);
+	echoSpace(10);
+	showFormSubmit("historique previsionnel",LabelAction::ACTION_GET);
 	endForm();
 	
 	//UO reportable

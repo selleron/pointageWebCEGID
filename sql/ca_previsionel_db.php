@@ -24,7 +24,7 @@ $ID_REQUETE_SQL_USERS                   = "REQUETE_USERS";
 $ID_REQUETE_SQL_ARCHIVE_USERS           = "ARCHIVE_USERS";
 $ID_REQUETE_SQL_UNARCHIVE_USERS         = "UNARCHIVE_USERS";
 $ID_REQUETE_SQL_HISTORIQUE_COUT         = "HISTORIQUE_COUT";
-
+$ID_REQUETE_SQL_HISTORIQUE_PREVISIONNEL = "HISTORIQUE_PREVISIONNEL";
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
@@ -45,6 +45,7 @@ function applyGestionCloture() {
     global $TRACE_CLOTURE;
     global $ID_REQUETE_SQL_PRIX_VENTE;
     global $ID_REQUETE_SQL_HISTORIQUE_COUT;
+    global $ID_REQUETE_SQL_HISTORIQUE_PREVISIONNEL;
     
     $form_name="cloture";    
     $col="";
@@ -74,6 +75,12 @@ function applyGestionCloture() {
         showActionVariable("action [ historique cout ] detected", $TRACE_CLOTURE);
         showDescriptionRequeteCEGID($ID_REQUETE_SQL_HISTORIQUE_COUT);
         showTableRequeteCEGID( $ID_REQUETE_SQL_HISTORIQUE_COUT );
+        $res=1;
+    }
+    else if (getActionGet () == "historique previsionnel"){
+        showActionVariable("action [ historique pointage previsionnel ] detected", $TRACE_CLOTURE);
+        showDescriptionRequeteCEGID($ID_REQUETE_SQL_HISTORIQUE_PREVISIONNEL);
+        showTableRequeteCEGID( $ID_REQUETE_SQL_HISTORIQUE_PREVISIONNEL );
         $res=1;
     }
     else {

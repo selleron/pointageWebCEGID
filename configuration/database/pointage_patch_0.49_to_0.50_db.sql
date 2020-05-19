@@ -46,6 +46,20 @@ ALTER TABLE `files` ADD `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP AFTER `v
 UPDATE `version` SET `DATE` = now(), `value` = '0.52' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.51._vers_0.52', '101', now(), 'update table files', '0.52.0');
 
+
+INSERT INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) 
+VALUES (
+	'HISTORIQUE_PREVISIONNEL', 
+	'LISTE HISTORIQUE_PREVISIONNEL', 
+	'liste les differentes dates de backup des couts.\r\nPermet si besoin une retauration apres l action cloture.', 
+	'SELECT distinct HISTORY, HISTORY_ACTION, count(HISTORY)\r\nFROM cegid_pointage_previsionnel_history\r\nWHERE \r\n 1\r\nGROUP BY HISTORY desc', '', 'Visible');
+
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.53' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.52._vers_0.53', '101', now(), 'create request history pointage previsionnel', '0.53.0');
+
+
+
 COMMIT;
 
 
