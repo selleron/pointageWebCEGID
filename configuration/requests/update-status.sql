@@ -1,5 +1,6 @@
 -- Update Status Devis
 -- 
+-- script version 1.0 du 2020-05-22
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -143,6 +144,13 @@ where
 					   and RIGHT(f.title,4)= ".msg"
                   );
 
+
+
+# update trace version
+UPDATE `version` SET DATE = now(), description = 'update witch update-status.sql script', value="1.0" WHERE id="data";
+
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES
+('update data 1', 300, now(), 'update witch update-status.sql script', '1.0');
 
 
 
