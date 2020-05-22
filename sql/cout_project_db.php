@@ -221,7 +221,6 @@ function showTableCoutProject($param="", $tablePointage = "") {
     }
     
     //ajouter 3 colonnes
-    global $COLUMNS_SUMMARY;
     global $SQL_COL_TOTAL_PROJECT_COUT;
     global $SQL_COL_TOTAL_REEL_PROJECT_COUT;
     global $SQL_COL_POINTAGE_PROJECT_COUT;
@@ -281,7 +280,7 @@ function showTableCoutProject($param="", $tablePointage = "") {
     global $SQL_COL_UO_PROJECT_COUT;
     beginTableRow ();
     endTableRow ();
-    $colsFromSummation="";
+    //$colsFromSummation="";
     showTablelineSummation($param2, "" /** liste des colonnes */, "$SQL_COL_UO_PROJECT_COUT, $colTotal, $colpointage, $colTotalReel",3);
     
     

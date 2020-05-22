@@ -130,7 +130,7 @@ function sommeColonneHTMLTable( obj, name, operation="sum") {
 				}
 				else{
 					if (cell.textContent){
-						value = parseFloat(cell.textContent.replace(" ",""));
+						value = parseFloat(cell.textContent.replace(/\s/g,""));
 						if (!isNaN(value)){
 							countSum+=1;
 							if (operation=="sum"){
@@ -165,11 +165,20 @@ function formatNumber(num){
 
 /**
  * sommeRowHTMLTable
- * object owner obj (HTMLInputElement en general)
- * variable name a sommer
+ *
+ * 
+ * @param obj            object owner obj (HTMLInputElement en general)
+ * @param name			variable name a sommer
+ * @param cols
+ * @param row
+ * @param showAlert
+ * @param operation
+ * @returns
  */
 function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="sum") {
 	//alert("sommeRowHTMLTable name: "+name+" - row : "+row+" - cols: "+cols+" op: "+ operation);
+	
+	trace="";
 	
 	var nameArray = name.split(",");
 	if (nameArray.length > 1){
@@ -199,10 +208,12 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 			cell = document.getElementById(idCell);
 			if (cell!=null){
 				if (cell.value){
-				  value = parseFloat(cell.value.replace(" ",""));
+  				  traceValueTxt = cell.value + "(v)";
+				  value = parseFloat(cell.value.replace(/\s/g,""));
 				}
 				else if (cell.textContent){
-					value = parseFloat(cell.textContent.replace(" ",""));
+					value = parseFloat(cell.textContent.replace(/\s/g,""));
+					traceValueTxt = value  + "(tc : "+cell.textContent.replace(/\s/g,"")+")";
 				}
 				else{
 					value=NaN;
@@ -212,12 +223,14 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 					countSum+=1;
 					if (operation=="sum"){
 						somme += value; 
+						trace=trace+" + "+ traceValueTxt;
 					}
 					if (operation=="mult"){
 						if (countSum==1){
 							somme=1;
 						}
 						somme *= value;
+						trace=trace+" * "+ traceValueTxt;
 					}
 				}
 			}
@@ -228,6 +241,8 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 		if (countSum==1 && operation=="mult"){
 			somme="";
 		}
+		
+		//ajout suffix
 		suffix="";
 		if (sommeElement.value){
 			//alert("sommeRowHTMLTable sommeElement.value :" + sommeElement.value);
@@ -241,6 +256,7 @@ function sommeRowHTMLTable( obj, name, cols, row, showAlert=false, operation="su
 			if (sommeElement.textContent.indexOf("€") !== -1){
 				suffix = " €";
 			}
+			//sommeElement.textContent = formatNumber(somme)+suffix + " - "+trace;			
 			sommeElement.textContent = formatNumber(somme)+suffix;			
 		}
 		//alert("sommeRowHTMLTable name :"+name+"  "+sommeElement+" somme : "+somme);
