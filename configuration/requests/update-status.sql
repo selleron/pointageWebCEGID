@@ -1,6 +1,6 @@
 -- Update Status Devis
 -- 
--- script version 1.0 du 2020-05-22
+-- script version 1.1 du 2020-06-23
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -20,7 +20,14 @@ UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Nean
 
 #cegid project
 
-UPDATE cegid_project pj set pj.status="En cours" WHERE pj.CEGID in (  SELECT DISTINCT p.PROJECT_ID FROM cegid_pointage p WHERE pj.status = "Prevision" and p.PROJECT_ID = pj.cegid);
+UPDATE cegid_commande_prestataire  set STATUS = "Cree" WHERE STATUS = "Demande" And year(now()) >= year(FIN) AND month(now()) >= month(FIN);
+UPDATE cegid_commande_prestataire  set STATUS = "Clos" WHERE STATUS = "Cree" And now() > FIN;
+
+
+# commande
+
+UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Demande" and status_commande = "A/R Signe";
+
 
 # cegid_file
 
@@ -147,10 +154,10 @@ where
 
 
 # update trace version
-UPDATE `version` SET DATE = now(), description = 'update witch update-status.sql script', value="1.0" WHERE id="data";
+UPDATE `version` SET DATE = now(), description = 'update witch update-status.sql script', value="1.1" WHERE id="data";
 
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES
-('update data 1', 300, now(), 'update witch update-status.sql script', '1.0');
+('update data 2', 300, now(), 'update witch update-status.sql script', '1.1');
 
 
 
