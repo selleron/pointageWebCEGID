@@ -38,6 +38,7 @@ $SELECT_NAME_AND_ALL_FROM_CEGID_PROJECT     = "select '[all]' as NAME union ($SE
 $SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT      = "select NAME from cegid_societe_client order by NAME";
 $SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR = "select NAME from cegid_societe_fournisseur order by NAME";
 $SELECT_NAME_FROM_CEGID_GROUPE               = "select distinct GROUPE from cegid_user order by GROUPE";
+$SELECT_NAME_FROM_CEGID_TEAM                = "select distinct TEAM from cegid_user order by TEAM";
 $SELECT_ID_FROM_CEGID_STATUS_VISIBLE        = "select ID from cegid_status_visible";
 $SELECT_ID_FROM_CEGID_STATUS_CEGID          = "select ID from cegid_status_cegid order by ORDRE";
 
@@ -128,7 +129,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["STATUS"]="select ID from c
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["GROUPE"]=$SELECT_NAME_FROM_CEGID_GROUPE;
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["GROUPE"]=$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["GROUPE"];
-$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["TEAM"]="select distinct TEAM from cegid_user order by TEAM";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["TEAM"]=$SELECT_NAME_FROM_CEGID_TEAM;
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["TEAM"]=$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["TEAM"];
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["LOCALISATION"]="select distinct LOCALISATION from cegid_user order by LOCALISATION";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["LOCALISATION"]=$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["LOCALISATION"];
