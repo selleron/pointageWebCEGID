@@ -124,13 +124,27 @@ $FORM_STYLE["files_edit"]["sizeBlob"]["STATUS"]="disabled";
 
 
 
+//table type projet cegid
+//$FORM_STYLE ["form_table_type_project_insert"]["ID"]["WIDTH"]=80;
+$FORM_STYLE ["form_table_type_project_insert"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_type_project_update"]["ID"]["SIZE"]=15;
+//$FORM_STYLE ["form_table_status_visible_insert"]["NAME"]["WIDTH"]=200;
+$FORM_STYLE ["form_table_type_project_insert"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_type_project_update"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_type_project_insert"]["ORDRE"]["SIZE"]=15;
+$FORM_STYLE ["form_table_type_project_update"]["ORDRE"]["SIZE"]=15;
+
+
 //table status cegid
-$FORM_STYLE ["form_table_status_cegid_insert"]["ID"]["WIDTH"]=80;
-$FORM_STYLE ["form_table_status_cegid_insert"]["ID"]["SIZE"]=15;
-$FORM_STYLE ["form_table_status_cegid_update"]["ID"]["SIZE"]=15;
-$FORM_STYLE ["form_table_status_cegid_insert"]["NAME"]["WIDTH"]=200;
-$FORM_STYLE ["form_table_status_cegid_insert"]["NAME"]["SIZE"]=60;
-$FORM_STYLE ["form_table_profils_update"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_visible_insert"]["ID"]["WIDTH"]=80;
+$FORM_STYLE ["form_table_status_visible_insert"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_visible_update"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_visible_insert"]["NAME"]["WIDTH"]=200;
+$FORM_STYLE ["form_table_status_visible_insert"]["NAME"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_visible_update"]["NAME"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_visible_insert"]["ORDRE"]["WIDTH"]=80;
+$FORM_STYLE ["form_table_status_visible_insert"]["ORDRE"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_visible_update"]["ORDRE"]["SIZE"]=15;
 
 
 

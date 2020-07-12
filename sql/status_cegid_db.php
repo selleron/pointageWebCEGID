@@ -128,8 +128,8 @@ function showTableStatusCegid() {
  function showTableTypeProject() {
      global $SQL_SHOW_COL_STATUS_CEGID;
      global $SQL_TABLE_TYPE_PROJECT;
-     global $FORM_TABLE_CEGID_STATUS_CEGID;
-     $form_name = $FORM_TABLE_CEGID_STATUS_CEGID."_insert";
+     global $FORM_TABLE_TYPE_PROJECT;
+     $form_name = $FORM_TABLE_TYPE_PROJECT."_insert";
      $condition="";
      global $TABLE_EXPORT_CSV;
      
