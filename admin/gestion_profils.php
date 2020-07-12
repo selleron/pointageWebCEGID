@@ -48,6 +48,20 @@
 	
 
 	applyGestionProfils(); 
+	
+	//boutons des actions
+	$url="";
+	$formname="profils";
+	createForm ( $url, $formname );
+	//echoBR();
+	showFormSubmit("profils archivables",LabelAction::ACTION_GET);
+	//showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
+	//showFormSubmit("restore cout",LabelAction::ACTION_GET);
+	//echoSpace(10);
+	//showFormSubmit("historique previsionnel",LabelAction::ACTION_GET);
+	endForm();
+	echoBR(1);
+	
 
 	showLoadFile("","","","import");
 		

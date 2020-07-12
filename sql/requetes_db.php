@@ -2,12 +2,16 @@
 //echo "include requetes_db.php<br>";
 $REQUETES_DB_PHP="loaded";
 
+
+
 include_once("basic.php");
 include_once("tool_db.php");
 include_once("table_db.php");
 include_once("../configuration/labelAction.php");
 
 $SQL_TABLE_REQUETES="requetes";
+$TABLE_CEGID_REQUETE      = "cegid_requetes";
+
 
 $SQL_COL_REQUETES_ID="ID";
 $SQL_COL_REQUETES_NAME="NAME";
@@ -230,6 +234,53 @@ function actionSauverRequest($html=""){
 	//reaffiche l'edition
 	showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
 }
+
+
+
+
+/**
+ * affiche une requete stockee dans la table des requetes CEGID
+ * @param string $idRequest
+ * @param string $formname
+ * @param string $idTable
+ */
+function showDescriptionRequeteCEGID($idRequest="", $formname="", $idTable = "") {
+    global $TABLE_CEGID_REQUETE;
+    
+    if ($idTable == ""){
+        $idTable = $TABLE_CEGID_REQUETE;
+    }
+    
+    //recuperation de la requete
+    $description = getDescriptionRequeteByID($idRequest, $idTable);
+    echo "<p>$description</p>";
+    
+}
+
+
+/**
+ *
+ * @param string $idRequest
+ * @return string request sql from $TABLE_CEGID_REQUETE
+ */
+function getRequeteCAByID($idRequest){
+    global $TABLE_CEGID_REQUETE;
+    global $ID_REQUETE_SQL_CA_PREVISIONEL;
+    
+    if ($idRequest==""){
+        $idRequest=$ID_REQUETE_SQL_CA_PREVISIONEL;
+    }
+    
+    //positionnement $year
+    $year = getURLYear();
+    setURLYear($year);
+    
+    $request = getRequeteByID($idRequest, $TABLE_CEGID_REQUETE);
+    return $request;
+}
+
+
+
 
 
 /**
