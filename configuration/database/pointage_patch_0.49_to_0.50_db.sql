@@ -70,6 +70,17 @@ INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('p
 
 
 
+ALTER TABLE `cegid_profil` 
+   ADD `VISIBLE` VARCHAR(15) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'Visible' AFTER `NAME`;
+
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.55' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.54._vers_0.55', '101', now(), 'table profil : add visible field', '0.55.0');
+
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.43.01 vers_0.1.46.00', '200', now(), 'table profil : add visible field', '0.1.46.00');
+UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.46.00' WHERE `version`.`id` = 'php';
+
+
 
 COMMIT;
 

@@ -35,6 +35,16 @@
 
 <?php
 	echo "<p>Gestion des profils CEGID.<br/></p>";
+	showTracePOST();
+	
+	
+	if (blockCondition("only_profil_visible", "<h4>only profil visible [<value>]</h4>")){
+	    //nothing to do
+	}
+	else{
+	    $CONDITION_FROM_CEGID_PROFIL="";
+	}
+	
 
 	applyGestionProfils(); 
 

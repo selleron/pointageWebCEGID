@@ -6,7 +6,7 @@ $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["SQL"]      ="ma requete sql
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["VARIABLE"] ="<variable3>";  
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["DEFAULT"]  ="une string";    // valeur par defaut 
 $FORM_VALUE_INSERT   ["<formulaire>"]["<variable>"]["TYPE"]     ="xxxx";             // type de la colonne sql SQL_TYPE::XXX
-$FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE"]    ="<size cellule>";    // taille de la cellule exprimé en caractere. valide pour les champs de saisie
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE"]    ="<size cellule>";    // taille de la cellule exprimï¿½ en caractere. valide pour les champs de saisie
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["STATUS"]  = "disabled" | "enabled";
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["TYPE"]    = "string" | "number"  | "url";
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["SUFFIX"]  = "<le suffix>";
@@ -60,7 +60,7 @@ $FORMAT_TARIF  = "\$res=numberFormat(\$res,2,'.',' ');";
 $SIZE_UO    =  5;
 $SIZE_COUT  =  6;
 $SIZE_COUT_EURO  =  10;
-$WIDTH_CA_EURO = "90px"; //size du td ca Euro²
+$WIDTH_CA_EURO = "90px"; //size du td ca Euroï¿½
 $SIZE_COUT_SUM = 6; //plus petit que $SIZE_COUT pour pouvoir ajouter Euro
 $SIZE_CA    = 10;
 
@@ -120,6 +120,20 @@ $FORM_STYLE["files_edit"]["version"]["SIZE"]=2;
 $FORM_STYLE["files_edit"]["sizeBlob"]["STATUS"]="disabled";
 
 
+//table cegid profil
+$FORM_STYLE ["form_table_profils_insert"]["ID"]["WIDTH"]=50;
+$FORM_STYLE ["form_table_profils_insert"]["ID"]["SIZE"]=10;
+$FORM_STYLE ["form_table_profils_update"]["ID"]["SIZE"]=10;
+$FORM_STYLE ["form_table_profils_insert"]["NAME"]["WIDTH"]=200;
+$FORM_STYLE ["form_table_profils_insert"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_profils_update"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_profils_insert"]["VISIBLE"]["SIZE"]=10;
+$FORM_STYLE ["form_table_profils_update"]["VISIBLE"]["SIZE"]=10;
+
+$FORM_VALUE_POSSIBLE["form_table_profils_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
+$FORM_VALUE_POSSIBLE["form_table_profils_update"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
+$FORM_VALUE_INSERT ["form_table_profils_insert"]["VISIBLE"]["DEFAULT"]="Visible";
+$FORM_VALUE_INSERT ["form_table_profils_update"]["VISIBLE"]["DEFAULT"]="Visible";
 
 
 //table cegid_user
