@@ -36,6 +36,7 @@
 <?php
 	echo "<p>Gestion des profils CEGID.<br/></p>";
 	showTracePOST();
+	global $CONDITION_FROM_CEGID_PROFIL;      //dans form_db_config.php
 	
 	
 	if (blockCondition("only_profil_visible", "<h4>only profil visible [<value>]</h4>")){
@@ -50,7 +51,7 @@
 
 	showLoadFile("","","","import");
 		
-	showTableProfils();
+	showTableProfils($CONDITION_FROM_CEGID_PROFIL);
 ?>
 <br/><br/><br/>
 

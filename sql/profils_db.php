@@ -29,12 +29,11 @@ function applyGestionProfils() {
   * affiche les versions des elements du projet
   * (description)
   */
- function showTableProfils() {
+ function showTableProfils($condition="") {
  	global $SQL_SHOW_COL_PROFIL;
  	global $SQL_TABLE_PROFILS;
  	global $FORM_TABLE_CEGID_PROFIL;
  	$form_name = $FORM_TABLE_CEGID_PROFIL."_insert";
- 	$condition="";
  	global $TABLE_EXPORT_CSV;
  	
  	//showTable($SQL_TABLE_PROFILS, $SQL_SHOW_COL_PROFIL, $form_name);
