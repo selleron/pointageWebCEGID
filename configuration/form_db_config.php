@@ -123,6 +123,17 @@ $FORM_STYLE["files_edit"]["version"]["SIZE"]=2;
 $FORM_STYLE["files_edit"]["sizeBlob"]["STATUS"]="disabled";
 
 
+
+//table status cegid
+$FORM_STYLE ["form_table_status_cegid_insert"]["ID"]["WIDTH"]=80;
+$FORM_STYLE ["form_table_status_cegid_insert"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_cegid_update"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_cegid_insert"]["NAME"]["WIDTH"]=200;
+$FORM_STYLE ["form_table_status_cegid_insert"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_profils_update"]["NAME"]["SIZE"]=60;
+
+
+
 //table cegid profil
 $FORM_STYLE ["form_table_profils_insert"]["ID"]["WIDTH"]=50;
 $FORM_STYLE ["form_table_profils_insert"]["ID"]["SIZE"]=10;

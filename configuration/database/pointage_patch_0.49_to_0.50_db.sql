@@ -36,6 +36,10 @@ INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('p
 UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.43.02' WHERE `version`.`id` = 'php';
 
 
+
+
+
+
 ALTER TABLE `cegid_frais_mission` CHANGE `STATUS_ID` `STATUS_ID` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'UNDEF';
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.51' WHERE `version`.`id` = 'database';
@@ -45,6 +49,11 @@ ALTER TABLE `files` ADD `date` timestamp NULL DEFAULT CURRENT_TIMESTAMP AFTER `v
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.52' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.51._vers_0.52', '101', now(), 'update table files', '0.52.0');
+
+
+
+
+
 
 
 INSERT INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) 
@@ -59,6 +68,10 @@ UPDATE `version` SET `DATE` = now(), `value` = '0.53' WHERE `version`.`id` = 'da
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.52._vers_0.53', '101', now(), 'create request history pointage previsionnel', '0.53.0');
 
 
+
+
+
+
 REPLACE INTO `requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('BUDGET_PAR_ANNEE', 'Budget par année', 'recupère le budget par année pour les projets non archivés', 'select CEGID, NAME, GROUPE, TYPE, STATUS, PRIX_VENTE, DATE, ROUND(sum(UO),1) as UO_annee,  ROUND(sum(Budget)) as Budget_annee ,  COMMENTAIRE\r\nFrom (\r\n    select p.CEGID, p.NAME, p.GROUPE, p.TYPE, p.STATUS, p.PRIX_VENTE, pc.DATE, pc.PROFIL_ID, pc.UO, pc.COUT, pc.UO * pc.COUT as Budget ,pc.COMMENTAIRE\r\n	from cegid_project p, cegid_project_cout pc \r\n	where	\r\n		p.CEGID = pc.PROJECT_ID\r\n    	AND p.VISIBLE = \"visible\"\r\n	) affaire\r\nWHERE 1\r\nGROUP BY CEGID, DATE', '', 'Visible');
 REPLACE INTO `requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('BUDGET_PAR_PROJET', 'Budget par projet', 'recupère le budget par projet non archivés', 'select CEGID, NAME, GROUPE, TYPE, STATUS, PRIX_VENTE, DATE, sum(UO_annee) as UO_Prevu,  sum(Budget_annee) as Budget\r\nFROM (\r\n    select CEGID, NAME, GROUPE, TYPE, STATUS, PRIX_VENTE, DATE, ROUND(sum(UO),1) as UO_annee,  ROUND(sum(Budget)) as Budget_annee ,  COMMENTAIRE\r\n    From (\r\n        select p.CEGID, p.NAME, p.GROUPE, p.TYPE, p.STATUS, p.PRIX_VENTE, pc.DATE, pc.PROFIL_ID, pc.UO, pc.COUT, pc.UO * pc.COUT as Budget ,pc.COMMENTAIRE\r\n        from cegid_project p, cegid_project_cout pc \r\n        where	\r\n            p.CEGID = pc.PROJECT_ID\r\n            AND p.VISIBLE = \"visible\"\r\n        ) affaire_annee\r\n    WHERE 1\r\n    GROUP BY CEGID, DATE\r\n    ) affaire\r\nWHERE 1\r\nGROUP BY CEGID', '', 'Visible');
 REPLACE INTO `requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('check_document_cegid', 'check_document_cegid', 'recherche le nombre de document par rapport Ã  un projet CEGID', 'select d.id as devis, p.cegid, p.name , p.status as project_status, 0 as nbDocument\r\nfrom cegid_project p, cegid_devis_project d\r\nWHERE \r\n        d.id not in (select reference from cegid_file) \r\n    and p.cegid = d.cegid\r\n    and p.status != \"Annule\"\r\n\r\n    \r\n', '', 'Visible');
@@ -67,6 +80,9 @@ REPLACE INTO `requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PA
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.54' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.53._vers_0.54', '101', now(), 'create request budget et consomme', '0.54.0');
+
+
+
 
 
 
