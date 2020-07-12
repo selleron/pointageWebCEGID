@@ -99,7 +99,7 @@ UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minima
 
 
 
-
+ALTER TABLE `cegid_type_project` CHANGE `ID` `ID` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
 INSERT INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES ('ID_REQUETE_SQL_PROFIL_ARCHIVABLE', 'Detection PROFIL_ARCHIVABLE', 'Permet de detecter les profils archivable (non utilisé dans les projets ouvert)', ' SELECT DISTINCT * FROM (\r\n\r\n SELECT DISTINCT * FROM cegid_profil cpf \r\n WHERE\r\n cpf.ID not in (\r\n SELECT cpc.PROFIL_ID from cegid_project pj, cegid_project_cout cpc\r\n WHERE\r\n pj.CEGID = cpc.PROJECT_ID\r\n AND pj.VISIBLE = \"Visible\"\r\n )\r\n\r\n UNION DISTINCT\r\n\r\n SELECT DISTINCT * FROM cegid_profil cpf \r\n WHERE\r\n cpf.ID not in (\r\n SELECT cpc2.PROFIL_ID from cegid_project_cout cpc2\r\n WHERE 1\r\n )\r\n )profil\r\nORDER BY profil.ID', NULL, 'Visible');
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.56' WHERE `version`.`id` = 'database';
