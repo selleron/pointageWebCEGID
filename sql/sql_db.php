@@ -717,7 +717,7 @@ function getFormStyleStatus($Resultat, $param, $idxField){
  function getFormStyleKey ($Resultat, $param, $idx, $key) {
      global $SHOW_FORM_VARIABLE_STYLE;
      global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
-     global $FORM_STYLE;
+     //global $FORM_STYLE;
      
     $style = getFormStyleArray($Resultat, $param, $idx);
     if ($SHOW_FORM_VARIABLE_STYLE=="yes"){

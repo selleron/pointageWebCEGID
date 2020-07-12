@@ -285,7 +285,7 @@ function showTableCoutProject($param="", $tablePointage = "") {
     
     
     
-    //end table
+    //end table : add export et line insert
     global $TABLE_EXPORT_CSV;
     global $TABLE_INSERT;
     $param [$TABLE_EXPORT_CSV] = "yes";

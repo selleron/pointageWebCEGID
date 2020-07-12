@@ -31,6 +31,8 @@ $CONDITION_FROM_CEGID_PROFIL     = $CONDITION_FROM_CEGID_NO_ARCHIVE;
 $CONDITION_FROM_CEGID_COMMANDE   = "cp.VISIBLE LIKE '$CONDITION_VALUE_VISIBLE'";
 
 //selection
+$SELECT_ID_FROM_CEGID_PROFIL_NO_FILTRED     = "select ID from cegid_profil";
+$SELECT_ID_FROM_CEGID_PROFIL                = "$SELECT_ID_FROM_CEGID_PROFIL_NO_FILTRED WHERE $CONDITION_FROM_CEGID_PROFIL ORDER BY ID";
 $SELECT_NAME_FROM_CEGID_USER_NO_FILTRED     = "select NAME from cegid_user";
 $SELECT_NAME_FROM_CEGID_USER                = "$SELECT_NAME_FROM_CEGID_USER_NO_FILTRED WHERE $CONDITION_FROM_CEGID_USER GROUP BY NAME";
 $SELECT_NAME_FROM_CEGID_PROJECT_NO_FILTRED  = "select NAME from cegid_project";
@@ -138,8 +140,8 @@ $FORM_VALUE_INSERT ["form_table_profils_update"]["VISIBLE"]["DEFAULT"]="Visible"
 
 
 //table cegid_user
-$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="select ID from cegid_profil";
-$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="select ID from cegid_profil";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["PROFIL"]="$SELECT_ID_FROM_CEGID_PROFIL";
+$FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["PROFIL"]="$SELECT_ID_FROM_CEGID_PROFIL";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_update"]["STATUS"]="select ID from cegid_status_cegid order by ORDRE";
 $FORM_VALUE_POSSIBLE["form_table_cegid_user_insert"]["GROUPE"]=$SELECT_NAME_FROM_CEGID_GROUPE;
@@ -268,7 +270,7 @@ $FORM_STYLE         ["form_table_cegid_project_update"]["GROUPE"]["SIZE"]=55;
 //table project cout
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
-$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROFIL_ID"]="select ID from cegid_profil";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROFIL_ID"]="$SELECT_ID_FROM_CEGID_PROFIL";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROFIL"]="select NAME from cegid_profil";
 $FORM_VALUE_DEFAULT ["form_table_cegid_project_cout_insert"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";
 $FORM_VALUE_DEFAULT ["form_table_cegid_project_cout_insert"]["PROJECT_ID"]["VARIABLE"]="project";
@@ -375,13 +377,13 @@ $FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS"]["FORMAT"] = $FORMA
 //table cegid_pointage
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["USER_ID"]="select ID from cegid_user";
-$FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["PROFIL"]="select ID from cegid_profil";
+$FORM_VALUE_POSSIBLE["form_table_cegid_pointage_insert"]["PROFIL"]="$SELECT_ID_FROM_CEGID_PROFIL";
 
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROJECT_ID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["USER_ID"]="select ID from cegid_user";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["NAME"]=$SELECT_NAME_FROM_CEGID_USER;
-$FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROFIL"]="select ID from cegid_profil";
+$FORM_VALUE_POSSIBLE["form_table_cegid_pointage_update"]["PROFIL"]="$SELECT_ID_FROM_CEGID_PROFIL";
 
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage_insert"]["DATE"]="select now()";
 
@@ -392,7 +394,7 @@ $FORM_VALUE_INSERT["form_table_cegid_pointage_update"]["USER_ID"]["VARIABLE"]="N
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["USER_ID"]="select ID from cegid_user";
-$FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROFIL"]="select ID from cegid_profil";
+$FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["PROFIL"]="$SELECT_ID_FROM_CEGID_PROFIL";
 $FORM_VALUE_POSSIBLE["form_table_cegid_pointage2_insert"]["NAME"]=$SELECT_NAME_FROM_CEGID_USER;
 
 $FORM_VALUE_DEFAULT["form_table_cegid_pointage2_insert"]["DATE"]="select now()";
@@ -413,7 +415,7 @@ $FORM_VALUE_INSERT ["form_table_cegid_pointage_replace"]["NAME"]["VARIABLE"]="US
 //form project cout
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"] ["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 
-$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_update"]["PROFIL_ID"]="select ID from cegid_profil";
+$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_update"]["PROFIL_ID"]="$SELECT_ID_FROM_CEGID_PROFIL";
 //$FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_update"] ["PROJECT_ID"]="select CEGID from cegid_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_update"] ["PROJECT"]=$SELECT_NAME_FROM_CEGID_PROJECT;
 $FORM_VALUE_INSERT ["form_table_cegid_project_cout_update"]["PROJECT_ID"]["SQL"]="select CEGID from cegid_project WHERE NAME=\"???\"";

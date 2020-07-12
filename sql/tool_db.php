@@ -3039,7 +3039,7 @@ function editSqlRowWithValue($Resultat, $c, $cpt, $formName, $idxField, $value, 
 function insertTableOneData($html, $Resultat, /*$cpt,*/ $param, $value = "")
 {
     global $COLUMNS_SUMMARY;
-    global $TABLE_ROW_FIRST;
+    //global $TABLE_ROW_FIRST;
     global $TABLE_FORM_NAME_INSERT;
     
     $formName = $param[$TABLE_FORM_NAME_INSERT];
