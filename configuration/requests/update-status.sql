@@ -1,6 +1,13 @@
 -- Update Status Devis
 -- 
 -- script version 1.1 du 2020-06-23
+--
+-- mise a jour automatique des tables
+--  status_xxx
+--  cegid_commande_prestataire (=> Clos)
+--  cegid_devis_projet
+--  cegid_file (type of file)
+--
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
