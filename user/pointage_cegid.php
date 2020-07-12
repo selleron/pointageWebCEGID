@@ -21,7 +21,7 @@
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Pointage Projet");
+	showBandeauHeaderPage("Pointage Projet  (obsolète)");
 	?>
   
 
@@ -31,7 +31,7 @@
 
 
 <?php
-	echo "<p>Pointage Projet CEGID.<br/></p>";
+	echo "<p>Pointage Projet CEGID (obsolète).<br/></p>";
 	
 	showTracePOST();
 	

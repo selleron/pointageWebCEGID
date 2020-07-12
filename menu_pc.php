@@ -51,7 +51,7 @@ createHeaderBaliseDiv("menuprincipal","<h2>Menu</h2>");
 echo"<ul>
 <li><a title=\"Accueil\"    href=\"$URL_ROOT_POINTAGE/default.php$argument\">      <img src=\"$URL_IMAGES/menu_accueil.png\"  $menuIconSize > Accueil</a></li>";
 if (isMemberGroup(2)){
-	$urlpointage  =        replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_cegid.php$argument");
+    //obsolete -- $urlpointage  =        replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_cegid.php$argument");
 	$urloneproject  =      replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/one_project_cegid.php$argument");
 	$urlprevision  =       replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php$argument");
 	$urlprevisionuser  =   replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_user_cegid.php$argument");
@@ -59,7 +59,7 @@ if (isMemberGroup(2)){
 	$urlimport  =          replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/validation_import_ETAP_cegid.php$argument");
 	$urlprevisionprojet  = replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_projet_cegid.php$argument");
 	
-	echo "<li><a title=\"Gestion Pointage\" href=\"$urlpointage\">                     <img src=\"$URL_IMAGES/menu_planning.png\"  $menuIconSize > Pointage</a></li>";
+	//obsolete -- echo "<li><a title=\"Gestion Pointage\" href=\"$urlpointage\">                     <img src=\"$URL_IMAGES/menu_planning.png\"  $menuIconSize > Pointage</a></li>";
 	echo "<li><a title=\"Gestion par projet\" href=\"$urloneproject\">                 <img src=\"$URL_IMAGES/menu_projets.png\"   $menuIconSize > Projet</a></li>";
 	echo "<li><a title=\"Prevision projet\" href=\"$urlprevision\">                    <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Previsionnel</a></li>";
 	echo "<li><a title=\"Prevision Collaborateur\" href=\"$urlprevisionuser\">         <img src=\"$URL_IMAGES/menu_prevision.png\" $menuIconSize > Prev. collaborateur</a></li>";
