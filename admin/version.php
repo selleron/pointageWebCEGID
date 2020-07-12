@@ -10,6 +10,7 @@
 	?>
 </head>
 
+
 <body>
 <div id="header">
   <h1>Serveur Web Pointage : Version</h1>
@@ -30,6 +31,8 @@
 
 <?php
 	echo "<p>Version des &eacute;l&eacute;ments du site Web.<br/></p>";
+	showTracePOST();
+	
 	showSummaryTableVersion();
 	echo "<br/><br/><br/>";
 	echo "<p>D&eacute;tails<br/></p>";

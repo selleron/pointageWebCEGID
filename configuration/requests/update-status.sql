@@ -8,6 +8,8 @@
 --  cegid_devis_projet
 --  cegid_file (type of file)
 --
+--  après verification activer le COMMIT
+--
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -161,11 +163,11 @@ where
 
 
 # update trace version
-UPDATE `version` SET DATE = now(), description = 'update witch update-status.sql script', value="1.1" WHERE id="data";
 
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES
-('update data 2', 300, now(), 'update witch update-status.sql script', '1.1');
-
+set @PATCH_NAME="update witch update-status.sql script";
+UPDATE `version` SET DATE = now(),`description` = @PATCH_NAME, `value` = ROUND((value+0.01),2) WHERE id="data";
+set @ID_NEW_VERSION=(select value from version where id='data');
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ( concat('update data ', @ID_NEW_VERSION), 300, now(), @PATCH_NAME , @ID_NEW_VERSION);
 
 
 

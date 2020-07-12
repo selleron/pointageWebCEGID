@@ -49,6 +49,7 @@ $SELECT_ID_FROM_CEGID_STATUS_CEGID          = "select ID from cegid_status_cegid
 //$FORM_STYLE["<formulaire>"]["<variable>"]["TD"] = "valeur $ALIGN_XXX";
 //$ALIGN_RIGHT = " align='right' ";
 $ALIGN_LEFT  = " align='left' ";
+$ALIGN_CENTER  = " align='center' ";
 $ALIGN_RIGHT = "style=\"text-align:right;\"";
 
 //$FORM_STYLE["<formulaire>"]["<variable>"]["TD_EVAL"] = "valeur $ALIGN_XXX";
@@ -121,6 +122,21 @@ $FORM_STYLE["files_edit"]["name"]["SIZE"]=100;
 $FORM_STYLE["files_edit"]["link"]["SIZE"]=100;
 $FORM_STYLE["files_edit"]["version"]["SIZE"]=2;
 $FORM_STYLE["files_edit"]["sizeBlob"]["STATUS"]="disabled";
+
+
+//table version (summary)
+$FORM_STYLE ["form_table_version_summary"]["id"]["WIDTH"]="120px";
+$FORM_STYLE ["form_table_version_summary"]["DATE"]["WIDTH"]="180px";
+$FORM_STYLE ["form_table_version_summary"]["DATE"]["TD"]="$ALIGN_CENTER";
+$FORM_STYLE ["form_table_version_summary"]["value"]["WIDTH"]="100px";
+
+//table version (complet = patch)
+$FORM_STYLE ["form_table_version_patch"]["id"]["WIDTH"]="300px";
+$FORM_STYLE ["form_table_version_patch"]["DATE"]["WIDTH"]="180px";
+$FORM_STYLE ["form_table_version_patch"]["DATE"]["TD"]="$ALIGN_CENTER";
+$FORM_STYLE ["form_table_version_patch"]["value"]["WIDTH"]="100px";
+$FORM_STYLE ["form_table_version_patch"]["description"]["WIDTH"]="500px";
+
 
 //table status devis
 $FORM_STYLE ["form_table_status_devis_insert"]["ID"]["SIZE"]=15;
