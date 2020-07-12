@@ -35,6 +35,7 @@
 
 <?php
 	echo "<p>Gestion des Etats des projets CEGID.<br/></p>";
+	showTracePOST();
 	
 	applyGestionStatusDevis(); 
 

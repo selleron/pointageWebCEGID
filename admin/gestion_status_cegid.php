@@ -34,6 +34,7 @@
 
 <?php
 	echo "<p>Gestion des Etats Generique CEGID.<br/></p>";
+	showTracePOST();
 	
 	applyGestionStatusCegid(); 
 

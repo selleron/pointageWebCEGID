@@ -13,6 +13,8 @@
   	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
 	?>
 </head>
+<?PHP 		testMemberGroup(2); ?>
+
 
 
 

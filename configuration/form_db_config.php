@@ -122,13 +122,41 @@ $FORM_STYLE["files_edit"]["link"]["SIZE"]=100;
 $FORM_STYLE["files_edit"]["version"]["SIZE"]=2;
 $FORM_STYLE["files_edit"]["sizeBlob"]["STATUS"]="disabled";
 
+//table status devis
+$FORM_STYLE ["form_table_status_devis_insert"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_devis_update"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_devis_insert"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_devis_update"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_devis_insert"]["ORDRE"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_devis_update"]["ORDRE"]["SIZE"]=15;
 
+//table status project
+$FORM_STYLE ["form_table_status_project_insert"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_project_update"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_project_insert"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_project_update"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_project_insert"]["ORDRE"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_project_update"]["ORDRE"]["SIZE"]=15;
+
+//table status commande
+$FORM_STYLE ["form_table_status_commande_insert"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_commande_update"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_commande_insert"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_commande_update"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_commande_insert"]["ORDRE"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_commande_update"]["ORDRE"]["SIZE"]=15;
+
+//table status cegid
+$FORM_STYLE ["form_table_status_cegid_insert"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_cegid_update"]["ID"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_cegid_insert"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_cegid_update"]["NAME"]["SIZE"]=60;
+$FORM_STYLE ["form_table_status_cegid_insert"]["ORDRE"]["SIZE"]=15;
+$FORM_STYLE ["form_table_status_cegid_update"]["ORDRE"]["SIZE"]=15;
 
 //table type projet cegid
-//$FORM_STYLE ["form_table_type_project_insert"]["ID"]["WIDTH"]=80;
 $FORM_STYLE ["form_table_type_project_insert"]["ID"]["SIZE"]=15;
 $FORM_STYLE ["form_table_type_project_update"]["ID"]["SIZE"]=15;
-//$FORM_STYLE ["form_table_status_visible_insert"]["NAME"]["WIDTH"]=200;
 $FORM_STYLE ["form_table_type_project_insert"]["NAME"]["SIZE"]=60;
 $FORM_STYLE ["form_table_type_project_update"]["NAME"]["SIZE"]=60;
 $FORM_STYLE ["form_table_type_project_insert"]["ORDRE"]["SIZE"]=15;

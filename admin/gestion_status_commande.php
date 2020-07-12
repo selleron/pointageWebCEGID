@@ -34,6 +34,7 @@
 
 <?php
 	echo "<p>Gestion des Etats Commande CEGID.<br/></p>";
+	showTracePOST();
 	
 	applyGestionStatusCommande(); 
 

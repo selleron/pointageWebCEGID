@@ -34,6 +34,7 @@
 
 <?php
 	echo "<p>Gestion Type de Projets CEGID.<br/></p>";
+	showTracePOST();
 	
 	applyGestionTypeProject(); 
 

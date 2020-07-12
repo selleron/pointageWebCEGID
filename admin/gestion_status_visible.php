@@ -34,6 +34,7 @@
 
 <?php
 	echo "<p>Gestion des Etats Visible CEGID.<br/></p>";
+	showTracePOST();
 	
 	applyGestionStatusVisible();
 	
