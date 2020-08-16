@@ -12,8 +12,7 @@ include_once(dirname(__FILE__). "/js/menu.js");
 
 global $URL_ROOT_POINTAGE;
 global $ACTION_GET;
-global $ANNEE_RESERVATION;
-global $ANNEE_MAX;
+global $COOKIE_PLATEFORM_VALUE_PC;
 global $URL_IMAGES;
 
 $id=getMemberID();
@@ -73,12 +72,7 @@ else{
     //nothing to do
 }
 
-if ($plateform==$COOKIE_PLATEFORM_VALUE_PC){
-echo "";
-}
-else{
-echo "";
-}
+
 echo "
   <li><a title=\"Pour vos questions et r&eacute;servation\"     
   href=\"$URL_ROOT_POINTAGE/contact.php$argument\"> 
@@ -283,8 +277,8 @@ else{
 	if (isMemberGroup(2)){
 		echo"
 		<ul>
-		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graphiques</a></li>
 		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart2.0-for-PHP7-master/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graph. php 7.0</a></li>
+		<li><a title=\"pChart\"            href=\"$URL_ROOT_POINTAGE/test/testGraphPChart.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Graph PChart</a></li>
 		<li><a title=\"Tableaux\"          href=\"$URL_ROOT_POINTAGE/test/testTableaux.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tableaux</a></li>
 		<li><a title=\"Modal\"             href=\"$URL_ROOT_POINTAGE/test/testModal.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Modal</a></li>
 		</ul>
