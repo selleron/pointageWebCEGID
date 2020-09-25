@@ -279,6 +279,7 @@ else{
 		<ul>
 		<li><a title=\"Tests graphiques\"  href=\"$URL_ROOT_POINTAGE/pChart2.0-for-PHP7-master/default.php$argument\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tests Graph. php 7.0</a></li>
 		<li><a title=\"pChart\"            href=\"$URL_ROOT_POINTAGE/test/testGraphPChart.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Graph PChart</a></li>
+		<li><a title=\"CA\"            href=\"$URL_ROOT_POINTAGE/test/graphEvolutionCA.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Evolution CA</a></li>
 		<li><a title=\"Tableaux\"          href=\"$URL_ROOT_POINTAGE/test/testTableaux.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Tableaux</a></li>
 		<li><a title=\"Modal\"             href=\"$URL_ROOT_POINTAGE/test/testModal.php$argument&order=order\">  <img src=\"$URL_IMAGES/histogram.png\" $menuIconSize >Modal</a></li>
 		</ul>
