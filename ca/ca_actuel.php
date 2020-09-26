@@ -9,12 +9,14 @@
 	include_once("../sql/pointage_cegid_db.php");
 	include_once("../sql/ca_previsionel_db.php");
 	include_once("../sql/member_db.php");// lien croisé avec tool_db.php
+	testMemberGroup(3);
 	include_once("../sql/cegid_file_db.php");// lien croisé avec tool_db.php
 	include_once("../js/date_calendar.js");   // affichage calebdrier pour saisie date 
+	
 	?>
 </head>
 
-<?PHP 		testMemberGroup(3); ?>
+<?PHP 	 ?>
 
 
 <body>
