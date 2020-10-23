@@ -105,7 +105,20 @@ INSERT INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUE
 UPDATE `version` SET `DATE` = now(), `value` = '0.56' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.55._vers_0.56', '101', now(), 'table request cegid : add request profils', '0.56.0');
 
+-- 
+-- gestion status commande prestataires
+-- 
 
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_A_FAIRE_TO_DDE',  'CMD_PRESTA_A_FAIRE_TO_DDE',  'passe les commande prestataire de [a faire] à [demandé]', 'UPDATE cegid_commande_prestataire  set STATUS = \"Demande\" WHERE STATUS = \"A faire\" And year(now()) >= year(Debut) AND month(now()) >= month(DEBUT);\r\n', '', 'Visible');
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_DDE_TO_CREE',     'CMD_PRESTA_DDE_TO_CREE',     'passe les commande prestataire de [demandé] à [créé]',    'UPDATE cegid_commande_prestataire  set STATUS = \"Cree\"    WHERE STATUS = \"Demande\" And year(now()) >= year(FIN) AND month(now()) > month(DEBUT);\r\n',    '', 'Visible');
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_CREE_TO_CLOS',    'CMD_PRESTA_CREEE_TO_CLOS',   'passe les commande prestataire de [créé] à [clos]',       'UPDATE cegid_commande_prestataire  set STATUS = \"Clos\"    WHERE STATUS = \"Cree\"    And now() > FIN;\r\n',                                                 '', 'Visible');
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('ARCHIVE_CMD_PRESTATAIRES',   'ARCHIVE_CMD_PRESTATAIRES',   'Archivage des commandes prestataires clos',               'UPDATE `cegid_commande_prestataire` \r\nSET `VISIBLE`=\'Archive\'  WHERE STATUS LIKE \'Clos\' OR STATUS LIKE \'Annule\'',                                     '', 'Visible');
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('UNARCHIVE_CMD_PRESTATAIRES', 'UNARCHIVE_CMD_PRESTATAIRES', 'UnArchivage des commandes prestataires archivé',         'UPDATE `cegid_commande_prestataire` \r\nSET `VISIBLE`=\'Visible\'  WHERE STATUS LIKE \'Clos\' OR STATUS LIKE \'Annule\'',                                      '', 'Visible');
+
+
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.57' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.56._vers_0.57', '101', now(), 'table request cegid : add request profils', '0.57.0');
 
 
 COMMIT;

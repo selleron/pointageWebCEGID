@@ -218,12 +218,16 @@ function actionSauverRequest($html=""){
 	$sqlTxt = getURLVariable("$SQL_COL_REQUETES_SQL_REQUEST");
 	$paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
 	
-
+	//on va utilise des quotes, il faut donc doubler les quotes de la requete
+	$sqlTxt2 = formatStringWithQuote($sqlTxt);
+	$description2 = formatStringWithQuote($description);
+	$name2 = formatStringWithQuote($name);
+	
 	//faire la sauvegarde 
 	//echo "action to do saveRequestExecute <br>";
 	$request = "REPLACE INTO `$SQL_TABLE_REQUETES` (`$SQL_COL_REQUETES_ID`, `$SQL_COL_REQUETES_NAME`, 
 	`$SQL_COL_REQUETES_DESCRIPTION`, `$SQL_COL_REQUETES_SQL_REQUEST`, `$SQL_COL_REQUETES_PARAM_AEREA`) VALUES
-	('$idRequete', '$name', '$description', '$sqlTxt', '$paramFormulaire')";
+	('$idRequete', '$name2', '$description2', '$sqlTxt2', '$paramFormulaire')";
 	
 	showSQLAction($request);
 	$Resultat = mysqlQuery($request);

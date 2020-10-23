@@ -117,6 +117,27 @@ function getURLVariable($variable)
 }
 
 /**
+ * remplace " par \" pour la creation de requetes
+ * @param string $txt
+ * @return mixed
+ */
+function formatStringWithDoubleQuote($txt){
+    $txt = str_replace('"','\"', $txt);
+    return $txt;
+}
+
+/**
+ * remplace ' par \' pour la creation de requetes
+ * @param string $txt
+ * @return mixed
+ */
+function formatStringWithQuote($txt){
+    $txt = str_replace("'","\'", $txt);
+    return $txt;
+}
+
+
+/**
  * getURLVariable
  * retourne la variable stockee dans GETou POST de l'adresse url
  * dans le cas d'un tableau retourne la premiere valeur

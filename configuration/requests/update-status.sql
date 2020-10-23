@@ -29,7 +29,8 @@ UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Nean
 
 # cegid_commande_prestataire
 
-UPDATE cegid_commande_prestataire  set STATUS = "Cree" WHERE STATUS = "Demande" And year(now()) >= year(FIN) AND month(now()) >= month(FIN);
+UPDATE cegid_commande_prestataire  set STATUS = "Cree" WHERE STATUS = "Demande" And year(now()) >= year(FIN) AND month(now()) > month(DEBUT);
+UPDATE cegid_commande_prestataire  set STATUS = "Demande" WHERE STATUS = "A faire" And year(now()) >= year(Debut) AND month(now()) >= month(DEBUT);
 UPDATE cegid_commande_prestataire  set STATUS = "Clos" WHERE STATUS = "Cree" And now() > FIN;
 
 

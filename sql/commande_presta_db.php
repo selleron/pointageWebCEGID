@@ -5,6 +5,8 @@ $COMMANDE_PRESTA_DB_PHP = "loaded";
 include_once 'project_db.php';
 include_once 'user_cegid_db.php';
 include_once 'time.php';
+include_once (dirname ( __FILE__ ) . "/ca_previsionel_db.php");
+
 //include_once 'pointage_cegid_db.php';
 
 $SQL_TABLE_COMMANDE_PRESTA        = "cegid_commande_prestataire";
@@ -42,6 +44,16 @@ $SQL_SHOW_INSERT_COL_COMMANDE = "NAME, $SQL_COL_SOCIETE_COMMANDE_PRESTA, $SQL_CO
 
 $CONDITION_USER_FROM_CEGID_COMMANDE   = "NOT( u.STATUS LIKE 'Clos')";
 $CONDITION_CMD_FROM_CEGID_COMMANDE   = "NOT( cp.STATUS LIKE 'Clos') AND NOT( cp.STATUS LIKE 'Annule')";
+
+//action pour requetes_Cegid
+$ACTION_CMD_PRESTA_A_FAIRE_TO_DDE   = "(a faire) to (demande)";;
+$ACTION_CMD_PRESTA_DDE_TO_CREE      = "(demande) to (cree)";
+$ACTION_CMD_PRESTA_CREE_TO_CLOS     = "(cree) to (clos)";
+
+//requetes dans requetes_Cegid
+$ID_REQUETE_SQL_CMD_PRESTA_A_FAIRE_TO_DDE="CMD_PRESTA_A_FAIRE_TO_DDE";
+$ID_REQUETE_SQL_CMD_PRESTA_DDE_TO_CREE="CMD_PRESTA_DDE_TO_CREE";
+$ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS="CMD_PRESTA_CREE_TO_CLOS";
 
 
 function getStyleDateDebutCommandePrestataire( $date1 ) {
@@ -138,6 +150,50 @@ function computeUO(){
     
     return NULL;
 }
+
+/**
+ * applyGestionStatusCommandePrestataire
+ * action sur l'etat des commandes prestataires
+ *  voir :
+ *   global $ACTION_CMD_PRESTA_A_FAIRE_TO_DDE;
+ *   global $ACTION_CMD_PRESTA_DDE_TO_CREE;
+ *   global $ACTION_CMD_PRESTA_CREE_TO_CLOS;
+ */
+function applyGestionStatusCommandePrestataire() {
+    global $TRACE_STATUS_COMMANDE;
+    
+    //action pour changer status gestion commandes
+    global $ACTION_CMD_PRESTA_A_FAIRE_TO_DDE;
+    global $ACTION_CMD_PRESTA_DDE_TO_CREE;
+    global $ACTION_CMD_PRESTA_CREE_TO_CLOS;
+    
+    //id request à utiliser
+    global $ID_REQUETE_SQL_CMD_PRESTA_A_FAIRE_TO_DDE;
+    global $ID_REQUETE_SQL_CMD_PRESTA_DDE_TO_CREE;
+    global $ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS;
+    
+    $res = 0;
+    if (getActionGet () == "$ACTION_CMD_PRESTA_A_FAIRE_TO_DDE"){
+        showActionVariable("action [ $ACTION_CMD_PRESTA_A_FAIRE_TO_DDE ] detected", $TRACE_STATUS_COMMANDE);
+        showDescriptionRequeteCEGID( $ID_REQUETE_SQL_CMD_PRESTA_A_FAIRE_TO_DDE);
+        executeRequeteCEGID($ID_REQUETE_SQL_CMD_PRESTA_A_FAIRE_TO_DDE);
+        $res=1;
+    }
+    else if (getActionGet () == "$ACTION_CMD_PRESTA_DDE_TO_CREE"){
+        showActionVariable("action [ $ACTION_CMD_PRESTA_DDE_TO_CREE ] detected", $TRACE_STATUS_COMMANDE);
+        showDescriptionRequeteCEGID($ID_REQUETE_SQL_CMD_PRESTA_DDE_TO_CREE);
+        executeRequeteCEGID( $ID_REQUETE_SQL_CMD_PRESTA_DDE_TO_CREE );
+        $res=1;
+    }
+    else if (getActionGet () == "$ACTION_CMD_PRESTA_CREE_TO_CLOS"){
+        showActionVariable("action [ $ACTION_CMD_PRESTA_CREE_TO_CLOS ] detected", $TRACE_STATUS_COMMANDE);
+        showDescriptionRequeteCEGID($ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS);
+        executeRequeteCEGID( $ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS );
+        $res=1;
+    }
+    return $res;
+}
+
 
 /**
  * applyGestionCommandePrestataire

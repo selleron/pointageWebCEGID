@@ -82,8 +82,29 @@
 	echo "<br/></p>";
 	
 	
-	applyGestionCommandePrestataire();
+	
+	//boutons des actions
+	//action pour changer status gestion commandes
+	global $ACTION_CMD_PRESTA_A_FAIRE_TO_DDE;
+	global $ACTION_CMD_PRESTA_DDE_TO_CREE;
+	global $ACTION_CMD_PRESTA_CREE_TO_CLOS;
+	$url="";
+	$formname="commande_prestataire";
+	createForm ( $url, $formname );
+	showFormSubmit($ACTION_CMD_PRESTA_A_FAIRE_TO_DDE,LabelAction::ACTION_GET);
+	echoSpace(2);
+	showFormSubmit($ACTION_CMD_PRESTA_DDE_TO_CREE,LabelAction::ACTION_GET);
+	echoSpace(2);
+	showFormSubmit($ACTION_CMD_PRESTA_CREE_TO_CLOS,LabelAction::ACTION_GET);
+	endForm();
 
+	//action change status
+	applyGestionStatusCommandePrestataire();
+	
+	
+	//actions
+	// edit, update, insert,...
+	applyGestionCommandePrestataire();
 	echo"<p>";
     	showOnlyInsertTableCommandePrestataire();
 	echo"<br/></p>";
