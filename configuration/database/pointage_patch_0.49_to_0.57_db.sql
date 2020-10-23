@@ -109,16 +109,18 @@ INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('p
 -- gestion status commande prestataires
 -- 
 
-REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_A_FAIRE_TO_DDE',  'CMD_PRESTA_A_FAIRE_TO_DDE',  'passe les commande prestataire de [a faire] à [demandé]', 'UPDATE cegid_commande_prestataire  set STATUS = \"Demande\" WHERE STATUS = \"A faire\" And year(now()) >= year(Debut) AND month(now()) >= month(DEBUT);\r\n', '', 'Visible');
-REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_DDE_TO_CREE',     'CMD_PRESTA_DDE_TO_CREE',     'passe les commande prestataire de [demandé] à [créé]',    'UPDATE cegid_commande_prestataire  set STATUS = \"Cree\"    WHERE STATUS = \"Demande\" And year(now()) >= year(FIN) AND month(now()) > month(DEBUT);\r\n',    '', 'Visible');
-REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_CREE_TO_CLOS',    'CMD_PRESTA_CREEE_TO_CLOS',   'passe les commande prestataire de [créé] à [clos]',       'UPDATE cegid_commande_prestataire  set STATUS = \"Clos\"    WHERE STATUS = \"Cree\"    And now() > FIN;\r\n',                                                 '', 'Visible');
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_A_FAIRE_TO_DDE',  'CMD_PRESTA_A_FAIRE_TO_DDE',  'passe les commande prestataire de [a faire] ï¿½ [demandï¿½]', 'UPDATE cegid_commande_prestataire  set STATUS = \"Demande\" WHERE STATUS = \"A faire\" And year(now()) >= year(Debut) AND month(now()) >= month(DEBUT);\r\n', '', 'Visible');
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_DDE_TO_CREE',     'CMD_PRESTA_DDE_TO_CREE',     'passe les commande prestataire de [demandï¿½] ï¿½ [crï¿½ï¿½]',    'UPDATE cegid_commande_prestataire  set STATUS = \"Cree\"    WHERE STATUS = \"Demande\" And year(now()) >= year(FIN) AND month(now()) > month(DEBUT);\r\n',    '', 'Visible');
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_PRESTA_CREE_TO_CLOS',    'CMD_PRESTA_CREEE_TO_CLOS',   'passe les commande prestataire de [crï¿½ï¿½] ï¿½ [clos]',       'UPDATE cegid_commande_prestataire  set STATUS = \"Clos\"    WHERE STATUS = \"Cree\"    And now() > FIN;\r\n',                                                 '', 'Visible');
 REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('ARCHIVE_CMD_PRESTATAIRES',   'ARCHIVE_CMD_PRESTATAIRES',   'Archivage des commandes prestataires clos',               'UPDATE `cegid_commande_prestataire` \r\nSET `VISIBLE`=\'Archive\'  WHERE STATUS LIKE \'Clos\' OR STATUS LIKE \'Annule\'',                                     '', 'Visible');
-REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('UNARCHIVE_CMD_PRESTATAIRES', 'UNARCHIVE_CMD_PRESTATAIRES', 'UnArchivage des commandes prestataires archivé',         'UPDATE `cegid_commande_prestataire` \r\nSET `VISIBLE`=\'Visible\'  WHERE STATUS LIKE \'Clos\' OR STATUS LIKE \'Annule\'',                                      '', 'Visible');
+REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('UNARCHIVE_CMD_PRESTATAIRES', 'UNARCHIVE_CMD_PRESTATAIRES', 'UnArchivage des commandes prestataires archivï¿½',         'UPDATE `cegid_commande_prestataire` \r\nSET `VISIBLE`=\'Visible\'  WHERE STATUS LIKE \'Clos\' OR STATUS LIKE \'Annule\'',                                      '', 'Visible');
 
 
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.57' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.56._vers_0.57', '101', now(), 'table request cegid : add request profils', '0.57.0');
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.46.00 vers_0.1.48.02', '200', now(), 'action status commande prestataires', '0.1.48.02');
+UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.48.02' WHERE `version`.`id` = 'php';
 
 
 COMMIT;

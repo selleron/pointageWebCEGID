@@ -190,6 +190,7 @@ echo "
 	<tr>	<td> TRACE_INFO_PROJECT </td>     	<td> $TRACE_INFO_PROJECT            </td>	<td>trace project usage    </td></tr>
 	<tr>	<td> TRACE_REQUEST_CEGID</td> 	    <td> $TRACE_REQUEST_CEGID           </td>	<td>trace request CEGID      </td></tr>
 	<tr>	<td> TRACE_CLOTURE</td> 	        <td> $TRACE_CLOTURE                 </td>	<td>trace cloture operation    </td></tr>
+	<tr>	<td> TRACE_STATUS_COMMANDE</td>    <td> $TRACE_STATUS_COMMANDE         </td>	<td>trace status commande prestataires   </td></tr>
 	<tr>	<td> TRACE_FORM_TABLE_STYLE</td> 	<td> $TRACE_FORM_TABLE_STYLE	    </td>	<td>trace le nom de la variable pour configurer les stypes yes | no    </td></tr>
 	<tr>	<td> TRACE_FORM_FIELD_STYLE </td> 	<td> $TRACE_FORM_FIELD_STYLE	    </td>	<td>trace le nom de la variable (field) pour configurer les stypes yes | no    </td></tr>
 	<tr>	<td> TRACE_NEXT_PREVIOUS</td> 	    <td> $TRACE_NEXT_PREVIOUS           </td>	<td>trace les operation sur les boutons next/previous    </td></tr>
