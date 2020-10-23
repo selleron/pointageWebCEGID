@@ -51,6 +51,7 @@ $TRACE_INFO_PROJECT="yes";                  //trace project usage
 $TRACE_PROFIL="no";                        //trace profil operation
 $SHOW_FILE_ACTION="yes";                    //trace file operation
 $TRACE_CLOTURE="yes";                       //trace cloture operation
+$TRACE_STATUS_COMMANDE="yes";               //show message action status commande prestataire
 $TRACE_REQUEST_CEGID="no";                 //trace request Cegid
 $TRACE_FORM_TABLE_STYLE="no";		        //trace le nom de la variable pour configurer les stypes yes | no
 $TRACE_FORM_FIELD_STYLE="no";		        //trace le nom de la variable (field) pour configurer les stypes yes | no
