@@ -24,6 +24,8 @@ $ID_REQUETE_SQL_ARCHIVE_USERS           = "ARCHIVE_USERS";
 $ID_REQUETE_SQL_UNARCHIVE_USERS         = "UNARCHIVE_USERS";
 $ID_REQUETE_SQL_HISTORIQUE_COUT         = "HISTORIQUE_COUT";
 $ID_REQUETE_SQL_HISTORIQUE_PREVISIONNEL = "HISTORIQUE_PREVISIONNEL";
+$ID_REQUETE_SQL_ARCHIVE_CMD_PRESTATAIRES   = "ARCHIVE_CMD_PRESTATAIRES";
+$ID_REQUETE_SQL_UNARCHIVE_CMD_PRESTATAIRES ="UNARCHIVE_CMD_PRESTATAIRES";
 
 //include_once 'connection_db.php';
 //include_once 'tool_db.php';
@@ -93,6 +95,14 @@ function applyGestionCloture() {
     return $res;
 }
 
+/**
+ * applyGestionArchives
+ * Action gestion Archivage
+ * 
+ *  archivage users, projets, devis, commandes prestataires
+ * 
+ * @return number  0 pas d'action 1 si action faite
+ */
 function applyGestionArchives() {
     global $TRACE_CLOTURE;
     global $ID_REQUETE_SQL_PROJECTS;
@@ -102,6 +112,8 @@ function applyGestionArchives() {
     global $ID_REQUETE_SQL_UNARCHIVE_DEVIS;
     global $ID_REQUETE_SQL_ARCHIVE_USERS;
     global $ID_REQUETE_SQL_UNARCHIVE_USERS;
+    global $ID_REQUETE_SQL_ARCHIVE_CMD_PRESTATAIRES;
+    global $ID_REQUETE_SQL_UNARCHIVE_CMD_PRESTATAIRES;
     
     $res=0;
     $form_name="archives";
@@ -134,6 +146,14 @@ function applyGestionArchives() {
     else if (getActionGet () == "Unarchive Users") {
         showActionVariable("action [ Unarchive Users ] detected", $TRACE_CLOTURE);
         $res = executeRequeteCEGID($ID_REQUETE_SQL_UNARCHIVE_USERS);
+    }
+    else if (getActionGet () == "Archive Cmd Prestataires") {
+        showActionVariable("action [ Archive Cmd Prestataires ] detected", $TRACE_CLOTURE);
+        $res = executeRequeteCEGID($ID_REQUETE_SQL_ARCHIVE_CMD_PRESTATAIRES);
+    }
+    else if (getActionGet () == "Unarchive Cmd Prestataires") {
+        showActionVariable("action [ Unarchive Cmd Prestataires ] detected", $TRACE_CLOTURE);
+        $res = executeRequeteCEGID($ID_REQUETE_SQL_UNARCHIVE_CMD_PRESTATAIRES);
     } else {
         $res =  applyGestionTable($request, $col, $form_name);
     }

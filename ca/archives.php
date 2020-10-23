@@ -39,10 +39,6 @@
 	echo "<p>Archives<br/></p>";
 	showTracePOST();
 	
-// 	echo"<p>";
-// 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,LabelAction::ActionExportCSV.",cloture"/*export*/,"no"/*user*/, "no"/*previous*/, "no"/*next*/);
-// 	echo"<br/></p>";
-	
 	//action
 	applyGestionArchives();
 	
@@ -69,14 +65,22 @@
         	endTableCell();
     	endTableRow();
     	beginTableRow();
-    	   beginTableCell();
-       	   showFormSubmit("Archive Users",LabelAction::ACTION_GET);
-    	   endTableCell();
-    	   beginTableCell();
-    	   showFormSubmit("Unarchive Users", LabelAction::ACTION_GET);
-    	   endTableCell();
+    	beginTableCell();
+    	showFormSubmit("Archive Users",LabelAction::ACTION_GET);
+    	endTableCell();
+    	beginTableCell();
+    	showFormSubmit("Unarchive Users", LabelAction::ACTION_GET);
+    	endTableCell();
     	endTableRow();
-    endTable();
+    	beginTableRow();
+    	beginTableCell();
+    	showFormSubmit("Archive Cmd Prestataires",LabelAction::ACTION_GET);
+    	endTableCell();
+    	beginTableCell();
+    	showFormSubmit("Unarchive Cmd Prestataires", LabelAction::ACTION_GET);
+    	endTableCell();
+    	endTableRow();
+    	endTable();
 	endForm();
 	
 	echo "<br><br>";
