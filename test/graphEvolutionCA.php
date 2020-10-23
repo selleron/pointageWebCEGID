@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="fr" xml:lang="fr">
 
 <head>
-  <title> CEGID Tests Graph </title>
+  <title> CEGID Tests Graph CA</title>
   <?PHP 
     include_once("../header.php");
 	include_once("../sql/member_db.php");// lien croise avec tool_db.php
@@ -13,14 +13,14 @@
 
 <body>
 <div id="header">
-  <h1>Serveur Web Pointage : Test Grpah</h1>
+  <h1>Serveur Web Pointage : Test Graph CA</h1>
 </div>
 
 
 <div id="contenu">
 
   	<?PHP 
-	showBandeauHeaderPage("Tests Graph PHP 7.0 dans webcegid");
+	showBandeauHeaderPage("Tests Graph CA avec PHP 7.0 dans webcegid");
 	?>
   
 
