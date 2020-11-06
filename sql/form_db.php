@@ -196,7 +196,7 @@ function showFormSubmit($txt, $action = "", $inputParameters = "") {
 
 /**
  * showFormAction
- * Affiche dans un formulaire une entre correspondant a l'action a effectuer
+ * Affiche dans un formulaire une entrée correspondant a l'action a effectuer
  *
  * @param string $action
  *        	nom de l'action
@@ -205,6 +205,38 @@ function showFormAction($action) {
 	global $ACTION_GET;
 	echo "<INPUT TYPE=\"hidden\"   NAME=\"$ACTION_GET\" VALUE=\"$action\">";
 }
+
+/**
+ * showInfoFormAllPost
+ * affiche tout les post au format formulaire pour une propagation (sauf action)
+ * @param string $info
+ */
+function showInfoFormAllPost($info=""){
+    $info = getInfoFormAllPost($info);
+    echo $info;
+}
+
+/**
+ * getInfoFormAllPost
+ * retourne sous form d'une info de form la liste des elements post sauf "action"
+ * @param string $infoForm
+ * @return string
+ */
+function getInfoFormAllPost($infoForm = "") {
+    $keys = array_keys($_POST);
+    foreach ( $keys as $aKey){
+        if ($aKey == URL_VARIABLE__KEY::ACTION_GET ){
+            //nothing to do
+        }
+        else{
+            $aValue = getURLVariable($aKey);
+            $infoForm = $infoForm . streamFormHidden($aKey, $aValue);
+        }
+    }
+    return $infoForm;
+}
+
+
 
 /**
  * showFormHidden

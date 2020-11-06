@@ -91,6 +91,7 @@
 	$url="";
 	$formname="commande_prestataire";
 	createForm ( $url, $formname );
+	showInfoFormAllPost();
 	showFormSubmit($ACTION_CMD_PRESTA_A_FAIRE_TO_DDE,LabelAction::ACTION_GET);
 	echoSpace(2);
 	showFormSubmit($ACTION_CMD_PRESTA_DDE_TO_CREE,LabelAction::ACTION_GET);

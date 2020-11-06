@@ -56,6 +56,12 @@ $ID_REQUETE_SQL_CMD_PRESTA_DDE_TO_CREE="CMD_PRESTA_DDE_TO_CREE";
 $ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS="CMD_PRESTA_CREE_TO_CLOS";
 
 
+/**
+ * getStyleDateDebutCommandePrestataire
+ * donne le format de la date de debut (avec couleur)
+ * @param string $date1 date
+ * @return string html format with color "bgcolor=XXXXXX"
+ */
 function getStyleDateDebutCommandePrestataire( $date1 ) {
     $format = "";
     
@@ -71,6 +77,37 @@ function getStyleDateDebutCommandePrestataire( $date1 ) {
     return $format;
 }
 
+/**
+ * getStyleStatusCommandePrestataire
+ * @param String $status  Standy Cree, Demande, ...
+ * @return string format bgcolor=XXXX
+ */
+function getStyleStatusCommandePrestataire( $status ) {
+    $vert ="bgcolor='#FFDDAA'";
+    $orange1 ="bgcolor='#FFDDAA'";
+    $orange2 ="bgcolor='#FFFFDC'";
+    $rouge ="bgcolor='#FFAAAA'";
+    
+    $format = "";
+   
+    if ($status == "A faire") {
+        $format = $orange2;
+    }
+    
+    if ($status == "Standby") {
+        $format = $orange1;
+    }
+    
+    return $format;
+}
+
+
+/**
+ * getStyleDateFinCommandePrestataire
+ * donne le format de la date de fin  (avec couleur)
+ * @param string $date1 date
+ * @return string html format with color "bgcolor=XXXXXX"
+ */
 function getStyleDateFinCommandePrestataire( $date1 ) {
     $timeDelai = 3600*24*30;
     $format = "";

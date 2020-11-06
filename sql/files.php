@@ -51,14 +51,18 @@ function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoFo
 	beginTable();
 	beginTableRow();
 	beginTableCell();
-	echo "
-	<!-- Le type d\'encodage des donnees, enctype, DOIT etre specifie comme ce qui suit: -->
-
-	<form enctype=\"multipart/form-data\" action=\"$url\" method=\"post\">
-	<!-- MAX_FILE_SIZE doit preceder le champ input de type file -->
+	echo "<!-- Le type d\'encodage des donnees, enctype, DOIT etre specifie comme ce qui suit: -->
+	      <form enctype=\"multipart/form-data\" action=\"$url\" method=\"post\">";
+	
+    //propagation elts de post.	
+	showInfoFormAllPost();
+	
+	//suite du formulaire
+	echo"<!-- MAX_FILE_SIZE doit preceder le champ input de type file -->
 	<input type=\"hidden\" name=\"MAX_FILE_SIZE\" value=\"$MAX_FILE_SIZE\" />
 	<!-- Le nom de l\'element input determine le nom dans le tableau -->
 	$choose : <input name=\"userfile\" type=\"file\" />";
+
 	showFormHidden(PARAM_TABLE_FORM::TABLE_FORM_NAME_INSERT, $formName);
 	showFormIDElement ();
 	if (is_array($action)){
