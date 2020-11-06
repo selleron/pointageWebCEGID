@@ -830,7 +830,19 @@ function showFormComboBoxSql($formName, $name, $Request, $sql_col, $useTD, $curr
 	if ($useTD == "yes") {
 		echo "<td>";
 	}
-	echo "<SELECT $enabledStatus name=\"$name\"  onchange=\"this.submit()\" >";
+	
+	//recuperation de la taille de la combobox et remplit style
+	$style="";
+	$size2 = getFormStyleSizeField2("", $formName, $name);
+	if ($size2 != ""){
+	    if (is_numeric($size2)){
+	      $size2 = $size2."px";
+	    }
+	    $style= "style= \"  width:$size2   \"";
+	}
+	
+	
+	echo "<SELECT $enabledStatus name=\"$name\"  onchange=\"this.submit()\" $style >"; 
 	echo "<OPTION> ".FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION;
 	if (FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION == $current_selection) {
 	    $current_selection_found="yes";

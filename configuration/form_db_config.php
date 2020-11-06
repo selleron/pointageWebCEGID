@@ -14,8 +14,8 @@ $FORM_STYLE          ["<formulaire>"]["<variable>"]["TD"]      = "valeur \$ALIGN
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["TD_EVAL"] = "\$NUMBER_NEGATIF_ROUGE";   //modification style cellule fonction valeur de la cellule '$res'
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["FORMAT"]  = "valeur \$FORMAT_XXX";
 $FORM_STYLE          ["<formulaire>"]["<variable>"]["DIV_INFO"]= "valeur d'une div";                   //exemple style=\"background-color:lightblue;width: 100px;text-align: right;\"";
-$FORM_STYLE          ["<formulaire>"]["<variable>"]["WIDTH"]= "taille en pixel px ou pourcentage %";   //exemple "220px" ou "55%"   
-
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["WIDTH"]= "taille en pixel px ou pourcentage %";   //exemple "220px" ou "55%"
+$FORM_STYLE          ["<formulaire>"]["<variable>"]["SIZE_FIELD"]= "taille en pixel px ou pourcentage %";   //exemple "220px" ou "55%"
 
 
 //condition selection archivage
@@ -84,15 +84,23 @@ $PRIMARY_TABLE [ "cegid_proposition" ] = "ID";
 //////////////////////////////////
 $FORM_STYLE["form_table_cegid_file_insert"]["REFERENCE"]["SIZE"]=30;
 $FORM_STYLE["form_table_cegid_file_update"]["REFERENCE"]["SIZE"]=30;
+
 $FORM_STYLE["form_table_cegid_file_insert"]["CODE"]["SIZE"]=15;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["CODE"]="select ID from cegid_file_code order by ORDRE";
 $FORM_STYLE["form_table_cegid_file_update"]["CODE"]["SIZE"]=15;
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["CODE"]="select ID from cegid_file_code order by ORDRE";
+
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["title"]="select TITLE from files";
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["title"]="select TITLE from files";
 $FORM_STYLE["form_table_cegid_file_update"]["title"]["CB_COMPLETION"]="yes";
-$FORM_STYLE["form_table_cegid_file_insert"]["title"]["SIZE"]=100;
+//$FORM_STYLE["form_table_cegid_file_insert"]["title"]["SIZE"]=100;
+$FORM_STYLE["form_table_cegid_file_insert"]["title"]["WIDTH"]="350px";       //pour la cellule (mode texte)
+$FORM_STYLE["form_table_cegid_file_insert"]["title"]["SIZE_FIELD"]="340px";  //pour la combobox
 $FORM_STYLE["form_table_cegid_file_update"]["title"]["SIZE"]=100;
+
+$FORM_STYLE["form_table_cegid_file_insert"]["VERSION"]["WIDTH"]="30px";       //pour la cellule (mode texte)
+$FORM_STYLE["form_table_cegid_file_insert"]["VERSION"]["SIZE"]="3";           //pour la textfield
+
 
 $FORM_STYLE["form_table_cegid_file_insert"]["COMMENTAIRE"]["SIZE"]=40;
 $FORM_STYLE["form_table_cegid_file_update"]["COMMENTAIRE"]["SIZE"]=40;
@@ -101,6 +109,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_file_insert"]["FILE"]="select ID from fil
 $FORM_VALUE_POSSIBLE["form_table_cegid_file_update"]["FILE"]="select ID from files";
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["SQL"]="select ID from files where title=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_file_update"]["FILE"]["VARIABLE"]="title";
+
 $FORM_STYLE["form_table_cegid_file_insert"]["FILE"]["STATUS"]="disabled";
 $FORM_STYLE["form_table_cegid_file_update"]["FILE"]["STATUS"]="disabled";
 
@@ -300,7 +309,12 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["VISIBLE"]=$SELECT_ID_FROM
 $FORM_VALUE_POSSIBLE["form_table_cegid_devis_update"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_CLIENT;
 
 $FORM_VALUE_INSERT ["form_table_cegid_devis_update"]["VISIBLE"]["DEFAULT"]="Visible";
+$FORM_STYLE        ["form_table_cegid_devis_update"]["ID"]["SIZE"]=50;
 $FORM_STYLE        ["form_table_cegid_devis_update"]["NAME"]["SIZE"]=50;
+$FORM_STYLE        ["form_table_cegid_devis_update"]["VERSION"]["SIZE"]=50;
+$FORM_STYLE        ["form_table_cegid_devis_update"]["CLIENT"]["SIZE"]=50;
+$FORM_STYLE        ["form_table_cegid_devis_update"]["COMMANDE"]["SIZE"]=50;
+$FORM_STYLE        ["form_table_cegid_devis_update"]["MODIFICATION"]["SIZE"]=5;
 $FORM_STYLE        ["form_table_cegid_devis_update"]["NUXEO"]["SIZE"]=100;
 $FORM_STYLE        ["form_table_cegid_devis_update"]["CEGID"]["CB_COMPLETION"]="yes";
 

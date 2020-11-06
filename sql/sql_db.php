@@ -814,11 +814,30 @@ function getFormStyleSize2($size, $form, $col, $ind=""){
     return $size;
 }
 
+
+/**
+ * getFormStyleSizeField2
+ * search value $FORM_STYLE[$form][$col][SIZE_FIELD]
+ * @param string $size
+ * @param string $form name
+ * @param string $col name
+ * @param string $ind
+ * @return string size
+ */
 function getFormStyleSizeField2($size, $form, $col, $ind=""){
     global $FORM_STYLE;
+    global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
+   
+    
     if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD])){
-        return $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD];
+        if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
+            $value = $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD];
+            echoComment("$"."FORM_STYLE"."["."$form"."]["."$col"."][".KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD."] : $value ");
+        }
+        return $value;
     }
+    
+    echoComment("$"."FORM_STYLE"."["."$form"."]["."$col"."][".KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD."] : not found ");
     return $size;
 }
 
@@ -853,7 +872,7 @@ function getFormStyleSuffix2($suffix, $form, $col, $ind=""){
     global $TRACE_FORM_FIELD_STYLE;
     global $FORM_STYLE;
     
-    //tracabilité
+    //tracabilit�
     global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
     if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
         echoComment("$"."FORM_STYLE"."["."$form"."]["."$col"."][".KEY_INFO::KEY_INFO_TYPE_SUFFIX."]");
@@ -867,7 +886,6 @@ function getFormStyleSuffix2($suffix, $form, $col, $ind=""){
 }
 
 function getFormStyleSuffixField2($suffix, $form, $col, $ind=""){
-    global $TRACE_FORM_FIELD_STYLE;
     global $FORM_STYLE;
     
     //tracabilité
