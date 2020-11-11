@@ -47,7 +47,8 @@
 	applyGestionCoutProjectForm();
 	
 	echo "<p>";
-	showLoadFile("","","","import");
+	global $FORM_TABLE_CEGID_PROJECT_COUT;
+    showLoadFile(""/**url*/ ,""/**choose txt*/ ,"" /**load txt*/,"import" /**action*/, "" /**infoFom*/ ,"" /*file size max */, $FORM_TABLE_CEGID_PROJECT_COUT);
 	echo "<br/></p>";
 	
 	showTableCoutOneProject("", "no"/*showOnlyOneProject*/);

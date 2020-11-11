@@ -830,8 +830,8 @@ function getFormStyleSizeField2($size, $form, $col, $ind=""){
    
     
     if (isset($FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD])){
+        $value = $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD];
         if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
-            $value = $FORM_STYLE[$form][$col][KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD];
             echoComment("$"."FORM_STYLE"."["."$form"."]["."$col"."][".KEY_INFO::KEY_INFO_TYPE_SIZE_FIELD."] : $value ");
         }
         return $value;
@@ -872,7 +872,7 @@ function getFormStyleSuffix2($suffix, $form, $col, $ind=""){
     global $TRACE_FORM_FIELD_STYLE;
     global $FORM_STYLE;
     
-    //tracabilité
+    //tracabilitï¿½
     global $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE;
     if ($SHOW_AS_COMMENT_FORM_VARIABLE_STYLE == "yes"){
         echoComment("$"."FORM_STYLE"."["."$form"."]["."$col"."][".KEY_INFO::KEY_INFO_TYPE_SUFFIX."]");

@@ -25,7 +25,7 @@ function numberToByte($num){
  * @param string $choose    texte du choose        par defaut "importer le fichier"
  * @param string $load      texte du bouton load   par defaut "Importer le fichier"
  * @param string $action    action                 par defaut "load"
- * @param string $infoForm
+ * @param string $formName  form name
  * @param string $MAX_FILE_SIZE
  */
 function showLoadFile($url = "", $choose = "", $load = "", $action = "", $infoForm="", $MAX_FILE_SIZE="", $formName="") {
