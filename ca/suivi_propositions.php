@@ -42,8 +42,11 @@
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
 	    LabelAction::ActionExportCSV.",".LabelAction::ACTION_SYNCHRONIZE.",".LabelAction::ActionTruncate  /*export*/,
 	    "no"/*user*/, "no"/*previous*/, "no"/*next*/);
-	    echo"<p>".LabelAction::ACTION_SYNCHRONIZE." : recalcule le CA pour l'annee donnee a partir ce resp. affaires.<br/><br/></p>";
-	
+	    echo"<p>";
+	      echo"<strong>".LabelAction::ACTION_SYNCHRONIZE."</strong> : recalcule le CA pour l'annee donnee a partir celui de resp. affaires.<br/>";
+	      echo"<strong>".LabelAction::ActionTruncate."</strong> : Efface les entr&eacute;s pour l'ann&eacute;e donn&eacute;e. Les entr&eacute;s sont recalcul&eacute;es automatiquement.<br/><br/>";
+	    echo"</p>";
+	    
 	
 	applyGestionProposition();
 	
