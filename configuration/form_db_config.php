@@ -587,7 +587,7 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["NAME"]=$SE
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["SOCIETE"]=$SELECT_NAME_FROM_CEGID_SOCIETE_FOURNISSEUR;
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["STATUS"]=$SELECT_ID_FROM_CEGID_STATUS_CEGID;
-$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["GROUPE"]=$SELECT_NAME_FROM_CEGID_GROUPE;
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["TEAM"]=$SELECT_NAME_FROM_CEGID_TEAM;
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_update"] = $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"];
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire"] = $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"];
 
@@ -598,8 +598,8 @@ $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["USER_ID"]["
 $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["SOCIETE"]["SQL"]="select SOCIETE from cegid_user  WHERE NAME=\"???\"";
 $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["SOCIETE"]["VARIABLE"]="NAME";
 
-$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["GROUPE"]["SQL"]="select GROUPE from cegid_user  WHERE NAME=\"???\"";
-$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["GROUPE"]["VARIABLE"]="NAME";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["TEAM"]["SQL"]="select TEAM from cegid_user  WHERE NAME=\"???\"";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["TEAM"]["VARIABLE"]="NAME";
 $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["STATUS"]["DEFAULT"]="Neant";
 
 
