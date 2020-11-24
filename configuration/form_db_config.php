@@ -588,8 +588,11 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["SOCIETE"]=
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["VISIBLE"]=$SELECT_ID_FROM_CEGID_STATUS_VISIBLE;
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["STATUS"]=$SELECT_ID_FROM_CEGID_STATUS_CEGID;
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["TEAM"]=$SELECT_NAME_FROM_CEGID_TEAM;
+$FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"]["PROFIL"]=$SELECT_ID_FROM_CEGID_PROFIL;
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_update"] = $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"];
 $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire"] = $FORM_VALUE_POSSIBLE["form_table_cegid_commande_prestataire_insert"];
+
+
 
 //(ID, USER_ID, SOCIETE, GROUPE) <- NAME
 $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["USER_ID"]["SQL"]="select ID from cegid_user  WHERE NAME=\"???\"";
@@ -610,6 +613,10 @@ $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["ID"]["TYPE"
 $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["ID"]["SQL"]="select concat(\"CP_\", user.ID, \"_\", cp.c) from (select ID from cegid_user where NAME=\"???\") user, (select count(ID) as c from cegid_commande_prestataire) cp";
 $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["ID"]["VARIABLE"]="NAME";
 
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_insert"]["PROFIL"]["TYPE"]="string_null";
+$FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_update"]["PROFIL"]        = $FORM_VALUE_INSERT ["form_table_cegid_commande_prestataire_insert"]["PROFIL"];
+
+
 
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"]["SUFFIX"] = " &euro;";
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"]["SUFFIX_FIELD"] = " &euro;";
@@ -621,8 +628,8 @@ $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["TARIF_ACHAT"] = $FO
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_VENTE"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["TARIF_VENTE"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["TARIF_VENTE"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
-$FORM_STYLE["form_table_cegid_commande_prestataire"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
 
+$FORM_STYLE["form_table_cegid_commande_prestataire"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["COUT"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["TARIF_ACHAT"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["COUT"]["STATUS"]= "disabled";
@@ -630,7 +637,6 @@ $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["COUT"]["STATUS"]= "
 $FORM_STYLE ["form_table_cegid_commande_prestataire"]["STATUS"]["TD_EVAL"] = "\$format = getStyleStatusCommandePrestataire(\$res);";
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["NAME"]["STATUS"]= "enabled";
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["NOM"]["STATUS"]= "disabled";
-
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["PRENOM"]["STATUS"]= "disabled";
 
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["UO"]["TD"] = $ALIGN_RIGHT;
@@ -640,6 +646,7 @@ $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["UO"]["TD"] = $ALIGN
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["DEBUT"]["TD_EVAL"] = "\$format = getStyleDateDebutCommandePrestataire(\$res);";
 $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["DEBUT"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["DEBUT"]["TD_EVAL"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["DEBUT"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["DEBUT"]["TD_EVAL"];
+
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"] = "\$format = getStyleDateFinCommandePrestataire(\$res);";
 $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["FIN"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"];
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["FIN"]["TD_EVAL"] = $FORM_STYLE["form_table_cegid_commande_prestataire"]["FIN"]["TD_EVAL"];

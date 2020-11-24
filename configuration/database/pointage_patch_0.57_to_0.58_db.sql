@@ -14,8 +14,12 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-ALTER TABLE `cegid_commande_prestataire` CHANGE `GROUPE` `TEAM` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `cegid_commande_prestataire` CHANGE `GROUPE` `TEAM`   VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `TEAM`;
 
+ALTER TABLE `cegid_commande_prestataire` ADD            `PROFIL` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `cegid_commande_prestataire` ADD KEY        `cmd_presta_profil_profil_id` (`PROFIL`);
+ALTER TABLE `cegid_commande_prestataire` ADD CONSTRAINT `cmd_presta_ibfk_1` FOREIGN KEY (`PROFIL`) REFERENCES `cegid_profil` (`ID`);
+-- ALTER TABLE `cegid_commande_prestataire` CHANGE `PROFIL` `PROFIL` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `TEAM`;
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.58' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.57._vers_0.58', '101', now(), 'update table commande prestataire', '0.58.0');
