@@ -21,10 +21,10 @@ ALTER TABLE `cegid_commande_prestataire` ADD KEY        `cmd_presta_profil_profi
 ALTER TABLE `cegid_commande_prestataire` ADD CONSTRAINT `cmd_presta_ibfk_1` FOREIGN KEY (`PROFIL`) REFERENCES `cegid_profil` (`ID`);
 -- ALTER TABLE `cegid_commande_prestataire` CHANGE `PROFIL` `PROFIL` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `TEAM`;
 
-UPDATE `version` SET `DATE` = now(), `value` = '0.58' WHERE `version`.`id` = 'database';
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.57._vers_0.58', '101', now(), 'update table commande prestataire', '0.58.0');
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.48.08 vers_0.1.49.00', '200', now(), 'update table commande prestataire', '0.1.49.00');
-UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.49.00' WHERE `version`.`id` = 'php';
+UPDATE `version` SET `DATE` = now(), `value` = '0.58.0' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.57._vers_0.58.0', '101', now(), 'update table commande prestataire', '0.58.0');
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.48.08 vers_0.1.49.02', '200', now(), 'update table commande prestataire', '0.1.49.02');
+UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.49.02' WHERE `version`.`id` = 'php';
 
 
 COMMIT;
