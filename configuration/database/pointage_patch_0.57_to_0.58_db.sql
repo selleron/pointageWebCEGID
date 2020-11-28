@@ -14,9 +14,9 @@ START TRANSACTION;
 SET time_zone = "+00:00";
 
 
-ALTER TABLE `cegid_commande_prestataire` CHANGE `GROUPE` `TEAM`   VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `TEAM`;
+ALTER TABLE `cegid_commande_prestataire` CHANGE `GROUPE` `TEAM`   VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
 
-ALTER TABLE `cegid_commande_prestataire` ADD            `PROFIL` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
+ALTER TABLE `cegid_commande_prestataire` ADD            `PROFIL` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL  AFTER `TEAM` ;
 ALTER TABLE `cegid_commande_prestataire` ADD KEY        `cmd_presta_profil_profil_id` (`PROFIL`);
 ALTER TABLE `cegid_commande_prestataire` ADD CONSTRAINT `cmd_presta_ibfk_1` FOREIGN KEY (`PROFIL`) REFERENCES `cegid_profil` (`ID`);
 -- ALTER TABLE `cegid_commande_prestataire` CHANGE `PROFIL` `PROFIL` VARCHAR(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `TEAM`;
