@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Sam 05 Août 2017 à 14:15
+-- Généré le :  Sam 28 Août 2020 à 11:08
 -- Version du serveur :  10.1.23-MariaDB-9+deb9u1
 -- Version de PHP :  5.6.30-0+deb8u1
 
