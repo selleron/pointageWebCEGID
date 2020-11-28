@@ -35,7 +35,7 @@
     
     echo "<h4>Gestion Pointage CEGID BRUT.</h4>
     <p>Permet d'importer dans la table de pointage.<br/>
-    Si possible utiliser le menu Pointage Umport pour importer des pointage.<br/>
+    Si possible utiliser le menu [Validation Import] pour importer des pointage.<br/>
     Le passage par une table intermediaire permet de vérifier les pointages.<br/>
     <br/>
     </p>";

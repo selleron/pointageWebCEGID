@@ -70,8 +70,9 @@ function applyGestionPoinstageCegid()
 }
 
 /**
- * affiche les versions des elements du projet
- * (description)
+ * showTablePointageBrutCegid
+ * show table pointage (par groupe de 40) show ID 
+ * project id, date, user id, profil, uo
  */
 function showTablePointageBrutCegid($table="")
 {
@@ -94,7 +95,7 @@ function showTablePointageBrutCegid($table="")
     $param[$TABLE_EXPORT_CSV] = "yes";
     // $param = updateParamSqlWithDistinct ( $param );
     
-    // show navogation bar
+    // show navigation bar
     $param = updateParamSpqlWithLimit($param);
     showLimitBar($param);
     
@@ -107,12 +108,19 @@ function showTablePointageBrutCegid($table="")
 }
 
 /**
- * affiche les versions des elements du projet
- * (description)
+ * showTablePointageCegid
+ * show table pointage (par groupe de 40)  show Name not ID
+ * project, date, user, profil, uo
  */
 function showTablePointageCegid()
 {
+    //prepare requete de base
     $param = prepareParamShowTablePointageCegid();
+    
+    // show navigation bar
+    $param = updateParamSpqlWithLimit($param);
+    showLimitBar($param);
+    
     $req = createRequeteTableData($param);
     showSQLAction($req);
     showTableByParam($param);

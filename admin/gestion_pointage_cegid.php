@@ -31,7 +31,9 @@
 
 
 <?php
-	echo "<p>Gestion Pointage CEGID.<br/></p>";
+showTracePOST();
+
+echo "<p>Gestion Pointage CEGID.<br/></p>";
 	
 	applyGestionPointageProjetCegid(); 
 
