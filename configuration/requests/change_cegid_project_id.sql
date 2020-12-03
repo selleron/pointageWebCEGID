@@ -23,7 +23,7 @@ SELECT @ID_NEW, concat(`NAME`,"_"), `PRIX_VENTE`, `DEBUT`, `FIN`, `FIN_GARANTIE`
 WHERE CEGID=@ID_OLD;
 
 -- deplacement des références
-UPDATE cegid_devis_project                 SET CEGID=@ID_NEW WHERE CEGID=@ID_OLD;
+UPDATE cegid_devis_project                 SET CEGID=@ID_NEW      WHERE CEGID=@ID_OLD;
 UPDATE cegid_pointage                      SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_pointage_previsionnel         SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_pointage_previsionnel_history SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
@@ -32,6 +32,8 @@ UPDATE cegid_project_cout                  SET PROJECT_ID=@ID_NEW WHERE PROJECT_
 UPDATE cegid_project_cout_history          SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_file                          SET REFERENCE=@ID_NEW  WHERE REFERENCE=@ID_OLD;
 UPDATE cegid_frais_mission                 SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
+UPDATE cegid_status_evolution              SET REFERENCE=@ID_NEW  WHERE REFERENCE=@ID_OLD;
+
 
 -- desactivation de l'ancien projet
 UPDATE `cegid_project` SET `STATUS` = 'Annule' WHERE `cegid_project`.`CEGID` = @ID_OLD;

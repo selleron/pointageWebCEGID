@@ -50,8 +50,7 @@ createHeaderBaliseDiv("menuprincipal","<h2>Menu</h2>");
 echo"<ul>
 <li><a title=\"Accueil\"    href=\"$URL_ROOT_POINTAGE/default.php$argument\">      <img src=\"$URL_IMAGES/menu_accueil.png\"  $menuIconSize > Accueil</a></li>";
 if (isMemberGroup(2)){
-    //obsolete -- $urlpointage  =        replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_cegid.php$argument");
-	$urloneproject  =      replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/one_project_cegid.php$argument");
+    $urloneproject  =      replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/one_project_cegid.php$argument");
 	$urlprevision  =       replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_cegid.php$argument");
 	$urlprevisionuser  =   replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_user_cegid.php$argument");
 	$urlprevisionuser2  =  replacePageURL("order", "", "$URL_ROOT_POINTAGE/user/pointage_prevision_user2_cegid.php$argument");
