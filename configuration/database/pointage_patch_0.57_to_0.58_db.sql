@@ -28,11 +28,18 @@ INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('p
 UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.49.02' WHERE `version`.`id` = 'php';
 
 
-
-ALTER TABLE `cegid_societe_fournisseur` ADD  `ADRESSE` text   CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `ORDRE`;
-
 UPDATE `version` SET `DATE` = now(), `value` = '0.59.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.58._vers_0.59.0', '101', now(), 'update table societe fournisseur', '0.59.0');
+
+
+ALTER TABLE `cegid_societe_fournisseur` ADD  `ADRESSE` text   CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `NAME`;
+ALTER TABLE `cegid_societe_client` ADD  `ADRESSE` text   CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `NAME`;
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.60.0' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.59._vers_0.60.0', '101', now(), 'update table societe fournisseur', '0.60.0');
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.49.02 vers_0.1.49.03', '200', now(), 'update adresse societe', '0.1.49.02');
+UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.49.03' WHERE `version`.`id` = 'php';
+
 
 COMMIT;
 

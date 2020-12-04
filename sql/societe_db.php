@@ -39,7 +39,7 @@ function applyGestionSocieteClient() {
 
 
  function showTableSocieteFournisseur() {
-     global $SQL_SHOW_COL_SOCIETE;
+     global $SQL_SHOW_INSERT_COL_SOCIETE;
      global $SQL_TABLE_SOCIETE_FOURNISSEUR;
      global $FORM_TABLE_SOCIETE_FOURNISSEUR;
      $form_name = $FORM_TABLE_SOCIETE_FOURNISSEUR."_insert";
@@ -47,7 +47,7 @@ function applyGestionSocieteClient() {
  	global $TABLE_EXPORT_CSV;
  	
  	//showTable($SQL_TABLE_PROFILS, $SQL_SHOW_COL_PROFIL, $form_name);
- 	$param = prepareshowTable($SQL_TABLE_SOCIETE_FOURNISSEUR, $SQL_SHOW_COL_SOCIETE, $form_name, $condition);
+ 	$param = prepareshowTable($SQL_TABLE_SOCIETE_FOURNISSEUR, $SQL_SHOW_INSERT_COL_SOCIETE, $form_name, $condition);
 	$param[$TABLE_EXPORT_CSV] = "yes";
 	
 	showTableByParam($param);
@@ -55,7 +55,7 @@ function applyGestionSocieteClient() {
 
  
  function showTableSocieteClient() {
-     global $SQL_SHOW_COL_SOCIETE;
+     global $SQL_SHOW_INSERT_COL_SOCIETE;
      global $SQL_TABLE_SOCIETE_CLIENT;
      global $FORM_TABLE_SOCIETE_CLIENT;
      $form_name = $FORM_TABLE_SOCIETE_CLIENT."_insert";
@@ -63,7 +63,7 @@ function applyGestionSocieteClient() {
      global $TABLE_EXPORT_CSV;
      
      //showTable($SQL_TABLE_PROFILS, $SQL_SHOW_COL_PROFIL, $form_name);
-     $param = prepareshowTable($SQL_TABLE_SOCIETE_CLIENT, $SQL_SHOW_COL_SOCIETE, $form_name, $condition);
+     $param = prepareshowTable($SQL_TABLE_SOCIETE_CLIENT, $SQL_SHOW_INSERT_COL_SOCIETE, $form_name, $condition);
      $param[$TABLE_EXPORT_CSV] = "yes";
      
      showTableByParam($param);
