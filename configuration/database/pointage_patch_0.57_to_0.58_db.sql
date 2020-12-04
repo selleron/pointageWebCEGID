@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  localhost:3306
--- Généré le :  Sam 28 novembre 2020 a� 11:08
+-- Généré le :  Sam 28 novembre 2020 a� 11:08
 -- Version du serveur :  10.1.23-MariaDB-9+deb9u1
 -- Version de PHP :  5.6.30-0+deb8u1
 
@@ -37,8 +37,8 @@ ALTER TABLE `cegid_societe_client` ADD  `ADRESSE` text   CHARACTER SET utf8 COLL
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.60.0' WHERE `version`.`id` = 'database';
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.59._vers_0.60.0', '101', now(), 'update table societe fournisseur', '0.60.0');
-INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.49.02 vers_0.1.49.03', '200', now(), 'update adresse societe', '0.1.49.02');
-UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.49.03' WHERE `version`.`id` = 'php';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.49.02 vers_0.1.49.04', '200', now(), 'update adresse societe', '0.1.49.02');
+UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.49.04' WHERE `version`.`id` = 'php';
 
 
 COMMIT;
