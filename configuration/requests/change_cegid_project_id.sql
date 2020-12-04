@@ -4,7 +4,7 @@
 -- @ID_OLD  -- sera positionné sur Annule
 -- @ID_NEW  -- sera créé
 -- parfois, il faut reediter le nom du projet pour que les changements soit pris en compte
-
+-- Version 1.1 du 02/12/2020  prise en compte de cegid_status_evolution
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -12,10 +12,10 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 
-set @ID_OLD="P18xxx";
-set @ID_NEW="P18yyy";
--- set @ID_OLD="P18028";
--- set @ID_NEW="P18040";
+set @ID_OLD="P200xx_";
+set @ID_NEW="P200yy";
+-- set @ID_OLD="P200xx";
+-- set @ID_NEW="P200yy";
 
 -- creation nouveau projet par copie
 INSERT INTO `cegid_project` (`CEGID`, `NAME`, `PRIX_VENTE`, `DEBUT`, `FIN`, `FIN_GARANTIE`, `STATUS`, `TYPE`, `GROUPE`, `COMMENTAIRE`, `VISIBLE`) 
@@ -27,6 +27,7 @@ UPDATE cegid_devis_project                 SET CEGID=@ID_NEW      WHERE CEGID=@I
 UPDATE cegid_pointage                      SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_pointage_previsionnel         SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_pointage_previsionnel_history SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
+UPDATE cegid_pointage_import               SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_pointage_voulu                SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_project_cout                  SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
 UPDATE cegid_project_cout_history          SET PROJECT_ID=@ID_NEW WHERE PROJECT_ID=@ID_OLD;
