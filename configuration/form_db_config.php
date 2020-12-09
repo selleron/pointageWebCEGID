@@ -341,14 +341,18 @@ $FORM_VALUE_POSSIBLE["form_table_cegid_project"]["VISIBLE"]=$SELECT_ID_FROM_CEGI
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_insert"]["TYPE"]="select ID from cegid_type_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_update"]["TYPE"]="select ID from cegid_type_project";
 $FORM_VALUE_POSSIBLE["form_table_cegid_project"]["TYPE"]="select ID from cegid_type_project";
-$FORM_STYLE         ["form_table_cegid_project_insert"]["PRIX_VENTE"]["SIZE"]=10;
-$FORM_STYLE         ["form_table_cegid_project_insert"]["NAME"]["SIZE"]=55;
-$FORM_STYLE         ["form_table_cegid_project_update"]["NAME"]["SIZE"]=55;
-$FORM_STYLE         ["form_table_cegid_project_insert"]["CEGID"]["SIZE"]=10;
-$FORM_STYLE         ["form_table_cegid_project_update"]["CEGID"]["SIZE"]=10;
-$FORM_STYLE         ["form_table_cegid_project_insert"]["GROUPE"]["SIZE"]=20;
-$FORM_STYLE         ["form_table_cegid_project_update"]["GROUPE"]["SIZE"]=55;
 
+$FORM_STYLE         ["form_table_cegid_project"]["PRIX_VENTE"]["SIZE"]=10;
+$FORM_STYLE         ["form_table_cegid_project"]["NAME"]["SIZE"]=55;
+$FORM_STYLE         ["form_table_cegid_project"]["CEGID"]["SIZE"]=10;
+$FORM_STYLE         ["form_table_cegid_project"]["GROUPE"]["SIZE"]=20;
+
+
+$FORM_STYLE         ["form_table_cegid_project_insert"]=$FORM_STYLE["form_table_cegid_project"];
+$FORM_STYLE         ["form_table_cegid_project_update"]=$FORM_STYLE["form_table_cegid_project"];
+
+//$FORM_STYLE["form_table_cegid_project_insert"]["DEBUT"]["SIZE_FIELD"]="50px";
+//$FORM_STYLE["form_table_cegid_project_insert"]["DEBUT"]["SIZE"]="50";
 
 //table project cout
 $FORM_VALUE_POSSIBLE["form_table_cegid_project_cout_insert"]["PROJECT_ID"]="select CEGID from cegid_project";
