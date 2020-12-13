@@ -1,6 +1,7 @@
 -- Update Status Devis
 -- 
 -- script version 1.1 du 2020-06-23
+-- script version 1.2 du 2020-12-13
 --
 -- mise a jour automatique des tables
 --  status_xxx
@@ -18,25 +19,21 @@ START TRANSACTION;
 
 
 # cegid devis
+UPDATE  cegid_devis_project set status_commande  = "Recu"      where commande != ""            and status_commande = "Neant";
+UPDATE  cegid_devis_project set status_devis     = "Accepte"   where status_devis = "Envoye"   and status_commande = "Recu" ;
+UPDATE  cegid_devis_project set status_devis     = "Accepte"   where status_devis = "Envoye"   and status_commande = "A/R Signe"; 
+UPDATE  cegid_devis_project set status_cegid     = "Cree"      where status_cegid = "Demande"  and status_commande = "Recu";
+UPDATE  cegid_devis_project set status_cegid     = "Cree"      where status_cegid = "Demande"  and status_commande = "A/R Signe";
 
-UPDATE  cegid_devis_project set status_commande = "Recu" where commande != "" and status_commande = "Neant";
-UPDATE  cegid_devis_project set status_devis = "Accepte" where status_devis = "Envoye" and status_commande = "Recu" ;
-UPDATE  cegid_devis_project set status_devis = "Accepte" where status_devis = "Envoye" and status_commande = "A/R Signe"; 
-UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Demande" and status_commande = "Recu";
-UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Demande" and status_commande = "A/R Signe";
 #UPDATE  cegid_devis_project set status_commande = "A/R Signe" where status_commande = "Recu";
-UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Neant" and status_commande = "A/R Signe" and cegid != "";
+#commande
+UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Neant"   and status_commande = "A/R Signe" and cegid != "";
+UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Demande" and status_commande = "A/R Signe";
 
 # cegid_commande_prestataire
-
-UPDATE cegid_commande_prestataire  set STATUS = "Cree" WHERE STATUS = "Demande" And year(now()) >= year(FIN) AND month(now()) > month(DEBUT);
+UPDATE cegid_commande_prestataire  set STATUS = "Cree"    WHERE STATUS = "Demande" And year(now()) >= year(FIN)   AND month(now()) > month(DEBUT);
 UPDATE cegid_commande_prestataire  set STATUS = "Demande" WHERE STATUS = "A faire" And year(now()) >= year(Debut) AND month(now()) >= month(DEBUT);
-UPDATE cegid_commande_prestataire  set STATUS = "Clos" WHERE STATUS = "Cree" And now() > FIN;
-
-
-# commande
-
-UPDATE  cegid_devis_project set status_cegid = "Cree" where status_cegid = "Demande" and status_commande = "A/R Signe";
+UPDATE cegid_commande_prestataire  set STATUS = "Clos"    WHERE STATUS = "Cree"    And now() > FIN;
 
 
 # cegid_file
