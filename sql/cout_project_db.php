@@ -196,6 +196,11 @@ function showTableCoutOneProject($tablePointage="", $showOnlyOneProject = "yes")
     
     $param = prepareParamShowTableCoutProject ($subParam);
     
+    //affichage par paquet
+    $param = updateParamSpqlWithLimit($param);
+    showLimitBar($param);
+    
+    
     //trace
     $req = createRequeteTableData ( $param );
     showSQLAction ( $req );
