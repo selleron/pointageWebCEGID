@@ -87,6 +87,13 @@ function applyGestionDepot(){
             $param[PARAM_TABLE_ACTION::TABLE_EXPORT_CSV] = "yes";
             $param[PARAM_TABLE_ACTION::TABLE_INSERT] = "no";
             
+            //affichage par paquet
+            $param = updateParamSpqlWithLimit($param);
+            showLimitBar($param);
+            
+            
+            
+            
             $request=createRequeteTableData($param);
             showSQLAction($request);
             
