@@ -195,6 +195,12 @@ function showTableFraisMissionOneProject($tablePointage="", $showOnlyOneProject 
 	
 	$param = prepareParamShowTableFraisMission ($subParam);
 	
+	//affichage par paquet
+	$param = updateParamSpqlWithLimit($param);
+	showLimitBar($param);
+	
+	
+	
 	//trace
 	$req = createRequeteTableData ( $param );
 	showSQLAction ( $req );
