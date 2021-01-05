@@ -566,9 +566,9 @@ function showFile($param, $aFile) {
 	$type = getImageForType ( $aFile );
 	$aImage = $dossier . $aFile;
 	$key = $aImage;
-	echo '
-			<td> <img src="' . $type . '"></td>
-			<td> <a href="' . $aImage . '"  class="showTip ' . $link [$key] . '" >' . $aFile . '</a></td>';
+	echo '	<td> <img src="' . $type . '"></td>';
+	// erreur echo '	<td> <a href="' . $aImage . '"  class="showTip ' . $link [$key] . '" >' . $aFile . '</a></td>';
+	echo '	<td> <a href="' . $aImage . '"  class="showTip ' .  '" >' . $aFile . '</a></td>';
 	showActionFile ( $param, $aImage );	
 }
 
@@ -741,8 +741,8 @@ function getImageForType($aFile) {
 			$path . 'ods.png',
 			$path . 'odt.png',
 			$path . 'xls.png',
-			$path . 'doc.png'
-			
+	        $path . 'doc.png'
+	    
 	);
 	// On les remplaces
 	if (sizeof ( $in ) != sizeof ( $out ))
