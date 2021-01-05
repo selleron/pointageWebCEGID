@@ -23,13 +23,13 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 
-set @FIN_OLD=now();
+set @FIN_OLD="2021-01-01";
 set @FIN_NEW="2021-03-31";
 set @UO_NEW=55;
 
 
 
---  Insert into cegid_commande_prestataire ( ID,   USER_ID,     SOCIETE, TEAM, PROFIL, , STATUS,  COMMANDE, DEBUT, FIN,  TARIF_ACHAT, TARIF_VENTE, UO, COUT, VISIBLE, COMMENTAIRE)
+--  Insert into cegid_commande_prestataire ( ID,   USER_ID,     SOCIETE, TEAM, PROFIL, STATUS,  COMMANDE, DEBUT, FIN,  TARIF_ACHAT, TARIF_VENTE, UO, COUT, VISIBLE, COMMENTAIRE)
   SELECT concat("CP_",cp1.USER_ID,"_",cp2count), cp1.USER_ID, SOCIETE, TEAM, PROFIL, "Demande", COMMANDE, 
     addtime( FIN,'1 0:0:0'), @FIN_NEW, 
     TARIF_ACHAT, TARIF_VENTE, @UO_NEW, @UO_NEW*TARIF_ACHAT, VISIBLE, COMMENTAIRE
@@ -39,10 +39,10 @@ set @UO_NEW=55;
 		 GROUP BY USER_ID
 		) cp2
   WHERE 
-        fin < now()
+        fin <  @FIN_OLD
     AND   STATUS = "Cree"
     AND   cp1.user_id NOT IN ( select USER_ID from cegid_commande_prestataire where fin > @FIN_OLD )
-	AND   cp1.user_id = cp2.user_id
+	AND   cp1.user_id = cp2.user_id;
 	
 
 -- UPDATE cegid_commande_prestataire  set STATUS = "Clos" WHERE STATUS = "Cree" And now() > FIN;
