@@ -41,6 +41,12 @@ INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('p
 UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.49.04' WHERE `version`.`id` = 'php';
 
 
+ALTER TABLE `cegid_user` CHANGE `NOM` `NOM` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.61.0' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.60._vers_0.61.0', '101', now(), 'update table user', '0.61.0');
+
+
 COMMIT;
 
 
