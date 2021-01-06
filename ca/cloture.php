@@ -54,7 +54,9 @@
 	echoBR();
 	echoBR();
 	showFormSubmit("historique cout",LabelAction::ACTION_GET);
+	echoSpace(1);
 	showFormSubmit("sauvegarde cout",LabelAction::ACTION_GET);
+	echoSpace(1);
 	showFormSubmit("restore cout",LabelAction::ACTION_GET);
 	echoSpace(10);
 	showFormSubmit("historique previsionnel",LabelAction::ACTION_GET);

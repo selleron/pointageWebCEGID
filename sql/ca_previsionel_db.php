@@ -75,7 +75,7 @@ function applyGestionCloture() {
     else if (getActionGet () == "historique cout"){
         showActionVariable("action [ historique cout ] detected", $TRACE_CLOTURE);
         showDescriptionRequeteCEGID($ID_REQUETE_SQL_HISTORIQUE_COUT);
-        showTableRequeteCEGID( $ID_REQUETE_SQL_HISTORIQUE_COUT );
+        showTableRequeteCEGID( $ID_REQUETE_SQL_HISTORIQUE_COUT , "" /* forname */ , "" /* id table */ ,  "no" /*limit*/ );
         $res=1;
     }
     else if (getActionGet () == "historique previsionnel"){
@@ -365,8 +365,9 @@ function showTableCAPrevisionel($idRequest="", $formname="", $idTable = "") {
  * @param string $idRequest
  * @param string $formname
  * @param string $idTable
+ * @param string $useLimite "yes|no" default yes
  */
-function showTableRequeteCEGID($idRequest="", $formname="", $idTable = "") {
+function showTableRequeteCEGID($idRequest="", $formname="", $idTable = "",  $useLimit="yes") {
     global $TABLE_EXPORT_CSV;
     $html="";
     
@@ -391,7 +392,7 @@ function showTableRequeteCEGID($idRequest="", $formname="", $idTable = "") {
 	
 	
 	$closeTable="false";
-	$param2 = actionRequeteSql($request,$html, $subParam, $closeTable);
+	$param2 = actionRequeteSql($request,$html, $subParam, $closeTable, $useLimit);
 	
 	
 	showTableHeader($param2, "", "no");

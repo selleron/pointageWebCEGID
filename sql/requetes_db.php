@@ -431,18 +431,26 @@ function actionExecuteRequeteParID($idRequete, $html=""){
 
 /**
  * Execute la requete contenu dans une requete
+ * 
+ * prise en compte de order
+ * prise en compte de limit
+ * 
  * @param string        $request	sql request
  * @param string URL	$html		page de lien
  * @param sql param     $subParam   sub param à utiliser
  * @param string        $closeTable "yes|no" default yes
+ * @param string        $useLimit   "yes|no" default yes
  * @return String[]     sql param
+ * 
  */
 
-function actionRequeteSql($request, $html="", $subParam="", $closeTable="yes"){
+function actionRequeteSql($request, $html="", $subParam="", $closeTable="yes", $useLimit="yes"){
 	//construction parameters
 	$param = createDefaultParamSql();
 	$param = updateParamSqlWithOrder($param);
-	$param = updateParamSqlWithLimit($param);
+	if ( $useLimit == "yes" ){
+	  $param = updateParamSqlWithLimit($param);
+	}
 	
 	$param = updateParamSqlWithSubParam($param, $subParam);
 	
@@ -457,7 +465,9 @@ function actionRequeteSql($request, $html="", $subParam="", $closeTable="yes"){
  	
  	//show result
 	//$param[$TABLE_SIZE]=1100;
-	showLimitBar($param);
+ 	if ( $useLimit == "yes" ){
+ 	    showLimitBar($param);
+ 	}
 	showTableHeader($param);
 	showTableData($param, $html, $Resultat, $closeTable);
 	
