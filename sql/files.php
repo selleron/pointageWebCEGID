@@ -714,8 +714,11 @@ function getImageForType($aFile) {
 			'ini',
 			'ods',
 			'odt',
-			'xls',
-			'doc'
+	    'xlsx',
+	    'xlsm',
+	    'xls',
+	    'doc',
+	    'docx'
 	);
 	
 	$out = array (
@@ -740,17 +743,32 @@ function getImageForType($aFile) {
 			$path . 'ini.png',
 			$path . 'ods.png',
 			$path . 'odt.png',
-			$path . 'xls.png',
-	        $path . 'doc.png'
+	    $path . 'xls.png',
+	    $path . 'xls.png',
+	    $path . 'xls.png',
+	    $path . 'doc.png',
+	    $path . 'doc.png'
 	    
 	);
 	// On les remplaces
 	if (sizeof ( $in ) != sizeof ( $out ))
 		echo "array replace size in != size out";
-	$type = str_replace ( $in, $out, $extension );
-	if ($type == $extension)
-		return $path . 'unknown.png';
-	return $type;
+	
+	$nb = sizeof ($in);
+	//echo "<td> search ($extension) in $nb ...  </td>";
+	for($i=0; $i<$nb; $i++){
+	    //echo "<td> compare ($extension) and ($in[$i]) ...  </td>";
+	    if ( $in[$i] == $extension ){
+	        //echo "<td> trouvé $extension...  </td>";
+	        return $out[$i];
+	    }
+	}
+		
+	return $path . 'unknown.png';
+// 	$type = str_replace ( $in, $out, $extension );
+// 	if ($type == $extension)
+// 		return $path . 'unknown.png';
+// 	return $type;
 }
 
 /**
