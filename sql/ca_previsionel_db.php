@@ -64,7 +64,8 @@ function applyGestionCloture() {
         showActionVariable("action [ sauvegarde cout ] detected", $TRACE_CLOTURE );
         
         $condition="";
-        $res = historisationCout($condition);
+        $history_comment = getURLVariable("label");
+        $res = historisationCout($condition, $history_comment );
     }
     else if (getActionGet () == "cloture") {
         showActionVariable("action [ cloture ] detected", $TRACE_CLOTURE);
@@ -269,13 +270,14 @@ function UOReportable(){
  * @param string $condition
  * @return boolean| object sql result
  */
-function historisationCout($condition=""){
+function historisationCout($condition="", $history_comment=""){
     global $TRACE_CLOTURE;
     
     global $SQL_SHOW_COL_PROJECT_COUT;
     global $SQL_TABLE_PROJECT_COUT;
+    
     showActionVariable("Historisation table Cout...", $TRACE_CLOTURE);
-    $res = historisationTable($SQL_TABLE_PROJECT_COUT, "", $SQL_SHOW_COL_PROJECT_COUT, $condition);
+    $res = historisationTableWithComment($SQL_TABLE_PROJECT_COUT, "", $SQL_SHOW_COL_PROJECT_COUT, $condition, $history_comment);
     return $res;
 }
 

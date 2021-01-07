@@ -47,6 +47,14 @@ UPDATE `version` SET `DATE` = now(), `value` = '0.61.0' WHERE `version`.`id` = '
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.60._vers_0.61.0', '101', now(), 'update table user', '0.61.0');
 
 
+ALTER TABLE `cegid_project_cout_history` ADD `HISTORY_COMMENT` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL AFTER `COMMENTAIRE`;
+UPDATE `cegid_requetes` SET `SQL_REQUEST` = 'SELECT distinct HISTORY, HISTORY_ACTION, count(HISTORY),\r\HISTORY_COMMENT\r\nFROM cegid_project_cout_history\r\nWHERE \r\n 1\r\nGROUP BY HISTORY' WHERE `cegid_requetes`.`ID` = 'HISTORIQUE_COUT';
+
+UPDATE `version` SET `DATE` = now(), `value` = '0.62.0' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.61._vers_0.62.0', '101', now(), 'update table user', '0.62.0');
+
+
+
 COMMIT;
 
 

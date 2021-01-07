@@ -58,27 +58,53 @@ function restoreTable($table, $table_historique = "", $columns, $condition="") {
  *  condition  	derriere le WHERE
  */
 function historisationTable($table, $table_historique = "", $columns, $condition) {
-	//showAction("historisationTable() historisation table  ");	
-	if ($table_historique == "") {
-		$table_historique = $table . "_history";
-	}
-	
-	global $SQL_ALL_COL_DOCUMENT;
-	$col = separateWith ( $columns, "," );
-	$sql = "INSERT INTO `$table_historique` ( $col )
+    //showAction("historisationTable() historisation table  ");
+    if ($table_historique == "") {
+        $table_historique = $table . "_history";
+    }
+    
+    global $SQL_ALL_COL_DOCUMENT;
+    $col = separateWith ( $columns, "," );
+    $sql = "INSERT INTO `$table_historique` ( $col )
 	SELECT $col
 	FROM $table";
-	if ($condition != "") {
-		$sql = "$sql WHERE $condition";
-	}
-	
-	$txt = "historisation $table $condition";
-	//showAction ( $txt );
-	
-	showSQLAction ( $sql );
-	$Resultat = mysqlQuery ( $sql );
-	showSQLError ( "" );
-	return $Resultat;
+    if ($condition != "") {
+        $sql = "$sql WHERE $condition";
+    }
+    
+    $txt = "historisation $table $condition";
+    //showAction ( $txt );
+    
+    showSQLAction ( $sql );
+    $Resultat = mysqlQuery ( $sql );
+    showSQLError ( "" );
+    return $Resultat;
+}
+
+function historisationTableWithComment($table, $table_historique = "", $columns, $condition, $history_comment) {
+    global $SQL_COL_HISTORY_COMMENT;
+    
+    //showAction("historisationTable() historisation table  ");
+    if ($table_historique == "") {
+        $table_historique = $table . "_history";
+    }
+    
+    global $SQL_ALL_COL_DOCUMENT;
+    $col = separateWith ( $columns, "," );
+    $sql = "INSERT INTO `$table_historique` ( $col, $SQL_COL_HISTORY_COMMENT )
+	SELECT $col, \"$history_comment\"
+	FROM $table";
+    if ($condition != "") {
+        $sql = "$sql WHERE $condition";
+    }
+    
+    $txt = "historisation $table $condition";
+    //showAction ( $txt );
+    
+    showSQLAction ( $sql );
+    $Resultat = mysqlQuery ( $sql );
+    showSQLError ( "" );
+    return $Resultat;
 }
 
 /**
