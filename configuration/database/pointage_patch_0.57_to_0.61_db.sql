@@ -54,6 +54,10 @@ UPDATE `version` SET `DATE` = now(), `value` = '0.62.0' WHERE `version`.`id` = '
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.61._vers_0.62.0', '101', now(), 'update table user', '0.62.0');
 
 
+ALTER TABLE `cegid_frais_mission` ADD `NON_REMBOURSABLE` DOUBLE NULL AFTER `FRAIS_EN_LOCAL`;
+UPDATE `version` SET `DATE` = now(), `value` = '0.63.0' WHERE `version`.`id` = 'database';
+INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.62._vers_0.63.0', '101', now(), 'update table frais mission', '0.63.0');
+
 
 COMMIT;
 

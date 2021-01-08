@@ -432,6 +432,7 @@ $FORM_VALUE_INSERT ["form_table_cegid_frais_mission_update"]["ID"]["VARIABLE"]="
 
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["TITRE"]["SIZE"] = 40;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS_EN_LOCAL"]["SIZE"] = 10;
+$FORM_STYLE["form_table_cegid_frais_mission_insert"]["NON_REMBOURSABLE"]["SIZE"] = 10;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["COMMENTAIRE"]["SIZE"] = 60;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["ID"]["SIZE"] = 15;
 $FORM_STYLE["form_table_cegid_frais_mission_insert"]["FRAIS"]["SIZE"] = $SIZE_COUT;
@@ -450,6 +451,7 @@ $FORM_STYLE["form_table_cegid_frais_mission_insert"]["sum_col_FRAIS"]["TD"] = $A
 
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["TITRE"]["SIZE"] = 40;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["FRAIS_EN_LOCAL"]["SIZE"] = 10;
+$FORM_STYLE["form_table_cegid_frais_mission_update"]["NON_REMBOURSABLE"]["SIZE"] = 10;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["ID"]["SIZE"] = 15;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["PROJECT"]["SIZE"] = 50;
 $FORM_STYLE["form_table_cegid_frais_mission_update"]["COMMENTAIRE"]["SIZE"] = 60;
