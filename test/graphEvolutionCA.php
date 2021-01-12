@@ -49,7 +49,13 @@
 
 <p>
 
-<img src="imageEvolutionCA.php" alt="image de pChart generee par imageEvolutionCA.php" />
+<?php
+//pour debug
+echo "<br>===<br>";
+//include_once("imageEvolutionCA.php");
+echo "<img src=\"imageEvolutionCA.php\" alt=\"image de pChart generee par imageEvolutionCA.php\" />";
+echo "<br>===<br>";
+?>
 
 </p>
 

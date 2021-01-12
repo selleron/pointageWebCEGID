@@ -14,6 +14,7 @@ use pChart\pColor;
 use pChart\pDraw;
 use pChart\pCharts;
 
+
 /* Create the pChart object */
 $myPicture = new pDraw(700,230);
 
