@@ -641,9 +641,12 @@ $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["COUT"] = $FORM_STYL
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["COUT"]["STATUS"]= "disabled";
 
 $FORM_STYLE ["form_table_cegid_commande_prestataire"]["STATUS"]["TD_EVAL"] = "\$format = getStyleStatusCommandePrestataire(\$res);";
+
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["NAME"]["STATUS"]= "enabled";
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["NOM"]["STATUS"]= "disabled";
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["NOM"]["SIZE"]= 80;
 $FORM_STYLE["form_table_cegid_commande_prestataire_update"]["PRENOM"]["STATUS"]= "disabled";
+$FORM_STYLE["form_table_cegid_commande_prestataire_update"]["PRENOM"]["SIZE"]= 80;
 
 $FORM_STYLE["form_table_cegid_commande_prestataire"]["UO"]["TD"] = $ALIGN_RIGHT;
 $FORM_STYLE["form_table_cegid_commande_prestataire_insert"]["UO"]["TD"] = $ALIGN_RIGHT;
