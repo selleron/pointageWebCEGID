@@ -20,9 +20,9 @@ use pChart\pCharts;
  * createGraph
  * @return \pChart\pDraw
  */
-function createGraph(){
+function createGraph($xSize=700, $ySize=230){
     /* Create the pChart object */
-    $myPicture = new pDraw(700,230);
+    $myPicture = new pDraw($xSize, $ySize);
     
     return $myPicture;
 }
@@ -33,13 +33,14 @@ function createGraph(){
  * @param string $title
  * @return $myPicture
  */
-function initGraph( $myPicture, $title = "TITRE"){
+function initGraph( $myPicture, $title = "TITRE", $drawLegend="yes"){
     /* Turn off Anti-aliasing */
     $myPicture->Antialias = FALSE;
     
     /* Add a border to the picture */
     $xsize = $myPicture->XSize;
     $ysize = $myPicture->YSize;
+    //$myPicture->drawFilledRectangle(0,0,$xsize-1,$ysize-1,["Color"=>new pColor(170,183,87), "Dash"=>TRUE, "DashColor"=>new pColor(190,203,107)]);
     $myPicture->drawRectangle(0,0,$xsize-1,$ysize-1,["Color"=>new pColor(0)]);
     
     /* Write the chart title */
@@ -57,7 +58,9 @@ function initGraph( $myPicture, $title = "TITRE"){
     $myPicture->drawScale($scaleSettings);
     
     /* Write the chart legend */
-    $myPicture->drawLegend(540,20,["Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL]);
+    if ($drawLegend == "yes"){
+        $myPicture->drawLegend(540,20,["Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL]);
+    }
     
     /* Turn on Anti-aliasing */
     $myPicture->Antialias = TRUE;
@@ -66,5 +69,9 @@ function initGraph( $myPicture, $title = "TITRE"){
     return $myPicture;
 }
 
+function drawLegend($myPicture){
+    /* Write the chart legend */
+    $myPicture->drawLegend(540,20,["Style"=>LEGEND_NOBORDER,"Mode"=>LEGEND_HORIZONTAL]);
+}
 
 ?>
