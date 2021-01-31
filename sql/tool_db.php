@@ -1684,7 +1684,7 @@ function createSqlInsert($table, $arrayCol, $arrayValue, $quoteValue = "true", $
  * @return string $v modified
  */
 function transformSqlValueFormInsert($v, $quoteValue, $type){
-    //showAction("value ($v) type : $type isset : ".isset($v)."   isempty : ".($v==""));
+    showAction("transformSqlValueFormInsert() value ($v) type : $type isset : ".isset($v)."   isempty : ".($v==""));
     if ($v==FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION){
         $v="NULL";
     }

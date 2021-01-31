@@ -392,6 +392,7 @@ function mysqli_field_type($result, $field_nr){
         return NULL;
     }
     $type =  mysqli_fetch_field_direct($result, $field_nr)->type;
+    //echo "mysqli_field_type() - type detected - $type <br>";
     $type2 = $type;
     switch ($type){
         case SQL_TYPE_CODE::SQL_INT : $type2 = SQL_TYPE::SQL_INT;
