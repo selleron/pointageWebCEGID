@@ -1,4 +1,5 @@
-<?php   
+<?php
+
 /* CAT:Area Chart */
 
 /* pChart library inclusions */
@@ -10,17 +11,31 @@ include_once (dirname ( __FILE__ ) . "/../sql/form_project_db.php");
  use pChart\pDraw;
  use pChart\pCharts;
 
- $year = getURLYear();
+ 
+ global $TRACE_GENERATION_IMAGE;
+     
+     
+     
+ 
+ $yearURL = getURLYear();
+ if ($TRACE_GENERATION_IMAGE=="yes"){
+     echo " TRACE_GENERATION_IMAGE : $TRACE_GENERATION_IMAGE <br>";
+     echo " year url detected : [$yearURL] <br>";
+ }
+ 
+ $year=2019;
+ $year=$yearURL;
+ 
+ //$year= 2020;
  //$infoForm = streamFormHidden($YEAR_SELECTION, $year);
- $trace="no";
 
  /* Create the pChart object */
 //$myPicture = new pDraw(700,230);
 $myPicture = createGraph(1000,500);
 
-$dataCAReel2 = computeCAReel($year,"no");
-$dataCAReelCumul = computeCAReel($year,"yes");
-$dataCAPrevCumul = computeCAPrevisionnel($year,"yes");
+$dataCAReel2 = computeCAReel($year,"no"/*cumul*/, $TRACE_GENERATION_IMAGE /*trace*/);
+$dataCAReelCumul = computeCAReel($year,"yes"/*cumul*/, $TRACE_GENERATION_IMAGE /*trace*/ );
+$dataCAPrevCumul = computeCAPrevisionnel($year,"yes"/*cumul*/, $TRACE_GENERATION_IMAGE /*trace*/);
 
 /* Populate the pData object */
 $myPicture->myData->addPoints($dataCAPrevCumul[1],"CA Prev.");
@@ -64,7 +79,7 @@ drawLegend($myPicture);
 
 /* Render the picture (choose the best way) */
 //$myPicture->autoOutput("temp/example.drawAreaChart.simple.png");
-if ($trace == "yes"){
+if ($TRACE_GENERATION_IMAGE=="yes"){
     //nothing to do
 }
 else{

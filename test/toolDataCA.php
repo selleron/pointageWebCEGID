@@ -30,12 +30,12 @@ function computeCAPrevisionnel($year, $cumul = "yes", $trace="no"){
 /**
  * Compute CA
  * 
- * a revoir car actuellement le CA n'est pas plafonné
+ * a revoir car actuellement le CA n'est pas plafonne
  * 
  * @param string $table
  * @param integer $year
- * @param string $cumul
- * @param string $trace
+ * @param string $cumul  yes|no
+ * @param string $trace  yes|no
  * @return number
  */
 function computeCA($table="cegid_pointage", $year, $cumul = "yes", $trace="no"){

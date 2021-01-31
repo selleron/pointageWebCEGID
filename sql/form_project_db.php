@@ -1,6 +1,7 @@
 <?php
 
 include_once (dirname(__FILE__) . "/../configuration/labelAction.php");
+include_once (dirname(__FILE__) . "/tool_db.php");
 
 // key pour les combo box principale
 class FORM_COMBOX_BOX_PROJECT_KEY {

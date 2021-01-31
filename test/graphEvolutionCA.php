@@ -64,11 +64,22 @@
     echo"<p>";
 	
     //pour debug
-    echo "<br>===<br>";
-    //include_once("imageEvolutionCA.php");
-    echo "<img src=\"imageEvolutionCA.php\" alt=\"image de pChart generee par imageEvolutionCA.php\" />";
-    echo "<br>===<br>";
-
+    global $TRACE_GENERATION_IMAGE;
+    if ($TRACE_GENERATION_IMAGE=="yes"){
+        echo "<br>===<br>";
+        include_once("imageEvolutionCA.php");
+        echo "<br>===<br>";
+    }
+    else{
+        //preparation des paramètres pour l'image
+        // $year
+        $year = getURLYear();
+        $urlParamImage="year=$year";
+        
+        //affichage de l'image
+        echo "<img src=\"imageEvolutionCA.php?$urlParamImage\" alt=\"image de pChart generee par imageEvolutionCA.php\" />";
+    }
+    
     echo"</p>";  
 
 ?>
