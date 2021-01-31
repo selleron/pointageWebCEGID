@@ -4,15 +4,40 @@ include_once (dirname ( __FILE__ ) . "/../sql/sql_db.php");
 include_once (dirname ( __FILE__ ) . "/../sql/tool_db.php");
 
 
+/**
+ * Compute CA Reel
+ * @param integer $year
+ * @param string $cumul
+ * @param string $trace
+ * @return number
+ */
 function computeCAReel($year, $cumul = "yes", $trace="no"){
     return computeCA("cegid_pointage", $year, $cumul, $trace);
 }
 
+/**
+ * Compute CA previsionnel
+ * @param integer $year
+ * @param string $cumul
+ * @param string $trace
+ * @return number
+ */
 function computeCAPrevisionnel($year, $cumul = "yes", $trace="no"){
     return computeCA("cegid_pointage_previsionnel", $year, $cumul, $trace);
 }
 
 
+/**
+ * Compute CA
+ * 
+ * a revoir car actuellement le CA n'est pas plafonné
+ * 
+ * @param string $table
+ * @param integer $year
+ * @param string $cumul
+ * @param string $trace
+ * @return number
+ */
 function computeCA($table="cegid_pointage", $year, $cumul = "yes", $trace="no"){
     $requestBase = "select cp.UO, cpc.COUT, cp.project_id, cp.profil from $table cp, cegid_project_cout cpc 
                     where 
@@ -34,12 +59,14 @@ function computeCA($table="cegid_pointage", $year, $cumul = "yes", $trace="no"){
             $value = $value + ($uo*$cout); 
         }
         
-        $data[0][$month] = $month;
-        if ($cumul == "yes" && $month > 1) {
-            $data[1][$month] = $value + $data[1][$month-1] ;
-        }
-        else{
-            $data[1][$month] = $value;
+        if ($value>0 || ($month == 1)){
+            $data[0][$month] = $month;
+            if ($cumul == "yes" && $month > 1) {
+                $data[1][$month] = $value + $data[1][$month-1] ;
+            }
+            else{
+                $data[1][$month] = $value;
+            }
         }
      }
     

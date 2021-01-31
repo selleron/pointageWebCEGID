@@ -10,28 +10,28 @@ include_once (dirname ( __FILE__ ) . "/../sql/form_project_db.php");
  use pChart\pDraw;
  use pChart\pCharts;
 
- 
- 
- $year=2020;
  $year = getURLYear();
  //$infoForm = streamFormHidden($YEAR_SELECTION, $year);
- 
-$trace="no";
-/* Create the pChart object */
-//$myPicture = new pDraw(700,230);
-$myPicture = createGraph();
+ $trace="no";
 
-$dataCAReel = computeCAReel($year,"yes");
-$dataCAPrev = computeCAPrevisionnel($year,"yes");
+ /* Create the pChart object */
+//$myPicture = new pDraw(700,230);
+$myPicture = createGraph(1000,500);
+
+$dataCAReel2 = computeCAReel($year,"no");
+$dataCAReelCumul = computeCAReel($year,"yes");
+$dataCAPrevCumul = computeCAPrevisionnel($year,"yes");
 
 /* Populate the pData object */
-//$myPicture->myData->addPoints([4,2,10,12,8,3],"Probe 1");
-$myPicture->myData->addPoints($dataCAPrev[1],"CA Previsionnel");
-$myPicture->myData->addPoints($dataCAReel[1],"CA R�el");
-//$myPicture->myData->addPoints([3,12,15,8,5,5],"Probe 2");
-//$myPicture->myData->addPoints([2,7,5,18,15,22],"Probe 3");
+$myPicture->myData->addPoints($dataCAPrevCumul[1],"CA Prev.");
+$myPicture->myData->addPoints($dataCAReelCumul[1],"CA Reel");
+//$myPicture->myData->addPoints($dataCAReel2[1],"CA mois");
 
-//$myPicture->myData->setSerieTicks("Probe 2",4);
+//courbe avec des pointilles et epaisseur
+$myPicture->myData->setSerieTicks("CA Prev.",4);
+$myPicture->myData->setSerieWeight("CA Prev.",2);
+//$myPicture->myData->setSerieTicks("CA mois",4);
+
 
 $myPicture->myData->setAxisName(0,"CA - Euro");
 $myPicture->myData->addPoints(["Jan","Fev","Mar","Avr","Mai","Jui","Juil","Aou","Sep","Oct","Nov","Dec"],"Labels");
@@ -39,10 +39,28 @@ $myPicture->myData->setSerieDescription("Labels","Months");
 $myPicture->myData->setAbscissa("Labels");
 
 //init graph
-$myPicture = initGraph($myPicture, "Pau - CA $year");
+$myPicture = initGraph($myPicture, "Pau - CA $year", "no" /*draw legend*/);
 
 /* Draw the area chart */
-(new pCharts($myPicture))->drawAreaChart();
+$pCharts = new pCharts($myPicture);
+
+$pCharts->drawAreaChart();
+//$pCharts->myPicture->setShadow(TRUE,["X"=>1,"Y"=>1,"Color"=>new pColor(0,0,0,10)]);
+
+
+
+//====add curve =============
+$dataCAPreviousCumul = computeCAReel($year-1,"yes");
+$myPicture->myData->addPoints($dataCAPreviousCumul[1],"CA ".($year-1));
+
+//draw line and point curves
+$pCharts->drawLineChart();
+$pCharts->drawPlotChart(["PlotBorder"=>TRUE,"PlotSize"=>3,"BorderSize"=>1,"Surrounding"=>-60,"BorderColor"=>new pColor(50,50,50,80)]);
+
+
+
+drawLegend($myPicture);
+
 
 /* Render the picture (choose the best way) */
 //$myPicture->autoOutput("temp/example.drawAreaChart.simple.png");
@@ -50,6 +68,6 @@ if ($trace == "yes"){
     //nothing to do
 }
 else{
-  $myPicture->Stroke();
+     $myPicture->Stroke();
 }
 ?>
