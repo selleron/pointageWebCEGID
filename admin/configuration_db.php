@@ -179,9 +179,8 @@ echo "
 	<tr>	<td> SHOW_FILE_ACTION	</td>	       <td> $SHOW_FILE_ACTION		        </td>	<td>trace file action				</td></tr>
 	<tr>	<td> TRACE_INFO_GESTION_REQUEST	</td>  <td> $TRACE_INFO_GESTION_REQUEST		</td>	<td>tracegestion requetes generiques </td></tr>
 
+    <tr><td>------</td></tr>    <tr></tr>
 
-
-    <tr></tr>    <tr></tr>
 	<tr>	<td> TRACE_INFO_SQL_PARAM</td> 	    <td> $TRACE_INFO_SQL_PARAM			</td>	<td>trace suivi action d'utilisation de param    </td></tr>
 	<tr>	<td> TRACE_INFO_SQL_PARAM</td> 	    <td> $TRACE_INFO_SQL_PARAM    		</td>	<td>trace suivi action get    </td></tr>
 	<tr>	<td> TRACE_INFO_EXPORT</td> 	    <td> $TRACE_INFO_EXPORT				</td>	<td>trace generation export    </td></tr>
@@ -190,28 +189,31 @@ echo "
 	<tr>	<td> TRACE_INFO_PROJECT </td>     	<td> $TRACE_INFO_PROJECT            </td>	<td>trace project usage    </td></tr>
 	<tr>	<td> TRACE_REQUEST_CEGID</td> 	    <td> $TRACE_REQUEST_CEGID           </td>	<td>trace request CEGID      </td></tr>
 	<tr>	<td> TRACE_CLOTURE</td> 	        <td> $TRACE_CLOTURE                 </td>	<td>trace cloture operation    </td></tr>
-	<tr>	<td> TRACE_STATUS_COMMANDE</td>    <td> $TRACE_STATUS_COMMANDE         </td>	<td>trace status commande prestataires   </td></tr>
+	<tr>	<td> TRACE_STATUS_COMMANDE</td>     <td> $TRACE_STATUS_COMMANDE         </td>	<td>trace status commande prestataires   </td></tr>
 	<tr>	<td> TRACE_FORM_TABLE_STYLE</td> 	<td> $TRACE_FORM_TABLE_STYLE	    </td>	<td>trace le nom de la variable pour configurer les stypes yes | no    </td></tr>
 	<tr>	<td> TRACE_FORM_FIELD_STYLE </td> 	<td> $TRACE_FORM_FIELD_STYLE	    </td>	<td>trace le nom de la variable (field) pour configurer les stypes yes | no    </td></tr>
-	<tr>	<td> TRACE_NEXT_PREVIOUS</td> 	    <td> $TRACE_NEXT_PREVIOUS           </td>	<td>trace les operation sur les boutons next/previous    </td></tr>
+	<tr>	<td> TRACE_NEXT_PREVIOUS</td> 	    <td> $TRACE_NEXT_PREVIOUS           </td>	<td>trace les operations sur les boutons next/previous    </td></tr>
+	<tr>	<td> TRACE_GENERATION_IMAGE</td> 	<td> $TRACE_GENERATION_IMAGE        </td>	<td>trace les operations de generation d'images    </td></tr>
 
-    <tr></tr>    <tr></tr>
-	<tr>	<td> SHOW_SQL_EDIT</td> 	<td> $SHOW_SQL_EDIT		      	    </td>	<td>trace ou non les actions SQL edit    </td></tr>
-	<tr>	<td> SHOW_COMPLETION_REQUEST</td> 	<td> $SHOW_COMPLETION_REQUEST		</td>	<td>trace ou non les SQL de completion    </td></tr>
-	<tr>	<td> SHOW_SQL_UPDATE </td> 	<td> $SHOW_SQL_UPDATE		        </td>	<td>trace ou non les actions SQL update    </td></tr>
+    <tr><td>------</td></tr>    <tr></tr>
+
+	<tr>	<td> SHOW_SQL_EDIT</td> 	                <td> $SHOW_SQL_EDIT		      	    </td>	<td>trace ou non les actions SQL edit    </td></tr>
+	<tr>	<td> SHOW_COMPLETION_REQUEST</td> 	        <td> $SHOW_COMPLETION_REQUEST		</td>	<td>trace ou non les SQL de completion    </td></tr>
+	<tr>	<td> SHOW_SQL_UPDATE </td> 	                <td> $SHOW_SQL_UPDATE		        </td>	<td>trace ou non les actions SQL update    </td></tr>
 	<tr>	<td> SHOW_SQL_TYPE_REQUEST_REQUEST </td> 	<td> $SHOW_SQL_TYPE_REQUEST_REQUEST	</td>	<td>trace ou non la requete dans une cellule de type SQL_TYPE::SQL_REQUESTS    </td></tr>
-	<tr>	<td> SHOW_SQL_REPLACE</td> 	<td> $SHOW_SQL_REPLACE				</td>	<td>trace ou non les actions SQL replace    </td></tr>
-	<tr>	<td> SHOW_SQL_CB_SEARCH</td> 	<td> $SHOW_SQL_CB_SEARCH			</td>	<td>trace ou non les recherches d'utilisation de cb pour les colonnes sql    </td></tr>
-	<tr>	<td> SHOW_FORM_VARIABLE_ATTRIBUT</td> 	<td> $SHOW_FORM_VARIABLE_ATTRIBUT   </td>	<td>trace les attributs de variable dans form yes | no <br>
-                                                                            ex : form_table_cegid_project_update :: STATUS type: [string] flags: {16393} SHOW_FORM_VARIABLE_STYLE=\"no\"    </td></tr>
-    <tr></tr>    <tr></tr>
-	<tr>	<td> SHOW_FORM_VARIABLE_STYLE</td> 	<td> $SHOW_FORM_VARIABLE_STYLE      </td>	<td>trace les styles des variable dans form yes | no. dans les cellule affiche le style, la taille,...    </td></tr>
-	<tr>	<td> SHOW_AS_COMMENT_FORM_VARIABLE_STYLE</td> 	<td> $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE       </td>	<td>trace sous forme d'un commentaire les styles des variable dans form yes | no. dans les cellule affiche le style, la taille,...    </td></tr>
-	<tr>	<td> SHOW_VARIABLE_SUBSTITUTE_SEARCH</td> 	<td> $SHOW_VARIABLE_SUBSTITUTE_SEARCH          	</td>	<td>trace ou non les recherches de valeurs de variable dans post quiet | verbose | yes    </td></tr>
-	<tr>	<td> SHOW_FORM_SUBSTITUTE_SEARCH</td> 	<td> $SHOW_FORM_SUBSTITUTE_SEARCH          	    </td>	<td>trace ou non les recherches de valeurs de variable dans form quiet | verbose | yes    </td></tr>
-	<tr>	<td> SHOW_FORM_TRACE</td> 	<td> $SHOW_FORM_TRACE              				</td>	<td>trace form name parameter yes | no
-	<tr>	<td> SHOW_SYNCHRO_PREVISION_TRACE</td> 	<td> $SHOW_SYNCHRO_PREVISION_TRACE         		</td>	<td>trace synchro previsionnel
-	<tr>	<td> SHOW_REQUEST_TABLE_DATA </td> 	<td> $SHOW_REQUEST_TABLE_DATA                   </td>	<td>show request in requeteTableData()
+	<tr>	<td> SHOW_SQL_REPLACE</td> 	                <td> $SHOW_SQL_REPLACE				</td>	<td>trace ou non les actions SQL replace    </td></tr>
+	<tr>	<td> SHOW_SQL_CB_SEARCH</td> 	            <td> $SHOW_SQL_CB_SEARCH			</td>	<td>trace ou non les recherches d'utilisation de cb pour les colonnes sql    </td></tr>
+	<tr>	<td> SHOW_FORM_VARIABLE_ATTRIBUT</td> 	    <td> $SHOW_FORM_VARIABLE_ATTRIBUT   </td>	<td>trace les attributs de variable dans form yes | no <br>
+
+    <tr><td>------</td></tr>    <tr></tr>
+
+	<tr>	<td> SHOW_FORM_VARIABLE_STYLE</td> 	             <td> $SHOW_FORM_VARIABLE_STYLE                  </td>	<td>trace les styles des variable dans form yes | no. dans les cellule affiche le style, la taille,...    </td></tr>
+	<tr>	<td> SHOW_AS_COMMENT_FORM_VARIABLE_STYLE</td> 	 <td> $SHOW_AS_COMMENT_FORM_VARIABLE_STYLE       </td>	<td>trace sous forme d'un commentaire les styles des variable dans form yes | no. dans les cellule affiche le style, la taille,...    </td></tr>
+	<tr>	<td> SHOW_VARIABLE_SUBSTITUTE_SEARCH</td> 	     <td> $SHOW_VARIABLE_SUBSTITUTE_SEARCH           </td>	<td>trace ou non les recherches de valeurs de variable dans post quiet | verbose | yes    </td></tr>
+	<tr>	<td> SHOW_FORM_SUBSTITUTE_SEARCH</td> 	         <td> $SHOW_FORM_SUBSTITUTE_SEARCH          	 </td>	<td>trace ou non les recherches de valeurs de variable dans form quiet | verbose | yes    </td></tr>
+	<tr>	<td> SHOW_FORM_TRACE</td> 	                     <td> $SHOW_FORM_TRACE              			 </td>	<td>trace form name parameter yes | no
+	<tr>	<td> SHOW_SYNCHRO_PREVISION_TRACE</td> 	         <td> $SHOW_SYNCHRO_PREVISION_TRACE         	 </td>	<td>trace synchro previsionnel
+	<tr>	<td> SHOW_REQUEST_TABLE_DATA </td> 	             <td> $SHOW_REQUEST_TABLE_DATA                   </td>	<td>show request in requeteTableData()
 
 
 
