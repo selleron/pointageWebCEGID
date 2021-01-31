@@ -641,25 +641,28 @@ function replacePointage($table, $colsSet, $colsDelete, $form_name)
 
 /**
  * showProjectSelection
- *
+ * affiche la selection prjet, annee , user
+ * 
  * @param string $url
- *            url
  * @param string $formName
- *            form name
- * @param string $yearVisible
- *            is selection year visible "yes/no"
- * @param string $export
- *            is button export visible "yes/no"
- * @param string $userVisible
- *            is section user visible "yes/no"
+ * @param string $yearVisible       yes/no      default yes
+ * @param string $export            yes/no      default no
+ * @param string $userVisible       yes/no      default no
+ * @param string $previousVisible   yes/no      default no
+ * @param string $nextVisible       yes/no      default no
+ * @param boolean $multiselection   true/false  default false
+ * @param string $projectVisible    yes/no      default no
  */
 function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $export = "no", $userVisible = "no", 
-    $previousVisible = "no", $nextVisible = "no", $multiselection = false)
+    $previousVisible = "no", $nextVisible = "no", $multiselection = false, $projectVisible = "yes")
 {
     global $FORM_VALUE_POSSIBLE;
     global $SQL_TABLE_PROJECT;
     global $SQL_TABLE_CEGID_POINTAGE;
     global $SQL_COL_NAME_PROJECT;
+    
+    if ($multiselection == "yes" ) $multiselection = true;
+    if ($multiselection == "no" ) $multiselection = false;
     
     if ($formName == "") {
         $formName = "form_select_project_pointage";
@@ -682,7 +685,9 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     
     echo "<table>";
     beginTableHeader();
-    echo "<td>Project</td>";
+    if ($projectVisible == "yes") {
+        echo "<td>Project</td>";
+    }
     if ($yearVisible == "yes") {
         echo "<td>year</td>";
     }
@@ -693,26 +698,29 @@ function showProjectSelection($url = "", $formName = "", $yearVisible = "yes", $
     endTableHeader();
     
     echo "<tr>";
-    // combo project
+    // start formulaire
     createForm($url, $formName);
     
-    //si une requet existe, on l'utilise (certaines ajoute "[all]"
-    global $PROJECT_AUTO_COMPLETION;
-    if (isset($FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT])){
-        $sqltableproject = $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT];
-    }
-    else{
-        $sqltableproject = $SQL_TABLE_PROJECT;
-    }
-    if ($multiselection){
-        showFormMultiselectionSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
-    }
-    else{
-        if ($PROJECT_AUTO_COMPLETION=="yes"){
-            showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+    //combobox project
+    if ($projectVisible == "yes") {        
+        //si une requet existe, on l'utilise (certaines ajoute "[all]"
+        global $PROJECT_AUTO_COMPLETION;
+        if (isset($FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT])){
+            $sqltableproject = $FORM_VALUE_POSSIBLE[$formName][$SQL_COL_NAME_PROJECT];
         }
         else{
-            showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+            $sqltableproject = $SQL_TABLE_PROJECT;
+        }
+        if ($multiselection){
+            showFormMultiselectionSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+        }
+        else{
+            if ($PROJECT_AUTO_COMPLETION=="yes"){
+                showFormComboBoxCompletionSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+            }
+            else{
+                showFormComboBoxSql($formName, $PROJECT_SELECTION, $sqltableproject, $SQL_COL_NAME_PROJECT, "yes", $current_selection_projet);
+            }
         }
     }
     

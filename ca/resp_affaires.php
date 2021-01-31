@@ -42,7 +42,7 @@
 	echo"<p>";
 	showProjectSelection(""/*url*/,""/*form*/,"yes"/*year*/,
 	    LabelAction::ActionExportCSV/*export*/,
-	    "no"/*user*/, "no"/*previous*/, "no"/*next*/);
+	    "no"/*user*/, "no"/*previous*/, "no"/*next*/,"no"/*multi selection*/, "yes"/*project*/);
 	echo"<br/></p>";
 	
 	

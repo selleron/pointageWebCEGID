@@ -4,13 +4,19 @@
 /* pChart library inclusions */
 include_once(dirname ( __FILE__ ) . "/toolGraphPChart.php");
 include_once (dirname ( __FILE__ ) . "/toolDataCA.php");
+include_once (dirname ( __FILE__ ) . "/../sql/form_project_db.php");
 
  use pChart\pColor;
  use pChart\pDraw;
  use pChart\pCharts;
 
+ 
+ 
  $year=2020;
- $trace="no";
+ $year = getURLYear();
+ //$infoForm = streamFormHidden($YEAR_SELECTION, $year);
+ 
+$trace="no";
 /* Create the pChart object */
 //$myPicture = new pDraw(700,230);
 $myPicture = createGraph();
@@ -21,7 +27,7 @@ $dataCAPrev = computeCAPrevisionnel($year,"yes");
 /* Populate the pData object */
 //$myPicture->myData->addPoints([4,2,10,12,8,3],"Probe 1");
 $myPicture->myData->addPoints($dataCAPrev[1],"CA Previsionnel");
-$myPicture->myData->addPoints($dataCAReel[1],"CA Réel");
+$myPicture->myData->addPoints($dataCAReel[1],"CA Rï¿½el");
 //$myPicture->myData->addPoints([3,12,15,8,5,5],"Probe 2");
 //$myPicture->myData->addPoints([2,7,5,18,15,22],"Probe 3");
 
