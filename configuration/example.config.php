@@ -48,14 +48,15 @@ $TRACE_INFO_EXPORT="no";					//trace generation export
 $TRACE_INFO_IMPORT="no";					//trace generation import
 $TRACE_INFO_POINTAGE="no";					//trace info pointage
 $TRACE_INFO_PROJECT="yes";                  //trace project usage
-$TRACE_PROFIL="no";                        //trace profil operation
+$TRACE_PROFIL="no";                         //trace profil operation
 $SHOW_FILE_ACTION="yes";                    //trace file operation
 $TRACE_CLOTURE="yes";                       //trace cloture operation
 $TRACE_STATUS_COMMANDE="yes";               //show message action status commande prestataire
-$TRACE_REQUEST_CEGID="no";                 //trace request Cegid
+$TRACE_REQUEST_CEGID="no";                  //trace request Cegid
 $TRACE_FORM_TABLE_STYLE="no";		        //trace le nom de la variable pour configurer les stypes yes | no
 $TRACE_FORM_FIELD_STYLE="no";		        //trace le nom de la variable (field) pour configurer les stypes yes | no
 $TRACE_NEXT_PREVIOUS="no";                  //trace les operation sur les boutons next/previous
+$TRACE_GENERATION_IMAGE="no";               //pour tracer la generation d'une image sans l'afficher dans un <a href=
 
 $SHOW_SQL_EDIT="yes";						//trace ou non les actions SQL edit
 $SHOW_COMPLETION_REQUEST="no";				//trace ou non les SQL de completion
