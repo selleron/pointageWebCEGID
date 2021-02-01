@@ -367,12 +367,12 @@ function convertURLVariablePROJECT_to_projectIfNeeded($checkProjectId = "yes"){
     global $SQL_COL_NAME_PROJECT;
     
     //verifie que si on a pas "project", on a peut etre "PROJECT"
-    $projectName = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION);
+    $projectName = getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION);
     if ($projectName == NULL){
-        $projectName = getURLVariableForRow(strtoupper(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION),0);
+        $projectName = getURLVariableForRow(strtoupper(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION),0);
         if ($projectName != NULL){
             setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
-            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
+            setURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION, $projectName);
             //showGet();
         }
     }
@@ -384,7 +384,7 @@ function convertURLVariablePROJECT_to_projectIfNeeded($checkProjectId = "yes"){
         if ($projectName2){
             $projectName = $projectName2;
             setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
-            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
+            setURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION, $projectName);
         }
     }
     
@@ -416,7 +416,7 @@ function applyNextPreviousSelectPointage()
         $project = getURLVariable("$SQL_COL_NAME_PROJECT");
         if ($project != ""){
             //le nom du projet peut provenir de la colonne_projet ou de la variable projet_selection
-            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $project);
+            setURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION, $project);
             // showSQLAction("traitement action : ".LabelAction::ACTION_POINTAGE." = $PROJECT_SELECTION - $SQL_COL_NAME_PROJECT");
         }
         // showGet();
@@ -441,7 +441,7 @@ function applyNextPreviousSelectPointage()
         //global $PROJECT_SELECTION;
         //global $ITEM_COMBOBOX_SELECTION;
         $nextProject="";
-        $currentProject = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION);
+        $currentProject = getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION);
         
         $sql = createRequeteTableData($param);
         showActionVariable("next/previous : $sql", $TRACE_NEXT_PREVIOUS);
@@ -468,7 +468,7 @@ function applyNextPreviousSelectPointage()
         if ($nextProject == "") {
             // nothing to do
         } else {
-            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $nextProject);
+            setURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION, $nextProject);
             // showSQLAction("Project Selection : $nextProject");
         }
         
@@ -801,13 +801,13 @@ function getInfoFormProjectSelection($infoForm = "")
     //global $USER_SELECTION;
     //global $ITEM_COMBOBOX_SELECTION;
     
-    $projectName = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION);
-    $year = getURLVariable(FORM_COMBOX_BOX_KEY::YEAR_SELECTION);
-    $user = getURLVariable(FORM_COMBOX_BOX_KEY::USER_SELECTION);
+    $projectName = getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION);
+    $year = getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::YEAR_SELECTION);
+    $user = getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::USER_SELECTION);
     
-    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_KEY::YEAR_SELECTION, $year);
-    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
-    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_KEY::USER_SELECTION, $user);
+    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_PROJECT_KEY::YEAR_SELECTION, $year);
+    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION, $projectName);
+    $infoForm = $infoForm . streamFormHidden(FORM_COMBOX_BOX_PROJECT_KEY::USER_SELECTION, $user);
     
     return $infoForm;
 }

@@ -78,10 +78,10 @@ function convertDevisToProjectIfNeeded(){
         //showSQLAction("id project found $idProject from devis $idDevis");
         if ($idProject){
             $projectName = getProjectNameFromID($idProject);
-            //showSQLAction("project name found $projectName for $idProject => FORM_COMBOX_BOX_KEY::PROJECT_SELECTION || $SQL_COL_NAME_PROJECT");
+            //showSQLAction("project name found $projectName for $idProject => FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION || $SQL_COL_NAME_PROJECT");
             if ($projectName){
                 setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
-                setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
+                setURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION, $projectName);
                 //showGet();
             }
         }

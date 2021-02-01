@@ -238,7 +238,7 @@ function projectIDFromURL($project = "")
     $idProject = "";
     
     if ($project == "") {
-        $project = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION);
+        $project = getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION);
     }
     
     if (($project != "") && ($project != FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION) && ($project != FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_ALL)) {
@@ -251,7 +251,7 @@ function projectIDFromURL($project = "")
         $idProject = mysqlResult($Resultat, 0, $SQL_COL_ID_PROJECT);
         if ($idProject) {
             setURLVariable($SQL_COL_NAME_PROJECT, $project);
-            setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $project);
+            setURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION, $project);
         } else {
             // pas de nom trouv�
             // est ce un id de projet
@@ -268,7 +268,7 @@ function projectIDFromURL($project = "")
                 else{
                    setURLVariable($SQL_COL_NAME_PROJECT, $projectName);
                 }
-                setURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION, $projectName);
+                setURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION, $projectName);
                 $idProject = $project;
             }
         }

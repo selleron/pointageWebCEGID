@@ -179,7 +179,7 @@ function clotureYear(){
     global $SQL_COL_COUT_PROJECT_COUT;
     global $SQL_COL_COMMENTAIRE_PROJECT_COUT;
     
-    $project = getURLVariable(FORM_COMBOX_BOX_KEY::PROJECT_SELECTION); 
+    $project = getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::PROJECT_SELECTION); 
     $year    = getURLYear();
     $year2   =$year+1;
 

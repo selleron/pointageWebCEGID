@@ -368,7 +368,7 @@ function showOnlyInsertTableCommandePrestataire($condition="") {
     $Resultat = requeteTableData($param);
     
     $selectedValue= array();
-    $userName =  getURLVariable(FORM_COMBOX_BOX_KEY::USER_SELECTION);
+    $userName =  getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::USER_SELECTION);
     $selectedValue["NAME"] = "$userName";
     
     showOnlyInsertTableByParam("", $Resultat, $param, $selectedValue);
@@ -437,7 +437,7 @@ function createConditionCommandePrestataire($conditionVisible=""){
     $condition=$SQL_SHOW_WHERE_COMMANDE_USER;
     
     // info formulaire year et user name
-    $userName =  getURLVariable(FORM_COMBOX_BOX_KEY::USER_SELECTION);
+    $userName =  getURLVariable(FORM_COMBOX_BOX_PROJECT_KEY::USER_SELECTION);
     $year = getURLYear(FORM_COMBOX_BOX_VALUE::ITEM_COMBOBOX_SELECTION);
     
     //$year

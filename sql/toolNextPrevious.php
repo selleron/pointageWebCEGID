@@ -43,8 +43,8 @@ function showTableSelection($url = "", $table, $colName="NAME", $formName = "", 
     
     //$TABLE_ID_SELECTION = URL_VARIABLE__KEY::ID_TABLE_GET;
     $TABLE_ELT_SELECTION  = $SQL_COL_NAME_TABLE;
-    $YEAR_SELECTION = FORM_COMBOX_BOX_KEY::YEAR_SELECTION;
-    $USER_SELECTION = FORM_COMBOX_BOX_KEY::USER_SELECTION;
+    $YEAR_SELECTION = FORM_COMBOX_BOX_PROJECT_KEY::YEAR_SELECTION;
+    $USER_SELECTION = FORM_COMBOX_BOX_PROJECT_KEY::USER_SELECTION;
     
     $current_selection_projet = getURLVariable($TABLE_ELT_SELECTION);
     $current_selection_year = getURLVariable($YEAR_SELECTION);
