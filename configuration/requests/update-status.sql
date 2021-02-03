@@ -36,6 +36,10 @@ UPDATE cegid_commande_prestataire  set STATUS = "Demande" WHERE STATUS = "A fair
 UPDATE cegid_commande_prestataire  set STATUS = "Clos"    WHERE STATUS = "Cree"    And now() > FIN;
 
 
+#project
+UPDATE cegid_project p, cegid_pointage cp set p.STATUS = "En cours"    WHERE p.STATUS = "Prevision"    And p.cegid = cp.project_id
+
+
 # cegid_file
 
 Update cegid_file cf set CODE = "CMD" 
