@@ -107,7 +107,7 @@
 	applyGestionStatusCommandePrestataire();
 	
 	//action type request CEGID
-	//actionRequete("" /** $html*/, "no" /**$warningOnUnknownAction*/);
+	actionRequete("" /** $html*/, "no" /**$warningOnUnknownAction*/);
 	
 	
 	//actions
