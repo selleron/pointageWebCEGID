@@ -21,7 +21,13 @@ $SQL_COL_REQUETES_SQL_REQUEST="SQL_REQUEST";
 $SQL_COL_REQUETES_PARAM_AEREA="REQUEST_PARAM";
 
 
-function actionRequete( $html=""){
+/**
+ * actionRequete
+ * action sur les requetes : saveRequestExecute, testRequest, ...
+ * @param string $html
+ * @param string $warningOnUnknownAction
+ */
+function actionRequete( $html="", $warningOnUnknownAction = "yes"){
 	$action = getActionGet();
 	//echo "action : $action ...................<br>";
 	if ($action=="executeRequest"){
@@ -65,7 +71,9 @@ function actionRequete( $html=""){
 		//nothing to do
 	}
 	else {
-		echo "unknown action : $action <br>";
+	    if ($warningOnUnknownAction == "yes"){
+		   echo "unknown action : $action <br>";
+	    }
 	}
 }
 
@@ -106,6 +114,7 @@ function actionshowFormulaireEditRequete($html=""){
     $paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
     showFormulaireEditRequete($idRequete, $name, $description, $sqlTxt, $html, $paramFormulaire);
 }
+
 
 /**
  * getSqlTestRequest
@@ -615,6 +624,93 @@ function showFormulaireRequeteByName($idRequete, $name, $visible, $html=""){
 
 
 /**
+ * showFormulaireEditParamRequete
+ *  [execution] [sauvegarde] [export]
+ * @param string $idRequete
+ * @param string $name
+ * @param string $description
+ * @param string $sqlTxt
+ * @param string $html
+ */
+function showFormulaireEditParamRequete($idRequete, $sqlTxt, $html="", $paramFormulaire=""){
+    if (!isset($html) || $html==""){
+        $html=getCurrentPageName();
+    }
+    
+    global $ID_GET;
+    global $DOCUMENT_NAME_GET;
+    global $SQL_COL_REQUETES_NAME;
+    global $SQL_COL_REQUETES_DESCRIPTION;
+    global $SQL_COL_REQUETES_SQL_REQUEST;
+    global $SQL_COL_REQUETES_PARAM_AEREA;
+    
+    if ($paramFormulaire==""){
+        $paramFormulaire = getURLVariable($SQL_COL_REQUETES_PARAM_AEREA);
+    }
+    
+    echo"<table>";
+    //execute
+    echo "<form method=\"post\" action=\"$html\">";
+    showFormHidden($DOCUMENT_NAME_GET, $idRequete);
+    
+//     echo"
+// 	<tr>
+// 	<td>nom</td>
+// 	<td><INPUT type=\"text\" size=\"50\" name=\"$SQL_COL_REQUETES_NAME\" value=\"$name\" > </td>
+// 	</tr>
+//     ";
+    
+//    echo"
+//	<tr>
+//	<td>description</td>
+//	<td><TEXTAREA rows=\"2\" cols=\"70\" name=\"$SQL_COL_REQUETES_DESCRIPTION\" >$description</TEXTAREA></td>
+//	</tr>
+//    ";
+    
+    //champ parameters
+
+//    echo"
+//	<tr>
+//	<td>parametres</td>
+//	<td><TEXTAREA rows=\"2\" cols=\"70\" name=\"$SQL_COL_REQUETES_PARAM_AEREA\"  >$paramFormulaire</TEXTAREA></td>
+//	</tr>
+//    ";
+    
+    //ajout des elements de formulaires dynamiques
+    echo "$paramFormulaire";
+    
+    //champ requete
+    //gere automatiquement les problèmes de double-quote dans la requete.
+        echo"
+    	<tr>
+    	<td>requete</td>
+    	<td><TEXTAREA rows=\"1\" cols=\"70\" name=\"$SQL_COL_REQUETES_SQL_REQUEST\"  >$sqlTxt</TEXTAREA></td>
+    	</tr>
+        ";
+    
+    //les actions
+    beginTableRow();
+    beginTableCell();
+    endTableCell();
+    beginTableCell();
+    
+    showFormSubmit("execute" , "testRequestExecute");
+    //    echoSpace(1);
+//    showFormSubmit("sauver"  , "saveRequestExecute");
+//    echoSpace(2);
+//    showFormSubmit(LabelAction::ActionExport  , LabelAction::ActionExport);
+    endTableCell();
+    endTableRow();
+    
+    //fin du formulaire
+    showFormIDElement();
+    showFormAction("testRequest");
+    echo"</form>";
+    echo"</table>";
+}
+
+
+/**
  * showFormulaireEditRequete
  *  [execution] [sauvegarde] [export]
  * @param string $idRequete 
@@ -742,6 +838,51 @@ function actionEditRequeteParID($idRequete, $html=""){
 		showFormulaireEditRequete($id, $name, $description, $sqlTxt, $html, $sqlParam);
 	}
 }
+
+/**
+ * /**
+ * actionEditParamRequeteParID : affiche le formulaire d'edition des paramètres d'une requete
+ * @param string $idRequete
+ * @param string $html
+ */
+function actionEditParamRequeteParID($idRequete, $html=""){
+	global $SQL_TABLE_REQUETES;
+	global $SQL_COL_REQUETES_ID;
+	global $SQL_COL_REQUETES_NAME;
+	global $SQL_COL_REQUETES_DESCRIPTION;
+	global $SQL_COL_REQUETES_SQL_REQUEST;
+	global $SQL_COL_REQUETES_PARAM_AEREA;
+	
+	if ($idRequete== ""){
+		showFormulairshowFormulaireEditRequete("", "<le nom>", "<la description>", "<la requete sql>", $html);
+		return;
+	}
+	
+	
+	$request = "SELECT $SQL_COL_REQUETES_ID, $SQL_COL_REQUETES_NAME, $SQL_COL_REQUETES_DESCRIPTION, $SQL_COL_REQUETES_SQL_REQUEST, $SQL_COL_REQUETES_PARAM_AEREA
+	  FROM `$SQL_TABLE_REQUETES`
+	  WHERE `$SQL_COL_REQUETES_ID`=\"$idRequete\"";
+	
+	//showSQLAction($request);
+	$Resultat = mysqlQuery($request);
+	showSQLError("", $request);
+
+	$num=mysqlNumrows($Resultat);
+	if($num>0){
+		$Compteur=0;
+		$id = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_ID);
+		//$name = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_NAME);
+		//$description = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_DESCRIPTION);
+		$sqlTxt = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_SQL_REQUEST);
+		$sqlParam = mysqlResult($Resultat , $Compteur , $SQL_COL_REQUETES_PARAM_AEREA);
+		
+		showFormulaireEditParamRequete($id, $sqlTxt, $html, $sqlParam);
+	}
+}
+
+
+
+
 
 /**
  * actionDeleteRequeteParID : suppression d'une requete

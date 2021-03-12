@@ -13,6 +13,9 @@
 --
 
 
+-- voir la requete RENEW_PRESTA dans Requestes CEGID
+
+
 -- reactiver Insert pour reellement faire l'insert
 -- reactiver Update pour clore les prestations ayant depassee la date now()
 -- reactiver COMMIT
@@ -23,8 +26,8 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 
 
-set @FIN_OLD="2021-01-01";
-set @FIN_NEW="2021-03-31";
+set @FIN_OLD="2021-03-31";
+set @FIN_NEW="2021-06-30";
 set @UO_NEW=55;
 
 
@@ -39,7 +42,7 @@ set @UO_NEW=55;
 		 GROUP BY USER_ID
 		) cp2
   WHERE 
-        fin <  @FIN_OLD
+        fin <=  @FIN_OLD
     AND   STATUS = "Cree"
     AND   cp1.user_id NOT IN ( select USER_ID from cegid_commande_prestataire where fin > @FIN_OLD )
 	AND   cp1.user_id = cp2.user_id;

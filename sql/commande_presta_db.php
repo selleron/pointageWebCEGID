@@ -46,11 +46,13 @@ $CONDITION_CMD_FROM_CEGID_COMMANDE   = "NOT( cp.STATUS LIKE 'Clos') AND NOT( cp.
 $ACTION_CMD_PRESTA_A_FAIRE_TO_DDE   = "(a faire) to (demande)";;
 $ACTION_CMD_PRESTA_DDE_TO_CREE      = "(demande) to (cree)";
 $ACTION_CMD_PRESTA_CREE_TO_CLOS     = "(cree) to (clos)";
+$ACTION_CMD_RENEW_PRESTA            = "Renew Presta";
 
 //requetes dans requetes_Cegid
 $ID_REQUETE_SQL_CMD_PRESTA_A_FAIRE_TO_DDE = "CMD_PRESTA_A_FAIRE_TO_DDE";
 $ID_REQUETE_SQL_CMD_PRESTA_DDE_TO_CREE    = "CMD_PRESTA_DDE_TO_CREE";
 $ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS   = "CMD_PRESTA_CREE_TO_CLOS";
+$ID_REQUETE_SQL_CMD_RENEW_PRESTA          = "CMD_RENEW_PRESTA";
 
 
 /**
@@ -200,11 +202,13 @@ function applyGestionStatusCommandePrestataire() {
     global $ACTION_CMD_PRESTA_A_FAIRE_TO_DDE;
     global $ACTION_CMD_PRESTA_DDE_TO_CREE;
     global $ACTION_CMD_PRESTA_CREE_TO_CLOS;
+    global $ACTION_CMD_RENEW_PRESTA;
     
     //id request à utiliser
     global $ID_REQUETE_SQL_CMD_PRESTA_A_FAIRE_TO_DDE;
     global $ID_REQUETE_SQL_CMD_PRESTA_DDE_TO_CREE;
     global $ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS;
+    global $ID_REQUETE_SQL_CMD_RENEW_PRESTA;
     
     $res = 0;
     if (getActionGet () == "$ACTION_CMD_PRESTA_A_FAIRE_TO_DDE"){
@@ -223,6 +227,21 @@ function applyGestionStatusCommandePrestataire() {
         showActionVariable("action [ $ACTION_CMD_PRESTA_CREE_TO_CLOS ] detected", $TRACE_STATUS_COMMANDE);
         showDescriptionRequeteCEGID($ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS);
         executeRequeteCEGID( $ID_REQUETE_SQL_CMD_PRESTA_CREE_TO_CLOS );
+        $res=1;
+    }
+    else if (getActionGet () == "$ACTION_CMD_RENEW_PRESTA"){
+        showActionVariable("action [ $ACTION_CMD_RENEW_PRESTA ] detected", $TRACE_STATUS_COMMANDE);
+        
+        //ici on change la table par defaut requetes => requetes_cegid
+        global $SQL_TABLE_REQUETES;
+        $SQL_TABLE_REQUETES="cegid_requetes";
+        
+        //traitement des actions
+        actionEditParamRequeteParID("$ID_REQUETE_SQL_CMD_RENEW_PRESTA");
+                
+        //showDescriptionRequeteCEGID($ID_REQUETE_SQL_CMD_RENEW_PRESTA);
+        //executeRequeteCEGID( $ID_REQUETE_SQL_CMD_RENEW_PRESTA );
+        
         $res=1;
     }
     return $res;

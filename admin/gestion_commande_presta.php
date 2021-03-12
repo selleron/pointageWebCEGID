@@ -88,6 +88,8 @@
 	global $ACTION_CMD_PRESTA_A_FAIRE_TO_DDE;
 	global $ACTION_CMD_PRESTA_DDE_TO_CREE;
 	global $ACTION_CMD_PRESTA_CREE_TO_CLOS;
+	global $ACTION_CMD_RENEW_PRESTA;
+	
 	$url="";
 	$formname="commande_prestataire";
 	createForm ( $url, $formname );
@@ -97,10 +99,15 @@
 	showFormSubmit($ACTION_CMD_PRESTA_DDE_TO_CREE,LabelAction::ACTION_GET);
 	echoSpace(2);
 	showFormSubmit($ACTION_CMD_PRESTA_CREE_TO_CLOS,LabelAction::ACTION_GET);
+	echoSpace(4);
+	showFormSubmit($ACTION_CMD_RENEW_PRESTA,LabelAction::ACTION_GET);
 	endForm();
 
 	//action change status
 	applyGestionStatusCommandePrestataire();
+	
+	//action type request CEGID
+	actionRequete("" /** $html*/, "no" /**$warningOnUnknownAction*/);
 	
 	
 	//actions
