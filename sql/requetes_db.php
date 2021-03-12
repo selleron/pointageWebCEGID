@@ -30,19 +30,24 @@ $SQL_COL_REQUETES_PARAM_AEREA="REQUEST_PARAM";
 function actionRequete( $html="", $warningOnUnknownAction = "yes"){
 	$action = getActionGet();
 	//echo "action : $action ...................<br>";
-	if ($action=="executeRequest"){
+	if ($action=="actionRequestExecute"){
+	    //execute request
+	    $sqlTxt2 = getSqlTestRequest($html);
+	    actionRequeteSql($sqlTxt2);
+	}
+	else if ($action=="executeRequest"){
 		$idRequete = getDocumentName();
 		$description = getDescriptionRequeteByID($idRequete);
 		echo "<p>Description : $description</p>";
 		actionExecuteRequeteParID($idRequete, $html);
-	}
+	} //actionRequestExecute
 	else if ($action=="testRequest"){
-		if(isset($_POST['testRequestExecute'])){
-			actionTestRequest($html);
-			//a methode ci dessous ne fonctionne pas avec les scripts
-			//actionExecScriptRequest($html);
-		}
-		else if(isset($_POST['saveRequestExecute'])){
+	    if(isset($_POST['testRequestExecute'])){
+	        actionTestRequest($html);
+	        //a methode ci dessous ne fonctionne pas avec les scripts
+	        //actionExecScriptRequest($html);
+	    }
+	    else if(isset($_POST['saveRequestExecute'])){
 		    actionSauverRequest($html);
 		}
 		else if(isset($_POST[LabelAction::ActionExport])){
@@ -653,28 +658,6 @@ function showFormulaireEditParamRequete($idRequete, $sqlTxt, $html="", $paramFor
     echo "<form method=\"post\" action=\"$html\">";
     showFormHidden($DOCUMENT_NAME_GET, $idRequete);
     
-//     echo"
-// 	<tr>
-// 	<td>nom</td>
-// 	<td><INPUT type=\"text\" size=\"50\" name=\"$SQL_COL_REQUETES_NAME\" value=\"$name\" > </td>
-// 	</tr>
-//     ";
-    
-//    echo"
-//	<tr>
-//	<td>description</td>
-//	<td><TEXTAREA rows=\"2\" cols=\"70\" name=\"$SQL_COL_REQUETES_DESCRIPTION\" >$description</TEXTAREA></td>
-//	</tr>
-//    ";
-    
-    //champ parameters
-
-//    echo"
-//	<tr>
-//	<td>parametres</td>
-//	<td><TEXTAREA rows=\"2\" cols=\"70\" name=\"$SQL_COL_REQUETES_PARAM_AEREA\"  >$paramFormulaire</TEXTAREA></td>
-//	</tr>
-//    ";
     
     //ajout des elements de formulaires dynamiques
     echo "$paramFormulaire";
@@ -694,7 +677,8 @@ function showFormulaireEditParamRequete($idRequete, $sqlTxt, $html="", $paramFor
     endTableCell();
     beginTableCell();
     
-    showFormSubmit("execute" , "testRequestExecute");
+    showFormSubmit("execute");
+    //showFormSubmit("execute" , "testRequestExecute");
     //    echoSpace(1);
 //    showFormSubmit("sauver"  , "saveRequestExecute");
 //    echoSpace(2);
@@ -704,7 +688,7 @@ function showFormulaireEditParamRequete($idRequete, $sqlTxt, $html="", $paramFor
     
     //fin du formulaire
     showFormIDElement();
-    showFormAction("testRequest");
+    showFormAction("actionRequestExecute");
     echo"</form>";
     echo"</table>";
 }
