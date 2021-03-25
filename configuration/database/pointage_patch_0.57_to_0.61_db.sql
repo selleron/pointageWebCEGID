@@ -62,6 +62,11 @@ UPDATE `version` SET `DATE` = now(), `value` = '0.62.0' WHERE `version`.`id` = '
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_database_0.61._vers_0.62.0', '101', now(), 'update table frais mission', '0.62.0');
 
 
+--
+-- version DB 0.64
+--
+
+
 REPLACE INTO `cegid_requetes` (`ID`, `NAME`, `DESCRIPTION`, `SQL_REQUEST`, `REQUEST_PARAM`, `VISIBLE`) VALUES('CMD_RENEW_PRESTA', 'CMD_RENEW_PRESTA', 'Prolonge les prestations encore en cours', '  Insert into cegid_commande_prestataire \r\n           ( ID,                                      USER_ID,    SOCIETE, TEAM, PROFIL, STATUS,    COMMANDE,   DEBUT, FIN,  TARIF_ACHAT, TARIF_VENTE, UO, COUT, VISIBLE, COMMENTAIRE)\r\n  SELECT     concat(\"CP_\",cp1.USER_ID,\"_\",cp2count), cp1.USER_ID, SOCIETE, TEAM, PROFIL, \"A Faire\", COMMANDE, \r\n    addtime( FIN,\'1 0:0:0\'), date(\"${FIN_NEW}\"), \r\n    TARIF_ACHAT, TARIF_VENTE, ${UO_NEW}, ${UO_NEW}*TARIF_ACHAT, VISIBLE, COMMENTAIRE\r\n  FROM cegid_commande_prestataire cp1,\r\n       ( SELECT count(*) as cp2count, USER_ID \r\n	     FROM cegid_commande_prestataire cp2\r\n		 GROUP BY USER_ID\r\n		) cp2\r\n  WHERE \r\n            date(fin) <= date(\"${FIN_OLD}\")\r\n      AND   STATUS = \"Cree\"\r\n     AND   cp1.user_id NOT IN ( select USER_ID from cegid_commande_prestataire where date(fin) > date(\"${FIN_OLD}\") )\r\n     AND   cp1.user_id = cp2.user_id;\r\n', '<tr><td>FIN_OLD</td>    <td><input type=\"text\" size=\"50\" name=\"FIN_OLD\"    value=\"2021-03-31\"  ></td></tr>\r\n<tr><td>FIN_NEW</td>    <td><input type=\"text\" size=\"50\" name=\"FIN_NEW\"    value=\"2021-06-30\"  ></td></tr>\r\n<tr><td>UO_NEW</td>    <td><input type=\"text\" size=\"50\" name=\"UO_NEW\"    value=\"55\"  ></td></tr>\r\n', 'Visible');
 
 UPDATE `version` SET `DATE` = now(), `value` = '0.64.0' WHERE `version`.`id` = 'database';
@@ -69,6 +74,11 @@ INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('p
 INSERT INTO `version` (`id`, `order`, `DATE`, `description`, `value`) VALUES ('patch_php_0.1.49.02 vers_0.1.49.16', '200', now(), 'update table commande prestataire', '0.1.49.16');
 UPDATE `version` SET `DATE` = now(), `description` = 'version fichier php minimal', `value` = '0.1.49.16' WHERE `version`.`id` = 'php';
 
+--
+-- a creer: nouvelle entree
+--
+
+ALTER TABLE `cegid_devis_project` CHANGE `SOCIETE` `SOCIETE` VARCHAR(25) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL;
 
 COMMIT;
 
